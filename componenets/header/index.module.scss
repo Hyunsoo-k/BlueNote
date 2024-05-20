@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+
+  .title {
+    margin: 0;
+    letter-spacing: -3px;
+    font-size: 47px;
+    font-weight: 700;
+    font-family: "Varela Round", sans-serif;
+    color: rgb(28, 28, 119);
+  }
+
+  .burger-menu:hover {
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .wrapper {
+    display: block;
+    .title {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 70px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+      color: rgb(28, 28, 119);
+    }
+
+    .btn-wrapper {
+      position: absolute;
+      top: 25px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;  
+      font-size: 25px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+
+      .login-btn:hover,
+      .signUp-btn:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .wrapper {
+    display: block;
+    .title {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 100px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+      color: rgb(28, 28, 119);
+    }
+
+    .btn-wrapper {
+      position: absolute;
+      top: 25px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;  
+      font-size: 25px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+
+      .login-btn:hover,
+      .signUp-btn:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
