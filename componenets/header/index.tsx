@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import { ViewPort } from "@/types/header";
+import NavBar from "../navbar";
 import styles from "./index.module.scss";
 
 const Header = () => {
@@ -27,6 +28,7 @@ const Header = () => {
   }, []);
 
   return (
+    <>
     <div className={styles["wrapper"]}>
       <h1 className={styles["title"]}>BLUE NOTE</h1>
       {viewPort === "mobile" ? (
@@ -38,6 +40,8 @@ const Header = () => {
         </div>
       )}
     </div>
+    {(viewPort === "tablet" || viewPort === "desktop") && <NavBar />}
+    </>
   );
 };
 
