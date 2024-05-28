@@ -1,3 +1,5 @@
 type ViewPort = "" | "mobile" | "tablet" | "desktop";
 
-export type { ViewPort }
+type MobileDropdownState = boolean;
+
+export type { ViewPort, MobileDropdownState }

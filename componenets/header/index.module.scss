@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
+//font-family: "Varela Round", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
 
 .wrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,28 +24,63 @@
   }
 }
 
+.mobile-dropdown-on {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100vh;
+}
+
+@keyframes mobile-dropdown-on-animation {
+  0% {
+
+  }
+
+  100% {
+
+  }
+}
+
+.mobile-dropdown-off {
+  // position: absolute;
+  // top: 0px;
+  // right: -250px;
+  // width: 250px;
+  display: none;
+}
+
+@keyframes mobile-dropdown-off-animation {
+  0% {
+
+  }
+
+  100% {
+    
+  }
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
   .wrapper {
     display: block;
+    
     .title {
       margin-top: 50px;
       text-align: center;
       font-size: 70px;
-      font-weight: 700;
-      font-family: "Varela Round", sans-serif;
-      color: rgb(28, 28, 119);
     }
 
     .btn-wrapper {
       position: absolute;
-      top: 25px;
+      top: -30px;
       right: 20px;
       display: flex;
       justify-content: space-between;
       gap: 30px;  
       font-size: 25px;
       font-weight: 700;
-      font-family: "Varela Round", sans-serif;
+      font-family: "Metrophobic", sans-serif;
 
       .login-btn:hover,
       .signUp-btn:hover {
@@ -58,21 +97,18 @@
       margin-top: 50px;
       text-align: center;
       font-size: 100px;
-      font-weight: 700;
-      font-family: "Varela Round", sans-serif;
-      color: rgb(28, 28, 119);
     }
 
     .btn-wrapper {
       position: absolute;
-      top: 25px;
+      top: -30px;
       right: 20px;
       display: flex;
       justify-content: space-between;
       gap: 30px;  
       font-size: 25px;
       font-weight: 700;
-      font-family: "Varela Round", sans-serif;
+      font-family: "Metrophobic", sans-serif;
 
       .login-btn:hover,
       .signUp-btn:hover {
