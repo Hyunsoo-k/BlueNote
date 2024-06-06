@@ -5,82 +5,40 @@
 .wrapper {
   z-index: 999;
   position: relative;
-  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
   margin: 60px auto 0;
+  border-bottom: 2px solid rgb(138, 131, 131);
 
-  @include desktop {
-    width: 85%;
-    max-width: 1400px;
-  }
-
-  .list {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid rgb(138, 131, 131);
+  .menu {
+    width: 15%;
+    height: 35px;
 
     @include desktop {
-      width: 90%;
-      margin: 0 auto;
+      height: 40px;
     }
 
-    .list__item {
-      width: 15%;
-      height: 50px;
+    &:hover {
+      cursor: pointer;
+      border-radius: 4px 4px 0 0;
+      background-color: rgb(28, 28, 119);
+      color: #efebe9;
+    }
+
+    .menu__category {
+      width: 100%;
       margin: 0;
+      padding-left: 5px;
       text-align: start;
-      font-size: 26px;
+      font-size: 22px;
       font-family: "Metrophobic", sans-serif;
       font-weight: 700;
 
-      &:hover {
-        cursor: pointer;
-        color: rgb(59, 59, 199);
+      @include desktop {
+        padding-left: 10px;
+        font-size: 24px;
       }
     }
-  }
-
-  .dropdown-on {
-    z-index: 1000;
-    position: absolute;
-    width: 100%;
-    margin: 0 auto;
-    top: 50px;
-    // animation-name: dropdown-on-animation;
-    // animation-duration: 0.3s;
-    // animation-fill-mode: forwards;
-    // animation-timing-function: ease-out
-  }
-
-  @keyframes dropdown-on-animation {
-    0% {
-      top: -110px;
-    }
-
-    100% {
-      top: 50px;
-    }
-  }
-
-  .dropdown-off {
-    z-index: -1;
-    display: none;
-    position: absolute;
-    top: 50px;
-    width: 100%;
-    margin: 0 auto;
-    // animation-name: dropdown-off-animation;
-    // animation-duration: 0.3s;
-    // animation-fill-mode: forwards;
-    // animation-timing-function: ease-out
-  }
-}
-
-@keyframes dropdown-off-animation {
-  0% {
-    top: 50px;
-  }
-
-  100% {
-    top: -110px;
   }
 }
