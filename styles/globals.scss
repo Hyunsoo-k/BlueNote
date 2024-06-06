@@ -1,3 +1,4 @@
+@use "@/styles/variables.scss" as *;
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 //font-family: "Jua", sans-serif;
 @import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
@@ -28,5 +29,15 @@
 body {
   background-color: #EFEBE9;
   margin: 0;
-  padding: 0 10px;
+  padding: 0 0 100px 0;
+
+  @include tablet {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  @include desktop {
+    width: 90%;
+    max-width: 1200px;
+  }
 }
