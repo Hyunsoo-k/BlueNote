@@ -1,63 +1,69 @@
 import React, { useState } from "react";
 
-import { DropdownState } from "@/types/dropdown/tablet-desktop";
+import { DropdownState } from "@/types/navbar";
 import Dropdown from "../dropdown";
+import NewDropdown from "@/new-dropdown";
 import { NavbarProps } from "@/types/navbar";
 import styles from "./index.module.scss";
 
 const NavBar = ({ viewPort }: NavbarProps) => {
-  const [dropdownState, setDropdownState] = useState<DropdownState>({
-    initialState: true,
-    state: "off"
-  });
-
-  const handleMouseEnter = () => {
-    setDropdownState((prev: DropdownState) => ({ ...prev, initialState: false, state: "on" }));
-  };
-
-  const handleMouseLeave = () => {
-    setDropdownState((prev: DropdownState) => ({ ...prev, initialStatefalse: false, state: "off" }));
-  };
 
   return (
     <div className={styles["wrapper"]}>
-      <div className={styles["list"]}>
+      <div className={styles["menu"]}>
         <p
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={styles["list__item"]}>
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
+          className={styles["menu__category"]}
+        >
           Notice
         </p>
+        <div className={styles[`menu__dropdown`]}>
+        </div>
+      </div>
+      <div className={styles["menu"]}>
         <p
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={styles["list__item"]}>
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
+          className={styles["menu__category"]}
+        >
           News
         </p>
+        <div className={styles[`menu__dropdown`]}>
+        </div>
+      </div>
+      <div className={styles["menu"]}>
         <p
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={styles["list__item"]}>
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
+          className={styles["menu__category"]}
+        >
           Board
         </p>
+        <div className={styles[`menu__dropdown`]}>
+        </div>
+      </div>
+      <div className={styles["menu"]}>
         <p
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={styles["list__item"]}>
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
+          className={styles["menu__category"]}
+        >
           Promote
         </p>
+        <div className={styles[`menu__dropdown`]}>
+        </div>
+      </div>
+      <div className={styles["menu"]}>
         <p
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className={styles["list__item"]}>
+          // onMouseEnter={handleMouseEnter}
+          // onMouseLeave={handleMouseLeave}
+          className={styles["menu__category"]}
+        >
           Job
         </p>
-      </div>
-      <div
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className={styles[`dropdown-${dropdownState.state}`]}>
-          <Dropdown viewPort={viewPort} />
+        <div className={styles[`menu__dropdown`]}>
+        </div>
       </div>
     </div>
   );
