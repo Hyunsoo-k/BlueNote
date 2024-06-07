@@ -2,4 +2,12 @@ interface NavbarProps {
   viewPort :  "" | "mobile" | "tablet" | "desktop"
 }
 
-export type { NavbarProps };
+interface DropdownState {
+  notice: "on" | "off",
+  news: "on" | "off",
+  board: "on" | "off",
+  promote: "on" | "off",
+  job: "on" | "off"
+}
+
+export type { NavbarProps, DropdownState };

@@ -1,0 +1,27 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+
+.wrapper {
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  background-color: #efebe9;
+
+  .item-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      margin: 0;
+      padding-left: 10px;
+      background-color: #308ccc;
+      letter-spacing: 2px;
+      font-family: "Metrophobic", sans-serif;
+      color: #efebe9;
+    }
+  }
+}

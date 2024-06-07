@@ -1,0 +1,25 @@
+@use "@/styles/variables.scss" as *;
+
+.wrapper {
+  padding: 5px 5px 100px 5px;
+
+  @include tablet {
+    padding: 0 0 100px 0;
+  }
+
+  @include desktop {
+    padding: 0 0 100px 0;
+  }
+
+  .notice-and-news-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+
+    @include desktop {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+  }
+}

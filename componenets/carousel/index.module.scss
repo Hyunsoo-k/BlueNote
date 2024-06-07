@@ -1,0 +1,164 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+//영어 카테고리 전용 폰트
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 100%; //1200px
+  margin: 60px auto 40px;
+
+  @include desktop {
+    gap: 40px;
+  }
+
+  .carousel-wrapper {
+    overflow: hidden;
+    display: flex;
+    gap: 20px;
+    width: 100%; //1200px
+    margin: 0 auto;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+      width: calc(100% / 2 - 10px);
+      margin: 0 auto;
+      border-radius: 5px;
+      background-color: #fff;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      @include tablet {
+        flex-shrink: 0;
+        width: calc(100% / 3 - 14px);
+      }
+
+      @include desktop {
+        flex-shrink: 0;
+        width: calc(100% / 4 - 15px);
+      }
+
+      .item__image {
+        position: relative;
+        width: 100%;
+        height: 90px;
+        border-radius: 5px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0));
+
+        @include tablet {
+          width: 100%;
+          height: 130px;
+        }
+
+        @include desktop {
+          width: 100%;
+          height: 130px;
+        }
+      }
+
+      .item__explantion {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 10px 10px 10px;
+
+        @include tablet {
+          width: 100%;
+        }
+
+        @include desktop {
+          width: 100%;
+        }
+
+        .item__explantion__category {
+          width: 120px;
+          margin: 0 0 5px 0;
+          padding-bottom: 5px;
+          border-bottom: 2px solid rgb(138, 131, 131);
+          font-size: 18px;
+          font-weight: 400;
+          font-family: "Metrophobic", sans-serif;
+
+          @include tablet {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+          }
+
+          @include desktop {
+            margin: 0 0 10px 0;
+            font-size: 22px;
+          }
+        }
+
+        .item__explantion__title {
+          margin: 0 0 5px 0;
+          font-size: 15px;
+          font-family: "Noto Sans KR", sans-serif;
+          color: rgb(28, 28, 119);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          @include tablet {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+          }
+
+          @include desktop {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+          }
+        }
+
+        .item__explantion__text-box {
+          overflow: hidden;
+          height: 35px;
+          font-family: "Noto Sans KR", sans-serif;
+
+          @include tablet {
+            height: 40px;
+          }
+
+          @include desktop {
+            height: 40px;
+          }
+
+          .item__explantion__text-box__text {
+            margin: 0;
+            font-size: 12px;
+            color: rgb(129, 124, 124);
+
+            @include tablet {
+              font-size: 15px;
+            }
+
+            @include desktop {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-circle {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+    margin: 0 auto;
+
+    @include tablet {
+      width: 60px;
+    }
+  }
+}
