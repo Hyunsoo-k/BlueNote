@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Carousel from "@/componenets/carousel";
 import styles from "@/styles/Home.module.scss";
+import NoticeSection from "@/componenets/noticeSection";
 
 export default function Home() {
   const [viewPort, setViewPort] = useState<any>("");
@@ -27,6 +28,7 @@ export default function Home() {
   return (
     <div className={styles["wrapper"]}>
       <Carousel viewPort={viewPort} />
+      <NoticeSection viewPort={viewPort} />
     </div>
   );
 }
