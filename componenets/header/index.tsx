@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 
-import Dropdown from "../dropdown";
+import MobileSlidebar from "../mobile-slidebar";
 import NavBar from "../navbar";
 import { ViewPort, MobileDropdownState } from "@/types/header";
 import styles from "./index.module.scss";
@@ -74,10 +74,10 @@ const Header = () => {
           ref={dropdownRef}
           className={`${mobileDropdown ? styles["mobile-dropdown-on"] : styles["mobile-dropdown-off"]}`}
         >
-          <Dropdown viewPort={viewPort} />
+          <MobileSlidebar />
         </div>
       )}
-      {(viewPort === "tablet" || viewPort === "desktop") && <NavBar viewPort={viewPort} />}
+      {(viewPort === "tablet" || viewPort === "desktop") && <NavBar />}
     </>
   );
 };
