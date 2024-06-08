@@ -5,7 +5,7 @@
 .wrapper {
   width: 100%;
   border-radius: 0 0 4px 4px;
-  background-color: #efebe9;
+  background-color: $background-color;
 
   .item-wrapper {
     display: flex;
@@ -18,10 +18,10 @@
       height: 40px;
       margin: 0;
       padding-left: 10px;
-      background-color: #308ccc;
+      background-color: $sub-color;
       letter-spacing: 2px;
       font-family: "Metrophobic", sans-serif;
-      color: #efebe9;
+      color: $background-color;
     }
   }
 }

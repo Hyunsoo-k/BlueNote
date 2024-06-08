@@ -22,8 +22,8 @@
     &:hover {
       cursor: pointer;
       border-radius: 4px 4px 0 0;
-      background-color: rgb(28, 28, 119);
-      color: #efebe9;
+      background-color: $main-color;
+      color: $background-color;
     }
 
     .menu__category {
