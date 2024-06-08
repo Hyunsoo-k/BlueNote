@@ -1,0 +1,90 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+//영어 카테고리 전용 폰트
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: "Metrophobic", sans-serif;
+
+  @include tablet {
+    width: 46%;
+    padding: 0;
+  }
+
+  @include desktop {
+    width: 46%;
+    padding: 0;
+  }
+
+  .category {
+    width: 110px;
+    margin: 0;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: "Metrophobic", sans-serif;
+
+    &:hover {
+      cursor: pointer;
+      color: #308ccc;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    .list__item {
+      display: flex;
+      gap: 5px;
+      padding: 0 10px 5px 10px;
+      align-items: center;
+      border-bottom: 1px solid rgb(138, 131, 131);
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .category-detail {
+        flex-shrink: 0;
+        margin: 0;
+        font-size: 16px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: rgb(138, 131, 131);
+      }
+
+      .title {
+        overflow: hidden;
+        flex-shrink: 0;
+        margin: 0;
+        white-space: nowrap;
+        font-size: 16px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: rgb(28, 28, 119);
+      }
+
+      .explan {
+        overflow: hidden;
+        margin: 0;
+        padding-left: 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+    }
+  }
+}
