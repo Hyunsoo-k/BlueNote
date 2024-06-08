@@ -1,25 +1,45 @@
 @use "@/styles/variables.scss" as *;
 
 .wrapper {
-  padding: 5px 5px 100px 5px;
+  padding: 5px;
 
   @include tablet {
-    padding: 0 0 100px 0;
+    padding: 0;
   }
 
   @include desktop {
-    padding: 0 0 100px 0;
+    padding: 0;
   }
 
-  .notice-and-news-wrapper {
+  .section-wrapper {
     display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
+    flex-direction: column;
+    gap: 20px;
+
+    @include tablet {
+      gap: 50px;
+    }
 
     @include desktop {
+      gap: 50px;
+    }
+
+    .section {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
       margin: 0 auto;
+  
+      @include tablet {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+  
+      @include desktop {
+        flex-direction: row;
+        justify-content: space-between;
+      }
     }
   }
 }

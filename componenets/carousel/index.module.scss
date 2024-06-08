@@ -158,7 +158,11 @@
     margin: 0 auto;
 
     @include tablet {
-      width: 60px;
+      width: 70px;
+    }
+
+    @include desktop {
+      width: 70px;
     }
   }
 }
