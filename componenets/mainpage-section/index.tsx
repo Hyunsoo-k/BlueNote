@@ -11,6 +11,13 @@ import { MainPageSectionProps } from "@/types/mainpage-section";
 import styles from "./index.module.scss";
 
 const MainPageSection = ({ viewPort, category, detail, data }: MainPageSectionProps) => {
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["category"]}>{category}</div>
@@ -32,7 +39,7 @@ const MainPageSection = ({ viewPort, category, detail, data }: MainPageSectionPr
                     ) : (
                       <CiSearch size={17} style={{ flexShrink: 0 }} />
                     )}
-                    <p className={styles["title"]}>{item.title}</p>
+                    <p className={styles["title"]}>{truncateText(item.title, 13)}</p>
                     <p className={styles["explan"]}>{item.text}</p>
                   </div>
                 )

@@ -1,3 +1,4 @@
+@use "@/styles/variables.scss" as *;
 @import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
 //font-family: "Metrophobic", sans-serif;
 @import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
@@ -42,7 +43,7 @@
       .category__title {
         margin-bottom: 15px;
         padding-bottom: 10px;
-        border-bottom: 2px solid rgb(138, 131, 131);
+        border-bottom: 2px solid $gray-color;
         font-size: 20px;
         font-weight: 600;
         font-family: "Metrophobic", sans-serif;

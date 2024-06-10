@@ -2,6 +2,12 @@ $breakpoint-mobile: 320px;
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1025px;
 
+$main-color: rgb(28, 28, 119);
+$sub-color: #308ccc;
+$background-color: #efebe9;
+$gray-color: rgb(138, 131, 131);
+$footer-border-color: #d1cece;
+
 @mixin mobile {
   @media (min-width: $breakpoint-mobile) {
     @content;

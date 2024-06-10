@@ -9,7 +9,7 @@ const dummyCarouselData = [
     imgSrc: "/images/carousel/jazzPic.jpg",
     category: "Notice",
     title: "관리자 연락처",
-    text: "문의사항이 있으신 분께선 anthony117@naver.com으로 연락주시면 빠르게 회신 드리도록 하겠습니다."
+    text: "문의사항이 있으신 분께선 bluenote_email@naver.com으로 연락주시면 빠르게 회신 드리도록 하겠습니다."
   },
   {
     imgSrc: "/images/carousel/julian.jpg",
@@ -33,7 +33,7 @@ const dummyCarouselData = [
     imgSrc: "/images/carousel/jazzPic.jpg",
     category: "Notice",
     title: "관리자 연락처",
-    text: "문의사항이 있으신 분께선 anthony117@naver.com으로 연락"
+    text: "문의사항이 있으신 분께선 bluenote_email@naver.com으로 연락"
   },
   {
     imgSrc: "/images/carousel/julian.jpg",
