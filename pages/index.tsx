@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { notice, news, board, promote, job } from "@/dummy-data/mainpage-section-dummydata";
 import Carousel from "@/componenets/carousel";
-import NoticeSection from "@/componenets/noticeSection";
 import MainPageSection from "@/componenets/mainpage-section";
 import styles from "@/styles/Home.module.scss";
 

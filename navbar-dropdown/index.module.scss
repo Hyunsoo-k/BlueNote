@@ -1,6 +1,8 @@
 @use "@/styles/variables.scss" as *;
 @import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
 //font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
 
 .wrapper {
   width: 100%;
@@ -20,8 +22,8 @@
       padding-left: 10px;
       background-color: $sub-color;
       letter-spacing: 2px;
-      font-family: "Metrophobic", sans-serif;
-      color: $background-color;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #fff;
     }
   }
 }
