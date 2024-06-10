@@ -28,17 +28,16 @@
 
 body {
   background-color: #EFEBE9;
-  margin: 0 0 100px;
   padding: 0;
 
   @include tablet {
     width: 90%;
-    margin: 0 auto 100px;
+    margin: 0 auto 10px;
   }
 
   @include desktop {
     width: 90%;
-    margin: 0 auto 100px;
+    margin: 0 auto 10px;
     max-width: 1200px;
   }
 }
