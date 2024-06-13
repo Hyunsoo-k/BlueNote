@@ -44,7 +44,6 @@
       }
 
       @include desktop {
-        flex-shrink: 0;
         width: calc(100% / 4 - 15px);
       }
 
@@ -59,11 +58,6 @@
           width: 100%;
           height: 130px;
         }
-
-        @include desktop {
-          width: 100%;
-          height: 130px;
-        }
       }
 
       .item__explantion {
@@ -75,6 +69,7 @@
 
         @include tablet {
           width: 100%;
+          padding-bottom: 15px;
         }
 
         @include desktop {
@@ -94,17 +89,13 @@
             margin: 0 0 10px 0;
             font-size: 22px;
           }
-
-          @include desktop {
-            margin: 0 0 10px 0;
-            font-size: 22px;
-          }
         }
 
         .item__explantion__title {
           overflow: hidden;
           margin: 0 0 5px 0;
           font-size: 15px;
+          font-weight: 500;
           font-family: "Noto Sans KR", sans-serif;
           color: $main-color;
           text-overflow: ellipsis;
@@ -113,11 +104,7 @@
           @include tablet {
             margin: 0 0 10px 0;
             font-size: 18px;
-          }
-
-          @include desktop {
-            margin: 0 0 10px 0;
-            font-size: 18px;
+            letter-spacing: -1px;
           }
         }
 
@@ -130,20 +117,12 @@
             height: 40px;
           }
 
-          @include desktop {
-            height: 40px;
-          }
-
           .item__explantion__text-box__text {
             margin: 0;
             font-size: 12px;
             color: $gray-color;
 
             @include tablet {
-              font-size: 15px;
-            }
-
-            @include desktop {
               font-size: 15px;
             }
           }
@@ -159,10 +138,6 @@
     margin: 0 auto;
 
     @include tablet {
-      width: 70px;
-    }
-
-    @include desktop {
       width: 70px;
     }
   }
