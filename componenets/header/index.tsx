@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import MobileSlidebar from "../mobile-slidebar";
@@ -53,7 +54,7 @@ const Header = () => {
   return (
     <>
       <div className={styles["wrapper"]}>
-        <h1 className={styles["title"]}>BLUE NOTE</h1>
+        <Link href="/" className={styles["title"]}>BLUE NOTE</Link>
         {viewPort === "mobile" && (
           <RxHamburgerMenu
             ref={burgerMenuRef}
@@ -64,8 +65,8 @@ const Header = () => {
         )}
         {viewPort !== "mobile" && (
           <div className={styles["btn-wrapper"]}>
-            <small className={styles["login-btn"]}>Login</small>
-            <small className={styles["signUp-btn"]}>Join</small>
+            <Link href="./auth?initial=signIn" className={styles["signIn-btn"]}>Login</Link>
+            <Link href="./auth?initial=signUp" className={styles["signUp-btn"]}>Join</Link>
           </div>
         )}
       </div>
