@@ -9,7 +9,7 @@
   justify-content: space-between;
   max-width: 1280px;
   margin: 60px auto 0;
-  border-bottom: 2px solid rgb(138, 131, 131);
+  border-bottom: 2px solid rgb(179, 177, 177);
 
   .menu {
     width: 15%;
@@ -33,7 +33,7 @@
       text-align: start;
       font-size: 22px;
       font-family: "Metrophobic", sans-serif;
-      font-weight: 700;
+      font-weight: 600;
 
       @include desktop {
         padding-left: 10px;
