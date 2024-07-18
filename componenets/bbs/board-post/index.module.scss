@@ -10,17 +10,16 @@
   .board-post__content {
     padding: 10px 0 10px 0;
     border-radius: 0 0 4px 4px;
-    border-top: 2px solid rgb(158, 158, 158);
+    border-top: 2px solid $footer-border-color;
 
     .board-post__content__header {
       display: flex;
       flex-direction: column;
-      padding: 0 10px 0 10px;
       border-bottom: 1px solid $footer-border-color;
 
       .board-post__content__header__title {
-        margin: 10px 0 10px;
-        font-weight: 600;
+        margin: 10px 0 5px;
+        font-weight: 500;
         font-size: 29px;
         font-family: "Noto Sans KR", sans-serif;
         color: rgb(19, 19, 19);
@@ -102,7 +101,7 @@
 
     .board-post__content__main {
       min-height: 500px;
-      padding: 10px;
+      padding-top: 40px;
       font-family: "Noto Sans KR", sans-serif;
 
       .board-post__content__main__text {
