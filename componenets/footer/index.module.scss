@@ -4,7 +4,7 @@
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
 
-.wrapper {
+.footer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,7 +18,7 @@
     padding-bottom: 20px;
   }
 
-  .top-section {
+  .footer__top-section {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -29,7 +29,7 @@
       margin: 5px auto 0;
     }
     
-    .top-section__category {
+    .footer__top-section__category {
       margin: 0;
       font-size: 13px;
       font-family: 'Noto Sans KR', sans-serif;
@@ -40,7 +40,7 @@
     }
   }
 
-  .bottom-section {
+  .footer__bottom-section {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -54,7 +54,7 @@
       align-items: center;
     }
 
-    .title {
+    .footer__bottom-section__title {
       display: inline-block;
       width: auto;
       margin: 0;
@@ -70,7 +70,7 @@
       }
     }
 
-    .copyright { 
+    .footer__bottom-section__copyright { 
       margin: 0;
       text-align: center;
       font-size: 13px;

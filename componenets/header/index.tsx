@@ -34,9 +34,7 @@ const Header = () => {
 
     const handleClickOutside = (e: any) => {
       e.stopPropagation();
-      if (mobileDropdown
-          && !dropdownRef.current?.contains(e.target)
-          && !burgerMenuRef.current?.contains(e.target)) {
+      if (mobileDropdown && !dropdownRef.current?.contains(e.target) && !burgerMenuRef.current?.contains(e.target)) {
         handleMobileDropdown(e);
       }
     };
@@ -52,9 +50,11 @@ const Header = () => {
   }, [mobileDropdown]);
 
   return (
-    <>
-      <div className={styles["wrapper"]}>
-        <Link href="/" className={styles["title"]}>BLUE NOTE</Link>
+    <div className={styles["header"]}>
+      <div className={styles["header__title-and-btn"]}>
+        <Link href="/" className={styles["header__title-and-btn__title"]}>
+          BLUE NOTE
+        </Link>
         {viewPort === "mobile" && (
           <RxHamburgerMenu
             ref={burgerMenuRef}
@@ -63,23 +63,34 @@ const Header = () => {
             className={styles["burger-menu"]}
           />
         )}
+        {/* {viewPort !== "mobile" && (
+          <div className={styles["header__title-and-btn__audio"]}></div>
+        )} */}
         {viewPort !== "mobile" && (
-          <div className={styles["btn-wrapper"]}>
-            <Link href="./auth?initial=signIn" className={styles["signIn-btn"]}>Login</Link>
-            <Link href="./auth?initial=signUp" className={styles["signUp-btn"]}>Join</Link>
+          <div className={styles["header__title-and-btn__btn"]}>
+            <Link href="/auth?initial=signIn" className={styles["header__title-and-btn__btn__signIn"]}>
+              Login
+            </Link>
+            <Link href="/auth?initial=signUp" className={styles["header__title-and-btn__btn__signUp"]}>
+              Join
+            </Link>
           </div>
         )}
       </div>
       {viewPort === "mobile" && (
         <div
           ref={dropdownRef}
-          className={`${mobileDropdown ? styles["mobile-dropdown-on"] : styles["mobile-dropdown-off"]}`}
+          className={`${mobileDropdown ? styles["header__mobile-dropdown-on"] : styles["header__mobile-dropdown-off"]}`}
         >
           <MobileSlidebar />
         </div>
       )}
-      {(viewPort === "tablet" || viewPort === "desktop") && <NavBar />}
-    </>
+      {(viewPort === "tablet" || viewPort === "desktop") && (
+        <div className={styles["header__navbar"]}>
+          <NavBar viewPort={viewPort} />
+        </div>
+      )}
+    </div>
   );
 };
 

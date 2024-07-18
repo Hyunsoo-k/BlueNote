@@ -1,0 +1,94 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
+//font-family: "Varela Round", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.pagination {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  width: 260px;
+  margin: 50px auto 0;
+
+  .pagination__pages {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .pagination__pages__element {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding-bottom: 2px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: "Noto Sans KR", sans-serif;
+      color: black;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .pagination__pages__element:nth-child(2) {
+      color: $sub-color;
+      padding: 0;
+      border-bottom: 2px solid $sub-color;
+    }
+  }
+
+  .pagination__search {
+    position: relative;
+    left: -40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    width: 130%;
+    margin: 0 auto;
+
+    .pagination__search__select {
+      height: 30px;
+      padding-left: 5px;
+      border: 1px solid $footer-border-color;
+      border-radius: 4px;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+
+    .pagination__search__input {
+      width: 65%;
+      height: 30px;
+      padding-left: 10px;
+      border: 1px solid $footer-border-color;
+      border-radius: 4px;
+      font-family: "Noto Sans KR", sans-serif;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .pagination__search__btn {
+      width: 25%;
+      border: none;
+      border-radius: 4px;
+      background-color: $main-color;
+      font-weight: 500;
+      font-family: "Noto Sans KR", sans-serif;
+      color: #fff;
+
+      &:hover {
+        cursor: pointer;
+        color: #fff;
+        background-color: $sub-color;
+      }
+    }
+  }
+}

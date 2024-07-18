@@ -1,0 +1,215 @@
+@use "@/styles/variables.scss" as *;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.board-post {
+  max-width: 1150px;
+  margin: 0 auto;
+
+  .board-post__content {
+    padding: 10px 0 10px 0;
+    border-radius: 0 0 4px 4px;
+    border-top: 2px solid rgb(158, 158, 158);
+
+    .board-post__content__header {
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px 0 10px;
+      border-bottom: 1px solid $footer-border-color;
+
+      .board-post__content__header__title {
+        margin: 10px 0 10px;
+        font-weight: 600;
+        font-size: 29px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: rgb(19, 19, 19);
+      }
+
+      .board-post__content__header__detail {
+        display: flex;
+        justify-content: space-between;
+        font-family: "Noto Sans KR", sans-serif;
+
+        .board-post__content__header_writing-info {
+          display: flex;
+          justify-content: space-between;
+          width: 300px;
+
+          .board-post__content__header__writter {
+            font-family: 500;
+            color: $gray-color;
+
+            span {
+              padding-left: 5px;
+              font-weight: 600;
+              color: $sub-color;
+            }
+          }
+
+          .board-post__content__header__date-info {
+            font-size: 16px;
+            color: $gray-color;
+
+            span {
+              padding-left: 5px;
+              font-size: 15px;
+              color: black;
+            }
+
+            span:nth-child(2) {
+              font-weight: 500;
+              color: $sub-color;
+            }
+          }
+        }
+
+        .board-post__content__header__content-info {
+          display: flex;
+          justify-content: space-between;
+
+          .board-post__content__header__views {
+            width: 90px;
+
+            span {
+              text-align: center;
+              color: $sub-color;
+            }
+          }
+
+          .board-post__content__header__good {
+            width: 60px;
+
+            span {
+              padding-left: 5px;
+              text-align: center;
+              color: $sub-color;
+            }
+          }
+
+          .board-post__content__header__comment {
+            width: 70px;
+
+            span {
+              padding-left: 5px;
+              text-align: center;
+              color: $sub-color;
+            }
+          }
+        }
+      }
+    }
+
+    .board-post__content__main {
+      min-height: 500px;
+      padding: 10px;
+      font-family: "Noto Sans KR", sans-serif;
+
+      .board-post__content__main__text {
+        line-height: 1.8;
+      }
+    }
+  }
+
+.board-post__comment {
+    padding-top: 40px;
+    font-family: "Noto Sans KR", sans-serif;
+
+    .board-post__comment__header {
+      margin: 0 0 20px;
+      font-size: 18px;
+      font-weight: 500;
+      
+      span {
+        color: $sub-color;
+      }
+    }
+
+    .board-post__comment__box {
+      min-height: 200px;
+      padding: 5px 10px 10px 10px;
+      border-top: 2px solid $footer-border-color;
+      border-radius: 0 0 4px 4px;
+
+      .board-post__comment__box__content {
+        border-bottom: 1px solid $footer-border-color;
+
+        .board-post__comment__box__content__header {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          padding-top: 10px;
+          font-family: "Noto Sans KR", sans-serif;
+
+          .board-post__comment__box__content__name {
+            margin: 0;
+            color: $sub-color;
+          }
+
+          .board-post__comment__box__content__date {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 400;
+            color: $gray-color;
+
+            span {
+              margin-bottom: 0;
+              color: $sub-color;
+            }
+          }
+        }
+
+        .board-post__comment__box__content__main {
+          margin: 0;
+          padding: 5px 0 10px 0;
+          font-size: 15px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .board-post__writing-comment-feild {
+        display: flex;
+        width: 100%;
+        margin-top: 30px;
+        font-size: 16px;
+        font-family: "Noto Sans KR", sans-serif;
+
+        .board-post__writing-comment-feild__input {
+          width: calc(100% - 150px);
+          height: 120px;
+          padding: 10px;
+          border: 1px solid $footer-border-color;
+          border-radius: 4px;
+          font-size: 15px;
+          font-weight: 500;
+          font-family: "Noto Sans KR", sans-serif;
+          resize: none;
+          outline: none;
+        }
+
+        .board-post__writing-comment-feild__btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 150px;
+          height: 120px;
+          background-color: $main-color;
+          color: #fff;
+
+          &:hover {
+            cursor: pointer;
+            background-color: $sub-color;
+          }
+
+          p {
+            letter-spacing: 2px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}

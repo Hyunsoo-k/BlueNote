@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { PiVinylRecordFill } from "react-icons/pi";
-import { RiArrowGoBackFill } from "react-icons/ri";
 
-import Footer from "@/componenets/footer";
 import { CurrentSection } from "@/types/auth-page";
 import styles from "./index.module.scss";
 
@@ -63,18 +61,8 @@ const AuthPage = () => {
     }
   };
 
-  console.log(currentSection.currentSection)
-
   return (
     <div className={styles["wrapper"]}>
-      <h1 className={styles["title"]}>
-        {viewPort === "mobile" && (
-          <span>
-            <RiArrowGoBackFill size={30} style={{ position: "absolute", left: "5%", top: "7px" }} />
-          </span>
-        )}
-        {currentSection.currentSection === "signIn" ? "LOGIN" : "SIGN UP"}
-      </h1>
       <div className={styles["auth-wrapper"]}>
         <div className={styles["card"]}>
           <div className={styles["card__page"]}>
@@ -133,7 +121,6 @@ const AuthPage = () => {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

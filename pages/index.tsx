@@ -30,14 +30,13 @@ export default function Home() {
     <div className={styles["wrapper"]}>
       <Carousel viewPort={viewPort} />
       <div className={styles["section-wrapper"]}>
-        <div className={styles["section"]}>
-          <MainPageSection viewPort={viewPort} category="Notice" detail="공지" data={notice} />
-          <MainPageSection viewPort={viewPort} category="News" detail="국내" data={news} />
-        </div>
-        <div className={styles["section"]}>
-          <MainPageSection viewPort={viewPort} category="Board" detail="자유게시판" data={notice} />
-          <MainPageSection viewPort={viewPort} category="Promote" detail="밴드홍보" data={news} />
-        </div>
+        <MainPageSection viewPort={viewPort} category="Notice" detail="공지" data={notice} />
+        <MainPageSection viewPort={viewPort} category="News" detail="국내" data={news} />
+
+        <MainPageSection viewPort={viewPort} category="Board" detail="자유게시판" data={notice} />
+        <MainPageSection viewPort={viewPort} category="Promote" detail="밴드홍보" data={news} />
+
+        <MainPageSection viewPort={viewPort} category="Job" detail="구인" data={notice} />
       </div>
     </div>
   );

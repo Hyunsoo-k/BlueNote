@@ -4,126 +4,158 @@
 @import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
 //font-family: "Metrophobic", sans-serif;
 
-.wrapper {
-  position: relative;
+.header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   justify-items: center;
-  padding: 5px;
+  width: 100%;
+  background-color: #EFEBE9;
+  z-index: 998;
 
   @include tablet {
     display: block;
-    padding: 0;
   }
 
   @include desktop {
     display: block;
-    padding: 0;
   }
 
-  .title {
-    display: block;
-    letter-spacing: -3px;
-    text-decoration: none;
-    font-size: 47px;
-    font-weight: 700;
-    font-family: "Varela Round", sans-serif;
-    color: $main-color;
+  .header__title-and-btn {
+    position: relative;
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
 
-    &:hover {
+    .header__title-and-btn__title {
+      display: block;
+      padding-top: 10px;
+      letter-spacing: -3px;
+      text-decoration: none;
+      font-size: 47px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+      color: $main-color;
+  
+      &:hover {
+        cursor: pointer;
+      }
+  
+      @include tablet {
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 60px;
+      }
+  
+      @include desktop {
+        width: 500px;
+        letter-spacing: 0;
+      }
+    }
+  
+    .burger-menu:hover {
       cursor: pointer;
     }
 
-    @include tablet {
-      width: 400px;
-      margin: 20px auto 0;
-      text-align: center;
-      font-size: 70px;
+    .header__title-and-btn__audio {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 50%;
+      max-width: 300px;
+      height: 50px;
+      border-radius: 8px;
+      background-color: $footer-border-color;
     }
+  
+    .header__title-and-btn__btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+  
+      @include tablet {
+        top: 20px;
+        gap: 20px;
+        font-size: 24px;
+      }
+  
+      @include desktop {
+        top: 20px;
+        gap: 20px;
+        font-size: 24px;
+      }
+      
+      .header__title-and-btn__btn__signIn {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: "Metrophobic", sans-serif;
+        color: black;
 
-    @include desktop {
-      width: 500px;
-      margin-top: 20px;
-      text-align: center;
-      letter-spacing: 0;
-      font-size: 80px;
+        &:hover {
+          color: $sub-color;
+        }
+      }
+  
+      .header__title-and-btn__btn__signUp {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: "Metrophobic", sans-serif;
+        color: black;
+
+        &:hover {
+          color: $sub-color;
+        }
+      }
     }
   }
 
-  .burger-menu:hover {
-    cursor: pointer;
+  .header__navbar {
+    margin-top: 30px;
   }
 
-  .btn-wrapper {
+  .header__mobile-dropdown-on {
+    z-index: 999;
     position: absolute;
-    top: 10px;
-    right: 0px;
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;  
-    
-    .signIn-btn {
-      text-decoration: none;
-      font-size: 21px;
-      font-weight: 700;
-      font-family: "Metrophobic", sans-serif;
-      color: black;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+  }
+  
+  @keyframes mobile-dropdown-on-animation {
+    0% {
+  
     }
-
-    .signUp-btn {
-      text-decoration: none;
-      font-size: 21px;
-      font-weight: 700;
-      font-family: "Metrophobic", sans-serif;
-      color: black;
-    }
-
-    .signIn-btn:hover,
-    .signUp-btn:hover {
-      border-bottom: 2px solid black;
-    }
-
-    @include desktop {
-      gap: 20px;
-      font-size: 24px;
+  
+    100% {
+  
     }
   }
-}
-
-.mobile-dropdown-on {
-  z-index: 999;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: 100vh;
-}
-
-@keyframes mobile-dropdown-on-animation {
-  0% {
-
+  
+  .header__mobile-dropdown-off {
+    // position: absolute;
+    // top: 0px;
+    // right: -250px;
+    // width: 250px;
+    display: none;
   }
-
-  100% {
-
-  }
-}
-
-.mobile-dropdown-off {
-  // position: absolute;
-  // top: 0px;
-  // right: -250px;
-  // width: 250px;
-  display: none;
-}
-
-@keyframes mobile-dropdown-off-animation {
-  0% {
-
-  }
-
-  100% {
-    
-  }
+  
+  @keyframes mobile-dropdown-off-animation {
+    0% {
+  
+    }
+  
+    100% {
+      
+    }
+  }  
 }

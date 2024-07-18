@@ -4,24 +4,24 @@
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
 
-.wrapper {
+.navbar-dropdown {
   width: 100%;
   border-radius: 0 0 4px 4px;
   background-color: $background-color;
 
-  .item-wrapper {
+  .navbar-dropdown__content {
     display: flex;
     flex-direction: column;
     gap: 2px;
 
-    .item {
-      display: flex;
-      align-items: center;
+    .navbar-dropdown__content__element {
       height: 40px;
       margin: 0;
-      padding-left: 10px;
+      padding-top: 6px;
       background-color: $sub-color;
+      text-align: center;
       letter-spacing: 2px;
+      font-size: 16px;
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
     }

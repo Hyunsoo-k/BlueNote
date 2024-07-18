@@ -5,37 +5,48 @@
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
 
-.wrapper {
+.carousel {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 25px;
   width: 100%; //1200px
-  margin: 60px auto 40px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
 
   @include desktop {
-    gap: 40px;
+    gap: 25px;
+    margin: 0 auto 50px;
   }
 
-  .carousel-wrapper {
+  .carousel-box {
     overflow: hidden;
     display: flex;
     gap: 20px;
     width: 100%; //1200px
+    height: 280px;
     margin: 0 auto;
 
-    .item {
+    .carousel-box__element {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: end;
       flex-shrink: 0;
       width: calc(100% / 2 - 10px);
+      height: 263px;
       margin: 0 auto;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
       border-radius: 5px;
-      background-color: #fff;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+      transition: background-size 0.3s ease;
+        -moz-transition: background-size 0.3s ease;
+        -web-kit-transition: background-size 0.3s ease;
 
       &:hover {
         cursor: pointer;
+        background-size: 110% 110%;
       }
 
       @include tablet {
@@ -47,20 +58,7 @@
         width: calc(100% / 4 - 15px);
       }
 
-      .item__image {
-        position: relative;
-        width: 100%;
-        height: 90px;
-        border-radius: 5px;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0));
-
-        @include tablet {
-          width: 100%;
-          height: 130px;
-        }
-      }
-
-      .item__explantion {
+      .carousel-box__element__explantion {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -76,39 +74,41 @@
           width: 100%;
         }
 
-        .item__explantion__category {
+        .carousel-box__element__explantion__category {
           width: 120px;
           margin: 0 0 5px 0;
           padding-bottom: 5px;
           border-bottom: $gray-color;
           font-size: 18px;
-          font-weight: 400;
+          font-weight: 600;
           font-family: "Metrophobic", sans-serif;
+          color: #fff;
 
           @include tablet {
-            margin: 0 0 10px 0;
-            font-size: 22px;
+            margin: 0 0 8px 0;
+            padding-bottom: 0;
+            font-size: 26px;
           }
         }
 
-        .item__explantion__title {
+        .carousel-box__element__explantion__title {
           overflow: hidden;
           margin: 0 0 5px 0;
           font-size: 15px;
           font-weight: 500;
           font-family: "Noto Sans KR", sans-serif;
-          color: $main-color;
+          color: #fff;
           text-overflow: ellipsis;
           white-space: nowrap;
 
           @include tablet {
-            margin: 0 0 10px 0;
+            margin: 0 0 8px 0;
             font-size: 18px;
             letter-spacing: -1px;
           }
         }
 
-        .item__explantion__text-box {
+        .carousel-box__element__explantion__text-box {
           overflow: hidden;
           height: 35px;
           font-family: "Noto Sans KR", sans-serif;
@@ -117,10 +117,10 @@
             height: 40px;
           }
 
-          .item__explantion__text-box__text {
+          .carousel-box__element__explantion__text-box__text {
             margin: 0;
             font-size: 12px;
-            color: $gray-color;
+            color: #fff;
 
             @include tablet {
               font-size: 15px;
