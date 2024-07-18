@@ -1,27 +1,27 @@
 @use "@/styles/variables.scss" as *;
 
 .wrapper {
-  padding: 5px;
+  padding: 20px;
+  max-width: 1150px;
+  margin: 0 auto; 
+  padding-top: 63px;
 
   @include tablet {
-    padding: 0;
   }
 
   @include desktop {
-    padding: 0;
   }
 
   .section-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: grid;
+    grid-template: auto auto auto / 49% 49%;
+    justify-content: space-between;
+    row-gap: 30px;
 
     @include tablet {
-      gap: 50px;
     }
 
     @include desktop {
-      gap: 50px;
     }
 
     .section {

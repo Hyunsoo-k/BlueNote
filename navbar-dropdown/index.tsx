@@ -2,10 +2,10 @@ import styles from "./index.module.scss";
 
 const NavbarDropdown = ({ item }: any) => {
   return (
-    <div className={styles["wrapper"]}>
-      <div className={styles["item-wrapper"]}>
+    <div className={styles["navbar-dropdown"]}>
+      <div className={styles["navbar-dropdown__content"]}>
         {item.map((item: any, index: number) => (
-          <p key={index} className={styles["item"]}>
+          <p key={index} className={styles["navbar-dropdown__content__element"]}>
             {item}
           </p>
         ))}

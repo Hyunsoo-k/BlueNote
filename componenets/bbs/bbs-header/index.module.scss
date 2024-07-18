@@ -1,0 +1,77 @@
+@use "@/styles/variables.scss" as *;
+//font-family: "Open Sans", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+//font-family: "Jua", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Varela Round", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+//영어 카테고리 전용 폰트
+
+.bbs-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 auto 30px;
+
+  .bbs-header__category {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin: 0;
+
+    .bbs-header__category__main {
+      height: 62px;
+      padding-top: 8px;
+      margin: 0;
+      font-size: 50px;
+      font-weight: 500;
+      font-family: "Metrophobic", sans-serif;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .bbs-header__category__sub-list {
+      display: flex;
+      gap: 10px;
+      align-items: end;
+
+      .bbs-header__category__sub-list__element {
+        margin: 0;
+        letter-spacing: 0px;
+        font-size: 17px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: $gray-color;
+
+        &:hover {
+          cursor: pointer;
+          font-weight: 600;
+          color: $sub-color;
+        }
+      }
+    }
+  }
+
+  .bbs-header__category__current-data {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    padding-left: 10px;
+
+    p {
+      display: flex;
+      align-items: end;
+      margin: 0;
+      font-size: 15px;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+  }
+
+  .bbs-header__category__current-data__detail {
+    color: $sub-color;
+  }
+}

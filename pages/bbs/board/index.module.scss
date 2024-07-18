@@ -1,0 +1,157 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
+//font-family: "Varela Round", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.board-page {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 40px 20px 20px 20px;
+
+  .popular-post {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    margin-bottom: 20px;
+
+    .popular-post__board {
+      width: 49%;
+      border-bottom: 1px solid rgb(170, 166, 166);
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3px;
+        padding: 5px 0 5px 0;
+        border-top: 2px solid rgb(170, 166, 166);
+        border-bottom: 2px solid rgb(170, 166, 166);
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+
+        p {
+          margin: 0;
+          padding-left: 10px;
+          font-size: 14px;
+        }
+
+        p:nth-of-type(1) {
+          width: 15%;
+        }
+
+        p:nth-of-type(2) {
+          width: 45%;
+          padding: 0;
+          text-align: center;
+        }
+
+        p:nth-of-type(3) {
+          width: 20%;
+        }
+
+        p:nth-of-type(4) {
+          width: 20%;
+          text-align: center;
+        }
+      }
+
+      .content {
+        .content__item {
+          display: flex;
+          padding: 5px 0 5px 0;
+          font-family: "Noto Sans KR", sans-serif;
+          border-bottom: 1px solid rgb(170, 166, 166);
+
+          &:hover {
+            cursor: pointer;
+            background-color: rgb(209, 208, 208);
+          }
+
+          p {
+            margin: 0;
+            padding-left: 10px;
+            font-size: 14px;
+          }
+
+          p:nth-of-type(1) {
+            width: 15%;
+            font-weight: 500;
+          }
+
+          p:nth-of-type(2) {
+            width: 45%;
+          }
+
+          p:nth-of-type(3) {
+            width: 20%;
+          }
+
+          p:nth-of-type(4) {
+            width: 20%;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .popular-post__carousel {
+      overflow: hidden;
+      display: flex;
+      gap: 20px;
+      width: 43%;
+
+      .item {
+        flex-shrink: 0;
+        padding: 10px;
+        width: 100%;
+        border-radius: 4px;
+        background-size: 100% 100%;
+        background-repeat: "no-repeat";
+        background-position: center; /* Center the background image */
+        transition: background-size 0.3s ease;
+        -moz-transition: background-size 0.3s ease;
+        -web-kit-transition: background-size 0.3s ease;
+
+        &:hover {
+          cursor: pointer;
+          background-size: 110% 110%;
+        }
+
+        .category {
+          margin: 0;
+          font-size: 25px;
+          font-weight: 500;
+          font-family: 'Noto Sans KR', sans-serif;
+          color: #fff;
+        }
+
+        .title {
+          display: inline-block;
+          margin-top: 20px;
+          border-bottom: 2px solid #fff;
+          font-size: 19px;
+          font-weight: 500;
+          font-family: 'Noto Sans KR', sans-serif;
+          color: #fff;
+        }
+
+        .text {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          margin: 0;
+          word-break: break-word;
+          text-overflow: ellipsis;
+          font-size: 15px;
+          font-family: 'Noto Sans KR', sans-serif;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

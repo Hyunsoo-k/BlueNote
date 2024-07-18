@@ -6,10 +6,10 @@
 //font-family: 'Noto Sans KR', sans-serif;
 //모바일 드롭다운 카테고리 하위 폰트
 
-.wrapper {
+.MainPageSection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  width: 100%;
   margin: 0;
   padding: 10px;
   font-size: 22px;
@@ -17,16 +17,14 @@
   font-family: "Metrophobic", sans-serif;
 
   @include tablet {
-    width: 46%;
     padding: 0;
   }
 
   @include desktop {
-    width: 46%;
     padding: 0;
   }
 
-  .category {
+  .MainPageSection__category {
     width: 110px;
     margin: 0;
     padding: 10px;
@@ -40,24 +38,26 @@
     }
   }
 
-  .list {
+  .MainPageSection__list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     width: 100%;
 
-    .list__item {
+    .MainPageSection__list__element {
       display: flex;
       gap: 5px;
-      padding: 0 10px 5px 10px;
+      padding: 9px 10px 5px 10px;
       align-items: center;
       border-bottom: 1px solid rgb(170, 166, 166);
 
       &:hover {
-        cursor: pointer;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(209, 208, 208);
+        }
       }
 
-      .category-detail {
+      .MainPageSection__list__element__category-detail {
         flex-shrink: 0;
         margin: 0;
         font-size: 16px;
@@ -65,7 +65,7 @@
         color: $gray-color;
       }
 
-      .title {
+      .MainPageSection__list__element__title {
         overflow: hidden;
         flex-shrink: 0;
         margin: 0;
@@ -75,7 +75,7 @@
         color: $main-color;
       }
 
-      .explan {
+      .MainPageSection__list__element__explan {
         overflow: hidden;
         margin: 0;
         padding-left: 10px;
