@@ -1,0 +1,144 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+//영어 카테고리 전용 폰트
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+
+  @include desktop {
+    gap: 25px;
+    margin: 0 auto 50px;
+  }
+
+  .carousel__element-wrapper {
+    overflow: hidden;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 280px;
+    margin: 0 auto;
+
+    .carousel__element {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      flex-shrink: 0;
+      width: calc(100% / 2 - 10px);
+      height: 263px;
+      margin: 0 auto;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 5px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+      transition: background-size 0.3s ease;
+        -moz-transition: background-size 0.3s ease;
+        -web-kit-transition: background-size 0.3s ease;
+
+      &:hover {
+        cursor: pointer;
+        background-size: 110% 110%;
+      }
+
+      @include tablet {
+        flex-shrink: 0;
+        width: calc(100% / 3 - 14px);
+      }
+
+      @include desktop {
+        width: calc(100% / 4 - 15px);
+      }
+
+      .carousel__explantion {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 10px 10px 10px;
+
+        @include tablet {
+          width: 100%;
+          padding-bottom: 15px;
+        }
+
+        @include desktop {
+          width: 100%;
+        }
+
+        .carousel__category {
+          width: 120px;
+          margin: 0 0 5px 0;
+          padding-bottom: 5px;
+          border-bottom: $gray-color-300;
+          font-size: 18px;
+          font-weight: 600;
+          font-family: "Metrophobic", sans-serif;
+          color: #fff;
+
+          @include tablet {
+            margin: 0 0 8px 0;
+            padding-bottom: 0;
+            font-size: 26px;
+          }
+        }
+
+        .carousel__title {
+          overflow: hidden;
+          margin: 0 0 5px 0;
+          font-size: 15px;
+          font-weight: 500;
+          font-family: "Noto Sans KR", sans-serif;
+          color: #fff;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          @include tablet {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            letter-spacing: -1px;
+          }
+        }
+
+        .carousel__content-wrapper {
+          font-family: "Noto Sans KR", sans-serif;
+
+          @include tablet {
+            height: 40px;
+          }
+
+          .carousel__content {
+            overflow: hidden;
+            height: 45px;
+            margin: 0;
+            font-size: 12px;
+            color: #fff;
+
+            @include tablet {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+    margin: 0 auto;
+
+    @include tablet {
+      width: 70px;
+    }
+  }
+}

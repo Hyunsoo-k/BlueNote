@@ -1,87 +1,20 @@
 @use "@/styles/variables.scss" as *;
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
-//font-family: "Varela Round", sans-serif;
-@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
-//font-family: "Metrophobic", sans-serif;
+//font-family: "Open Sans", sans-serif;
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
 
-.wrapper {
+.promote-page {
   max-width: 1150px;
   margin: 0 auto;
   padding: 40px 20px 20px 20px;
 
-  .board__pagination {
-    position: relative;
+  .show-more-btn {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 30px;
-    width: 260px;
-    margin: 50px auto 0;
+    justify-content: center;
+    margin-top: 20px;
 
-    .board__pagination__pages {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-
-      .board__pagination__pages__element {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        padding-bottom: 2px;
-        text-align: center;
-        font-size: 15px;
-        font-weight: 600;
-        font-family: "Noto Sans KR", sans-serif;
-        color: black;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .board__pagination__pages__element:nth-child(2) {
-        color: $sub-color;
-        padding: 0;
-        border-bottom: 2px solid $sub-color;
-      }
-    }
-
-    .board__pagination__search {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin: 0 auto;
-
-      .board__pagination__search__input {
-        width: 70%;
-        height: 30px;
-        padding-left: 10px;
-        border: 1px solid $footer-border-color;
-        border-radius: 4px;
-
-        &:focus {
-          outline: none;
-        }
-      }
-
-      .board__pagination__search__btn {
-        width: 29%;
-        border: none;
-        border-radius: 4px;
-        background-color: $main-color;
-        font-weight: 500;
-        font-family: "Noto Sans KR", sans-serif;
-        color: #fff;
-
-        &:hover {
-          cursor: pointer;
-          color: #fff;
-          background-color: $sub-color;
-        }
-      }
+    &:hover {
+      cursor: pointer;
     }
   }
 }

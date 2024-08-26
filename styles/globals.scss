@@ -21,6 +21,11 @@
 }
 @import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
 //font-family: "noto sans"
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-style: normal;
+}
 
 * {
   box-sizing: border-box;
@@ -29,11 +34,11 @@
 body {
   background-color: #EFEBE9;
 
-  @include tablet {
-    margin: 0 auto 10px;
+  .toastui-editor-contents {
+    font-family: 'Noto Sans KR', sans-serif !important; 
   }
 
-  @include desktop {
+  @include tablet {
     margin: 0 auto 10px;
   }
 }

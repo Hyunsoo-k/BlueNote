@@ -1,0 +1,143 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
+//font-family: "Varela Round", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+//영어 카테고리 전용 폰트
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.create-post {
+  width: 100%;
+
+  .create-post__main-category {
+    height: 62px;
+    padding-top: 8px;
+    margin: 0;
+    font-size: 50px;
+    font-family: "Metrophobic", sans-serif;
+    color: $main-color;
+  }
+
+  .create-post__header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    border-bottom: 1px solid $gray-color-100;
+
+    .create-post__title {
+      margin: 10px 0 5px;
+      font-size: 20px;
+      font-family: "Noto Sans KR", sans-serif;
+      color: rgb(19, 19, 19);
+      background-color: inherit;
+      border: none;
+      outline: none;
+    }
+
+    .create-post__details {
+      display: flex;
+      font-size: 15px;
+      font-family: "Noto Sans KR", sans-serif;
+
+      .create-post__writer {
+        margin-right: 100px;
+        color: $gray-color-300;
+
+        span {
+          padding-left: 5px;
+          color: $sub-color;
+        }
+      }
+
+      .create-post__sub-category-list {
+        display: flex;
+        gap: 3px;
+        color: $gray-color-300;
+
+        .create-post__division {
+          margin-right: 5px;
+        }
+
+        .create-post__sub-category {
+          color: $gray-color-300;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .create-post__sub-category--selected {
+          color: $sub-color;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .create-post__content-info {
+        display: flex;
+        justify-content: space-between;
+
+        p:nth-child(1) {
+          color: $gray-color-300;
+          width: 90px;
+
+          span {
+            text-align: center;
+            color: $sub-color;
+          }
+        }
+
+        p:nth-child(2) {
+          color: $gray-color-300;
+          width: 60px;
+
+          span {
+            padding-left: 5px;
+            text-align: center;
+            color: $sub-color;
+          }
+        }
+
+        p:nth-child(3) {
+          color: $gray-color-300;
+          width: 70px;
+
+          span {
+            padding-left: 5px;
+            text-align: center;
+            color: $sub-color;
+          }
+        }
+      }
+    }
+  }
+
+  .create-post__content{
+    padding-top: 40px;
+    font-family: "Noto Sans KR", sans-serif;
+  }
+
+  .create-post__submit-btn {
+    position: relative;
+    left: calc(100% - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    margin-top: 30px;
+    background-color: $main-color;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $sub-color;
+    }
+  }
+}

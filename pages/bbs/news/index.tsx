@@ -1,48 +1,43 @@
-import Reaect, { useState } from "react";
-import { TfiArrowCircleDown } from "react-icons/tfi";
+import { GetServerSideProps } from "next";
 
-import BbsHeader from "@/componenets/bbs/bbs-header";
-import Thumbnail from "@/componenets/thumbnail";
+import { SubCategory } from "@/types/categorys";
+import { PostList as PostListType } from "@/types/postList";
+import { useGetPostList } from "@/hooks/bbs/useGetPostList";
+import { instance } from "@/axios";
+import BbsHeader from "@/components/bbs/bbsHeader";
+import Thumbnail from "@/components/thumbnail";
+
 import styles from "./index.module.scss";
 
-const NewsPage = () => {
-  const [currentCategory, setCurrentCategory] = useState<string>("main");
+interface ServerSideProps {
+  subCategory: SubCategory,
+  page: string,
+  initialResponse: any
+}
 
-  const handleCurrentCategory = (e: any) => {
-    switch (e.target.innerHTML) {
-      case "main":
-        setCurrentCategory("main");
-        break;
-      case "국내":
-        setCurrentCategory("국내");
-        break;
-      case "국외":
-        setCurrentCategory("국외");
-        break;
-    }
-  };
-
-  const imgSrc = [
-    "/images/carousel/julian.jpg",
-    "/images/carousel/jazzPic.jpg",
-    "/images/carousel/playing-trumpet.png",
-    "/images/carousel/seoul-jazz-festival.png",
-    "/images/carousel/julian.jpg",
-    "/images/carousel/jazzPic.jpg",
-    "/images/carousel/playing-trumpet.png",
-    "/images/carousel/seoul-jazz-festival.png",
-    "/images/carousel/julian.jpg",
-  ];
+const NewsPage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
+  const mainCategory = "news";
+  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
 
   return (
     <div className={styles["news-page"]}>
-      <BbsHeader main="News" sub={["국내", "국외", "All"]} postCount={16} currentPage={2} />
-      <Thumbnail />
-      <div className={styles["show-more-btn"]}>
-        <TfiArrowCircleDown size={50} color="#308ccc" style={{ position: "relative", top: "-43px", background: "#efebe9", borderRadius: "50%"}}/>
-      </div>
+      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
+      <Thumbnail mainCategory={mainCategory} response={response} />
     </div>
   );
 };
 
 export default NewsPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query, resolvedUrl } = context;
+  const { data } = await instance.get(`${resolvedUrl}`);
+
+  return {
+    props: {
+      subCategory: query.subCategory || "All",
+      page: query.page || "1",
+      initialResponse: data
+    },
+  };
+};

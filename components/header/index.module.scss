@@ -1,0 +1,192 @@
+@use "@/styles/variables.scss" as *;
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
+//font-family: "Varela Round", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  background-color: #efebe9;
+  z-index: 998;
+
+  @include tablet {
+    display: block;
+  }
+
+  @include desktop {
+    display: block;
+  }
+
+  .header__header {
+    position: relative;
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+
+    .header__title {
+      display: block;
+      padding-top: 10px;
+      letter-spacing: -3px;
+      text-decoration: none;
+      font-size: 47px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+      color: $main-color;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      @include tablet {
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 60px;
+      }
+
+      @include desktop {
+        width: 500px;
+        letter-spacing: 0;
+      }
+    }
+
+    .burger-menu:hover {
+      cursor: pointer;
+    }
+
+    .header__btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+
+      @include tablet {
+        top: 20px;
+        gap: 20px;
+        font-size: 24px;
+      }
+
+      @include desktop {
+        top: 20px;
+        gap: 20px;
+        font-size: 24px;
+      }
+
+      .header__signIn {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: "Metrophobic", sans-serif;
+        color: black;
+
+        &:hover {
+          color: $sub-color;
+        }
+      }
+
+      .header__signUp {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: "Metrophobic", sans-serif;
+        color: black;
+
+        &:hover {
+          color: $sub-color;
+        }
+      }
+    }
+
+    .header__profile {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      width: 180px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .header__user {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 110px;
+
+        p {
+          overflow: hidden;
+          margin: 0;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 16px;
+          font-weight: 500;
+          font-family: "Noto Sans KR", sans-serif;
+          color: $main-color;
+
+          span {
+            padding-left: 2px;
+            font-size: 16px;
+            color: $gray-color-300;
+          }
+        }
+
+        .header__email {
+          font-size: 15px;
+          font-weight: 400;
+          color: $gray-color-300;
+        }
+      }
+    }
+  }
+
+  .header__navbar {
+    margin-top: 30px;
+  }
+
+  .header__mobile-dropdown-on {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+  }
+
+  @keyframes mobile-dropdown-on-animation {
+    0% {
+    }
+
+    100% {
+    }
+  }
+
+  .header__mobile-dropdown-off {
+    // position: absolute;
+    // top: 0px;
+    // right: -250px;
+    // width: 250px;
+    display: none;
+  }
+
+  @keyframes mobile-dropdown-off-animation {
+    0% {
+    }
+
+    100% {
+    }
+  }
+}

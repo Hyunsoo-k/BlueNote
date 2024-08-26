@@ -1,16 +1,43 @@
-import BbsHeader from "@/componenets/bbs/bbs-header";
-import Thumbnail from "@/componenets/thumbnail";
-import Pagination from "@/componenets/pagination";
+import { GetServerSideProps } from "next";
+
+import { SubCategory } from "@/types/categorys";
+import { PostList as PostListType } from "@/types/postList";
+import { useGetPostList } from "@/hooks/bbs/useGetPostList";
+import { instance } from "@/axios";
+import BbsHeader from "@/components/bbs/bbsHeader";
+import Thumbnail from "@/components/thumbnail";
+
 import styles from "./index.module.scss";
 
-const PromotePage = () => {
+interface ServerSideProps {
+  subCategory: SubCategory,
+  page: string,
+  initialResponse: any
+}
+
+const PromotePage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
+  const mainCategory = "promote";
+  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
+
   return (
-    <div className={styles["wrapper"]}>
-      <BbsHeader main="Promote" sub={["밴드홍보", "앨범홍보", "재즈바홍보", "All"]} postCount={20} />
-      <Thumbnail />
-      <Pagination category={["밴드홍보", "앨범홍보", "재즈바홍보"]} />
+    <div className={styles["promote-page"]}>
+      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
+      <Thumbnail mainCategory={mainCategory} response={response} />
     </div>
   );
 };
 
 export default PromotePage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query, resolvedUrl } = context;
+  const { data } = await instance.get(`${resolvedUrl}`);
+
+  return {
+    props: {
+      subCategory: query.subCategory || "All",
+      page: query.page || "1",
+      initialResponse: data
+    },
+  };
+};
