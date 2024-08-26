@@ -1,0 +1,90 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+//영어 카테고리 전용 폰트
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.MainPageSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: "Metrophobic", sans-serif;
+
+  @include tablet {
+    padding: 0;
+  }
+
+  @include desktop {
+    padding: 0;
+  }
+
+  .MainPageSection__category {
+    width: 110px;
+    margin: 0;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: "Metrophobic", sans-serif;
+
+    &:hover {
+      cursor: pointer;
+      color: $sub-color;
+    }
+  }
+
+  .MainPageSection__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .MainPageSection__list__element {
+      display: flex;
+      gap: 5px;
+      padding: 9px 10px 5px 10px;
+      align-items: center;
+      border-bottom: 1px solid rgb(170, 166, 166);
+
+      &:hover {
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(209, 208, 208);
+        }
+      }
+
+      .MainPageSection__list__element__category-detail {
+        flex-shrink: 0;
+        margin: 0;
+        font-size: 16px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: $gray-color-300;
+      }
+
+      .MainPageSection__list__element__title {
+        overflow: hidden;
+        flex-shrink: 0;
+        margin: 0;
+        white-space: nowrap;
+        font-size: 16px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: $main-color;
+      }
+
+      .MainPageSection__list__element__explan {
+        overflow: hidden;
+        margin: 0;
+        padding-left: 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+    }
+  }
+}

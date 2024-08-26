@@ -1,0 +1,78 @@
+@use "@/styles/variables.scss" as *;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.board-post {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 10px 0 10px 0;
+
+  .board-post__header {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid $gray-color-100;
+
+    .board-post__title {
+      margin: 10px 0 5px;
+      font-size: 20px;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+
+    .board-post__details {
+      display: flex;
+      justify-content: space-between;
+      font-family: "Noto Sans KR", sans-serif;
+
+      .board-post__writing-info {
+        display: flex;
+        justify-content: space-between;
+        width: 380px;
+
+        p {
+          font-size: 15px;
+          color: $gray-color-300;
+        }
+
+        span {
+          padding-left: 5px;
+          color: $sub-color;
+        }
+      }
+
+      .board-post__state-info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+
+        p {
+          color: $gray-color-300;
+        }
+
+        .board-post__views {
+          width: 90px;
+        }
+
+        .board-post__recommend {
+          width: 60px;
+        }
+        
+        .board-post__comment {
+          width: 70px;
+        }
+
+        span {
+          padding-left: 5px;
+          text-align: center;
+          color: $sub-color;
+        }
+      }
+    }
+  }
+
+  .board-post__content {
+    min-height: 500px;
+    padding-top: 40px;
+    font-family: "Noto Sans KR", sans-serif;
+  }
+}
