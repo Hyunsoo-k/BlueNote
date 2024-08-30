@@ -8,13 +8,13 @@ import { formatYMD } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
 
-interface Comment {
+interface Props {
   mainCategory: MainCategory;
   post_id: string;
   post: any;
 }
 
-const Comment = ({ mainCategory, post_id, post }: Comment) => {
+const Comment = ({ mainCategory, post_id, post }: Props) => {
   const { userMe } = useContext(UserMeContext);
   
   const mutationHandler = useCreateComment(mainCategory, post_id);

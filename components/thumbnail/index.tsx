@@ -1,24 +1,25 @@
 import { useRouter } from "next/router";
 
-import { MainCategory } from "@/types/categorys";
+import { Post } from "@/types/post";
 
 import styles from "./index.module.scss";
 
-interface ThumbnailProps {
-  mainCategory: MainCategory;
-  response: any;
+interface Props {
+  postList: Post[];
 }
 
-const Thumbnail = ({ mainCategory, response }: ThumbnailProps) => {
+const Thumbnail = ({ postList }: Props) => {
   const router = useRouter();
+
+  const mainCategory = router.pathname.split("/").pop();
 
   return (
     <div className={styles["thumbnail"]}>
-      {response.postList.map((item: any, index: any) => (
+      {postList.map((post: Post, index: number) => (
         <div
           key={index}
           onClick={() => {
-            router.push(`/bbs/${mainCategory}/post/${item._id}`);
+            router.push(`/bbs/${mainCategory}/post/${post._id}`);
           }}
           className={styles["thumbnail__element"]}
         >
@@ -29,12 +30,12 @@ const Thumbnail = ({ mainCategory, response }: ThumbnailProps) => {
             }}
           >
             <p className={styles["thumbnail__info"]}>
-              <span>{item.subCategory}</span> | {item.createdAt.split("T")[0]}
+              <span>{post.subCategory}</span> | {post.createdAt.split("T")[0]}
             </p>
           </div>
           <div className={styles["thumbnail__description"]}>
-            <p className={styles["thumbnail__title"]}>{item.title}</p>
-            <p className={styles["thumbnail__content"]}>{item.content}</p>
+            <p className={styles["thumbnail__title"]}>{post.title}</p>
+            <p className={styles["thumbnail__content"]}>{post.content}</p>
           </div>
         </div>
       ))}

@@ -4,27 +4,30 @@ import { useRouter } from "next/router";
 import styles from "./index.module.scss";
 import { SubCategory } from "@/types/categorys";
 
-interface PaginationProps {
-  subCategory: SubCategory;
-  page: string;
-  response: any;
+interface Props {
+  subCategory?: SubCategory;
+  data: any;
 }
 
-const Pagination = ({ subCategory, page, response }: PaginationProps) => {
+const Pagination = ({ subCategory, data }: Props) => {
   const router = useRouter();
+
+  const navigate = (page: string | number) => {
+    subCategory ?
+      router.push(`?subCategory=${subCategory}&page=${page}`) :
+      router.push(`?page=${page}`)
+  }
 
   return (
     <div className={styles["pagination"]}>
       <div className={styles["pagination__pages"]}>
-        {Array.from({ length: Number(response.totalPageCount) }, (_, index) => index + 1).map(
+        {Array.from({ length: Number(data.totalPageCount) }, (_, index) => index + 1).map(
           (value: number, index: number) => (
             <p
               key={index}
-              onClick={() => {
-                router.push(`?subCategory=${subCategory}&page=${value}`);
-              }}
+              onClick={() => navigate(value)}
               style={
-                Number(page) === Number(value)
+                Number(value) === Number(data.page)
                   ? { backgroundColor: "rgb(28, 28, 119)", color: "#fff" }
                   : { backgroundColor: "rgb(209, 209, 209)", color: "rgb(28, 28, 119)" }
               }

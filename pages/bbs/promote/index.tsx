@@ -6,6 +6,7 @@ import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import { instance } from "@/axios";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import Thumbnail from "@/components/thumbnail";
+import Pagination from "@/components/pagination";
 
 import styles from "./index.module.scss";
 
@@ -22,7 +23,8 @@ const PromotePage = ({ subCategory, page, initialResponse }: ServerSideProps) =>
   return (
     <div className={styles["promote-page"]}>
       <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <Thumbnail mainCategory={mainCategory} response={response} />
+      <Thumbnail postList={response.postList} />
+      <Pagination subCategory={subCategory} data={response} />
     </div>
   );
 };

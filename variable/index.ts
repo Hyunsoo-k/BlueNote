@@ -1,4 +1,4 @@
-const mainCtg = [
+const mainCategory = [
   { main: "notice", label: "Notice" },
   { main: "news", label: "News" },
   { main: "board", label: "Board" },
@@ -45,4 +45,4 @@ const subCategoryUrlMap = {
   구직: "jobSeeking",
 };
 
-export { mainCtg, subCategoryListMap, subCategoryMap, subCategoryUrlMap };
+export { mainCategory, subCategoryListMap, subCategoryMap, subCategoryUrlMap };

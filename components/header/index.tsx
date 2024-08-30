@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef} from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,11 +12,35 @@ import NavBar from "../navbar";
 import styles from "./index.module.scss";
 
 const Header = () => {
-  const { viewport, setViewport } = useContext(ViewportContext);
+  const router = useRouter();
+
   const { userMe, setUserMe } = useContext(UserMeContext);
   const [profileModal, setProfileModal] = useState<boolean>(false);
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   setUserMe(useGetUser().data);
+
+  useEffect(() => {
+    const clickOustSideHandler = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        setProfileModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", clickOustSideHandler);
+
+    const handleRouteChange = () => {
+      setProfileModal(false);
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    
+    return () => {
+      document.removeEventListener("mousedown", clickOustSideHandler);
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [modalRef, router.events]);
 
   return (
     <div className={styles["header"]}>
@@ -24,7 +49,10 @@ const Header = () => {
           BLUE NOTE
         </Link>
         {userMe && (
-          <div onClick={() => setProfileModal((prev: boolean) => !prev)} className={styles["header__profile"]}>
+          <div 
+            onClick={() => setProfileModal((prev: boolean) => !prev)} 
+            className={styles["header__profile"]}
+          >
             <Image
               src="/images/carousel/playing-trumpet.png"
               width={55}
@@ -36,7 +64,11 @@ const Header = () => {
               <p className={styles["header__nickname"]}>{userMe.nickname}<span>님</span></p>
               <p className={styles["header__email"]}>{userMe.email}</p>
             </div>
-            {profileModal && <ProfileModal userMe={userMe} />}
+          </div>
+        )}
+        {profileModal && (
+          <div className={styles["header__profile-modal"]} ref={modalRef}>
+            <ProfileModal userMe={userMe} setUserMe={setUserMe} />
           </div>
         )}
         {!userMe && (
@@ -51,7 +83,7 @@ const Header = () => {
         )}
       </div>
       <div className={styles["header__navbar"]}>
-        <NavBar viewPort={viewport} />
+        <NavBar />
       </div>
     </div>
   );

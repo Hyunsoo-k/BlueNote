@@ -23,8 +23,8 @@ const NoticePage = ({ subCategory, page, initialResponse }: ServerSideProps) => 
   return (
     <div className={styles["notice-page"]}>
       <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <PostList mainCategory={mainCategory} response={response} />
-      <Pagination subCategory={subCategory} page={page} response={response} />
+      <PostList postList={response.postList} />
+      <Pagination subCategory={subCategory} data={response} />
     </div>
   );
 };

@@ -1,11 +1,8 @@
 @use "@/styles/variables.scss" as *;
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap");
-//font-family: "Varela Round", sans-serif;
 @import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
 //font-family: "Metrophobic", sans-serif;
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
-//모바일 드롭다운 카테고리 하위 폰트
 
 .profile-modal {
   z-index: 999;
@@ -15,7 +12,7 @@
   display: flex;
   flex-direction: column;
   width: 270px;
-  height: 392px;
+  height: 405px;
   padding: 0 30px;
   border-radius: 4px;
   background-color: #fff;
@@ -56,7 +53,7 @@
   .profile-modal__content {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 15px;
     margin: 20px 0 10px 0;
     padding: 20px 10px 10px 10px;
     border-top: 1px solid #DEDEDE;
@@ -68,26 +65,11 @@
       font-size: 15px;
       font-family: "Noto Sans KR", sans-serif;
       color: $gray-color-300;
-    }
-  }
 
-  button {
-    width: 100%;
-    height: 38px;
-    margin: 0 auto;
-    border: none;
-    border-radius: 4px;
-    background-color: #bbbbbb;
-    letter-spacing: 1px;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: "Metrophobic", sans-serif;
-    color: #fff;
-
-    &:hover {
-      cursor: pointer;
-      background-color: $sub-color;
-      color: #fff;
+      &:hover {
+        cursor: pointer;
+        color: $sub-color;
+      }
     }
   }
 }
