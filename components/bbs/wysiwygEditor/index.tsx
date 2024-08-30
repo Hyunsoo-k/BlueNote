@@ -1,25 +1,34 @@
-import dynamic from "next/dynamic";
-import React, { useRef, forwardRef } from "react";
+import React from 'react';
+import { Editor } from '@toast-ui/react-editor';
 
-import "@toast-ui/editor/dist/toastui-editor.css";
+import '@toast-ui/editor/dist/toastui-editor.css';
 
-const Editor = dynamic(() => import("@toast-ui/react-editor").then((mod) => mod.Editor), { ssr: false });
+interface Props {
+  editorRef: React.RefObject<Editor>;
+}
 
-const WysiwygEditor = forwardRef((props, ref) => {
+const WysiwygEditor = ({ editorRef }: Props) => {
+  const toolbarItems = [
+    ['heading', 'bold'],
+    ['hr', 'quote'],
+    [],
+    ['image', 'link'],
+    [],
+    ['scrollSync'],
+  ]
 
   return (
-    <>
-      <Editor
-        ref={ref}
-        height="400px"
-        initialEditType="wysiwyg"
-        previewStyle="vertical"
-        initialValue="내용을 입력해주세요"
-        hideModeSwitch={true}
-        useCommandShortcut={true}
-      />
-    </>
+    <Editor
+      ref={editorRef}
+      initialValue=" "
+      previewStyle="vertical"
+      height="450px"
+      initialEditType="wysiwyg"
+      useCommandShortcut
+      toolbarItems={toolbarItems}
+      hideModeSwitch={true}
+    />
   );
-});
+};
 
 export default WysiwygEditor;

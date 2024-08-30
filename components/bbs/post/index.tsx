@@ -5,13 +5,13 @@ import Comment from "../comment";
 
 import styles from "./index.module.scss";
 
-interface BoardPostProps {
+interface Props {
   mainCategory: MainCategory;
   post_id: string;
   post: PostType;
 }
 
-const Post = ({ mainCategory, post_id, post }: BoardPostProps) => {
+const Post = ({ mainCategory, post_id, post }: Props) => {
   const createdAt = formatYMD(post.createdAt);
 
   return (

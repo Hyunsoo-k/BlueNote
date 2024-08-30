@@ -5,14 +5,14 @@ import { subCategoryListMap, subCategoryUrlMap } from "@/variable";
 
 import styles from "./index.module.scss";
 
-interface BbsHeaderProps {
+interface Props {
   mainCategory: MainCategory;
   subCategory?: string;
   page?: string;
   response?: any;
 }
 
-const BbsHeader = ({ mainCategory, subCategory, response }: BbsHeaderProps) => {
+const BbsHeader = ({ mainCategory, subCategory, response }: Props) => {
   const router = useRouter();
   const subCategoryList = subCategoryListMap[mainCategory];
 

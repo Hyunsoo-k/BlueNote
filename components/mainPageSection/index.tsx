@@ -6,7 +6,14 @@ import { CiSearch } from "react-icons/ci"; //돋보기
 
 import styles from "./index.module.scss";
 
-const MainPageSection = ({ viewPort, category, detail, data }: any) => {
+interface Props {
+  viewPort: any;
+  category: any;
+  detail: any;
+  data: any;
+}
+
+const MainPageSection = ({ viewPort, category, detail, data }: Props) => {
   const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";

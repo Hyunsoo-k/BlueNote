@@ -1,18 +1,30 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { LuUser2 } from "react-icons/lu";
-import { SlNotebook } from "react-icons/sl";
+import { IoDocumentOutline } from "react-icons/io5";
+import { IoCalendarNumberOutline } from "react-icons/io5";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 import { removeCookie } from "@/cookie";
 
 import styles from "./index.module.scss";
 
-const ProfileModal = ({ userMe }: any) => {
+interface Props {
+  userMe: any;
+  setUserMe: any;
+}
+
+const ProfileModal = ({ userMe, setUserMe }: Props) => {
   const router = useRouter();
+
+  const navigate = (destination: string) => {
+    return router.push(`/myPage/${destination}`)
+  }
 
   const logout = () => {
     removeCookie("accessToken");
-    location.reload();
+    setUserMe(null);
+    return router.push("/");
   }
 
   return (
@@ -29,10 +41,11 @@ const ProfileModal = ({ userMe }: any) => {
         <p>{userMe.email}</p>
       </div>
       <div className={styles["profile-modal__content"]}>
-        <p><LuUser2 size={20} style={{ marginRight: "10px" }} />내 정보</p>
-        <p><SlNotebook size={20} style={{ marginRight: "10px" }} />내가 쓴 글</p>
+        <p onClick={() => navigate("user")}><LuUser2 size={20} style={{ marginRight: "10px" }} />내 정보</p>
+        <p onClick={() => navigate("myPost")}><IoDocumentOutline size={20} style={{ marginRight: "10px" }} />내가 쓴 글</p>
+        <p onClick={() => navigate("schedule")}><IoCalendarNumberOutline size={20} style={{ marginRight: "10px" }} />내 일정</p>
+        <p onClick={logout}><RiLogoutBoxLine size={20} style={{ marginRight: "10px" }} />로그아웃</p>
       </div>
-      <button onClick={logout}>Logout</button>
     </div>
   );
 };

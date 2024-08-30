@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 
-import { mainCtg } from "@/variable";
+import { mainCategory } from "@/variable";
+import { ViewportContext } from "@/contexts/viewport";
 import styles from "./index.module.scss";
 
-const NavBar = ({ viewPort }: any) => {
+const NavBar = () => {
   const router = useRouter();
+
+  const { viewport, setViewport } = useContext(ViewportContext);
 
   const handleClick = (key: string) => router.push(`/bbs/${key}`);
 
   return (
     <div className={styles["navbar"]}>
-      {(viewPort === "tablet" || viewPort === "desktop") && (
+      {(viewport === "tablet" || viewport === "desktop") && (
         <div className={styles["navbar__menu"]}>
-          {mainCtg.map(({ main, label }, index) => (
+          {mainCategory.map(({ main, label }, index) => (
             <p
               key={index}
               onClick={() => handleClick(main)}

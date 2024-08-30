@@ -23,8 +23,8 @@ const BoardPage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
   return (
     <div className={styles["board-page"]}>
       <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <PostList mainCategory={mainCategory} response={response} />
-      <Pagination subCategory={subCategory} page={page} response={response} />
+      <PostList postList={response.postList} />
+      <Pagination subCategory={subCategory} data={response} />
     </div>
   );
 };
@@ -33,13 +33,13 @@ export default BoardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data } = await instance.get(`${resolvedUrl}`);
+  const { data: initialResponse } = await instance.get(`${resolvedUrl}`);
 
   return {
     props: {
       subCategory: query.subCategory || "All",
       page: query.page || "1",
-      initialResponse: data
-    },
+      initialResponse
+    }
   };
 };

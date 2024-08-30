@@ -22,7 +22,7 @@ const NewsPage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
   return (
     <div className={styles["news-page"]}>
       <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <Thumbnail mainCategory={mainCategory} response={response} />
+      <Thumbnail postList={response.postList} />
     </div>
   );
 };
