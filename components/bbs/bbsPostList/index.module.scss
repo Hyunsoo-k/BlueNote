@@ -2,24 +2,26 @@
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
 
-.post-list {
+.bbs-post-list {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
 
-  .post-list__header {
+  .bbs-post-list__header {
+    list-style-type: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 50px;
+    margin: 0;
     padding: 10px 0 10px 0;
     border-top: 1px solid $gray-color-100;
     border-bottom: 1px solid $gray-color-100;
 
 
-    .post-list__division {
+    .bbs-post-list__division {
       white-space: nowrap;
       width: 8%;
       margin: 0;
@@ -32,36 +34,38 @@
       font-family: "Noto Sans KR", sans-serif;
     }
 
-    .post-list__division:nth-child(3) {
+    .bbs-post-list__division:nth-child(3) {
       width: 45%;
       text-align: center;
       padding-left: 0;
     }
-    .post-list__division:nth-child(4) {
+    .bbs-post-list__division:nth-child(4) {
       width: 12%;
     }
-    .post-list__division:nth-child(5) {
+    .bbs-post-list__division:nth-child(5) {
       width: 11%;
       padding-left: 0;
       text-align: center;
     }
-    .post-list__division:nth-child(6) {
+    .bbs-post-list__division:nth-child(6) {
       padding-left: 0;
       text-align: center;
     }
-    .post-list__division:nth-child(7) {
+    .bbs-post-list__division:nth-child(7) {
 
       padding-left: 0;
       text-align: center;
     }
   }
 
-  .post-list__element {
+  .bbs-post-list__element {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 40px;
+    padding: 0;
+    margin: 0;
     border-bottom: 1px solid $gray-color-100;
 
     &:hover {
@@ -69,18 +73,24 @@
       background-color: rgb(226, 226, 226);
     }
 
-    p {
+    li {
       overflow: hidden;
       width: 8%;
       margin: 0;
       padding-left: 10px;
+      list-style-type: none;
       white-space: nowrap;
       text-overflow: ellipsis;
       font-size: 14px;
       font-family: "Noto Sans KR", sans-serif;
     }
 
-    p:nth-child(3) {
+    .bbs-post-list__writer {
+      font-weight: 500;
+      color: $sub-color;
+    }
+
+    li:nth-child(3) {
       width: 45%;
 
       span {
@@ -92,21 +102,19 @@
         color: $sub-color;
       }
     }
-    p:nth-child(4) {
+    li:nth-child(4) {
       width: 12%;
-      font-weight: 500;
-      color: $sub-color;
     }
-    p:nth-child(5) {
+    li:nth-child(5) {
       width: 11%;
       padding-left: 0;
       text-align: center;
     }
-    p:nth-child(6) {
+    li:nth-child(6) {
       padding-left: 0;
       text-align: center;
     }
-    p:nth-child(7) {
+    li:nth-child(7) {
       padding-left: 0;
       text-align: center;
       font-weight: 500;

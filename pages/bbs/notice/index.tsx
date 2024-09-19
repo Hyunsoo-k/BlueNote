@@ -1,30 +1,40 @@
 import { GetServerSideProps } from "next";
 
-import { SubCategory } from "@/types/categorys";
-import { PostList as PostListType } from "@/types/postList";
 import { instance } from "@/axios";
 import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import PostList from "@/components/bbs/postList";
+import BbsPostList from "@/components/bbs/bbsPostList";
 import Pagination from "@/components/pagination";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  subCategory: SubCategory,
-  page: string,
-  initialResponse: any
+  initialPostList: any;
 }
 
-const NoticePage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
-  const mainCategory = "notice";
-  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
+const NoticePage = ({ initialPostList }: ServerSideProps) => {
+  const {
+    data: {
+      mainCategory, 
+      subCategory,
+      postList,
+      totalPostCount,
+      page,
+      totalPageCount
+    }
+  } = useGetPostList(initialPostList);
 
   return (
     <div className={styles["notice-page"]}>
-      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <PostList postList={response.postList} />
-      <Pagination subCategory={subCategory} data={response} />
+      <BbsHeader
+        mainCategory={mainCategory}
+        subCategory={subCategory}
+        totalPostCount={totalPostCount}
+        page={page}
+        totalPageCount={totalPageCount}
+        />
+      <BbsPostList postList={postList} />
+      <Pagination subCategory={subCategory} page={page} totalPageCount={totalPageCount} />
     </div>
   );
 };
@@ -33,13 +43,13 @@ export default NoticePage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data } = await instance.get(`${resolvedUrl}`);
+  const { data: initialPostList } = await instance.get(resolvedUrl);
 
   return {
     props: {
       subCategory: query.subCategory || "All",
       page: query.page || "1",
-      initialResponse: data
-    },
+      initialPostList
+    }
   };
 };

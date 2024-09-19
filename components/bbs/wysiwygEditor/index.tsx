@@ -5,9 +5,10 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 
 interface Props {
   editorRef: React.RefObject<Editor>;
+  initialContent?: any;
 }
 
-const WysiwygEditor = ({ editorRef }: Props) => {
+const WysiwygEditor = ({ editorRef, initialContent }: Props) => {
   const toolbarItems = [
     ['heading', 'bold'],
     ['hr', 'quote'],
@@ -20,9 +21,9 @@ const WysiwygEditor = ({ editorRef }: Props) => {
   return (
     <Editor
       ref={editorRef}
-      initialValue=" "
+      initialValue={initialContent || " "}
       previewStyle="vertical"
-      height="450px"
+      height="500px"
       initialEditType="wysiwyg"
       useCommandShortcut
       toolbarItems={toolbarItems}

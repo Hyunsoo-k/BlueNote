@@ -4,6 +4,7 @@
 //font-family: 'Noto Sans KR', sans-serif;
 
 .thumbnail {
+  position: relative;
   display: grid;
   grid-template: auto auto auto auto / 24% 24% 24% 24%;
   justify-content: space-between;
@@ -68,6 +69,25 @@
         font-family: "Noto Sans KR", sans-serif;
         color: rgb(114, 114, 114);
       }
+    }
+  }
+
+  button {
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    bottom: -77px;
+    width: 90px;
+    height: 40px;
+    background-color: $main-color;
+    border: none;
+    border-radius: 4px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $sub-color;
     }
   }
 }

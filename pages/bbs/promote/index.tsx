@@ -1,30 +1,33 @@
 import { GetServerSideProps } from "next";
 
-import { SubCategory } from "@/types/categorys";
-import { PostList as PostListType } from "@/types/postList";
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import { instance } from "@/axios";
+import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import Thumbnail from "@/components/thumbnail";
-import Pagination from "@/components/pagination";
+import ThumbnailList from "@/components/thumbnailList";
 
 import styles from "./index.module.scss";
+import Pagination from "@/components/pagination";
 
-interface ServerSideProps {
-  subCategory: SubCategory,
-  page: string,
-  initialResponse: any
+interface Props {
+  initialPostList: any;
 }
 
-const PromotePage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
-  const mainCategory = "promote";
-  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
+const PromotePage = ({ initialPostList }: Props) => {
+  const {
+    data: { mainCategory, subCategory, postList, totalPostCount, page, totalPageCount },
+  } = useGetPostList(initialPostList);
 
   return (
     <div className={styles["promote-page"]}>
-      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <Thumbnail postList={response.postList} />
-      <Pagination subCategory={subCategory} data={response} />
+      <BbsHeader
+        mainCategory={mainCategory}
+        subCategory={subCategory}
+        totalPostCount={totalPostCount}
+        page={page}
+        totalPageCount={totalPageCount}
+      />
+      <ThumbnailList postList={postList} />
+      <Pagination subCategory={subCategory} page={page} totalPageCount={totalPageCount}/>
     </div>
   );
 };
@@ -33,13 +36,13 @@ export default PromotePage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data } = await instance.get(`${resolvedUrl}`);
+  const { data: initialPostList } = await instance.get(resolvedUrl);
 
   return {
     props: {
       subCategory: query.subCategory || "All",
       page: query.page || "1",
-      initialResponse: data
+      initialPostList,
     },
   };
 };

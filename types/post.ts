@@ -23,7 +23,7 @@ interface Post {
     content: string;
     views: number;
     recommend: number;
-    comment: Comment[];
+    commentList: Comment[];
     createdAt: string;
     updatedAt: string;
     __v: number;

@@ -24,7 +24,7 @@
     padding: 0;
   }
 
-  .MainPageSection__category {
+  .MainPageSection__main-category {
     width: 110px;
     margin: 0;
     padding: 10px;
@@ -43,9 +43,11 @@
     flex-direction: column;
     width: 100%;
 
-    .MainPageSection__list__element {
+    .MainPageSection__element {
+      list-style-type: none;
       display: flex;
       gap: 5px;
+      margin: 0;
       padding: 9px 10px 5px 10px;
       align-items: center;
       border-bottom: 1px solid rgb(170, 166, 166);
@@ -53,19 +55,23 @@
       &:hover {
         &:hover {
           cursor: pointer;
-          background-color: rgb(209, 208, 208);
+          background-color: rgb(226, 226, 226);
         }
       }
 
-      .MainPageSection__list__element__category-detail {
+      .MainPageSection__sub-category {
+        overflow: hidden;
         flex-shrink: 0;
+        min-width: 30px;
         margin: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         font-size: 16px;
         font-family: "Noto Sans KR", sans-serif;
         color: $gray-color-300;
       }
 
-      .MainPageSection__list__element__title {
+      .MainPageSection__title {
         overflow: hidden;
         flex-shrink: 0;
         margin: 0;
@@ -75,7 +81,7 @@
         color: $main-color;
       }
 
-      .MainPageSection__list__element__explan {
+      .MainPageSection__content {
         overflow: hidden;
         margin: 0;
         padding-left: 10px;

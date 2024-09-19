@@ -1,20 +1,5 @@
-@use "@/styles/variables.scss" as *;
-//font-family: "Open Sans", sans-serif;
-@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
-//font-family: 'Noto Sans KR', sans-serif;
-
 .news-page {
   max-width: 1150px;
   margin: 0 auto;
   padding: 40px 20px 20px 20px;
-
-  .show-more-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }

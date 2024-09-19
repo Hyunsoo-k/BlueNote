@@ -11,20 +11,14 @@ import styles from "./index.module.scss";
 
 interface Props {
   userMe: any;
-  setUserMe: any;
 }
 
-const ProfileModal = ({ userMe, setUserMe }: Props) => {
+const ProfileModal = ({ userMe }: Props) => {
   const router = useRouter();
-
-  const navigate = (destination: string) => {
-    return router.push(`/myPage/${destination}`)
-  }
 
   const logout = () => {
     removeCookie("accessToken");
-    setUserMe(null);
-    return router.push("/");
+    window.location.replace("/");
   }
 
   return (
@@ -33,7 +27,7 @@ const ProfileModal = ({ userMe, setUserMe }: Props) => {
         <Image
           width={120}
           height={120}
-          src="/images/carousel/playing-trumpet.png"
+          src={userMe.profileImage.url || "/images/user/default-profile.png"}
           alt=""
           style={{ top: "30px", borderRadius: "50%" }}
         />
@@ -41,9 +35,9 @@ const ProfileModal = ({ userMe, setUserMe }: Props) => {
         <p>{userMe.email}</p>
       </div>
       <div className={styles["profile-modal__content"]}>
-        <p onClick={() => navigate("user")}><LuUser2 size={20} style={{ marginRight: "10px" }} />내 정보</p>
-        <p onClick={() => navigate("myPost")}><IoDocumentOutline size={20} style={{ marginRight: "10px" }} />내가 쓴 글</p>
-        <p onClick={() => navigate("schedule")}><IoCalendarNumberOutline size={20} style={{ marginRight: "10px" }} />내 일정</p>
+        <p onClick={() => router.push("/myPage/user")}><LuUser2 size={20} style={{ marginRight: "10px" }} />내 정보</p>
+        <p onClick={() => router.push("/myPage/myPost")}><IoDocumentOutline size={20} style={{ marginRight: "10px" }} />내가 쓴 글</p>
+        <p onClick={() => router.push("/myPage/schedule")}><IoCalendarNumberOutline size={20} style={{ marginRight: "10px" }} />내 일정</p>
         <p onClick={logout}><RiLogoutBoxLine size={20} style={{ marginRight: "10px" }} />로그아웃</p>
       </div>
     </div>

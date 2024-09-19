@@ -1,9 +1,13 @@
 import React, { createContext, useState, Dispatch, SetStateAction } from "react";
 
 interface UserMe {
-  email: string,
-  nickname: string,
-  role: number
+  _id: string;
+  email: string;
+  nickname: string;
+  profileImageUrl: null | string;
+  createdAt: string;
+  part: string;
+  role: 0 | 1;
 }
 
 interface UserMeContextType {

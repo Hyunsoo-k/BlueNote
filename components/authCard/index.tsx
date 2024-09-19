@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -13,28 +14,24 @@ import CheckPassword from "../input/check-password";
 
 import styles from "./index.module.scss";
 
-// 운영자 ID : bluenote@bluenote.com
-// 운영자 PW : admin56036
+const AlertModal = dynamic(() => import("../modal/alertModal"), { ssr: false });
 
 interface CurrentForm {
-  initial: boolean,
-  form: "signIn" | "signUp"
+  initial: boolean;
+  form: "signIn" | "signUp";
 }
 
 const AuthCard = () => {
   const router = useRouter();
+  const [alertModal, setAlertModal] = useState({
+    show: false,
+    message: "",
+    handleClick: null,
+  });
   const [currentForm, setCurrentForm] = useState<CurrentForm>({
     initial: true,
     form: "signIn",
   });
-
-  const currentFormHandler = () => {
-    setCurrentForm((prev) => ({
-      ...prev,
-      initial: false,
-      form: prev.form === "signIn" ? "signUp" : "signIn",
-    }));
-  };
 
   useEffect(() => {
     setCurrentForm((prev: CurrentForm) => ({ ...prev, form: router.query.initial as "signIn" | "signUp" }));
@@ -42,52 +39,72 @@ const AuthCard = () => {
 
   const formTools = useForm({ mode: "onChange" });
 
-  const signInHandler = useSignIn();
-  const signUpHandler = useSignUp();
+  const currentFormHandler = () => {
+    formTools.reset();
+    setCurrentForm((prev) => ({
+      ...prev,
+      initial: false,
+      form: prev.form === "signIn" ? "signUp" : "signIn",
+    }));
+  };
+
+  const signInMutation = useSignIn(setAlertModal);
+  const signUpMutation = useSignUp(setAlertModal, currentFormHandler);
 
   const submitHandler = {
-    onSubmit: (data: any) => {
-      currentForm.form === "signIn" ? signInHandler.mutate(data) : signUpHandler.mutate(data);
+    onSubmit: (formData: any) => {
+      const requestBody = { ...formData };
+
+      currentForm.form === "signIn"
+        ? signInMutation.mutate(requestBody)
+        : signUpMutation.mutate(requestBody);
     },
-    onError: (e: any) => {
-      console.log(e);
+    onError: (error: any) => {
+      console.error(error);
     },
   };
-  
+
   const formImg = ["/images/carousel/playing-trumpet.png", "/images/auth/saxophone.png"];
 
   return (
     <div className={styles["auth-card"]}>
       {formImg.map((item: string, index: number) => (
         <div className={styles["auth-card__section"]} key={index}>
-          <p>
+          <p className={styles["auth-card__title"]}>
             Blue Note
-            <PiVinylRecordFill size={30} style={{ position: "relative", top: "5px", left: "5px" }} />
+            <span>
+              <PiVinylRecordFill size={30} style={{ position: "relative", top: "5px", left: "5px" }} />
+            </span>
           </p>
-          <p>community for jazz musicians</p>
-          <div className={styles["img"]}>
+          <p className={styles["auth-card__sub-title"]}>community for jazz musicians</p>
+          <div className={styles["auth-card__img"]}>
             <Image src={formImg[index]} fill alt="" />
           </div>
-          <p>{item === "signIn" ? "have an account?" : "don't have an account?"}</p>
-          <p onClick={currentFormHandler}>{item === "signIn" ? "Login" : "Sign Up"}</p>
+          <p className={styles["auto-card__ask"]}>{index ? "don't have an account?" : "have an account?"}</p>
+          <button onClick={currentFormHandler} className={styles["auth-card__switch-btn"]}>
+            {item === "signIn" ? "Login" : "Sign Up"}
+          </button>
         </div>
       ))}
       <FormProvider {...formTools}>
         <form
           onSubmit={formTools.handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
-          className={styles[`auth-card__${currentForm.form}`]}
+          className={styles[`auth-card__${currentForm.form}-form`]}
           style={currentForm.initial ? { animationName: "none" } : {}}
         >
-          <p>{currentForm.form === "signIn" ? "Login" : "Sign Up"}</p>
-          <div className={styles["auth-card__input-box"]}>
+          <p className={styles["auth-card__current-form"]}>{currentForm.form === "signIn" ? "Login" : "Sign Up"}</p>
+          <div className={styles["auth-card__input-list"]}>
             <Email />
             {currentForm.form === "signUp" && <Nickname />}
             <Password />
             {currentForm.form === "signUp" && <CheckPassword />}
-            <button className={styles["btn"]}>{currentForm.form === "signIn" ? "Login" : "Sign Up"}</button>
+            <button className={styles["auth-card__submit-btn"]}>
+              {currentForm.form === "signIn" ? "Login" : "Sign Up"}
+            </button>
           </div>
         </form>
       </FormProvider>
+      {alertModal.show && <AlertModal message={alertModal.message} handleClick={alertModal.handleClick} />}
     </div>
   );
 };

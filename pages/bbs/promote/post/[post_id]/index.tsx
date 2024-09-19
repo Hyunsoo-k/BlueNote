@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { useGetPost } from "@/hooks/bbs/useGetPost";
 import { instance } from "@/axios";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import BoardPost from "@/components/bbs/post";
+import BoardPost from "@/components/bbs/bbsPost";
 
 import styles from "./index.module.scss";
 
@@ -28,13 +28,13 @@ export default PromotePostPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl, params } = context;
-  
+
   const { data: initialResponse } = await instance.get(`${resolvedUrl}`);
 
   return {
     props: {
       post_id: params?.post_id,
-      initialResponse
+      initialResponse,
     },
   };
 };

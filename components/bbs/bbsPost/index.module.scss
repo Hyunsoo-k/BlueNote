@@ -2,34 +2,42 @@
 @import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
 //font-family: 'Noto Sans KR', sans-serif;
 //모바일 드롭다운 카테고리 하위 폰트
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
 
-.board-post {
+.bbs-post {
   max-width: 1150px;
   margin: 0 auto;
   padding: 10px 0 10px 0;
 
-  .board-post__header {
+  .bbs-post__header {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid $gray-color-100;
 
-    .board-post__title {
+    .bbs-post__title {
       margin: 10px 0 5px;
       font-size: 20px;
       font-family: "Noto Sans KR", sans-serif;
     }
 
-    .board-post__details {
+    .bbs-post__details {
       display: flex;
       justify-content: space-between;
       font-family: "Noto Sans KR", sans-serif;
 
-      .board-post__writing-info {
+      .bbs-post__writing-info {
+        list-style-type: none;
         display: flex;
         justify-content: space-between;
         width: 380px;
+        padding: 0;
 
-        p {
+        li {
           font-size: 15px;
           color: $gray-color-300;
         }
@@ -40,24 +48,26 @@
         }
       }
 
-      .board-post__state-info {
+      .bbs-post__state-info {
+        list-style-type: none;
         display: flex;
         justify-content: space-between;
+        padding: 0;
         font-size: 15px;
 
-        p {
+        li {
           color: $gray-color-300;
         }
 
-        .board-post__views {
+        .bbs-post__views {
           width: 90px;
         }
 
-        .board-post__recommend {
+        .bbs-post__recommend {
           width: 60px;
         }
         
-        .board-post__comment {
+        .bbs-post__comment {
           width: 70px;
         }
 
@@ -70,9 +80,13 @@
     }
   }
 
-  .board-post__content {
+  .bbs-post__content {
     min-height: 500px;
     padding-top: 40px;
     font-family: "Noto Sans KR", sans-serif;
+  }
+
+  .bbs-post__manage-btn {
+    position: relative;
   }
 }

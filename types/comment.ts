@@ -1,5 +1,5 @@
 interface Comment {
-  writer: string;
+  writer: any;
   content: string;
   _id: string;
   createdAt: string;

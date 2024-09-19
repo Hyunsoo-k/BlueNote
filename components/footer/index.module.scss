@@ -19,23 +19,29 @@
   }
 
   .footer__top-section {
+    list-style-type: none;
     display: flex;
     justify-content: space-between;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    padding: 0;
 
     @include tablet {
       margin: 5px auto 0;
     }
     
-    p {
+    .footer__link {
+      text-decoration: none;
       margin: 0;
       font-size: 13px;
       font-family: 'Noto Sans KR', sans-serif;
+      color: black;
 
       &:hover {
+        text-decoration: none;
         cursor: pointer;
+        color: $sub-color;
       }
     }
   }
