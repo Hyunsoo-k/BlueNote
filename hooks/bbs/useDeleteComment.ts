@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Post } from "@/types/post";
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
+import { queryKey } from "@/queryKey";
 
 const deleteCommentFn = async (post: Post, comment_id: string) => {
   const response = await instance.delete(`/bbs/${post.mainCategory}/${post._id}/comment/${comment_id}`);

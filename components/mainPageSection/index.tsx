@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LuMegaphone } from "react-icons/lu"; // 공지
 import { TbNews } from "react-icons/tb"; // 국내
@@ -15,9 +16,11 @@ import styles from "./index.module.scss";
 
 interface Props {
   postsData: any;
+  itemCount: number;
 }
 
-const MainPageSection = ({ postsData }: Props) => {
+const MainPageSection = ({ postsData, itemCount }: Props) => {
+  const router = useRouter();
   const { mainCategory, postList } = postsData;
   const [parsedPostList, setParsedPostList] = useState<any[]>([]);
 
@@ -48,14 +51,20 @@ const MainPageSection = ({ postsData }: Props) => {
 
   return (
     <div className={styles["MainPageSection"]}>
-      <div className={styles["MainPageSection__main-category"]}>{mainCategory}</div>
+      <p onClick={() => router.push(`/bbs/${mainCategory}`)} className={styles["MainPageSection__main-category"]}>
+        {mainCategory}
+      </p>
       <div className={styles["MainPageSection__list"]}>
         {parsedPostList.map((post: any, index: number) => {
           const IconComponent = iconMap[post.subCategory];
 
           return (
-            index < 4 && (
-              <ul className={styles["MainPageSection__element"]} key={index}>
+            index < itemCount && (
+              <ul
+                onClick={() => router.push(`/bbs/${mainCategory}/post/${post._id}`)}
+                className={styles["MainPageSection__element"]}
+                key={index}
+              >
                 <li className={styles["MainPageSection__sub-category"]}>{post.subCategory}</li>
                 <IconComponent size={17} style={{ flexShrink: 0 }} />
                 <li className={styles["MainPageSection__title"]}>{post.title}</li>

@@ -5,11 +5,10 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
-  key: number;
+  index: number;
 }
 
-const Thumbnail = ({ element, key }: Props) => {
-  console.log(element)
+const DetachedThumbnail = ({ element, index }: Props) => {
   const router = useRouter();
   const [textContent, setTextContent] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -24,30 +23,28 @@ const Thumbnail = ({ element, key }: Props) => {
 
   return (
     <div
-      key={key}
+      key={index}
       onClick={() => {
         router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
       }}
-      className={styles["thumbnail"]}
+      className={styles["detached-thumbnail"]}
     >
-      {/* <div
-        className={styles["thumbnail__bg"]}
+      <div
+        className={styles["detached-thumbnail__back-ground"]}
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url(${
-            imageUrl || "/images/no-image.png"
-          })`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url(${imageUrl || "/images/no-image.png"})`,
         }}
       >
-        <p className={styles["thumbnail__info"]}>
+        <p className={styles["detached-thumbnail__info"]}>
           <span>{element.subCategory}</span> | {element.createdAt.split("T")[0]}
         </p>
       </div>
-      <div className={styles["thumbnail__description"]}>
-        <p className={styles["thumbnail__title"]}>{element.title}</p>
-        <p className={styles["thumbnail__content"]}>{textContent}</p>
-      </div> */}
+      <div className={styles["detached-thumbnail__description"]}>
+        <p className={styles["detached-thumbnail__title"]}>{element.title}</p>
+        <p className={styles["detached-thumbnail__content"]}>{textContent}</p>
+      </div>
     </div>
   );
 };
 
-export default Thumbnail;
+export default DetachedThumbnail;

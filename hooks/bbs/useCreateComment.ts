@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Post } from "@/types/post";
 import { MainCategory } from "@/types/categorys";
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
+import { queryKey } from "@/queryKey";
 
 const createCommentFn = async (mainCategory: MainCategory, post_id: string, requestBody: any) => {
   const response = await instance.post(`/bbs/${mainCategory}/${post_id}/comment`, requestBody);

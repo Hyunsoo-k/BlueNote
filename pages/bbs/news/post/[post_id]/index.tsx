@@ -27,6 +27,7 @@ export default NewsPostPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl, params } = context;
 
+  await instance.post(`${resolvedUrl}/views`);
   const { data: initialPost } = await instance.get(`${resolvedUrl}`);
 
   return {

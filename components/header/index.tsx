@@ -23,24 +23,25 @@ const Header = () => {
       setProfileModal((prev) => ({ ...prev, show: false }));
     };
 
-    const handleClickOustSide = (e: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (
         profileModal.show &&
-        profileModal.ref.current &&
-        !profileModal.ref.current.contains(e.target as Node)
+        profileModal.ref.current !== e.target as Node &&
+        !profileModal.ref.current?.contains(e.target as Node)
       ) {
-        setProfileModal((prev: any) => ({ ...prev, show: false }));
+        setProfileModal((prev) => ({ ...prev, show: false }));
+        console.log("done")
       }
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
-    window.addEventListener("mousedown", handleClickOustSide);
+    window.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
-      window.removeEventListener("mousedown", handleClickOustSide);
+      window.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [profileModal.show]);
 
   return (
     <div className={styles["header"]}>
@@ -54,9 +55,9 @@ const Header = () => {
         )}
         {userMe && (
           <div
-            onClick={(e: any) => {
+            onMouseDown={(e: any) => {
               e.stopPropagation();
-              setProfileModal((prev) => ({ ...prev, show: !prev.show }));
+              setProfileModal((prev) => ({ ...prev, show: !profileModal.show }));
             }}
             className={styles["header__profile"]}
           >
@@ -76,11 +77,7 @@ const Header = () => {
             </div>
           </div>
         )}
-        {profileModal.show && userMe && (
-          <div className={styles["header__profile-modal"]} ref={profileModal.ref}>
-            <ProfileModal userMe={userMe} />
-          </div>
-        )}
+        {profileModal.show && <ProfileModal userMe={userMe} ref={profileModal.ref} />}
       </div>
       <div className={styles["header__navbar"]}>
         <NavBar />

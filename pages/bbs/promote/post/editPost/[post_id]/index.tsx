@@ -1,8 +1,8 @@
-import EditPost from "@/components/bbs/editPost";
 import { GetServerSideProps } from "next";
 
 import { instance } from "@/axios";
 import { useGetPost } from "@/hooks/bbs/useGetPost";
+import EditPost from "@/components/bbs/editPost";
 
 import styles from "./index.module.scss";
 
@@ -10,17 +10,17 @@ interface Props {
   initialPost: any;
 }
 
-const BoardPostEditPage = ({ initialPost }: Props) => {
+const PromotePostEditPage = ({ initialPost }: Props) => {
   const { data: post } = useGetPost(initialPost);
 
   return (
-    <div className={styles["board-post-edit-page"]}>
+    <div className={styles["promote-post-edit-page"]}>
       <EditPost post={post} />
     </div>
   );
 };
 
-export default BoardPostEditPage;
+export default PromotePostEditPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl } = context;

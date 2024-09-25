@@ -61,6 +61,7 @@
         }
 
         .create-post__sub-category {
+          padding-right: 3px;
           color: $gray-color-300;
           &:hover {
             cursor: pointer;
@@ -68,6 +69,7 @@
         }
 
         .create-post__sub-category--selected {
+          padding-right: 3px;
           color: $sub-color;
           &:hover {
             cursor: pointer;

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { MainCategory } from "@/types/categorys";
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
+import { queryKey } from "@/queryKey";
 
 const getPostFn = async (mainCategory: MainCategory, post_id: string) => {
   const response = await instance.get(`/bbs/${mainCategory}/post/${post_id}`);

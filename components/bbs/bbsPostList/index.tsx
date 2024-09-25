@@ -23,16 +23,19 @@ const BbsPostList = ({ postList }: Props) => {
     : ["ID", "구분", "제목", "작성자", "작성일", "조회수", "추천"];
 
   return (
-    <div className={styles["bbs-post-list"]}>
-      <ul className={styles["bbs-post-list__header"]}>
-        {colums.map((value: string, index: number) => (
-          <li key={index} className={styles["bbs-post-list__division"]}>
-            {value}
-          </li>
-        ))}
-      </ul>
+    <table className={styles["bbs-post-list"]}>
+      <thead className={styles["bbs-post-list__header"]}>
+        <tr className={styles["bbs-post-list__header-row"]}>
+          {colums.map((value: string, index: number) => (
+            <td key={index} className={styles["bbs-post-list__division"]}>
+              {value}
+            </td>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
       {postList.map((post: Post, index: number) => (
-        <ul
+        <tr
           key={index}
           onClick={(e) => {
             e.preventDefault();
@@ -40,18 +43,19 @@ const BbsPostList = ({ postList }: Props) => {
           }}
           className={styles["bbs-post-list__element"]}
         >
-          <li className={styles["bbs-post-list__id"]}>{index + 1}</li>
-          <li className={styles["bbs-post-list__sub-category"]}>{post.subCategory}</li>
-          <li className={styles["bbs-post-list__title"]}>
+          <td className={styles["bbs-post-list__id"]}>{index + 1}</td>
+          <td className={styles["bbs-post-list__sub-category"]}>{post.subCategory}</td>
+          <td className={styles["bbs-post-list__title"]}>
             {post.title}
             {post.commentList.length > 0 && <span>({post.commentList.length})</span>}
-          </li>
-          {!isMyPage && <li className={styles["bbs-post-list__writer"]}>{post.writer.nickname}</li>}
-          <li className={styles["bbs-post-list__created-at"]}>{formatYM(post.createdAt)}</li>
-          <li className={styles["bbs-post-list__views"]}>{post.views}</li>
-          <li className={styles["bbs-post-list__recommend"]}>{post.recommend}</li>
-        </ul>
+          </td>
+          {!isMyPage && <td className={styles["bbs-post-list__writer"]}>{post.writer.nickname}</td>}
+          <td className={styles["bbs-post-list__created-at"]}>{formatYM(post.createdAt)}</td>
+          <td className={styles["bbs-post-list__views"]}>{post.views}</td>
+          <td className={styles["bbs-post-list__recommend"]}>{post.recommend.length}</td>
+        </tr>
       ))}
+      </tbody>
       {userMe &&
         !isMyPage &&
         (isNoticeOrNewsPage ? (
@@ -73,7 +77,7 @@ const BbsPostList = ({ postList }: Props) => {
             글쓰기
           </button>
         ))}
-    </div>
+    </table>
   );
 };
 

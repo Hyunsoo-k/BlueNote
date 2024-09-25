@@ -1,24 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
+import { queryKey } from "@/queryKey";
 
-const getPostListFn = async (initialPostList: any) => {
-  const { mainCategory, subCategory, page } = initialPostList;
+const getPostListFn = async (initialData: any) => {
+  const { mainCategory, subCategory, page } = initialData;
 
   const response = await instance.get(`/bbs/${mainCategory}?subCategory=${subCategory}&page=${page}`);
 
   return response.data;
 };
 
-const useGetPostList = (initialPostList: any) => {
-  const { mainCategory, subCategory, page } = initialPostList;
+const useGetPostList = (initialData: any) => {
+  const { mainCategory, subCategory, page } = initialData;
 
   return (
     useQuery({
       queryKey: queryKey.postList(mainCategory, subCategory, page),
-      queryFn: () => getPostListFn(initialPostList),
-      initialData: initialPostList
+      queryFn: () => getPostListFn(initialData),
+      initialData
     })
   )
 }

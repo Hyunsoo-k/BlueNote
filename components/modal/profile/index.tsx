@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { forwardRef } from "react";
 import { LuUser2 } from "react-icons/lu";
 import { IoDocumentOutline } from "react-icons/io5";
 import { IoCalendarNumberOutline } from "react-icons/io5";
@@ -13,7 +14,7 @@ interface Props {
   userMe: any;
 }
 
-const ProfileModal = ({ userMe }: Props) => {
+const ProfileModal = forwardRef(({ userMe }: Props, ref) => {
   const router = useRouter();
 
   const logout = () => {
@@ -22,7 +23,7 @@ const ProfileModal = ({ userMe }: Props) => {
   }
 
   return (
-    <div className={styles["profile-modal"]}>
+    <div ref={ref} className={styles["profile-modal"]}>
       <div className={styles["profile-modal__header"]}>
         <Image
           width={120}
@@ -34,14 +35,14 @@ const ProfileModal = ({ userMe }: Props) => {
         <p>{userMe.nickname}<span>님</span></p>
         <p>{userMe.email}</p>
       </div>
-      <div className={styles["profile-modal__content"]}>
-        <p onClick={() => router.push("/myPage/user")}><LuUser2 size={20} style={{ marginRight: "10px" }} />내 정보</p>
-        <p onClick={() => router.push("/myPage/myPost")}><IoDocumentOutline size={20} style={{ marginRight: "10px" }} />내가 쓴 글</p>
-        <p onClick={() => router.push("/myPage/schedule")}><IoCalendarNumberOutline size={20} style={{ marginRight: "10px" }} />내 일정</p>
-        <p onClick={logout}><RiLogoutBoxLine size={20} style={{ marginRight: "10px" }} />로그아웃</p>
-      </div>
+      <ul className={styles["profile-modal__content"]}>
+        <li onClick={() => router.push("/myPage/user")}><LuUser2 size={20} style={{ marginRight: "10px" }} />내 정보</li>
+        <li onClick={() => router.push("/myPage/myPost")}><IoDocumentOutline size={20} style={{ marginRight: "10px" }} />내가 쓴 글</li>
+        <li onClick={() => router.push("/myPage/schedule")}><IoCalendarNumberOutline size={20} style={{ marginRight: "10px" }} />내 일정</li>
+        <li onClick={logout}><RiLogoutBoxLine size={20} style={{ marginRight: "10px" }} />로그아웃</li>
+      </ul>
     </div>
   );
-};
+});
 
 export default ProfileModal;

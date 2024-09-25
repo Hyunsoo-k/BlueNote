@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Post } from "@/types/post";
 import { MainCategory } from "@/types/categorys";
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
+import { queryKey } from "@/queryKey";
 
 const editCommentFn = async (mainCategory: MainCategory, post_id: string, requestData: any) => {
   const { comment_id, requestBody } = requestData;

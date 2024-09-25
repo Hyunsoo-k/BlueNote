@@ -26,6 +26,7 @@ export default JobPostPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl } = context;
+  
   await instance.post(`${resolvedUrl}/views`);
   const { data: initialPost } = await instance.get(resolvedUrl);
 

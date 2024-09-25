@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import { Post } from "@/types/post";
 import { useGetUser } from "@/hooks/auth/useGetUser";
-import Thumbnail from "./thumbnail";
+import DetachedThumbnail from "../detachedThumbnail";
 
 import styles from "./index.module.scss";
 
@@ -22,7 +22,7 @@ const ThumbnailList = ({ postList }: Props) => {
   return (
     <div className={styles["thumbnail"]}>
       {postList.map((post: Post, index: number) => (
-        <Thumbnail post={post} key={index} />
+        <DetachedThumbnail element={post} key={index} />
       ))}
       {userMe &&
         !isMyPage &&
