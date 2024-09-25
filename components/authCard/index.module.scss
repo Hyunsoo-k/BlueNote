@@ -1,0 +1,267 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+
+.auth-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 800px;
+  height: 500px;
+  margin: 90px auto 120px;
+  padding: 20px 15px 20px 15px;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+  .auth-card__section {
+    width: 45%;
+    height: 220px;
+    padding: 10px;
+
+    .auth-card__title {
+      position: relative;
+      margin: 20px 0 0;
+      text-align: center;
+      font-size: 35px;
+      font-weight: 700;
+      font-family: "Metrophobic", sans-serif;
+      color: $main-color;
+    }
+
+    .auth-card__sub-title {
+      margin: 10px 0 0;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: "Metrophobic", sans-serif;
+      color: $gray-color-200;
+    }
+
+    .auth-card__img {
+      overflow: hidden;
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 50px auto 0;
+      border-radius: 50%;
+    }
+
+    .auto-card__ask {
+      margin: 40px 0 0;
+      text-align: center;
+      font-family: "Metrophobic", sans-serif;
+      color: $gray-color-200;
+    }
+
+    .auth-card__switch-btn {
+      display: block;
+      width: 50%;
+      height: 40px;
+      margin: 17px auto 0;
+      padding: 10px;
+      text-align: center;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      background-color: $main-color;
+      color: #f6f6f6;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $gray-color-200;
+        color: #f6f6f6;
+      }
+    }
+  }
+}
+
+.auth-card__signIn-form {
+  position: absolute;
+  top: 20px;
+  left: -5%;
+  width: 110%;
+  height: 220px;
+  margin: 0 auto;
+  padding: 60px 20px 60px;
+  border-radius: 8px;
+  background-color: $sub-color;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  animation-name: auth-card__signIn__animation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+
+  @include tablet {
+    top: -20px;
+    width: 52%;
+    height: 540px;
+    animation-name: auth-card__signIn__animation__tablet;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes auth-card__signIn__animation {
+    0% {
+      top: 260px;
+      height: 330px;
+    }
+
+    100% {
+      top: 20px;
+      height: 220px;
+    }
+  }
+
+  @keyframes auth-card__signIn__animation__tablet {
+    0% {
+      left: 50%;
+    }
+
+    100% {
+      left: 0%;
+    }
+  }
+
+  .auth-card__current-form {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 28px;
+    font-family: "Metrophobic", sans-serif;
+    color: #f6f6f6;
+
+    @include tablet {
+      letter-spacing: 2px;
+      font-size: 38px;
+    }
+  }
+
+  .auth-card__input-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 100px;
+
+    @include tablet {
+      gap: 60px;
+    }
+  }
+
+  .auth-card__submit-btn {
+    width: 50%;
+    height: 25px;
+    margin: 5px auto 0;
+    border: 1px solid #f6f6f6;
+    border-radius: 4px;
+    background-color: inherit;
+    color: #f6f6f6;
+
+    @include tablet {
+      margin-top: 30px;
+      height: 40px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #f6f6f6;
+      color: $main-color;
+    }
+  }
+}
+
+.auth-card__signUp-form {
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: 110%;
+  height: 220px;
+  margin: 0 auto;
+  padding: 60px 20px 60px;
+  border-radius: 8px;
+  background-color: $sub-color;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  animation-name: auth-card__signUp__animation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+
+  @include tablet {
+    top: -20px;
+    width: 52%;
+    height: 540px;
+    animation-name: auth-card__signUp__animation__tablet;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes auth-card__signUp__animation {
+    0% {
+      top: 20px;
+      height: 220px;
+    }
+
+    100% {
+      top: 260px;
+      height: 330px;
+    }
+  }
+
+  @keyframes auth-card__signUp__animation__tablet {
+    0% {
+      left: 0%;
+    }
+
+    100% {
+      left: 50%;
+    }
+  }
+
+  .auth-card__current-form {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 28px;
+    font-family: "Metrophobic", sans-serif;
+    color: #f6f6f6;
+
+    @include tablet {
+      font-size: 38px;
+    }
+  }
+
+  .auth-card__input-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+
+    @include tablet {
+      gap: 40px;
+    }
+  }
+
+  .auth-card__submit-btn {
+    width: 50%;
+    height: 25px;
+    margin: 5px auto 0;
+    border: 1px solid #f6f6f6;
+    border-radius: 4px;
+    background-color: inherit;
+    color: #f6f6f6;
+
+    @include tablet {
+      height: 40px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #f6f6f6;
+      color: $main-color;
+    }
+  }
+}

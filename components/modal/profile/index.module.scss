@@ -1,0 +1,76 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.profile-modal {
+  z-index: 999;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  height: 405px;
+  padding: 0 30px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+  .profile-modal__header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+
+    p {
+      position: relative;
+      text-align: center;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      font-family: "Noto Sans KR", sans-serif;
+      color: $main-color;
+
+      span {
+        position: absolute;
+        right: -18px;
+        top: 2px;
+        font-size: 16px;
+        color: $gray-color-300;
+      }
+    }
+
+    p:nth-of-type(2) {
+      font-size: 15px;
+      font-weight: 400;
+      color: $gray-color-300;
+    }
+  }
+
+  .profile-modal__content {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0 10px 0;
+    padding: 20px 10px 10px 10px;
+    border-top: 1px solid #DEDEDE;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 15px;
+      font-family: "Noto Sans KR", sans-serif;
+      color: $gray-color-300;
+
+      &:hover {
+        cursor: pointer;
+        color: $sub-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.schedule-page {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 80px 20px 20px 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+
+  .schedule-page__content {
+    width: 80%;
+
+    .schedule-page__title {
+      margin: 0 0 30px 0;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .schedule__shcedule {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+  }
+}

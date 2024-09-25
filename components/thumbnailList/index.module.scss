@@ -1,0 +1,93 @@
+@use "@/styles/variables.scss" as *;
+//font-family: "Open Sans", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.thumbnail {
+  position: relative;
+  display: grid;
+  grid-template: auto auto auto auto / 24% 24% 24% 24%;
+  justify-content: space-between;
+  row-gap: 40px;
+  width: 100%;
+
+  .thumbnail__element {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &:hover {
+      cursor: pointer;
+      background-size: 110% 110%;
+    }
+
+    .thumbnail__bg {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      height: 150px;
+      padding: 5px;
+      background-size: 100% 100%;
+      background-repeat: "no-repeat";
+      background-position: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #fff;
+
+      .thumbnail__info {
+        margin: 0;
+
+        span {
+          letter-spacing: 1px;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .thumbnail__description {
+      padding-top: 10px;
+      .thumbnail__title {
+        overflow: hidden;
+        margin: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 17px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+
+      .thumbnail__content {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        height: 70px;
+        margin: 0;
+        padding: 10px 0 4px 0;
+        word-break: break-word;
+        text-overflow: ellipsis;
+        font-size: 15px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: rgb(114, 114, 114);
+      }
+    }
+  }
+
+  button {
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    bottom: -77px;
+    width: 90px;
+    height: 40px;
+    background-color: $main-color;
+    border: none;
+    border-radius: 4px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $sub-color;
+    }
+  }
+}

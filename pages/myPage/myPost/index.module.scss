@@ -1,0 +1,64 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.my-post-page {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 80px 20px 20px 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+
+  .my-post-page__content {
+    width: 80%;
+
+    .my-post-page__header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      margin: 0 auto 30px;
+
+      .my-post-page__title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .my-post-page__data {
+        display: flex;
+        justify-content: space-between;
+        width: 250px;
+        padding-left: 10px;
+    
+        .my-post-page__count {
+          display: flex;
+          align-items: end;
+          margin: 0;
+          font-size: 15px;
+          font-family: "Noto Sans KR", sans-serif;
+    
+          span {
+            color: $sub-color;
+          }
+        }
+    
+        .my-post-page__current-page {
+          display: flex;
+          align-items: end;
+          margin: 0;
+          font-size: 15px;
+          font-family: "Noto Sans KR", sans-serif;
+    
+          span {
+            color: $sub-color;
+          }
+        }
+      }
+
+    }
+  }
+}

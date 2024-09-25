@@ -1,0 +1,37 @@
+@use "@/styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+//font-family: "Metrophobic", sans-serif;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.my-page-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 175px;
+  height: 200px;
+  font-size: 16px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: $gray-color-300;
+
+  p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+
+    &:hover {
+      cursor: pointer;
+      color: $sub-color;
+    }
+  }
+
+  .my-page-menu__title {
+    width: 110px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $gray-color-100;
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 500;
+    color: $main-color;
+  }
+}
