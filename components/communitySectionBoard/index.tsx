@@ -12,20 +12,18 @@ interface Props {
 }
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
+  const [variableData, setVariableData] = useState(initialData);
   const [crruentSubCategory, setCruuentSubCategory] = useState<string>("All");
 
-  const { data } = useGetPostList(initialData);
+  const { data } = useGetPostList(variableData);
 
-  const subCategoryList = subCategoryListMap[data.mainCategory]
+  const subCategoryList = subCategoryListMap[data.mainCategory];
 
   const switchSubCategory = (e: any) => {
-    const requestBody = {
-      ...initialData,
-      subCategory: e.target.innerHTML
-    };
+    setVariableData((prev: any) => ({ ...prev, subCategory: subCategoryUrlMap[e.target.innerHTML] }));
 
     setCruuentSubCategory(e.target.innerHTML);
-  }
+  };
 
   return (
     <div className={styles["community-section-board"]}>
@@ -33,38 +31,38 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
         <span>{data.mainCategory === "board" ? "Board" : "Job"}</span>
         <IoIosArrowForward size={25} style={{ position: "relative", top: "1px" }} />
       </p>
-        <table className={styles["community-section-board__content"]}>
-          <thead>
-            <tr className={styles["community-section-board__sub-category"]}>
-              {subCategoryList.map((value: string, index: number) =>
-                <td
-                  onClick={switchSubCategory}
-                  key={index}
-                  style={crruentSubCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
-                >
-                  {value}
-                </td>
-              )}
-            </tr>
-          </thead>
-          <tbody className={styles["community-section-board__post-list"]}>
-            {data.postList.map((post: any, index: number) => {
-              return (
-                index < 8 && (
-                  <tr key={index} className={styles["community-section-board__element"]}>
-                    <td>{post.subCategory}</td>
-                    <td>
-                      {post.title}
-                      {post.commentList.length > 0 && <span>({post.commentList.length})</span>}
-                    </td>
-                    <td>{formatYM(post.createdAt)}</td>
-                  </tr>
-                )
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <table className={styles["community-section-board__content"]}>
+        <thead>
+          <tr className={styles["community-section-board__sub-category"]}>
+            {subCategoryList.map((value: string, index: number) => (
+              <td
+                onClick={switchSubCategory}
+                key={index}
+                style={crruentSubCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
+              >
+                {value}
+              </td>
+            ))}
+          </tr>
+        </thead>
+        <tbody className={styles["community-section-board__post-list"]}>
+          {data.postList.map((post: any, index: number) => {
+            return (
+              index < 8 && (
+                <tr key={index} className={styles["community-section-board__element"]}>
+                  <td>{post.subCategory}</td>
+                  <td>
+                    {post.title}
+                    {post.commentList.length > 0 && <span>({post.commentList.length})</span>}
+                  </td>
+                  <td>{formatYM(post.createdAt)}</td>
+                </tr>
+              )
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

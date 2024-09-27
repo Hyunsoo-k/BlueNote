@@ -5,10 +5,10 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
-  index: number;
+  key: number;
 }
 
-const CombinedThumbnail = ({ element, index }: Props) => {
+const CombinedThumbnail = ({ element, key }: Props) => {
   const router = useRouter();
   const [textContent, setTextContent] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -24,7 +24,7 @@ const CombinedThumbnail = ({ element, index }: Props) => {
   return (
     <div
       onClick={() => router.push(`/bbs/${element.mainCategory}/post/${element._id}`)}
-      key={index}
+      key={key}
       className={styles["combined-thumbnail"]}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,

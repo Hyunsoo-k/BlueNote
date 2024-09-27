@@ -16,7 +16,6 @@ const useRecommendPost = (mainCategory: MainCategory, post_id: string) => {
   return useMutation({
     mutationFn: () => recommendPostFn(mainCategory, post_id),
     onSuccess: () => {
-      console.log("recommend done.");
       queryClient.invalidateQueries({ queryKey: queryKey.post(mainCategory,post_id) });
     },
     onError: (error: any) => { console.log(error); }

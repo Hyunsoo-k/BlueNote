@@ -23,9 +23,7 @@ const Home = ({
   initialJobData,
 }: Props) => {
   const { data: newsData } = useGetPostList(initialNewsData);
-  const { data: boardData } = useGetPostList(initialBoardData);
   const { data: promoteData } = useGetPostList(initialPromoteData);
-  const { data: jobData } = useGetPostList(initialJobData);
 
   return (
     <div className={styles["home-page"]}>
@@ -37,15 +35,15 @@ const Home = ({
         <p className={styles["home-page__section-title"]}>Promote</p>
         <div className={styles["home-page__thumbnail-wrapper"]}>
           {promoteData.postList.map((post: any, index: number) => {
-            return index < 8 && <CombinedThumbnail element={post} index={index} />
+            return index < 8 && <CombinedThumbnail element={post} key={index} />
           })}
         </div>
         <a href="/bbs/news" className={styles["home-page__more-button"]}>더보기</a>
       </div>
       <div className={styles["home-page__community-section"]}>
         <p className={styles["home-page__section-title"]}>Community</p>
-          <CommunitySectionBoard initialData={boardData} />
-          <CommunitySectionBoard initialData={jobData} />
+          <CommunitySectionBoard initialData={initialBoardData} />
+          <CommunitySectionBoard initialData={initialJobData} />
       </div>
     </div>
   );
