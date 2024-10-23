@@ -1,0 +1,124 @@
+@use "@/styles/variables.scss" as *;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.reply {
+  position: relative;
+  padding-left: 50px;
+  
+  .reply__information {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+    font-family: "Noto Sans KR", sans-serif;
+
+    .reply__writer {
+      margin: 0;
+      font-size: 15px;
+      color: $sub-color;
+    }
+
+    .reply__etc {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 15px;
+      color: $gray-color-300;
+
+      .reply__action-button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        padding-right: 10px;
+        border: none;
+        border-right: 1px solid $gray-color-100;
+        font-size: 13px;
+
+        span:hover {
+          cursor: pointer;
+          color: $sub-color;
+        }
+      }
+
+      .reply__created-at {
+        margin: 0;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .reply__content {
+    margin: 0;
+    padding: 10px 0 15px 0;
+    border-bottom: 1px solid $gray-color-100;
+    font-size: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .reply__edit-field {
+    resize: none;
+    outline: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 140px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid $gray-color-100;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 15px;
+    font-family: "Noto Sans KR", sans-serif;
+
+    .reply__edit-input {
+      resize: none;
+      outline: none;
+      height: 80px;
+      border: none;
+      font-size: 15px;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+
+    .reply__edit-field-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+
+      .reply__edit-field-error-message {
+        display: flex;
+        align-items: end;
+        height: 30px;
+        margin: 0;
+        padding-bottom: 5px;
+        font-size: 14px;
+        color: red;
+      }
+
+      .reply__button-wrapper {
+        .reply__button {
+          position: relative;
+          width: 45px;
+          height: 30px;
+          background-color: inherit;
+          border: none;
+          letter-spacing: 2px;
+          font-size: 14px;
+          font-family: "Noto Sans KR", sans-serif;
+          color: $gray-color-300;
+
+          &:hover {
+            cursor: pointer;
+            color: $sub-color;
+          }
+        }
+      }
+    }
+  }
+}

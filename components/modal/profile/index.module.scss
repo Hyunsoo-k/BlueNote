@@ -51,6 +51,7 @@
   }
 
   .profile-modal__content {
+    list-style-type: none;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -58,7 +59,7 @@
     padding: 20px 10px 10px 10px;
     border-top: 1px solid #DEDEDE;
 
-    p {
+    li {
       display: flex;
       align-items: center;
       margin: 0;

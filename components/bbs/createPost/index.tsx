@@ -1,12 +1,11 @@
-import dynamic from "next/dynamic";
 import React, { useState, useRef } from "react";
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-
 import { MainCategory } from "@/types/categorys";
 import { subCategoryListMap } from "@/variable";
 import { useCreatePost } from "@/hooks/bbs/useCreatePost";
-
 import styles from "./index.module.scss";
+import { uploadImageToFirebase, dataURLToBlob } from "@/utils/firebase";
 
 const WysiwygEditor = dynamic(() => import("@/components/bbs/wysiwygEditor"), { ssr: false });
 
@@ -16,27 +15,39 @@ interface Props {
 
 const CreatePost = ({ mainCategory }: Props) => {
   const subCategoryList = subCategoryListMap[mainCategory].filter((item) => item !== "All");
-
   const [currentCategory, setCurrentCategory] = useState<string>(subCategoryList[0]);
   const editorRef = useRef<any>(null);
 
-  const mutationHandler = useCreatePost(mainCategory);
+  const createPostMutation = useCreatePost(mainCategory);
   const { register, handleSubmit } = useForm({ mode: "onChange" });
 
   const submitHandler = {
-    onSubmit: (data: any) => {
-      if (editorRef.current) {
-        const editorInstance = editorRef.current.getInstance().getHTML();
-        const req = {
-          subCategory: currentCategory,
-          title: data.title,
-          content: editorInstance,
-        };
+    onSubmit: async (data: any) => {
+      let content = editorRef.current.getInstance().getHTML();
+      const parser = new DOMParser();
+      const parsedContent = parser.parseFromString(content, "text/html");
+      const imgTagList = parsedContent.querySelectorAll("img");
 
-        console.log(req);
-      } else {
-        console.log("error");
+      for (const imgTag of imgTagList) {
+        const src = imgTag.getAttribute("src");
+
+        if (src.startsWith("data:")) {
+          const blob = dataURLToBlob(src);
+          const fileName = Date.now().toString();
+          const StorageURL = await uploadImageToFirebase(`bbs/${mainCategory}/${fileName}`, blob);
+
+          imgTag.setAttribute("src", StorageURL);
+        }
       }
+
+      content = parsedContent.body.innerHTML;
+      const req = {
+        subCategory: currentCategory,
+        title: data.title,
+        content
+      };
+
+      createPostMutation.mutate(req);
     },
     onError: (error: any) => {
       console.log(error);

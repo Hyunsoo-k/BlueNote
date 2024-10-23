@@ -7,15 +7,16 @@ const instance = axios.create({
   headers: {
     "Content-Type": "application/json"
   }
-})
+});
 
 instance.interceptors.request.use((config) => {
   const accessToken = getCookie("accessToken");
+
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return config;
-})
+});
 
 export { instance };

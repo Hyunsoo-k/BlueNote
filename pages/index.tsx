@@ -1,24 +1,79 @@
-import React, { useContext } from "react";
+import { GetServerSideProps } from "next";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { ViewportContext } from "@/contexts/viewport";
-import { notice, news } from "@/dummyData/mainPageSection";
+import { instance } from "@/axios";
 import Carousel from "@/components/carousel";
-import MainPageSection from "@/components/mainPageSection";
+import CombinedThumbnail from "@/components/combinedThumbnail";
+import CommunitySectionBoard from "@/components/communitySectionBoard";
+
 import styles from "@/styles/Home.module.scss";
 
-export default function Home() {
-  const { viewPort, setViewPort } = useContext(ViewportContext);
+interface Props {
+  resolvedUrl: string;
+  initialNoticeData: any;
+  initialNewsData: any;
+  initialPromoteData: any;
+  initialBoardData: any;
+  initialJobData: any;
+}
+
+const Home = ({
+  initialNewsData,
+  initialPromoteData,
+  initialBoardData,
+  initialJobData
+}: Props) => {
+  const queryClient = useQueryClient();
+
+  const { data: newsData } = useQuery({
+    queryKey: ["news", "mainPage"],
+    queryFn: async () => {
+      const response = instance.get(`/bbs/news`);
+    }
+  })
 
   return (
-    <div className={styles["wrapper"]}>
-      <Carousel viewPort={viewPort} />
-      <div className={styles["section-wrapper"]}>
-        <MainPageSection viewPort={viewPort} category="Notice" detail="공지" data={notice} />
-        <MainPageSection viewPort={viewPort} category="News" detail="국내" data={news} />
-        <MainPageSection viewPort={viewPort} category="Board" detail="자유게시판" data={notice} />
-        <MainPageSection viewPort={viewPort} category="Promote" detail="밴드홍보" data={news} />
-        <MainPageSection viewPort={viewPort} category="Job" detail="구인" data={notice} />
+    <div className={styles["home-page"]}>
+      <div className={styles["home-page__news-section"]}>
+        <p className={styles["home-page__section-title"]}>News</p>
+        <Carousel elementList={initialNewsData.postList} elementType="detached" />
+      </div>
+      <div className={styles["home-page__promote-section"]}>
+        <p className={styles["home-page__section-title"]}>Promote</p>
+        <div className={styles["home-page__thumbnail-wrapper"]}>
+          {initialPromoteData.postList.map((post: any, index: number) => {
+            return index < 8 && <CombinedThumbnail element={post} key={index} />;
+          })}
+        </div>
+        <a href="/bbs/news" className={styles["home-page__more-button"]}>
+          더보기
+        </a>
+      </div>
+      <div className={styles["home-page__community-section"]}>
+        <p className={styles["home-page__section-title"]}>Community</p>
+        <CommunitySectionBoard initialData={initialBoardData} />
+        <CommunitySectionBoard initialData={initialJobData} />
       </div>
     </div>
   );
-}
+};
+
+export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { resolvedUrl } = context;
+  const { data: initialNewsData } = await instance.get("/bbs/news");
+  const { data: initialBoardData } = await instance.get("/bbs/board");
+  const { data: initialPromoteData } = await instance.get("/bbs/promote");
+  const { data: initialJobData } = await instance.get("/bbs/job");
+
+  return {
+    props: {
+      resolvedUrl,
+      initialNewsData,
+      initialBoardData,
+      initialPromoteData,
+      initialJobData,
+    },
+  };
+};

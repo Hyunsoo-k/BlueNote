@@ -1,63 +1,116 @@
-import React, { useContext } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { MainCategory } from "@/types/categorys";
-import { UserMeContext } from "@/contexts/userMe";
-import { useCreateComment } from "@/hooks/bbs/useCreateComment";
+import useModal from "@/hooks/modal/useModal";
+import { useDeleteComment } from "@/hooks/bbs/useDeleteComment";
+import { useEditComment } from "@/hooks/bbs/useEditComment";
 import { formatYMD } from "@/utils/dateFormatter";
+import CreateReply from "../createReply";
 
 import styles from "./index.module.scss";
+import Reply from "../reply";
 
 interface Props {
-  mainCategory: MainCategory;
-  post_id: string;
+  key: number;
+  comment: any;
+  userMe: any;
   post: any;
 }
 
-const Comment = ({ mainCategory, post_id, post }: Props) => {
-  const { userMe } = useContext(UserMeContext);
-  
-  const mutationHandler = useCreateComment(mainCategory, post_id);
-  const { register, handleSubmit } = useForm({ mode: "onChange" });
+const Comment = ({ key, comment, userMe, post }: Props) => {
+  const [showEditComment, setShowEditComment] = useState<boolean>(false);
+  const [showCreateReply, setShowCreateReply] = useState<boolean>(false);
 
-  const createdAt = post ? formatYMD(post.createdAt) : "";
+  const { openModal, closeModal } = useModal();
 
-  const submitHandler = {
-    onSubmit: (e: any) => {
-      const req = {
-        wirter: "운영자",
-        content: e.content,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ mode: "onChange" });
+
+  const editCommentMutation = useEditComment(post._id, comment._id)
+  const deleteCommentMutation = useDeleteComment(post._id, comment._id, closeModal)
+
+  const handleCreateReply = () => {
+    !comment.deletedHavingReply && setShowCreateReply(true);
+  };
+
+  const handleEditComment = {
+    onSubmit: (watch: any) => {
+      const requestBody = {
+        content: watch.editFieldContent
       };
-      mutationHandler.mutate(req);
+
+      setShowEditComment(false);
+      editCommentMutation.mutate(requestBody);
     },
-    onError: (e: any) => {
-      console.log(e);
-    },
+    onError: (e: any) => console.log(e),
+  };
+
+  const handleDeleteComment = () => {
+    openModal("confirm", "댓글을 삭제하시겠습니까?", () => deleteCommentMutation.mutate());
   };
 
   return (
-    <div className={styles["comment"]}>
-      <p className={styles["comment__count"]}>
-        댓글 <span>{post.comment.length}</span>
-      </p>
-      <div className={styles["comment__list"]}>
-        {post.comment.map((item: any, index: number) => (
-          <div key={index} className={styles["comment__element"]}>
-            <div className={styles["comment__header"]}>
-              <p className={styles["comment__writer"]}>{item.writer.nickname}</p>
-              <p className={styles["comment__created-at"]}>{createdAt}</p>
+    <div key={key} onClick={handleCreateReply} className={styles["comment"]}>
+      {!comment.deletedHavingReply && <div className={styles["comment__information"]}>
+        <p className={styles["comment__writer"]}>{comment.writer.nickname}</p>
+        <div className={styles["comment__etc"]}>
+          {userMe?._id === comment.writer._id && !showEditComment && !comment.deletedHavingReply && (
+            <div className={styles["comment__action-button"]}>
+              <span
+                onClick={(e: any) => {
+                  e.stopPropagation();
+                  setShowEditComment(true);
+                }}
+              >
+                수정
+              </span>
+              <span onClick={() => handleDeleteComment()}>삭제</span>
             </div>
-            <p className={styles["comment__content"]}>{item.content}</p>
+          )}
+          <p className={styles["comment__created-at"]}>{formatYMD(comment.createdAt)}</p>
+        </div>
+      </div>}
+      {showEditComment && (
+        <form
+          onSubmit={handleSubmit(handleEditComment.onSubmit, handleEditComment.onError)}
+          className={styles["comment__edit-field"]}
+        >
+          <textarea
+            {...register("editFieldContent", {
+              required: "내용을 입력해 주세요.",
+              minLength: { value: 1, message: "1글자 이상 입력해 주세요." },
+              maxLength: { value: 1000, message: "1000글자 이하로 작성해 주세요." },
+            })}
+            defaultValue={comment.content}
+            spellCheck="false"
+            className={styles["comment__edit-input"]}
+          />
+          <div className={styles["comment__edit-field-footer"]}>
+            <p className={styles["comment__edit-field-error-message"]}>{errors.editFieldContent?.message}</p>
+            <div className={styles["comment__btn-wrapper"]}>
+              <button
+                type="button"
+                onClick={(e: any) => {
+                  e.stopPropagation();
+                  setShowEditComment(false);
+                  reset();
+                }}
+                className={styles["comment__btn"]}
+              >
+                취소
+              </button>
+              <button className={styles["comment__btn"]}>수정</button>
+            </div>
           </div>
-        ))}
-      </div>
-      {userMe && (
-        <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["comment__writing-field"]}>
-          <p className={styles["comment__user"]}>{userMe.nickname}</p>
-          <textarea spellCheck="false" {...register("content", { required: "필수 값 입니다" })} className={styles["comment__input"]}/>
-          <button className={styles["comment__btn"]}>등록</button>
         </form>
       )}
+      <p className={styles["comment__content"]}>{!showEditComment && !comment.deletedHavingReply ? comment.content : "삭제된 댓글입니다"}</p>
+      <CreateReply post_id={post._id} comment_id={comment._id} showCreateReply={showCreateReply} setShowCreateReply={setShowCreateReply} />
+      {comment.reply.map((reply: any, index: number) => <Reply key={index} reply={reply} post={post} comment_id={comment._id} />)}
     </div>
   );
 };

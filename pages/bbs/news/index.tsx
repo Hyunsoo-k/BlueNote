@@ -1,28 +1,38 @@
 import { GetServerSideProps } from "next";
 
-import { SubCategory } from "@/types/categorys";
-import { PostList as PostListType } from "@/types/postList";
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import { instance } from "@/axios";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import Thumbnail from "@/components/thumbnail";
+import ThumbnailList from "@/components/thumbnailList";
+import Pagination from "@/components/pagination";
+import SearchingBar from "@/components/searchingBar";
 
 import styles from "./index.module.scss";
 
-interface ServerSideProps {
-  subCategory: SubCategory,
-  page: string,
-  initialResponse: any
-}
+interface Props {
+  query: any;
+  initialNewsData: any;
+};
 
-const NewsPage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
-  const mainCategory = "news";
-  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
+const NewsPage = ({ query, initialNewsData }: Props) => {
 
   return (
     <div className={styles["news-page"]}>
-      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <Thumbnail postList={response.postList} />
+      <BbsHeader
+        mainCategory={initialNewsData.mainCategory}
+        subCategory={initialNewsData.subCategory}
+        totalPostCount={initialNewsData.totalPostCount}
+        page={query.page || 1}
+        totalPageCount={initialNewsData.totalPageCount}
+      />
+      <ThumbnailList postList={initialNewsData.postList} />
+      <div className={styles["news-page__control-section"]}>
+        <Pagination
+          subCategory={initialNewsData.subCategory}
+          page={query.page || 1}
+          totalPageCount={initialNewsData.totalPageCount}
+        />
+        <SearchingBar />
+      </div>
     </div>
   );
 };
@@ -31,13 +41,12 @@ export default NewsPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data } = await instance.get(`${resolvedUrl}`);
+  const { data: initialNewsData } = await instance.get(resolvedUrl);
 
   return {
     props: {
-      subCategory: query.subCategory || "All",
-      page: query.page || "1",
-      initialResponse: data
-    },
+      query,
+      initialNewsData
+    }
   };
 };

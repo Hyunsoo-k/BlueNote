@@ -1,30 +1,38 @@
 import { GetServerSideProps } from "next";
 
-import { SubCategory } from "@/types/categorys";
-import { PostList as PostListType } from "@/types/postList";
 import { instance } from "@/axios";
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import PostList from "@/components/bbs/postList";
+import BbsPostList from "@/components/bbs/bbsPostList";
 import Pagination from "@/components/pagination";
+import SearchingBar from "@/components/searchingBar";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  subCategory: SubCategory,
-  page: string,
-  initialResponse: any
+  query: any;
+  initialNoticeData: any;
 }
 
-const NoticePage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
-  const mainCategory = "notice";
-  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
+const NoticePage = ({ query, initialNoticeData }: ServerSideProps) => {
 
   return (
     <div className={styles["notice-page"]}>
-      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <PostList postList={response.postList} />
-      <Pagination subCategory={subCategory} data={response} />
+      <BbsHeader
+        mainCategory={initialNoticeData.mainCategory}
+        subCategory={initialNoticeData.subCategory}
+        totalPostCount={initialNoticeData.totalPostCount}
+        page={query.page || 1}
+        totalPageCount={initialNoticeData.totalPageCount}
+      />
+      <BbsPostList postList={initialNoticeData.postList} />
+      <div className={styles["notice-page__control-section"]}>
+        <Pagination
+          subCategory={initialNoticeData.subCategory}
+          page={query.page || 1}
+          totalPageCount={initialNoticeData.totalPageCount}
+        />
+        <SearchingBar />
+      </div>
     </div>
   );
 };
@@ -33,13 +41,12 @@ export default NoticePage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data } = await instance.get(`${resolvedUrl}`);
+  const { data: initialNoticeData } = await instance.get(resolvedUrl);
 
   return {
     props: {
-      subCategory: query.subCategory || "All",
-      page: query.page || "1",
-      initialResponse: data
+      query,
+      initialNoticeData,
     },
   };
 };

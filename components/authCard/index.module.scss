@@ -5,33 +5,22 @@
 .auth-card {
   position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   width: 90%;
-  max-width: 500px;
+  max-width: 800px;
   height: 500px;
-  margin: 40px auto 150px;
+  margin: 90px auto 120px;
   padding: 20px 15px 20px 15px;
   border-radius: 8px;
   background-color: #f6f6f6;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 
-  @include tablet {
-    width: 90%;
-    max-width: 800px;
-    margin: 90px auto 120px;
-    flex-direction: row;
-  }
-
   .auth-card__section {
+    width: 45%;
     height: 220px;
     padding: 10px;
 
-    @include tablet {
-      width: 45%;
-    }
-
-    p:nth-of-type(1) {
+    .auth-card__title {
       position: relative;
       margin: 20px 0 0;
       text-align: center;
@@ -41,16 +30,16 @@
       color: $main-color;
     }
 
-    p:nth-of-type(2) {
+    .auth-card__sub-title {
       margin: 10px 0 0;
       text-align: center;
       font-size: 16px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
-      color: #8e9aaf;
+      color: $gray-color-200;
     }
 
-    .img {
+    .auth-card__img {
       overflow: hidden;
       position: relative;
       width: 150px;
@@ -59,37 +48,36 @@
       border-radius: 50%;
     }
 
-    p:nth-of-type(3) {
-      margin: 25px 0 0;
+    .auto-card__ask {
+      margin: 40px 0 0;
       text-align: center;
       font-family: "Metrophobic", sans-serif;
-      color: #8e9aaf;
-
-      @include tablet {
-        margin-top: 40px;
-      }
+      color: $gray-color-200;
     }
 
-    p:nth-of-type(4) {
+    .auth-card__switch-btn {
+      display: block;
       width: 50%;
+      height: 40px;
       margin: 17px auto 0;
       padding: 10px;
       text-align: center;
       font-weight: 600;
-      border: 1px solid #8e9aaf;
+      border: none;
       border-radius: 10px;
-      color: #8e9aaf;
+      background-color: $main-color;
+      color: #f6f6f6;
 
       &:hover {
         cursor: pointer;
-        background-color: $main-color;
+        background-color: $gray-color-200;
         color: #f6f6f6;
       }
     }
   }
 }
 
-.auth-card__signIn {
+.auth-card__signIn-form {
   position: absolute;
   top: 20px;
   left: -5%;
@@ -137,7 +125,7 @@
     }
   }
 
-  p:nth-of-type(1) {
+  .auth-card__current-form {
     margin: 0 auto;
     text-align: center;
     font-size: 28px;
@@ -150,9 +138,7 @@
     }
   }
 
-  .auth-card__input-box {
-    overflow: hidden;
-    position: relative;
+  .auth-card__input-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -165,7 +151,7 @@
     }
   }
 
-  .btn {
+  .auth-card__submit-btn {
     width: 50%;
     height: 25px;
     margin: 5px auto 0;
@@ -187,7 +173,7 @@
   }
 }
 
-.auth-card__signUp {
+.auth-card__signUp-form {
   overflow: hidden;
   position: absolute;
   left: 50%;
@@ -236,7 +222,7 @@
     }
   }
 
-  p:nth-of-type(1) {
+  .auth-card__current-form {
     margin: 0 auto;
     text-align: center;
     font-size: 28px;
@@ -248,7 +234,7 @@
     }
   }
 
-  .auth-card__input-box {
+  .auth-card__input-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -259,7 +245,7 @@
     }
   }
 
-  .btn {
+  .auth-card__submit-btn {
     width: 50%;
     height: 25px;
     margin: 5px auto 0;

@@ -1,20 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
-import { MainCategory } from "@/types/categorys";
+import { queryKey } from "@/queryKey";
 
-const getPostFn = async (mainCategory: MainCategory, post_id: string) => {
-  const response = await instance.get(`/bbs/${mainCategory}/post/${post_id}`);
+const getPostFn = async (resolvedUrl: string) => {
+  const response = await instance.get(`${resolvedUrl}`);
+
   return response.data;
 };
 
-const useGetPost = (mainCategory: MainCategory, post_id: string, initialResponse: any) =>
-  useQuery({
-    queryKey: queryKey.post(mainCategory, post_id),
-    queryFn: () => getPostFn(mainCategory, post_id),
-    initialData: initialResponse
-  });
+const useGetPost = (resolvedUrl: string, initialData: any) => {
 
+  return useQuery({
+    queryKey: queryKey.post(initialData._id),
+    queryFn: () => getPostFn(resolvedUrl),
+    gcTime: Infinity,
+    staleTime: 10 * 6 * 1000,
+    placeholderData: initialData
+  });
+};
 
 export { useGetPost };

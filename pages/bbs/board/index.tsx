@@ -1,30 +1,38 @@
 import { GetServerSideProps } from "next";
 
-import { SubCategory } from "@/types/categorys";
-import { PostList as PostListType } from "@/types/postList";
 import { instance } from "@/axios";
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import PostList from "@/components/bbs/postList";
+import BbsPostList from "@/components/bbs/bbsPostList";
 import Pagination from "@/components/pagination";
+import SearchingBar from "@/components/searchingBar";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  subCategory: SubCategory,
-  page: string,
-  initialResponse: any
+  query: any;
+  initialBoardData: any;
 }
 
-const BoardPage = ({ subCategory, page, initialResponse }: ServerSideProps) => {
-  const mainCategory = "board";
-  const response: PostListType = useGetPostList(mainCategory, subCategory, page, initialResponse).data;
+const BoardPage = ({ query, initialBoardData }: ServerSideProps) => {
 
   return (
     <div className={styles["board-page"]}>
-      <BbsHeader mainCategory={mainCategory} subCategory={subCategory} response={response} /> 
-      <PostList postList={response.postList} />
-      <Pagination subCategory={subCategory} data={response} />
+      <BbsHeader
+        mainCategory={initialBoardData.mainCategory}
+        subCategory={initialBoardData.subCategory} 
+        totalPostCount={initialBoardData.totalPostCount}
+        page={query.page || 1}
+        totalPageCount={initialBoardData.totalPageCount}
+      />
+      <BbsPostList postList={initialBoardData.postList} />
+      <div className={styles["board-page__control-section"]}>
+        <Pagination 
+          subCategory={query.subCategory} 
+          page={query.page || 1}
+          totalPageCount={initialBoardData.totalPageCount}
+        />
+        <SearchingBar />
+      </div>
     </div>
   );
 };
@@ -33,13 +41,12 @@ export default BoardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data: initialResponse } = await instance.get(`${resolvedUrl}`);
+  const { data: initialBoardData } = await instance.get(resolvedUrl);
 
   return {
     props: {
-      subCategory: query.subCategory || "All",
-      page: query.page || "1",
-      initialResponse
+      query,
+      initialBoardData
     }
   };
 };

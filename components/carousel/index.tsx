@@ -1,46 +1,71 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaCircle } from "react-icons/fa";
 
-import { dummyCarouselData } from "@/dummyData/carousel";
+import CombinedThumbnail from "../combinedThumbnail";
+import DetachedThumbnail from "../detachedThumbnail";
 
 import styles from "./index.module.scss";
 
-const Carousel = ({ viewPort }: any) => {
+interface Props {
+  elementList: any;
+  elementType: "combined" | "detached";
+}
+
+const Carousel = ({ elementList, elementType }: Props) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const carouselWrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollTo({
-        left: viewPort === "mobile" ? currentIndex * 280 : currentIndex * 300,
-        behavior: "smooth",
+    const carouselWrapper = carouselWrapperRef.current;
+
+    if (!carouselWrapper) return;
+
+    const totalElements = elementList.length;
+    const gap = 20;
+    const elementWidth = carouselWrapper.firstChild?.getBoundingClientRect().width || 0;
+
+    const scrollInterval = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        const newIndex = prevIndex + 1;
+
+        if (carouselWrapper) {
+          if (newIndex < totalElements - 3) {
+            carouselWrapper.scrollTo({
+              left: (elementWidth + gap) * newIndex,
+              behavior: "smooth",
+            });
+          } else {
+            carouselWrapper.scrollTo({
+              left: 0,
+              behavior: "smooth",
+            });
+            return 0;
+          }
+        }
+        return newIndex;
       });
-    }
-  }, [currentIndex]);
+    }, 4000);
+
+    return () => clearInterval(scrollInterval);
+  }, [elementList]);
 
   return (
     <div className={styles["carousel"]}>
-      <div ref={carouselRef} className={styles["carousel__element-wrapper"]}>
-        {dummyCarouselData.map((item, index) => (
-          <div
-            key={index}
-            className={styles["carousel__element"]}
-            style={{
-              backgroundImage: ` linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${item.imgSrc})`,
-            }}
-          >
-            <div className={styles["carousel__explantion"]}>
-              <p className={styles["carousel__category"]}>{item.category}</p>
-              <p className={styles["carousel__title"]}>{item.title}</p>
-              <div className={styles["carousel__content-wrapper"]}>
-                <p className={styles["carousel__content"]}>{item.text}</p>
-              </div>
+      <div ref={carouselWrapperRef} className={styles["carousel__element-wrapper"]}>
+        {elementList.map((element: any, index: number) =>
+          elementType === "combined" ? (
+            <div className={styles["carousel__element"]}>
+              <CombinedThumbnail element={element} index={index} />
             </div>
-          </div>
-        ))}
+          ) : (
+            <div className={styles["carousel__element"]}>
+              <DetachedThumbnail element={element} index={index} />
+            </div>
+          )
+        )}
       </div>
       <div className={styles["carousel-dots"]}>
-        {Array.from({ length: 4 }).map((_, index) =>
+        {Array.from({ length: elementList.length - 3 }).map((_, index) =>
           index === currentIndex ? (
             <FaCircle key={index} size={10} color="rgb(23, 23, 119)" />
           ) : (

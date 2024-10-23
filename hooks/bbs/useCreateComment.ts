@@ -1,21 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
-import { MainCategory } from "@/types/categorys";
 
-const createCommentFn = async (mainCategory: MainCategory, post_id: string, req: any) => {
-  const response = await instance.post(`/bbs/${mainCategory}/${post_id}/comment`, req);
-  console.log()
+import { instance } from "@/axios";
+import { queryKey } from "@/queryKey";
+
+const createCommentFn = async (asPath: string, requestBody: any) => {
+  const response = await instance.post(`${asPath}/comment`, requestBody);
+  
   return response;
 };
 
-const useCreateComment = (mainCategory: MainCategory, post_id: string) => {
+const useCreateComment = (asPath: string, post_id: string, resetCreate: any) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (req: any) => createCommentFn(mainCategory, post_id, req), // Updated signature
+    mutationFn: (requestBody: any) => createCommentFn(asPath, requestBody),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.post(mainCategory, post_id) });
+      resetCreate();
+      queryClient.invalidateQueries({ queryKey: queryKey.post(post_id) });
+    },
+    onError: (error: any) => {
+      console.log(error);
     },
   });
 };

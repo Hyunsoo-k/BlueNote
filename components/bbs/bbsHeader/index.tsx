@@ -8,11 +8,12 @@ import styles from "./index.module.scss";
 interface Props {
   mainCategory: MainCategory;
   subCategory?: string;
-  page?: string;
-  response?: any;
+  totalPostCount?: any;
+  page?: any;
+  totalPageCount?: any;
 }
 
-const BbsHeader = ({ mainCategory, subCategory, response }: Props) => {
+const BbsHeader = ({ mainCategory, subCategory, totalPostCount, page, totalPageCount }: Props) => {
   const router = useRouter();
   const subCategoryList = subCategoryListMap[mainCategory];
 
@@ -38,17 +39,19 @@ const BbsHeader = ({ mainCategory, subCategory, response }: Props) => {
           ))}
         </div>
       </div>
-      {response && (
-        <div className={styles["bbs-header__data"]}>
-          <p className={styles["bbs-header__count"]}>총 게시물&nbsp;<span>{response.totalPostCount}개</span></p>
-          <p className={styles["bbs-header__current-page"]}>
+      {totalPostCount && (
+        <ul className={styles["bbs-header__data"]}>
+          <li className={styles["bbs-header__count"]}>
+            총 게시물&nbsp;<span>{totalPostCount}개</span>
+          </li>
+          <li className={styles["bbs-header__current-page"]}>
             현재&nbsp;
             <span>
-              ({response.page}/{response.totalPageCount})
+              ({page}/{totalPageCount})
             </span>
             &nbsp;페이지
-          </p>
-        </div>
+          </li>
+        </ul>
       )}
     </div>
   );
