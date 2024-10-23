@@ -1,27 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { Post } from "@/types/post";
-import { MainCategory } from "@/types/categorys";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const editCommentFn = async (mainCategory: MainCategory, post_id: string, requestData: any) => {
-  const { comment_id, requestBody } = requestData;
-
-  const response = await instance.patch(`/bbs/${mainCategory}/${post_id}/comment/${comment_id}`, requestBody);
+const editCommentFn = async (comment_id: string, requestBody: any) => {
+  const response = await instance.patch(`${window.location.pathname}/comment/${comment_id}`, requestBody);
 
   return response;
 };
 
-const useEditComment = (post: Post, setEditCommentFeild:any, resetEdit: any) => {
+const useEditComment = (
+  post_id: string,
+  comment_id: string
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (requestData: any) => editCommentFn(post.mainCategory, post._id, requestData),
+    mutationFn: (requestBody: any) => editCommentFn(comment_id, requestBody),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.post(post.mainCategory, post._id) });
-      resetEdit();
-      setEditCommentFeild((prev: any) => ({ ...prev, show: false, comment_id: "" }));
+      queryClient.invalidateQueries({ queryKey: queryKey.post(post_id) });
     },
     onError: (error: any) => {
       console.log(error);

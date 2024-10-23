@@ -4,148 +4,69 @@
 //모바일 드롭다운 카테고리 하위 폰트
 
 .comment {
-  padding-top: 40px;
-  font-family: "Noto Sans KR", sans-serif;
+  .comment__information {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+    font-family: "Noto Sans KR", sans-serif;
 
-  .comment__count {
-    margin: 0 0 20px;
-    font-size: 16px;
-
-    span {
+    .comment__writer {
+      margin: 0;
+      font-size: 15px;
       color: $sub-color;
     }
-  }
 
-  .comment__list {
-    padding: 5px 0 10px;
-    border-radius: 0 0 4px 4px;
-    border-top: 1px solid $gray-color-100;
+    .comment__etc {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 15px;
+      color: $gray-color-300;
 
-    .comment__element {
-      border-bottom: 1px solid $gray-color-100;
-
-      .comment__header {
+      .comment__action-button {
         display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding-top: 10px;
-        font-family: "Noto Sans KR", sans-serif;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        padding-right: 10px;
+        border: none;
+        border-right: 1px solid $gray-color-100;
+        font-size: 13px;
 
-        .comment__writer {
-          margin: 0;
-          font-size: 15px;
+        span:hover {
+          cursor: pointer;
           color: $sub-color;
         }
-
-        .comment__etc {
-          display: flex;
-          justify-content: flex-end;
-          font-size: 15px;
-          color: $gray-color-300;
-
-          .comment__action-btn {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin: 0;
-            padding-right: 10px;
-                          border: none;
-            border-right: 1px solid $gray-color-100;
-            font-size: 13px;
-
-            span:hover {
-              cursor: pointer;
-              color: $sub-color;
-            }
-          }
-
-          .comment__created-at {
-            margin: 0;
-            padding-left: 10px;
-          }
-        }
       }
 
-      .comment__content {
+      .comment__created-at {
         margin: 0;
-        padding: 10px 0;
-        font-size: 15px;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .comment__edit-field {
-        resize: none;
-        outline: none;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%;
-        height: 140px;
-        margin: 10px 0;
-        padding: 10px;
-        border: 1px solid $gray-color-100;
-        border-radius: 4px;
-        background-color: #fff;
-        font-size: 15px;
-        font-family: "Noto Sans KR", sans-serif;
-
-        .comment__edit-input {
-          resize: none;
-          outline: none;
-          height: 80px;
-          border: none;
-          font-size: 15px;
-          font-family: "Noto Sans KR", sans-serif;
-        }
-
-        .comment__edit-field-footer {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 5px;
-
-          .comment__edit-field-error-message {
-            display: flex;
-            align-items: end;
-            height: 30px;
-            margin: 0;
-            padding-bottom: 5px;
-            font-size: 14px;
-            color: red;
-          }
-
-          .comment__btn-wrapper {
-
-            .comment__btn {
-              position: relative;
-              width: 45px;
-              height: 30px;
-              background-color: inherit;
-              border: none;
-              letter-spacing: 2px;
-              font-size: 14px;
-              font-family: "Noto Sans KR", sans-serif;
-              color: $gray-color-300;
-
-              &:hover {
-                cursor: pointer;
-                color: $sub-color;
-              }
-            }
-          }
-        }
+        padding-left: 10px;
       }
     }
   }
-  .comment__create-field {
+
+  .comment__content {
+    margin: 0;
+    padding: 10px 0 15px 0;
+    border-bottom: 1px solid $gray-color-100;
+    font-size: 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .comment__edit-field {
+    resize: none;
+    outline: none;
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
-    margin-top: 30px;
+    height: 140px;
+    margin: 10px 0;
     padding: 10px;
     border: 1px solid $gray-color-100;
     border-radius: 4px;
@@ -153,26 +74,21 @@
     font-size: 15px;
     font-family: "Noto Sans KR", sans-serif;
 
-    .comment__user {
-      margin: 0;
-      color: $sub-color;
-    }
-
-    .comment__create-input {
+    .comment__edit-input {
       resize: none;
       outline: none;
-      height: 70px;
-      margin-top: 10px;
+      height: 80px;
       border: none;
+      font-size: 15px;
       font-family: "Noto Sans KR", sans-serif;
     }
 
-    .comment__create-field-footer {
+    .comment__edit-field-footer {
       display: flex;
       justify-content: space-between;
       margin-top: 5px;
 
-      .comment__create-field-error-message {
+      .comment__edit-field-error-message {
         display: flex;
         align-items: end;
         height: 30px;
@@ -182,20 +98,22 @@
         color: red;
       }
 
-      .comment__btn {
-        position: relative;
-        width: 45px;
-        height: 30px;
-        background-color: inherit;
-        border: none;
-        letter-spacing: 2px;
-        font-size: 14px;
-        font-family: "Noto Sans KR", sans-serif;
-        color: $gray-color-300;
+      .comment__btn-wrapper {
+        .comment__btn {
+          position: relative;
+          width: 45px;
+          height: 30px;
+          background-color: inherit;
+          border: none;
+          letter-spacing: 2px;
+          font-size: 14px;
+          font-family: "Noto Sans KR", sans-serif;
+          color: $gray-color-300;
 
-        &:hover {
-          cursor: pointer;
-          color: $sub-color;
+          &:hover {
+            cursor: pointer;
+            color: $sub-color;
+          }
         }
       }
     }

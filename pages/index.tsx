@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { instance } from "@/axios";
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
 import Carousel from "@/components/carousel";
 import CombinedThumbnail from "@/components/combinedThumbnail";
 import CommunitySectionBoard from "@/components/communitySectionBoard";
@@ -9,41 +9,50 @@ import CommunitySectionBoard from "@/components/communitySectionBoard";
 import styles from "@/styles/Home.module.scss";
 
 interface Props {
+  resolvedUrl: string;
   initialNoticeData: any;
   initialNewsData: any;
-  initialBoardData: any;
   initialPromoteData: any;
+  initialBoardData: any;
   initialJobData: any;
 }
 
 const Home = ({
   initialNewsData,
-  initialBoardData,
   initialPromoteData,
-  initialJobData,
+  initialBoardData,
+  initialJobData
 }: Props) => {
-  const { data: newsData } = useGetPostList(initialNewsData);
-  const { data: promoteData } = useGetPostList(initialPromoteData);
+  const queryClient = useQueryClient();
+
+  const { data: newsData } = useQuery({
+    queryKey: ["news", "mainPage"],
+    queryFn: async () => {
+      const response = instance.get(`/bbs/news`);
+    }
+  })
 
   return (
     <div className={styles["home-page"]}>
       <div className={styles["home-page__news-section"]}>
         <p className={styles["home-page__section-title"]}>News</p>
-        <Carousel elementList={newsData.postList} elementType="detached" />
+        <Carousel elementList={initialNewsData.postList} elementType="detached" />
       </div>
       <div className={styles["home-page__promote-section"]}>
         <p className={styles["home-page__section-title"]}>Promote</p>
         <div className={styles["home-page__thumbnail-wrapper"]}>
-          {promoteData.postList.map((post: any, index: number) => {
-            return index < 8 && <CombinedThumbnail element={post} key={index} />
+          {initialPromoteData.postList.map((post: any, index: number) => {
+            return index < 8 && <CombinedThumbnail element={post} key={index} />;
           })}
         </div>
-        <a href="/bbs/news" className={styles["home-page__more-button"]}>더보기</a>
+        <a href="/bbs/news" className={styles["home-page__more-button"]}>
+          더보기
+        </a>
       </div>
       <div className={styles["home-page__community-section"]}>
         <p className={styles["home-page__section-title"]}>Community</p>
-          <CommunitySectionBoard initialData={initialBoardData} />
-          <CommunitySectionBoard initialData={initialJobData} />
+        <CommunitySectionBoard initialData={initialBoardData} />
+        <CommunitySectionBoard initialData={initialJobData} />
       </div>
     </div>
   );
@@ -51,14 +60,16 @@ const Home = ({
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: initialNewsData} = await instance.get("/bbs/news");
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { resolvedUrl } = context;
+  const { data: initialNewsData } = await instance.get("/bbs/news");
   const { data: initialBoardData } = await instance.get("/bbs/board");
   const { data: initialPromoteData } = await instance.get("/bbs/promote");
   const { data: initialJobData } = await instance.get("/bbs/job");
 
   return {
     props: {
+      resolvedUrl,
       initialNewsData,
       initialBoardData,
       initialPromoteData,

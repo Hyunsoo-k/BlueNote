@@ -16,7 +16,7 @@ const BbsPostList = ({ postList }: Props) => {
   const { data: userMe } = useGetUser();
 
   const isNoticeOrNewsPage = router.pathname.split("/")[2] === "notice" || router.pathname.split("/")[2] === "news";
-  const isMyPage = router.pathname === "/myPage/myPost" ? true : false;
+  const isMyPage = router.pathname === "/myPage/myPost";
   const mainCategory = !isMyPage ? router.pathname.split("/").pop() : null;
   const colums = isMyPage
     ? ["ID", "구분", "제목", "작성일", "조회수", "추천"]

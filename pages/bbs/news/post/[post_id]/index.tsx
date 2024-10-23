@@ -8,11 +8,12 @@ import BbsPost from "@/components/bbs/bbsPost";
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
+  resolvedUrl: string;
   initialPost: any;
 }
 
-const NewsPostPage = ({ initialPost }: ServerSideProps) => {
-  const { data: post } = useGetPost(initialPost);
+const NewsPostPage = ({ resolvedUrl, initialPost }: ServerSideProps) => {
+  const { data: post } = useGetPost(resolvedUrl, initialPost);
 
   return (
     <div className={styles["news-post-page"]}>
@@ -25,14 +26,15 @@ const NewsPostPage = ({ initialPost }: ServerSideProps) => {
 export default NewsPostPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { resolvedUrl, params } = context;
+  const { resolvedUrl } = context;
 
   await instance.post(`${resolvedUrl}/views`);
+
   const { data: initialPost } = await instance.get(`${resolvedUrl}`);
 
   return {
     props: {
-      post_id: params?.post_id,
+      resolvedUrl,
       initialPost,
     },
   };

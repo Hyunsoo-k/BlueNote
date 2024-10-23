@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
+import { instance } from "@/axios";
 import { subCategoryListMap, subCategoryUrlMap } from "@/variable";
 import { formatYM } from "@/utils/dateFormatter";
 
@@ -12,33 +13,35 @@ interface Props {
 }
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
-  const [variableData, setVariableData] = useState(initialData);
-  const [crruentSubCategory, setCruuentSubCategory] = useState<string>("All");
+  const [currentSubCategory, setCurrentSubCategory] = useState<string>("All");
+  const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 
-  const { data } = useGetPostList(variableData);
+  const { data } = useQuery({
+    queryKey: ["communitySectionBoard", initialData.mainCategory, currentSubCategory],
+    queryFn: async () => {
+      const response = await instance.get(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryUrlMap[currentSubCategory]}`);
 
-  const subCategoryList = subCategoryListMap[data.mainCategory];
+      return response.data;
+    },
+    initialData: conveyInitialData ? initialData : undefined
+  });
 
-  const switchSubCategory = (e: any) => {
-    setVariableData((prev: any) => ({ ...prev, subCategory: subCategoryUrlMap[e.target.innerHTML] }));
-
-    setCruuentSubCategory(e.target.innerHTML);
-  };
+  const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
   return (
     <div className={styles["community-section-board"]}>
       <p className={styles["community-section-board__title"]}>
-        <span>{data.mainCategory === "board" ? "Board" : "Job"}</span>
+        <span>{initialData.mainCategory === "board" ? "Board" : "Job"}</span>
         <IoIosArrowForward size={25} style={{ position: "relative", top: "1px" }} />
       </p>
       <table className={styles["community-section-board__content"]}>
         <thead>
           <tr className={styles["community-section-board__sub-category"]}>
-            {subCategoryList.map((value: string, index: number) => (
+            {subCategoryList?.map((value: string, index: number) => (
               <td
-                onClick={switchSubCategory}
+                onClick={(e: any) => { setCurrentSubCategory(e.target.innerHTML); setConveyInitialData(false); }}
                 key={index}
-                style={crruentSubCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
+                style={currentSubCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
               >
                 {value}
               </td>
@@ -46,7 +49,7 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
           </tr>
         </thead>
         <tbody className={styles["community-section-board__post-list"]}>
-          {data.postList.map((post: any, index: number) => {
+          {data?.postList.map((post: any, index: number) => {
             return (
               index < 8 && (
                 <tr key={index} className={styles["community-section-board__element"]}>

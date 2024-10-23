@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 
-import { Post } from "@/types/post";
+import { PostType } from "@/types/post";
 import { useGetUser } from "@/hooks/auth/useGetUser";
 import DetachedThumbnail from "../detachedThumbnail";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  postList: Post[];
-}
+  postList: PostType[];
+};
 
 const ThumbnailList = ({ postList }: Props) => {
   const router = useRouter();
@@ -20,8 +20,8 @@ const ThumbnailList = ({ postList }: Props) => {
   const mainCategory = router.pathname.split("/").pop();
 
   return (
-    <div className={styles["thumbnail"]}>
-      {postList.map((post: Post, index: number) => (
+    <div className={styles["thumbnail-list"]}>
+      {postList.map((post: PostType, index: number) => (
         <DetachedThumbnail element={post} key={index} />
       ))}
       {userMe &&

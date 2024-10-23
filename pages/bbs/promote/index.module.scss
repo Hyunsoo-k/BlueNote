@@ -8,13 +8,10 @@
   margin: 0 auto;
   padding: 40px 20px 20px 20px;
 
-  .show-more-btn {
+  .promote-page__control-section {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
-
-    &:hover {
-      cursor: pointer;
-    }
+    flex-direction: column;
+    gap: 30px;
+    border-top: 1px solid $gray-color-100;
   }
 }

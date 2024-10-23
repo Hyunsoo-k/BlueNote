@@ -9,7 +9,7 @@ import NavBar from "@/components/navbar";
 
 import styles from "./index.module.scss";
 
-const Header = () => {
+const  Header = () => {
   const router = useRouter();
   const [profileModal, setProfileModal] = useState({
     show: false,
@@ -30,7 +30,6 @@ const Header = () => {
         !profileModal.ref.current?.contains(e.target as Node)
       ) {
         setProfileModal((prev) => ({ ...prev, show: false }));
-        console.log("done")
       }
     };
 

@@ -14,7 +14,7 @@ function useModal() {
 
   const closeModal = () => {
     setModalState({
-      type: null,
+      type: null, 
       message: null,
       handleClick: () => {}
     });

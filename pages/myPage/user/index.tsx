@@ -68,7 +68,6 @@ const UserPage = () => {
         if (editedUrl !== null) {
           fileName = Date.now().toString();
           imageUrl = await uploadImageToFirebase(`user/${fileName}`, newFile);
-          console.log(imageUrl);
         }
       }
 

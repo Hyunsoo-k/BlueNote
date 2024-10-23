@@ -1,0 +1,27 @@
+@use "@/styles/variables.scss" as *;
+
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.post-action-button {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  width: 100%;
+
+  .post-action-button__edit,
+  .post-action-button__delete {
+    position: relative;
+    top: 5px;
+    background-color: inherit;
+    border: none;
+    font-size: 14px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: $gray-color-300;
+
+    &:hover {
+      cursor: pointer;
+      color: $sub-color;
+    }
+  }
+}

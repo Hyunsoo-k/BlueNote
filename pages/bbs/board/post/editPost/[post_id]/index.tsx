@@ -26,10 +26,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl } = context;
   const resourceUrl = resolvedUrl.replace("editPost/", "");
   const { data: initialPost } = await instance.get(resourceUrl);
-  
+
   return {
     props: {
-      initialPost
-    }
-  }
-}
+      initialPost,
+    },
+  };
+};
