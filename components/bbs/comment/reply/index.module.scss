@@ -5,7 +5,8 @@
 
 .reply {
   position: relative;
-  padding-left: 50px;
+  padding-left: 100px;
+  border-bottom: 1px solid $gray-color-100;
   
   .reply__information {
     display: flex;
@@ -16,8 +17,15 @@
 
     .reply__writer {
       margin: 0;
-      font-size: 15px;
-      color: $sub-color;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgb(50, 50, 50);
+
+      span {
+        margin-left: 5px;
+        font-size: 13px;
+        color: $sub-color;
+      }
     }
 
     .reply__etc {
@@ -51,9 +59,19 @@
 
   .reply__content {
     margin: 0;
-    padding: 10px 0 15px 0;
-    border-bottom: 1px solid $gray-color-100;
+    padding: 7px 0 10px 0;
     font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgb(50, 50, 50);
+  }
+
+  .reply__create-reply-button {
+    padding: 0 0 8px 0;
+    background-color: inherit;
+    border: none;
+    font-size: 13px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: $gray-color-300;
 
     &:hover {
       cursor: pointer;
@@ -84,6 +102,7 @@
       border: none;
       font-size: 15px;
       font-family: "Noto Sans KR", sans-serif;
+      color: rgb(50, 50, 50);
     }
 
     .reply__edit-field-footer {

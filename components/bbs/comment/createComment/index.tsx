@@ -45,7 +45,7 @@ const CreateComment = ({ post_id }: Props) => {
       onSubmit={handleSubmit(handleCreateComment.onSubmit, handleCreateComment.onError)}
       className={styles["create-comment"]}
     >
-      <p className={styles["create-comment__nickname"]}>{userMe.nickname}</p>
+      <p className={styles["create-comment__writer"]}>{userMe.nickname}</p>
       <textarea
         spellCheck="false"
         {...register("createFieldContent", {

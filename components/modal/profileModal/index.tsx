@@ -11,24 +11,29 @@ import { removeCookie } from "@/cookie";
 import styles from "./index.module.scss";
 
 interface Props {
+  isShown: boolean;
   userMe: any;
-}
+};
 
-const ProfileModal = forwardRef(({ userMe }: Props, ref) => {
+const ProfileModal = forwardRef<HTMLDivElement, Props>(({ isShown, userMe }, ref) => {
   const router = useRouter();
 
   const logout = () => {
     removeCookie("accessToken");
     window.location.replace("/");
+  };
+
+  if (!isShown) {
+    return null;
   }
 
   return (
     <div ref={ref} className={styles["profile-modal"]}>
       <div className={styles["profile-modal__header"]}>
         <Image
+          src={userMe.profileImage.url || "/images/user/defaultProfileGray.png"}
           width={120}
           height={120}
-          src={userMe.profileImage.url || "/images/user/default-profile.png"}
           alt=""
           style={{ top: "30px", borderRadius: "50%" }}
         />

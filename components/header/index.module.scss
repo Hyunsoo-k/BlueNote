@@ -8,6 +8,7 @@
 //font-family: 'Noto Sans KR', sans-serif;
 
 .header {
+  z-index: 998;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -17,7 +18,7 @@
   justify-items: center;
   width: 100%;
   background-color: #efebe9;
-  z-index: 998;
+  border-bottom: 1px solid $gray-color-100;
 
   @include tablet {
     display: block;
@@ -27,7 +28,7 @@
     display: block;
   }
 
-  .header__header {
+  .header__top {
     position: relative;
     width: 100%;
     max-width: 1150px;
@@ -109,16 +110,23 @@
       }
     }
 
-    .header__profile {
+    .header__userMe {
       position: absolute;
       top: 20px;
       right: 20px;
       display: flex;
       justify-content: space-between;
-      width: 180px;
+      width: 85px;
 
       &:hover {
         cursor: pointer;
+      }
+
+      .header__boundary-line {
+        width: 2px;
+        height: 35px;
+        margin-top: 2px;
+        background-color: $gray-color-200;
       }
 
       .header__user {
@@ -151,10 +159,6 @@
         }
       }
     }
-  }
-
-  .header__navbar {
-    margin-top: 30px;
   }
 
   .header__mobile-dropdown-on {

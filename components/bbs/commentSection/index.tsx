@@ -7,7 +7,7 @@ import { Comment as CommentType } from "@/types/comment";
 import { useGetUser } from "@/hooks/auth/useGetUser";
 import { useRecommendPost } from "@/hooks/bbs/useRecommend";
 import Comment from "../comment";
-import CreateComment from "../createComment";
+import CreateComment from "../comment/createComment";
 import useModal from "@/hooks/modal/useModal";
 import ModalContainer from "@/components/modal/modalContainer";
 

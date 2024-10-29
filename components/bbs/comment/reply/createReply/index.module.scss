@@ -5,15 +5,14 @@
 
 .create-reply {
   position: relative;
-  padding-left: 50px;
-  margin-bottom: 10px;
+  padding: 15px 0 15px 50px;
+  border-bottom: 1px solid $gray-color-100;
 
   .create-reply__form {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 30px;
     padding: 10px;
     border: 1px solid $gray-color-100;
     border-radius: 4px;
@@ -21,9 +20,11 @@
     font-size: 15px;
     font-family: "Noto Sans KR", sans-serif;
   
-    .create-reply__nickname {
+    .create-reply__writer {
       margin: 0;
-      color: $sub-color;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgb(50, 50, 50);
     }
   
     .create-reply__create-input {

@@ -1,0 +1,13 @@
+.notification {
+  position: relative;
+
+  .notification__red-light {
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+  }
+}

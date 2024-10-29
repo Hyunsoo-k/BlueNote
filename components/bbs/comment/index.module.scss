@@ -3,18 +3,42 @@
 //font-family: 'Noto Sans KR', sans-serif;
 //모바일 드롭다운 카테고리 하위 폰트
 
+.comment-deleted-having-reply {
+  position: relative;
+
+  .comment__deleted-comment {
+    margin: 0;
+    padding: 15px 0px;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: $gray-color-300;
+    border-bottom: 1px solid $gray-color-100;
+  }
+}
+
 .comment {
+  position: relative;
+  padding-left: 53px;
+  border-bottom: 1px solid $gray-color-100;
+
   .comment__information {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding-top: 10px;
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 
     .comment__writer {
       margin: 0;
-      font-size: 15px;
-      color: $sub-color;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgb(50, 50, 50);
+
+      span {
+        margin-left: 5px;
+        font-size: 13px;
+        color: $sub-color;
+      }
     }
 
     .comment__etc {
@@ -48,9 +72,19 @@
 
   .comment__content {
     margin: 0;
-    padding: 10px 0 15px 0;
-    border-bottom: 1px solid $gray-color-100;
+    padding: 7px 0;
     font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgb(50, 50, 50);
+  }
+
+  .comment__create-reply-button {
+    padding: 0 0 8px 0;
+    background-color: inherit;
+    border: none;
+    font-size: 13px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: $gray-color-300;
 
     &:hover {
       cursor: pointer;
