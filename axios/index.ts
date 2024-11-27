@@ -4,9 +4,7 @@ import { getCookie } from "@/cookie";
 
 const instance = axios.create({
   baseURL: "https://bluenote-server.onrender.com",
-  headers: {
-    "Content-Type": "application/json"
-  }
+  headers: { "Content-Type": "application/json" }
 });
 
 instance.interceptors.request.use((config) => {
@@ -14,7 +12,7 @@ instance.interceptors.request.use((config) => {
 
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
-  }
+  };
 
   return config;
 });

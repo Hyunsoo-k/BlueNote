@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import { PostType } from "@/types/post";
-import { useGetUser } from "@/hooks/auth/useGetUser";
 import { formatYMD } from "@/utils/dateFormatter";
 import PostActionButton from "@/components/bbs/postActionButton";
 import CommentSection from "../commentSection";
@@ -14,8 +13,6 @@ interface Props {
 
 const BbsPost = ({ post }: Props) => {
   const [content, setContent] = useState<any>(null);
-
-  const { data: userMe } = useGetUser();
 
   useEffect(() => {
     const parser = new DOMParser();

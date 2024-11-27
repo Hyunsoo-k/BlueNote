@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { instance } from "@/axios";
 import { getCookie } from "@/cookie";
@@ -11,16 +11,13 @@ const getUserFn = async () => {
 };
 
 const useGetUser = () => {
-  const queryClient = useQueryClient();
-  const initialData = queryClient.getQueryData(queryKey.userMe) || undefined;
 
   return useQuery({
     queryKey: queryKey.userMe,
     queryFn: getUserFn,
     enabled: !!getCookie("accessToken"),
-    staleTime: 12 * 60 * 60 * 1000,
     gcTime: 12 * 60 * 60 * 1000,
-    initialData
+    staleTime: 12 * 60 * 60 * 1000,
   });
 };
 

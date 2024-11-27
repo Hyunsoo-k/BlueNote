@@ -3,12 +3,16 @@
 //font-family: 'Noto Sans KR', sans-serif;
 //모바일 드롭다운 카테고리 하위 폰트
 
-.create-comment {
+.edit-reply {
+  resize: none;
+  outline: none;
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
-  margin-top: 30px;
+  height: 140px;
+  margin: 10px 0;
   padding: 10px;
   border: 1px solid $gray-color-100;
   border-radius: 4px;
@@ -16,26 +20,22 @@
   font-size: 15px;
   font-family: "Noto Sans KR", sans-serif;
 
-  .create-comment__nickname {
-    margin: 0;
-    color: $sub-color;
-  }
-
-  .create-comment__create-input {
+  .edit-reply__input {
     resize: none;
     outline: none;
-    height: 70px;
-    margin-top: 10px;
+    height: 80px;
     border: none;
+    font-size: 15px;
     font-family: "Noto Sans KR", sans-serif;
+    color: rgb(50, 50, 50);
   }
 
-  .create-comment__footer {
+  .edit-reply__footer {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
 
-    .create-comment__error-message {
+    .edit-reply__error-message {
       display: flex;
       align-items: end;
       height: 30px;
@@ -45,20 +45,22 @@
       color: red;
     }
 
-    .create-comment__button {
-      position: relative;
-      width: 45px;
-      height: 30px;
-      background-color: inherit;
-      border: none;
-      letter-spacing: 2px;
-      font-size: 14px;
-      font-family: "Noto Sans KR", sans-serif;
-      color: $gray-color-300;
+    .edit-reply__button-wrapper {
+      .edit-reply__button {
+        position: relative;
+        width: 45px;
+        height: 30px;
+        background-color: inherit;
+        border: none;
+        letter-spacing: 2px;
+        font-size: 14px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: $gray-color-300;
 
-      &:hover {
-        cursor: pointer;
-        color: $sub-color;
+        &:hover {
+          cursor: pointer;
+          color: $sub-color;
+        }
       }
     }
   }

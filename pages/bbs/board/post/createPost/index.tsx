@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 
 const BoardCreatePostPage = () => {
   return (
-    <div className={styles["board-post-wrtie-page"]}>
+    <div className={styles["board-create-post-page"]}>
       <CreatePost mainCategory="board" />
     </div>
   );

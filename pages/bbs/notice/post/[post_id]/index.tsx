@@ -8,11 +8,12 @@ import BbsPost from "@/components/bbs/bbsPost";
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  initialPost: any;
-}
+  urlWithoutQuery: string;
+  initialData: any;
+};
 
-const NoticePostPage = ({ initialPost }: ServerSideProps) => {
-  const { data: post } = useGetPost(initialPost);
+const NoticePostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
+  const { data: post } = useGetPost(urlWithoutQuery, initialData);
 
   return (
     <div className={styles["notice-post-page"]}>
@@ -27,12 +28,16 @@ export default NoticePostPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl } = context;
 
-  await instance.post(`${resolvedUrl}/views`);
-  const { data: initialPost } = await instance.get(resolvedUrl);
+  const urlWithoutQuery = new URL(resolvedUrl, `http://${context.req.headers.host}`).pathname;
+
+  await instance.post(`${urlWithoutQuery}/views`);
+
+  const { data: initialData } = await instance.get(`${urlWithoutQuery}`);
 
   return {
     props: {
-      initialPost,
+      urlWithoutQuery,
+      initialData,
     },
   };
 };

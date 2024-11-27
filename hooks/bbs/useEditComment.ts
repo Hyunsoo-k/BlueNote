@@ -11,13 +11,17 @@ const editCommentFn = async (comment_id: string, requestBody: any) => {
 
 const useEditComment = (
   post_id: string,
-  comment_id: string
+  comment_id: string,
+  setIsEditing: any,
+  reset: any
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (requestBody: any) => editCommentFn(comment_id, requestBody),
     onSuccess: () => {
+      setIsEditing(false);
+      reset();
       queryClient.invalidateQueries({ queryKey: queryKey.post(post_id) });
     },
     onError: (error: any) => {

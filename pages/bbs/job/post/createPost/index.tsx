@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 
 const JobCreatePostPage = () => {
   return (
-    <div className={styles["job-post-wrtie-page"]}>
+    <div className={styles["job-create-post-page"]}>
       <CreatePost mainCategory="job" />
     </div>
   );

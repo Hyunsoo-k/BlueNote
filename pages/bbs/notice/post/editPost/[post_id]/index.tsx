@@ -6,30 +6,35 @@ import { useGetPost } from "@/hooks/bbs/useGetPost";
 
 import styles from "./index.module.scss";
 
-interface Props {
-  initialPost: any;
-}
+interface ServerSideProps {
+  urlWithoutQuery: string;
+  initialData: any;
+};
 
-const BoardPostEditPage = ({ initialPost }: Props) => {
-  const { data: post } = useGetPost(initialPost);
+const NoticePostEditPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
+  const { data: post } = useGetPost(urlWithoutQuery, initialData);
 
   return (
-    <div className={styles["board-post-edit-page"]}>
+    <div className={styles["notice-edit-post-page"]}>
       <EditPost post={post} />
     </div>
   );
 };
 
-export default BoardPostEditPage;
+export default NoticePostEditPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl } = context;
-  const resourceUrl = resolvedUrl.replace("editPost/", "");
-  const { data: initialPost } = await instance.get(resourceUrl);
+
+  const urlWithoutQuery = resolvedUrl.replace("editPost/", "");
+
+  const { data: initialData } = await instance.get(urlWithoutQuery);
 
   return {
     props: {
-      initialPost,
+      urlWithoutQuery,
+      initialData,
     },
   };
 };
+
