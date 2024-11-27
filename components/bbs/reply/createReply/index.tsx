@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { PiArrowElbowDownRightThin } from "react-icons/pi";
 
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { useCreateReply } from "@/hooks/bbs/useCreateReply";
 
 import styles from "./index.module.scss";
@@ -12,11 +12,7 @@ interface Props {
   setIsCreatingReply: any;
 }
 
-const CreateReply = ({
-  post_id,
-  comment_id,
-  setIsCreatingReply
-}: Props) => {
+const CreateReply = ({ post_id, comment_id, setIsCreatingReply }: Props) => {
   const {
     register,
     handleSubmit,
@@ -26,11 +22,7 @@ const CreateReply = ({
 
   const { data: userMe } = useGetUser();
 
-  const createReplyMutation = useCreateReply(
-    post_id,
-    comment_id,
-    setIsCreatingReply
-  );
+  const createReplyMutation = useCreateReply(post_id, comment_id, setIsCreatingReply);
 
   const handleCancelCreateReply = (e: any) => {
     e.stopPropagation();
@@ -42,7 +34,7 @@ const CreateReply = ({
     onSubmit: (watch: any) => {
       const requestbody = {
         postUrl: window.location.pathname,
-        content: watch.createFieldContent
+        content: watch.createFieldContent,
       };
 
       createReplyMutation.mutate(requestbody);
@@ -58,7 +50,7 @@ const CreateReply = ({
         style={{ position: "absolute", top: "20px", left: "10px" }}
       />
       <form
-        onSubmit={ handleSubmit(handleCreateReply.onSubmit, handleCreateReply.onError) }
+        onSubmit={handleSubmit(handleCreateReply.onSubmit, handleCreateReply.onError)}
         className={styles["create-reply__form"]}
       >
         <p className={styles["create-reply__writer"]}>{userMe?.nickname}</p>
@@ -72,9 +64,7 @@ const CreateReply = ({
           className={styles["create-reply__create-input"]}
         />
         <div className={styles["create-reply__footer"]}>
-          <p className={styles["create-reply__error-message"]}>
-            {errors.createFieldContent?.message}
-          </p>
+          <p className={styles["create-reply__error-message"]}>{errors.createFieldContent?.message}</p>
           <div className={styles["create-reply__button-wrapper"]}>
             <button
               type="button"

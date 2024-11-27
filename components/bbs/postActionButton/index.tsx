@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import { PostType } from "@/types/post";
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { useDeletePost } from "@/hooks/bbs/useDeletePost";
 import useModal from "@/hooks/modal/useModal";
 

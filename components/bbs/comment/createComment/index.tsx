@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { useCreateComment } from "@/hooks/bbs/useCreateComment";
 
 import styles from "./index.module.scss";
@@ -14,7 +14,7 @@ const CreateComment = ({ post_id }: Props) => {
   const router = useRouter();
 
   const { data: userMe } = useGetUser();
-  
+
   const {
     register,
     handleSubmit,
@@ -28,7 +28,7 @@ const CreateComment = ({ post_id }: Props) => {
     onSubmit: (watch: any) => {
       const requestbody = {
         content: watch.createFieldContent,
-        postUrl: router.asPath
+        postUrl: router.asPath,
       };
 
       createCommentMutation.mutate(requestbody);
@@ -38,7 +38,7 @@ const CreateComment = ({ post_id }: Props) => {
 
   if (!userMe) {
     return null;
-  };
+  }
 
   return (
     <form
@@ -56,9 +56,7 @@ const CreateComment = ({ post_id }: Props) => {
         className={styles["create-comment__create-input"]}
       />
       <div className={styles["create-comment__footer"]}>
-        <p className={styles["create-comment__error-message"]}>
-          {errors.createFieldContent?.message}
-        </p>
+        <p className={styles["create-comment__error-message"]}>{errors.createFieldContent?.message}</p>
         <button className={styles["create-comment__button"]}>등록</button>
       </div>
     </form>

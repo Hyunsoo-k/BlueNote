@@ -16,6 +16,7 @@ type SubCategory =
 
 interface PostType {
     _id: string;
+    number: number;
     mainCategory: MainCategory;
     subCategory: SubCategory;
     writer: { _id: string, nickname: string };

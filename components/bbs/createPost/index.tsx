@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 
 import { MainCategory } from "@/types/categorys";
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { subCategoryListMap } from "@/variable";
 import { useCreatePost } from "@/hooks/bbs/useCreatePost";
 import { uploadImageToFirebase, dataURLToBlob } from "@/utils/firebase";
@@ -14,7 +14,7 @@ const WysiwygEditor = dynamic(() => import("@/components/bbs/wysiwygEditor"), { 
 
 interface Props {
   mainCategory: MainCategory;
-};
+}
 
 const CreatePost = ({ mainCategory }: Props) => {
   const subCategoryList = subCategoryListMap[mainCategory].filter((item) => item !== "All");
@@ -44,14 +44,14 @@ const CreatePost = ({ mainCategory }: Props) => {
           const StorageURL = await uploadImageToFirebase(`bbs/${mainCategory}/${fileName}`, blob);
 
           imgTag.setAttribute("src", StorageURL);
-        };
-      };
+        }
+      }
 
       content = parsedContent.body.innerHTML;
       const requestBody = {
         subCategory: currentCategory,
         title: data.title,
-        content
+        content,
       };
 
       createPostMutation.mutate(requestBody);
@@ -61,8 +61,8 @@ const CreatePost = ({ mainCategory }: Props) => {
     },
   };
 
-  console.log(userMe)
-  
+  console.log(userMe);
+
   return (
     <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["create-post"]}>
       <p className={styles["create-post__main-category"]}>{mainCategory}</p>

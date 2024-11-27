@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { PiArrowElbowDownRightThin } from "react-icons/pi";
 
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import useModal from "@/hooks/modal/useModal";
 import { useDeleteReply } from "@/hooks/bbs/useDeleteReply";
 import { formatYMD } from "@/utils/dateFormatter";
@@ -25,15 +25,15 @@ const Reply = ({ key, post, comment_id, reply }: Props) => {
   useEffect(() => {
     if (router.query.element_id === reply._id.toString()) {
       const targetElement = document.getElementById(reply._id);
-  
+
       if (targetElement) {
         const scrollCallback = () => {
           targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
         };
 
-        'requestIdleCallback' in window && requestIdleCallback(scrollCallback);
-      };
-    };
+        "requestIdleCallback" in window && requestIdleCallback(scrollCallback);
+      }
+    }
   }, [router.query]);
 
   const [isEditingReply, setIsEditingReply] = useState<boolean>(false);
@@ -66,11 +66,7 @@ const Reply = ({ key, post, comment_id, reply }: Props) => {
         key={key}
         id={reply._id}
         className={styles["reply"]}
-        style={
-          router.query.element_id === reply._id.toString()
-           ? { backgroundColor: "rgb(225, 225, 225)" }
-           : {}
-        }
+        style={router.query.element_id === reply._id.toString() ? { backgroundColor: "rgb(225, 225, 225)" } : {}}
       >
         <PiArrowElbowDownRightThin
           size={23}
@@ -95,19 +91,29 @@ const Reply = ({ key, post, comment_id, reply }: Props) => {
             {post.writer._id === reply.writer._id && <span className={styles["reply__post_writer"]}>작성자</span>}
             {reply.writer._id === userMe?._id && <span className={styles["reply__userMe_writer"]}>내가 쓴 글</span>}
           </p>
-            {!isEditingReply && userMe?._id === reply.writer._id && (
-              <div className={styles["reply__action-button"]}>
-                <span onClick={(e: any) => { handleEditReply(e); }}>
-                  수정
-                </span>
-                <span onClick={(e: any) => { handleDeleteReply(e); }}>
-                  삭제
-                </span>
-              </div>
-            )}
+          {!isEditingReply && userMe?._id === reply.writer._id && (
+            <div className={styles["reply__action-button"]}>
+              <span
+                onClick={(e: any) => {
+                  handleEditReply(e);
+                }}
+              >
+                수정
+              </span>
+              <span
+                onClick={(e: any) => {
+                  handleDeleteReply(e);
+                }}
+              >
+                삭제
+              </span>
+            </div>
+          )}
         </div>
         {!isEditingReply && <p className={styles["reply__content"]}>{reply.content}</p>}
-        {isEditingReply && <EditReply setIsEditing={setIsEditingReply} post_id={post._id} comment_id={comment_id} reply={reply} />}
+        {isEditingReply && (
+          <EditReply setIsEditing={setIsEditingReply} post_id={post._id} comment_id={comment_id} reply={reply} />
+        )}
         <div className={styles["reply__footer"]}>
           <p className={styles["reply__created-at"]}>{formatYMD(reply.createdAt)}</p>
           <button
