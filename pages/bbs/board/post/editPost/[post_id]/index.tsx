@@ -6,15 +6,16 @@ import EditPost from "@/components/bbs/editPost";
 
 import styles from "./index.module.scss";
 
-interface Props {
-  initialPost: any;
-}
+interface ServerSideProps {
+  urlWithoutQuery: string;
+  initialData: any;
+};
 
-const BoardEditPostPage = ({ initialPost }: Props) => {
-  const { data: post } = useGetPost(initialPost);
+const BoardEditPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
+  const { data: post } = useGetPost(urlWithoutQuery, initialData);
 
   return (
-    <div className={styles["board-post-edit-page"]}>
+    <div className={styles["board-edit-post-page"]}>
       <EditPost post={post} />
     </div>
   );
@@ -24,12 +25,15 @@ export default BoardEditPostPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { resolvedUrl } = context;
-  const resourceUrl = resolvedUrl.replace("editPost/", "");
-  const { data: initialPost } = await instance.get(resourceUrl);
+
+  const urlWithoutQuery = resolvedUrl.replace("editPost/", "");
+
+  const { data: initialData } = await instance.get(urlWithoutQuery);
 
   return {
     props: {
-      initialPost,
+      urlWithoutQuery,
+      initialData,
     },
   };
 };

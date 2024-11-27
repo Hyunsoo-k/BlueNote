@@ -1,34 +1,38 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { forwardRef } from "react";
 import { LuUser2 } from "react-icons/lu";
 import { IoDocumentOutline } from "react-icons/io5";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
-import { removeCookie } from "@/cookie";
+import { useRemoveCookie } from "@/cookie";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  isShown: boolean;
+  showModal: boolean;
   userMe: any;
 };
 
-const ProfileModal = forwardRef<HTMLDivElement, Props>(({ isShown, userMe }, ref) => {
+const ProfileModal = ({ showModal, userMe }: Props) => {
   const router = useRouter();
 
+  const logoutFn = useRemoveCookie("accessToken");
+
   const logout = () => {
-    removeCookie("accessToken");
+    logoutFn();
     window.location.replace("/");
   };
 
-  if (!isShown) {
+  if (!showModal) {
     return null;
-  }
+  };
 
   return (
-    <div ref={ref} className={styles["profile-modal"]}>
+    <div
+      onMouseDown={(e:any) => { e.stopPropagation(); }}
+      className={styles["profile-modal"]}
+    >
       <div className={styles["profile-modal__header"]}>
         <Image
           src={userMe.profileImage.url || "/images/user/defaultProfileGray.png"}
@@ -48,6 +52,6 @@ const ProfileModal = forwardRef<HTMLDivElement, Props>(({ isShown, userMe }, ref
       </ul>
     </div>
   );
-});
+};
 
 export default ProfileModal;

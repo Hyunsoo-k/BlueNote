@@ -2,7 +2,7 @@ import { MainCategory } from "@/types/categorys";
 
 const queryKey = {
   userMe: ["userMe"],
-  notification: (user_id: string) => ["notification", user_id],
+  notification: (userMe_id: string) => ["notification", userMe_id],
   myPostList: (page: string) => ["myPostList", page],
   postListData: (mainCategory: MainCategory, resolveURL: string) => [
     "postListData",

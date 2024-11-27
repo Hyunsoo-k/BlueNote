@@ -52,8 +52,7 @@
     .notification-modal__item {
       position: relative;
       display: flex;
-      margin: 0 15px;
-      padding: 15px 0;
+      padding: 15px;
       border-bottom: 1px solid $gray-color-100;
 
       &:hover {
@@ -63,8 +62,8 @@
 
       .notifiaction-modal__red-light {
         position: absolute;
-        top: 15px;
-        left: 32px;
+        top: 17px;
+        left: 13px;
         background-color: red;
         width: 6px;
         height: 6px;
@@ -77,6 +76,7 @@
         width: 100%;
 
         .notification-modal__header {
+          position: relative;
           display: flex;
           justify-content: space-between;
           width: 100%;
@@ -88,19 +88,21 @@
             align-items: end;
             margin: 0;
             font-size: 14px;
+            font-weight: 500;
+            color: rgb(50, 50, 50);
           }
 
           .notification-modal__lapse {
             display: flex;
             align-items: end;
-            margin: 0;
+            margin: 0 23px 0 0;
             font-size: 13px;
             color: $gray-color-300;
           }
         }
 
         .notification-modal__content {
-          margin: 7px 0 0;
+          margin: 3px 0 0;
           padding-left: 15px;
           font-size: 14px;
           font-weight: 400;
@@ -108,6 +110,13 @@
           color: $gray-color-300;
 
           span {
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            top: 4px;
+            max-width: 210px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             color: $sub-color;
           }
         }

@@ -12,12 +12,18 @@ const getCookie = (key: string) => {
   return cookies.get(key);
 };
 
-const removeCookie = (key: string) => {
+const useRemoveCookie = (key: string) => {
   const queryClient = useQueryClient();
 
-  queryClient.removeQueries({ queryKey: queryKey.userMe });
-  
-  return cookies.remove(key, { path: "/" });
+  const remove = () => {
+    queryClient.removeQueries({ queryKey: queryKey.userMe });
+
+    cookies.remove(key, { path: "/" });
+
+    queryClient.invalidateQueries({ queryKey: queryKey.userMe });
+  };
+
+  return remove;
 };
 
-export { setCookie, getCookie,  removeCookie };
+export { setCookie, getCookie, useRemoveCookie };

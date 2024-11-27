@@ -4,32 +4,30 @@ import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
 const editReplyFn = async (
-  asPath: string,
   comment_id:string,
   reply_id: string,
   requestBody: any
 ) => {
-  const response = await instance.patch(`${asPath}/comment/${comment_id}/reply/${reply_id}`, requestBody);
+  const response = await instance.patch(`${window.location.pathname}/comment/${comment_id}/reply/${reply_id}`, requestBody);
 
   return response.data;
 };
 
 const useEditReply = (
-  asPath: string,
-  post: any,
+  post_id: any,
   comment_id: string,
   reply_id: string,
-  reset: any,
-  setToggleEditField: any
+  setIsEditing: any,
+  reset: any
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (requestbody: any) => editReplyFn(asPath, comment_id, reply_id, requestbody),
+    mutationFn: (requestbody: any) => editReplyFn(comment_id, reply_id, requestbody),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.post(post._id) });
+      setIsEditing(false);
       reset();
-      setToggleEditField(false);
+      queryClient.invalidateQueries({ queryKey: queryKey.post(post_id) });
     },
     onError: (error: any) => {
       console.log(error);

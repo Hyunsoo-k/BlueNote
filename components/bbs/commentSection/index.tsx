@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { RiThumbUpLine } from "react-icons/ri";
 import { RiThumbUpFill } from "react-icons/ri";
 import { FaRegCommentDots } from "react-icons/fa6";
@@ -18,6 +19,8 @@ interface Props {
 }
 
 const CommentSection = ({ post }: Props) => {
+  const router = useRouter();
+
   const { data: userMe } = useGetUser();
   
   const { openModal, closeModal } = useModal();
@@ -27,8 +30,11 @@ const CommentSection = ({ post }: Props) => {
   const handleRecommendPost = () => {
     if (!userMe) {
       return openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
-    }
-    recommendPostMutation.mutate();
+    };
+
+    const requsetBody = { targetUrl : router.asPath };
+
+    recommendPostMutation.mutate(requsetBody);
   };
 
   return (

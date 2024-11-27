@@ -28,7 +28,7 @@ const CreateComment = ({ post_id }: Props) => {
     onSubmit: (watch: any) => {
       const requestbody = {
         content: watch.createFieldContent,
-        targetUrl: router.asPath
+        postUrl: router.asPath
       };
 
       createCommentMutation.mutate(requestbody);

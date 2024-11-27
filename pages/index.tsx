@@ -1,5 +1,4 @@
 import { GetServerSideProps } from "next";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { instance } from "@/axios";
 import Carousel from "@/components/carousel";
@@ -23,14 +22,6 @@ const Home = ({
   initialBoardData,
   initialJobData
 }: Props) => {
-  const queryClient = useQueryClient();
-
-  const { data: newsData } = useQuery({
-    queryKey: ["news", "mainPage"],
-    queryFn: async () => {
-      const response = instance.get(`/bbs/news`);
-    }
-  })
 
   return (
     <div className={styles["home-page"]}>

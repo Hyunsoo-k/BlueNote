@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { PiArrowElbowDownRightThin } from "react-icons/pi";
 
@@ -10,18 +9,14 @@ import styles from "./index.module.scss";
 interface Props {
   post_id: string;
   comment_id: string;
-  isCreatingReply: boolean;
   setIsCreatingReply: any;
 }
 
 const CreateReply = ({
   post_id,
   comment_id,
-  isCreatingReply,
   setIsCreatingReply
 }: Props) => {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -31,12 +26,10 @@ const CreateReply = ({
 
   const { data: userMe } = useGetUser();
 
-  const createReplyMutation =
-    useCreateReply(
-      router.asPath,
-      post_id,
-      comment_id,
-      setIsCreatingReply
+  const createReplyMutation = useCreateReply(
+    post_id,
+    comment_id,
+    setIsCreatingReply
   );
 
   const handleCancelCreateReply = (e: any) => {
@@ -47,15 +40,14 @@ const CreateReply = ({
 
   const handleCreateReply = {
     onSubmit: (watch: any) => {
-      const requestbody = { content: watch.createFieldContent };
+      const requestbody = {
+        postUrl: window.location.pathname,
+        content: watch.createFieldContent
+      };
 
       createReplyMutation.mutate(requestbody);
     },
     onError: (e: any) => console.log(e),
-  };
-
-  if (!isCreatingReply) {
-    return null;
   };
 
   return (
@@ -66,10 +58,10 @@ const CreateReply = ({
         style={{ position: "absolute", top: "20px", left: "10px" }}
       />
       <form
-        onSubmit={handleSubmit(handleCreateReply.onSubmit, handleCreateReply.onError)}
+        onSubmit={ handleSubmit(handleCreateReply.onSubmit, handleCreateReply.onError) }
         className={styles["create-reply__form"]}
       >
-        <p className={styles["create-reply__writer"]}>{userMe.nickname}</p>
+        <p className={styles["create-reply__writer"]}>{userMe?.nickname}</p>
         <textarea
           spellCheck="false"
           {...register("createFieldContent", {

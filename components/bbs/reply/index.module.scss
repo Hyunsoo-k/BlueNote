@@ -3,96 +3,86 @@
 //font-family: 'Noto Sans KR', sans-serif;
 //모바일 드롭다운 카테고리 하위 폰트
 
-.comment-deleted-having-reply {
+.reply {
   position: relative;
-
-  .comment__deleted-comment {
-    margin: 0;
-    padding: 15px 0px;
-    font-size: 15px;
-    font-family: "Noto Sans KR", sans-serif;
-    color: $gray-color-300;
-    border-bottom: 1px solid $gray-color-100;
-  }
-}
-
-.comment {
-  position: relative;
-  padding: 0 10px 0 60px;
+  padding: 0 10px 0 100px;
   border-bottom: 1px solid $gray-color-100;
-
-  .comment__header {
+  
+  .reply__header {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding-top: 10px;
     font-family: "Noto Sans KR", sans-serif;
 
-    .comment__writer {
+    .reply__writer {
       margin: 0;
       font-size: 14px;
       font-weight: 500;
       color: rgb(50, 50, 50);
 
-      .comment__post_writer {
+      .reply__post_writer {
         margin-left: 6px;
         font-size: 13px;
         color: $sub-color;
       }
 
-      .comment__userMe_writer {
+      .reply__userMe_writer {
         margin-left: 6px;
         font-size: 13px;
         color: rgb(255, 156, 7);
       }
     }
 
-    .comment__action-button {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin: 0;
-      padding-right: 10px;
-      border: none;
-      font-size: 13px;
-      color: $gray-color-300;
 
-      span:hover {
-        cursor: pointer;
-        color: $sub-color;
+      .reply__action-button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        padding-right: 10px;
+        border: none;
+        font-size: 13px;
+        color: $gray-color-300;
+  
+        span:hover {
+          cursor: pointer;
+          color: $sub-color;
+        }
       }
-    }
+
+
   }
 
-  .comment__content {
+  .reply__content {
     margin: 0;
     padding: 7px 0 13px 0;
     font-size: 14px;
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     color: rgb(50, 50, 50);
   }
 
-  .comment__footer {
+  .reply__footer {
     display: flex;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 14px;
     font-weight: 500;
     color: $gray-color-300;
 
-    .comment__created-at {
+    .reply__created-at {
       margin: 0;
       padding: 0 15px 8px 0;
       font-weight: 400;
     }
-
-    .comment__create-reply-button {
+  
+    .reply__create-reply-button {
       padding: 0 0 8px 0;
       background-color: inherit;
       border: none;
       font-size: 13px;
       font-family: "Noto Sans KR", sans-serif;
       color: $gray-color-300;
-
+  
       &:hover {
         cursor: pointer;
       }

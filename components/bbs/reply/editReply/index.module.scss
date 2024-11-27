@@ -3,7 +3,7 @@
 //font-family: 'Noto Sans KR', sans-serif;
 //모바일 드롭다운 카테고리 하위 폰트
 
-.edit-comment-field {
+.edit-reply {
   resize: none;
   outline: none;
   position: relative;
@@ -20,7 +20,7 @@
   font-size: 15px;
   font-family: "Noto Sans KR", sans-serif;
 
-  .edit-comment-field__input {
+  .edit-reply__input {
     resize: none;
     outline: none;
     height: 80px;
@@ -30,12 +30,12 @@
     color: rgb(50, 50, 50);
   }
 
-  .edit-comment-field__footer {
+  .edit-reply__footer {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
 
-    .edit-comment-field__error-message {
+    .edit-reply__error-message {
       display: flex;
       align-items: end;
       height: 30px;
@@ -45,8 +45,8 @@
       color: red;
     }
 
-    .edit-comment-field__button-wrapper {
-      .edit-comment-field__button {
+    .edit-reply__button-wrapper {
+      .edit-reply__button {
         position: relative;
         width: 45px;
         height: 30px;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { useGetUser } from "@/hooks/auth/useGetUser";
-import Notification from "@/components/notification";
+import HeaderNotification from "@/components/header/headerNotification";
 import HeaderProfile from "@/components/header/headerProfile";
 import NavBar from "@/components/navbar";
 
@@ -18,7 +18,7 @@ const Header = () => {
         </Link>
         {userMe ? (
           <div className={styles["header__userMe"]}>
-            <Notification user_id={userMe.user_id} />
+            <HeaderNotification userMe_id={userMe._id} />
             <div className={styles["header__boundary-line"]}></div>
             <HeaderProfile userMe={userMe} />
           </div>

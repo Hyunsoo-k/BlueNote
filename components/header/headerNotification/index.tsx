@@ -1,16 +1,17 @@
 import { useRouter } from "next/router";
-import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { VscBell } from "react-icons/vsc";
 
-import ProfileModal from "@/components/modal/profileModal";
+import useGetNotification from "@/hooks/auth/useGetNotification";
+import NotificationModal from "@/components/modal/notificationModal";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  userMe: any;
+  userMe_id: string;
 };
 
-const HeaderProfile = ({ userMe }: Props) => {
+const HeaderNotification = ({ userMe_id }: Props) => {
   const router = useRouter();
 
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -22,7 +23,7 @@ const HeaderProfile = ({ userMe }: Props) => {
 
     const handleClickOutside = (e: MouseEvent) => {
       const targetNode = e.target as Node;
-      const notificationIcon = document.getElementById("profileIcon");
+      const notificationIcon = document.getElementById("notificationIcon");
 
       if (
         !notificationIcon?.contains(targetNode)
@@ -40,26 +41,27 @@ const HeaderProfile = ({ userMe }: Props) => {
     };
   }, []);
 
+  const { data: notificationData } = useGetNotification(userMe_id);
+
   const handleShowModal = () => {
     setShowModal(!showModal);
   };
 
   return (
     <div
-      id="profileIcon"
+      id="notificationIcon"
       onMouseDown={handleShowModal}
-      className={styles["header-profile"]}
+      className={styles["header-notification"]}
     >
-      <Image
-        src={userMe.profileImage.url || "/images/user/defaultProfileGray.png"}
-        width={37}
-        height={37}
-        alt=""
-        style={{ borderRadius: "50%" }}
+      {notificationData?.newNotificationCount > 0 && <div className={styles["header-notification__red-light"]}></div>}
+      <VscBell
+        size={33}
+        color="rgb(120, 120, 120)"
+        style={{ position: "relative", top: "2px" }}
       />
-      <ProfileModal showModal={showModal} userMe={userMe} />
+      <NotificationModal notificationData={notificationData} showModal={showModal} userMe_id={userMe_id} />
     </div>
   );
 };
 
-export default HeaderProfile;
+export default HeaderNotification;
