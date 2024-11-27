@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 
-import { Post } from "@/types/post";
+import { PostType } from "@/types/post";
 import { useGetUser } from "@/hooks/auth/useGetUser";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  postList: Post[];
-}
+  postList: PostType[];
+};
 
 const BbsPostList = ({ postList }: Props) => {
   const router = useRouter();
