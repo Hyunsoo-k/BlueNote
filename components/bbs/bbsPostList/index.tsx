@@ -13,8 +13,6 @@ interface Props {
 const BbsPostList = ({ postList }: Props) => {
   const router = useRouter();
 
-  console.log(postList);
-
   const { data: userMe } = useGetUser();
 
   const isNoticeOrNewsPage = router.pathname.split("/")[2] === "notice" || router.pathname.split("/")[2] === "news";
@@ -23,6 +21,11 @@ const BbsPostList = ({ postList }: Props) => {
   const colums = isMyPage
     ? ["No", "구분", "제목", "작성일", "조회수", "추천"]
     : ["No", "구분", "제목", "작성자", "작성일", "조회수", "추천"];
+
+  const handleClickItem = (e: any, mainCategory: string, _id: string) => {
+    e.stopPropagation();
+    router.push(`/bbs/${mainCategory}/post/${_id}`);
+  };
 
   return (
     <table className={styles["bbs-post-list"]}>
@@ -39,10 +42,7 @@ const BbsPostList = ({ postList }: Props) => {
         {postList.map((post: PostType, index: number) => (
           <tr
             key={index}
-            onClick={(e) => {
-              e.preventDefault();
-              router.push(`/bbs/${post.mainCategory}/post/${post._id}`);
-            }}
+            onClick={(e: any) => { handleClickItem(e, post.mainCategory, post._id); }}
             className={styles["bbs-post-list__element"]}
           >
             <td className={styles["bbs-post-list__no"]}>{post.number}</td>
