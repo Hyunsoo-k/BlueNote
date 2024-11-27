@@ -13,6 +13,8 @@ interface Props {
 const BbsPostList = ({ postList }: Props) => {
   const router = useRouter();
 
+  console.log(postList);
+
   const { data: userMe } = useGetUser();
 
   const isNoticeOrNewsPage = router.pathname.split("/")[2] === "notice" || router.pathname.split("/")[2] === "news";
@@ -43,7 +45,7 @@ const BbsPostList = ({ postList }: Props) => {
             }}
             className={styles["bbs-post-list__element"]}
           >
-            <td className={styles["bbs-post-list__id"]}>{index + 1}</td>
+            <td className={styles["bbs-post-list__no"]}>{post.number}</td>
             <td className={styles["bbs-post-list__sub-category"]}>{post.subCategory}</td>
             <td className={styles["bbs-post-list__title"]}>
               {post.title}
