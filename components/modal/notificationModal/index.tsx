@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { IoCloseOutline } from "react-icons/io5";
 
-import { useCheckNotification } from "@/hooks/auth/useCheckNotification";
-import { useDeleteNotification } from "@/hooks/auth/useDeleteNotification";
+import { useCheckNotification } from "@/hooks/user/useCheckNotification";
+import { useDeleteNotification } from "@/hooks/user/useDeleteNotification";
 import { formatLapse } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";

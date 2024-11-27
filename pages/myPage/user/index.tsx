@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { LuPlus } from "react-icons/lu";
 
 import { formatYMD } from "@/utils/dateFormatter";
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { useEditUser } from "@/hooks/myPage/useEditUser";
 import { uploadImageToFirebase, deleteImageFromFirebase } from "@/utils/firebase";
 import MyPageMenu from "@/components/myPageMenu";

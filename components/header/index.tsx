@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import HeaderNotification from "@/components/header/headerNotification";
 import HeaderProfile from "@/components/header/headerProfile";
 import NavBar from "@/components/navbar";

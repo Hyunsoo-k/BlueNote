@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { VscBell } from "react-icons/vsc";
 
-import useGetNotification from "@/hooks/auth/useGetNotification";
+import useGetNotification from "@/hooks/user/useGetNotification";
 import NotificationModal from "@/components/modal/notificationModal";
 
 import styles from "./index.module.scss";
