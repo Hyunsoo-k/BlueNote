@@ -36,7 +36,7 @@ const Home = ({
             return index < 8 && <CombinedThumbnail element={post} key={index} />;
           })}
         </div>
-        <a href="/bbs/news" className={styles["home-page__more-button"]}>
+        <a href="/bbs/promote" className={styles["home-page__more-button"]}>
           더보기
         </a>
       </div>
