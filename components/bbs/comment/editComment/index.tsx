@@ -49,7 +49,9 @@ const EditComment = ({ setIsEditing, post, comment }: Props) => {
         className={styles["edit-comment__input"]}
       />
       <div className={styles["edit-comment__footer"]}>
-        <p className={styles["edit-comment__error-message"]}>{errors.editFieldContent?.message}</p>
+      <p className={styles["edit-comment__error-message"]}>
+        {typeof errors.content?.message === "string" ? errors.content?.message : ""}
+      </p>
         <div className={styles["edit-comment__button-wrapper"]}>
           <button
             type="button"
