@@ -18,7 +18,7 @@ const DetachedThumbnail = ({ element }: Props) => {
     const imageTag = textHtml.querySelector("img");
     setImageUrl(imageTag && imageTag.getAttribute("src"));
     setTextContent(textHtml.body.textContent || "");
-  }, [element, key]);
+  }, [element]);
 
   return (
     <div

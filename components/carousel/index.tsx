@@ -55,7 +55,7 @@ const Carousel = ({ elementList, elementType }: Props) => {
         {elementList.map((element: any, index: number) =>
           elementType === "combined" ? (
             <div key={index} className={styles["carousel__element"]}>
-              <CombinedThumbnail element={element} key={index} />
+              <CombinedThumbnail element={element} />
             </div>
           ) : (
             <div key={index} className={styles["carousel__element"]}>
