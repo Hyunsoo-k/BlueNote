@@ -21,6 +21,10 @@
     font-weight: 600;
     font-family: "Metrophobic", sans-serif;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     span {
       display: inline-block;
     }

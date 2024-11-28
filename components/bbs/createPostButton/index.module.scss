@@ -1,0 +1,22 @@
+@use "@/styles/variables.scss" as *;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+
+.create-post-button {
+  position: absolute;
+  z-index: 990;
+  right: 0;
+  bottom: -77px;
+  width: 90px;
+  height: 40px;
+  background-color: $main-color;
+  border: none;
+  border-radius: 4px;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #fff;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $sub-color;
+  }
+}

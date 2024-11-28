@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { PostType } from "@/types/post";
 import { useGetUser } from "@/hooks/user/useGetUser";
 import { formatYM } from "@/utils/dateFormatter";
+import CreatePostButton from "../createPostButton";
 
 import styles from "./index.module.scss";
 
@@ -15,9 +16,8 @@ const BbsPostList = ({ postList }: Props) => {
 
   const { data: userMe } = useGetUser();
 
-  const isNoticeOrNewsPage = router.pathname.split("/")[2] === "notice" || router.pathname.split("/")[2] === "news";
   const isMyPage = router.pathname === "/myPage/myPost";
-  const mainCategory = !isMyPage ? router.pathname.split("/").pop() : null;
+
   const colums = isMyPage
     ? ["No", "구분", "제목", "작성일", "조회수", "추천"]
     : ["No", "구분", "제목", "작성자", "작성일", "조회수", "추천"];
@@ -58,27 +58,7 @@ const BbsPostList = ({ postList }: Props) => {
           </tr>
         ))}
       </tbody>
-      {userMe &&
-        !isMyPage &&
-        (isNoticeOrNewsPage ? (
-          userMe.role === 1 && (
-            <button
-              onClick={() => {
-                router.push(`/bbs/${mainCategory}/post/createPost`);
-              }}
-            >
-              글쓰기
-            </button>
-          )
-        ) : (
-          <button
-            onClick={() => {
-              router.push(`/bbs/${mainCategory}/post/createPost`);
-            }}
-          >
-            글쓰기
-          </button>
-        ))}
+      {userMe && <CreatePostButton userMe={userMe} isMyPage={isMyPage} />}
     </table>
   );
 };
