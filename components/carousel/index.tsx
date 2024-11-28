@@ -58,8 +58,8 @@ const Carousel = ({ elementList, elementType }: Props) => {
               <CombinedThumbnail element={element} key={index} />
             </div>
           ) : (
-            <div className={styles["carousel__element"]}>
-              <DetachedThumbnail element={element} key={index} />
+            <div key={index} className={styles["carousel__element"]}>
+              <DetachedThumbnail element={element} />
             </div>
           )
         )}

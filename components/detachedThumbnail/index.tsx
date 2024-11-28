@@ -5,10 +5,9 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
-  key: number;
 };
 
-const DetachedThumbnail = ({ element, key }: Props) => {
+const DetachedThumbnail = ({ element }: Props) => {
   const router = useRouter();
   const [textContent, setTextContent] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -23,7 +22,6 @@ const DetachedThumbnail = ({ element, key }: Props) => {
 
   return (
     <div
-      key={key}
       onClick={() => {
         router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
       }}
