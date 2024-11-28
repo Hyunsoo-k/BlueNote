@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosArrowForward } from "react-icons/io";
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
+  const router = useRouter();
+
   const [currentSubCategory, setCurrentSubCategory] = useState<string>("All");
   const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 
@@ -28,11 +31,21 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
 
   const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
+  const handleClickHeader = () => {
+    router.push(`/bbs/${initialData.mainCategory}`);
+  };
+
   return (
     <div className={styles["community-section-board"]}>
-      <p className={styles["community-section-board__title"]}>
+      <p
+        onClick={handleClickHeader}
+        className={styles["community-section-board__title"]}
+      >
         <span>{initialData.mainCategory === "board" ? "Board" : "Job"}</span>
-        <IoIosArrowForward size={25} style={{ position: "relative", top: "1px" }} />
+        <IoIosArrowForward
+          size={25}
+          style={{ position: "relative", top: "1px" }}
+        />
       </p>
       <table className={styles["community-section-board__content"]}>
         <thead>
