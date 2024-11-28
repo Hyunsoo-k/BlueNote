@@ -1,38 +1,39 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { instance } from "@/axios";
-import { subCategoryListMap, subCategoryUrlMap } from "@/variable";
+import { subCategoryListMap } from "@/variable";
+import { useGetCommunitySectionBoard } from "@/hooks/bbs/useGetCommunitySectionBoard";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
 
 interface Props {
   initialData: any;
-}
+};
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
   const router = useRouter();
 
-  const [currentSubCategory, setCurrentSubCategory] = useState<string>("All");
+  const [subCategory, setSubCategory] = useState<string>("All");
   const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 
-  const { data } = useQuery({
-    queryKey: ["communitySectionBoard", initialData.mainCategory, currentSubCategory],
-    queryFn: async () => {
-      const response = await instance.get(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryUrlMap[currentSubCategory]}`);
-
-      return response.data;
-    },
-    initialData: conveyInitialData ? initialData : undefined
-  });
+  const { data } = useGetCommunitySectionBoard(
+    initialData.mainCategory,
+    subCategory,
+    initialData,
+    conveyInitialData
+  )
 
   const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
   const handleClickHeader = () => {
     router.push(`/bbs/${initialData.mainCategory}`);
+  };
+
+  const handleClickSubCategory = (e: any) => {
+    setSubCategory(e.target.innerHTML);
+    setConveyInitialData(false);
   };
 
   return (
@@ -52,9 +53,9 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
           <tr className={styles["community-section-board__sub-category"]}>
             {subCategoryList?.map((value: string, index: number) => (
               <td
-                onClick={(e: any) => { setCurrentSubCategory(e.target.innerHTML); setConveyInitialData(false); }}
+                onClick={(e: any) => { handleClickSubCategory(e); }}
                 key={index}
-                style={currentSubCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
+                style={subCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
               >
                 {value}
               </td>
