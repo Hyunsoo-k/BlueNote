@@ -64,7 +64,9 @@ const CreateReply = ({ post_id, comment_id, setIsCreatingReply }: Props) => {
           className={styles["create-reply__create-input"]}
         />
         <div className={styles["create-reply__footer"]}>
-          <p className={styles["create-reply__error-message"]}>{errors.createFieldContent?.message}</p>
+          <p className={styles["create-reply__error-message"]}>
+            {typeof errors.createFieldContent?.message === "string" ? errors.createFieldContent.message : ""}
+          </p>
           <div className={styles["create-reply__button-wrapper"]}>
             <button
               type="button"
