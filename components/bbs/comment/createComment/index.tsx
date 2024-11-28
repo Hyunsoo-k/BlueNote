@@ -56,7 +56,9 @@ const CreateComment = ({ post_id }: Props) => {
         className={styles["create-comment__create-input"]}
       />
       <div className={styles["create-comment__footer"]}>
-        <p className={styles["create-comment__error-message"]}>{errors.createFieldContent?.message}</p>
+      <p className={styles["create-comment__error-message"]}>
+        {typeof errors.createFieldContent?.message === "string" ? errors.createFieldContent?.message : ""}
+      </p>
         <button className={styles["create-comment__button"]}>등록</button>
       </div>
     </form>
