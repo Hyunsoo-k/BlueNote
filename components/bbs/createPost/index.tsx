@@ -10,17 +10,19 @@ import { uploadImageToFirebase, dataURLToBlob } from "@/utils/firebase";
 
 import styles from "./index.module.scss";
 
-const WysiwygEditor = dynamic(() => import("@/components/bbs/wysiwygEditor"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
+
+const Wysiwyg = dynamic(() => import("@/components/bbs/wysiwyg"), { ssr: false });
 
 interface Props {
   mainCategory: MainCategory;
-}
+};
 
 const CreatePost = ({ mainCategory }: Props) => {
   const subCategoryList = subCategoryListMap[mainCategory].filter((item) => item !== "All");
   const [currentCategory, setCurrentCategory] = useState<string>(subCategoryList[0]);
 
-  const editorRef = useRef<any>(null);
+  const wysiwygRef = useRef<any>(null);
 
   const { data: userMe } = useGetUser();
 
@@ -30,38 +32,36 @@ const CreatePost = ({ mainCategory }: Props) => {
 
   const submitHandler = {
     onSubmit: async (data: any) => {
-      let content = editorRef.current.getInstance().getHTML();
+      const editor = wysiwygRef.current.getEditor();
+      const content = editor.root.innerHTML;
       const parser = new DOMParser();
       const parsedContent = parser.parseFromString(content, "text/html");
       const imgTagList = parsedContent.querySelectorAll("img");
-
+  
       for (const imgTag of imgTagList) {
         const src = imgTag.getAttribute("src");
-
-        if (src.startsWith("data:")) {
+  
+        if (src?.startsWith("data:")) {
           const blob = dataURLToBlob(src);
           const fileName = Date.now().toString();
           const StorageURL = await uploadImageToFirebase(`bbs/${mainCategory}/${fileName}`, blob);
-
+  
           imgTag.setAttribute("src", StorageURL);
         }
       }
-
-      content = parsedContent.body.innerHTML;
+  
       const requestBody = {
         subCategory: currentCategory,
         title: data.title,
-        content,
+        content: parsedContent.body.innerHTML
       };
-
+  
       createPostMutation.mutate(requestBody);
     },
     onError: (error: any) => {
       console.log(error);
     },
   };
-
-  console.log(userMe);
 
   return (
     <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["create-post"]}>
@@ -95,7 +95,7 @@ const CreatePost = ({ mainCategory }: Props) => {
         </div>
       </div>
       <div className={styles["create-post__content"]}>
-        <WysiwygEditor editorRef={editorRef} />
+        <Wysiwyg wysiwygRef={wysiwygRef} />
       </div>
       <button type="submit" className={styles["create-post__submit-btn"]}>
         등록
