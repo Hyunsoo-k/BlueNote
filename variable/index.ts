@@ -6,7 +6,7 @@ const mainCategory = [
   { main: "job", label: "Job" },
 ];
 
-const subCategoryListMap = {
+const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job", string[]> = {
   notice: ["공지", "All"],
   news: ["국내", "국외", "All"],
   board: ["일반", "녹음", "팁", "All"],

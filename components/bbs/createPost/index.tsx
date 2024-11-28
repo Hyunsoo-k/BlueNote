@@ -38,17 +38,17 @@ const CreatePost = ({ mainCategory }: Props) => {
       const parsedContent = parser.parseFromString(content, "text/html");
       const imgTagList = parsedContent.querySelectorAll("img");
   
-      for (const imgTag of imgTagList) {
+      Array.from(imgTagList).forEach(async (imgTag) => {
         const src = imgTag.getAttribute("src");
-  
+      
         if (src?.startsWith("data:")) {
           const blob = dataURLToBlob(src);
           const fileName = Date.now().toString();
           const StorageURL = await uploadImageToFirebase(`bbs/${mainCategory}/${fileName}`, blob);
-  
-          imgTag.setAttribute("src", StorageURL);
+      
+          imgTag.setAttribute("src", StorageURL || "");
         }
-      }
+      });
   
       const requestBody = {
         subCategory: currentCategory,

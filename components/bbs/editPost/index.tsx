@@ -11,54 +11,59 @@ import ModalContainer from "@/components/modal/modalContainer";
 
 import styles from "./index.module.scss";
 
-const WysiwygEditor = dynamic(() => import("@/components/bbs/wysiwygEditor"), { ssr: false });
+const Wysiwyg = dynamic(() => import("@/components/bbs/wysiwyg"), { ssr: false });
 
 interface Props {
   post: any;
 }
 
 const EditPost = ({ post }: Props) => {
-  const subCategoryList = subCategoryListMap[post.mainCategory].filter((item: string) => item !== "All");
+  const subCategoryList = subCategoryListMap[post.mainCategory  as keyof typeof subCategoryListMap].filter((item: string) => item !== "All");
   const [currentCategory, setCurrentCategory] = useState<string>(post.subCategory);
-  const editorRef = useRef<any>(null);
+
+  const wysiwygRef = useRef<any>(null);
+
+  const { register, handleSubmit, setValue } = useForm({ mode: "onChange" });
+
+  const { openModal, closeModal } = useModal();
 
   const editPostMutation = useEditPost(post.mainCategory, post._id);
-  const { register, handleSubmit, setValue } = useForm({ mode: "onChange" });
+
 
   useEffect(() => {
     setValue("title", post.title);
   }, []);
 
-  const { openModal, closeModal } = useModal();
-
   const submitHandler = {
     onSubmit: async (data: any) => {
-      let content = editorRef.current.getInstance().getHTML();
+      const editor = wysiwygRef.current.getEditor();
+      const content = editor.root.innerHTML;
       const parser = new DOMParser();
       const parsedContent = parser.parseFromString(content, "text/html");
       const imgTagList = parsedContent.querySelectorAll("img");
-
-      for (const imgTag of imgTagList) {
+  
+      Array.from(imgTagList).forEach(async (imgTag) => {
         const src = imgTag.getAttribute("src");
-
-        if (src.startsWith("data:")) {
+      
+        if (src?.startsWith("data:")) {
           const blob = dataURLToBlob(src);
           const fileName = Date.now().toString();
           const StorageURL = await uploadImageToFirebase(`bbs/${post.mainCategory}/${fileName}`, blob);
-
-          imgTag.setAttribute("src", StorageURL);
+      
+          imgTag.setAttribute("src", StorageURL || "");
         }
-      }
-
-      content = parsedContent.body.innerHTML;
+      });
+  
       const requestBody = {
         subCategory: currentCategory,
         title: data.title,
-        content
+        content: parsedContent.body.innerHTML
       };
+  
       editPostMutation.mutate(requestBody);
     },
     onError: (error: any) => {
+      console.log(error);
       error.title && openModal("alert", error.title.message, closeModal);
     },
   };
@@ -95,7 +100,7 @@ const EditPost = ({ post }: Props) => {
         </div>
       </div>
       <div className={styles["edit-post__content"]}>
-        <WysiwygEditor editorRef={editorRef} initialContent={post.content}/>
+        <Wysiwyg wysiwygRef={wysiwygRef} initialContent={post.content}/>
       </div>
       <button type="submit" className={styles["edit-post__submit-btn"]}>
         등록
