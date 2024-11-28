@@ -54,12 +54,12 @@ const Carousel = ({ elementList, elementType }: Props) => {
       <div ref={carouselWrapperRef} className={styles["carousel__element-wrapper"]}>
         {elementList.map((element: any, index: number) =>
           elementType === "combined" ? (
-            <div className={styles["carousel__element"]}>
-              <CombinedThumbnail element={element} index={index} />
+            <div key={index} className={styles["carousel__element"]}>
+              <CombinedThumbnail element={element} key={index} />
             </div>
           ) : (
             <div className={styles["carousel__element"]}>
-              <DetachedThumbnail element={element} index={index} />
+              <DetachedThumbnail element={element} key={index} />
             </div>
           )
         )}

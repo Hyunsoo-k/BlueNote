@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 
 import { instance } from "@/axios";
 import Carousel from "@/components/carousel";
@@ -36,9 +37,9 @@ const Home = ({
             return index < 8 && <CombinedThumbnail element={post} key={index} />;
           })}
         </div>
-        <a href="/bbs/promote" className={styles["home-page__more-button"]}>
+        <Link href="/bbs/promote" className={styles["home-page__more-button"]}>
           더보기
-        </a>
+        </Link>
       </div>
       <div className={styles["home-page__community-section"]}>
         <p className={styles["home-page__section-title"]}>Community</p>
