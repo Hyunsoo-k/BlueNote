@@ -15,7 +15,7 @@ interface Props {
 
 const BbsHeader = ({ mainCategory, subCategory, totalPostCount, page, totalPageCount }: Props) => {
   const router = useRouter();
-  const subCategoryList = subCategoryListMap[mainCategory];
+  const subCategoryList = subCategoryListMap[mainCategory as keyof typeof subCategoryListMap];
 
   return (
     <div className={styles["bbs-header"]}>

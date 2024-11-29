@@ -51,7 +51,9 @@ const EditReply = ({ setIsEditing, post_id, comment_id, reply }: Props) => {
         className={styles["edit-reply__input"]}
       />
       <div className={styles["edit-reply__footer"]}>
-        <p className={styles["edit-reply__error-message"]}>{errors.editFieldContent?.message}</p>
+        <p className={styles["edit-reply__error-message"]}>
+          {typeof errors.editFieldContent?.message === "string" ? errors.editFieldContent?.message : ""}
+        </p>
         <div className={styles["edit-reply__button-wrapper"]}>
           <button
             type="button"

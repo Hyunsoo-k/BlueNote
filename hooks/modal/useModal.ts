@@ -5,22 +5,26 @@ function useModal() {
   const setModalState = useContext(ModalSetterContext);
 
   const openModal = (type: any, message: string, handleClick: any) => {
-    setModalState({
-      type: type,
-      message: message,
-      handleClick
-    });
+    if (setModalState) {
+      setModalState({
+        type: type,
+        message: message,
+        handleClick
+      });
+    }
   };
 
   const closeModal = () => {
-    setModalState({
-      type: null, 
-      message: null,
-      handleClick: () => {}
-    });
+    if (setModalState) {
+      setModalState({
+        type: null, 
+        message: "",
+        handleClick: () => {}
+      });
+    }
   };
 
   return { openModal, closeModal };
 }
 
-export default useModal;  
+export default useModal;

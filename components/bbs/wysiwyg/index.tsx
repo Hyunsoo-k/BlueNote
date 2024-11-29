@@ -7,9 +7,11 @@ import "react-quill/dist/quill.snow.css";
 
 interface Props {
   wysiwygRef: any;
+  initialContent?: any
 };
 
-const Wysiwyg = ({ wysiwygRef }: Props) => {
+const Wysiwyg = ({ wysiwygRef, initialContent }: Props) => {
+  console.log(initialContent);
   const modules = {
     toolbar: [
       [{ size: ["small", false, "large", "huge"] }],
@@ -42,7 +44,8 @@ const Wysiwyg = ({ wysiwygRef }: Props) => {
       theme="snow"
       modules={modules}
       formats={formats}
-      style={{ minHeight: "600px", margin: "4px" }}
+      value={initialContent ? initialContent : null}
+      style={{ margin: "4px" }}
       placeholder="내용을 입력하세요."
     />
   );

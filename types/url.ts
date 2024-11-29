@@ -1,14 +1,14 @@
-import { MainCtg, SubCtg } from "./categorys"
+import { MainCategory, SubCategory } from "./categorys"
 
 interface Url {
   path: {
-    mainCategory: MainCtg,
+    mainCategory: MainCategory,
     user_id?: string,
     post_id?: string,
     comment_id?: string
   },
   query?: {
-    subCategory?: SubCtg,
+    subCategory?: SubCategory,
     page?: string,
     post_id?: string
   },

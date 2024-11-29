@@ -11,18 +11,22 @@ const ModalComponents = {
 };
 
 const ModalContainer = () => {
-  const { type, message, handleClick } = useContext(ModalStateContext);
+  const modalContext = useContext(ModalStateContext);
+
+  if (!modalContext) {
+    return null;
+  };
+
+  const { type, message, handleClick } = modalContext;
 
   if (!type) {
     return null;
   }
 
-  const Modal = ModalComponents[type];
+  const Modal = ModalComponents[type as "confirm" | "alert"];
 
   return ReactDOM.createPortal(
-    <>
-      <Modal message={message} handleClick={handleClick} />
-    </>,
+    <Modal message={message} handleClick={handleClick} />,
     document.body
   );
 };
