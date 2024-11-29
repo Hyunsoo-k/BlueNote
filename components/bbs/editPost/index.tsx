@@ -18,7 +18,7 @@ interface Props {
 }
 
 const EditPost = ({ post }: Props) => {
-  const subCategoryList = subCategoryListMap[post.mainCategory  as keyof typeof subCategoryListMap].filter((item: string) => item !== "All");
+  const subCategoryList = subCategoryListMap[post.mainCategory as keyof typeof subCategoryListMap].filter((item: string) => item !== "All");
   const [currentCategory, setCurrentCategory] = useState<string>(post.subCategory);
 
   const wysiwygRef = useRef<any>(null);

@@ -23,9 +23,11 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
     subCategory,
     initialData,
     conveyInitialData
-  )
+  );
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory];
+  console.log(data);
+
+  const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
 
   const handleClickHeader = () => {
     router.push(`/bbs/${initialData.mainCategory}`);
