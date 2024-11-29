@@ -22,7 +22,9 @@ const Carousel = ({ elementList, elementType }: Props) => {
 
     const totalElements = elementList.length;
     const gap = 20;
-    const elementWidth = carouselWrapper.firstChild?.getBoundingClientRect().width || 0;
+    const elementWidth = carouselWrapper.firstChild instanceof HTMLElement
+      ? carouselWrapper.firstChild.getBoundingClientRect().width
+      : 0;
 
     const scrollInterval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
