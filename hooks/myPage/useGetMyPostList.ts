@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { instance } from "@/axios";
-import { queryKey } from "@/querykey";
+import { queryKey } from "@/queryKey";
 
 const GetMyPostList = async (initialResponse: any) => {
   const { page } = initialResponse;
