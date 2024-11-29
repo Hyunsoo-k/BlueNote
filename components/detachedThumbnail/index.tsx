@@ -5,10 +5,9 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
-  index: number;
-}
+};
 
-const DetachedThumbnail = ({ element, index }: Props) => {
+const DetachedThumbnail = ({ element }: Props) => {
   const router = useRouter();
   const [textContent, setTextContent] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -19,11 +18,10 @@ const DetachedThumbnail = ({ element, index }: Props) => {
     const imageTag = textHtml.querySelector("img");
     setImageUrl(imageTag && imageTag.getAttribute("src"));
     setTextContent(textHtml.body.textContent || "");
-  }, []);
+  }, [element]);
 
   return (
     <div
-      key={index}
       onClick={() => {
         router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
       }}

@@ -1,5 +1,14 @@
+@use "@/styles/variables.scss" as *;
+
 .news-page {
   max-width: 1150px;
   margin: 0 auto;
   padding: 40px 20px 20px 20px;
+
+  .news-page__control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-top: 1px solid $gray-color-100;
+  }
 }

@@ -26,7 +26,11 @@ const Password = () => {
           }
         })}
       />
-      {errors?.password && <span>{errors.password.message}</span>}
+      {errors?.password && 
+        <span>
+          {typeof errors.password.message === "string" ? errors.password.message : ""}
+        </span>
+      }
     </div>
   );
 };

@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto;
+  height: 380px;
 
   .community-section-board__title {
     display: flex;
@@ -20,6 +20,10 @@
     font-size: 20px;
     font-weight: 600;
     font-family: "Metrophobic", sans-serif;
+
+    &:hover {
+      cursor: pointer;
+    }
 
     span {
       display: inline-block;

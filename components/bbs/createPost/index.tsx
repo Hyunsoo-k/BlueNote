@@ -1,53 +1,62 @@
 import React, { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
+
 import { MainCategory } from "@/types/categorys";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { subCategoryListMap } from "@/variable";
 import { useCreatePost } from "@/hooks/bbs/useCreatePost";
-import styles from "./index.module.scss";
 import { uploadImageToFirebase, dataURLToBlob } from "@/utils/firebase";
 
-const WysiwygEditor = dynamic(() => import("@/components/bbs/wysiwygEditor"), { ssr: false });
+import styles from "./index.module.scss";
+
+import "react-quill/dist/quill.snow.css";
+
+const Wysiwyg = dynamic(() => import("@/components/bbs/wysiwyg"), { ssr: false });
 
 interface Props {
   mainCategory: MainCategory;
-}
+};
 
 const CreatePost = ({ mainCategory }: Props) => {
   const subCategoryList = subCategoryListMap[mainCategory].filter((item) => item !== "All");
   const [currentCategory, setCurrentCategory] = useState<string>(subCategoryList[0]);
-  const editorRef = useRef<any>(null);
+
+  const wysiwygRef = useRef<any>(null);
+
+  const { data: userMe } = useGetUser();
 
   const createPostMutation = useCreatePost(mainCategory);
+
   const { register, handleSubmit } = useForm({ mode: "onChange" });
 
   const submitHandler = {
     onSubmit: async (data: any) => {
-      let content = editorRef.current.getInstance().getHTML();
+      const editor = wysiwygRef.current.getEditor();
+      const content = editor.root.innerHTML;
       const parser = new DOMParser();
       const parsedContent = parser.parseFromString(content, "text/html");
       const imgTagList = parsedContent.querySelectorAll("img");
-
-      for (const imgTag of imgTagList) {
+  
+      Array.from(imgTagList).forEach(async (imgTag) => {
         const src = imgTag.getAttribute("src");
-
-        if (src.startsWith("data:")) {
+      
+        if (src?.startsWith("data:")) {
           const blob = dataURLToBlob(src);
           const fileName = Date.now().toString();
           const StorageURL = await uploadImageToFirebase(`bbs/${mainCategory}/${fileName}`, blob);
-
-          imgTag.setAttribute("src", StorageURL);
+      
+          imgTag.setAttribute("src", StorageURL || "");
         }
-      }
-
-      content = parsedContent.body.innerHTML;
-      const req = {
+      });
+  
+      const requestBody = {
         subCategory: currentCategory,
         title: data.title,
-        content
+        content: parsedContent.body.innerHTML
       };
-
-      createPostMutation.mutate(req);
+  
+      createPostMutation.mutate(requestBody);
     },
     onError: (error: any) => {
       console.log(error);
@@ -65,7 +74,7 @@ const CreatePost = ({ mainCategory }: Props) => {
         />
         <div className={styles["create-post__details"]}>
           <p className={styles["create-post__writer"]}>
-            작성자<span>운영자</span>
+            작성자<span>{userMe?.nickname}</span>
           </p>
           <div className={styles["create-post__sub-category-list"]}>
             <p className={styles["create-post__division"]}>분류</p>
@@ -86,7 +95,7 @@ const CreatePost = ({ mainCategory }: Props) => {
         </div>
       </div>
       <div className={styles["create-post__content"]}>
-        <WysiwygEditor editorRef={editorRef} />
+        <Wysiwyg wysiwygRef={wysiwygRef} />
       </div>
       <button type="submit" className={styles["create-post__submit-btn"]}>
         등록

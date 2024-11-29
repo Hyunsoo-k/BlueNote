@@ -22,7 +22,9 @@ const Carousel = ({ elementList, elementType }: Props) => {
 
     const totalElements = elementList.length;
     const gap = 20;
-    const elementWidth = carouselWrapper.firstChild?.getBoundingClientRect().width || 0;
+    const elementWidth = carouselWrapper.firstChild instanceof HTMLElement
+      ? carouselWrapper.firstChild.getBoundingClientRect().width
+      : 0;
 
     const scrollInterval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
@@ -54,12 +56,12 @@ const Carousel = ({ elementList, elementType }: Props) => {
       <div ref={carouselWrapperRef} className={styles["carousel__element-wrapper"]}>
         {elementList.map((element: any, index: number) =>
           elementType === "combined" ? (
-            <div className={styles["carousel__element"]}>
-              <CombinedThumbnail element={element} index={index} />
+            <div key={index} className={styles["carousel__element"]}>
+              <CombinedThumbnail element={element} />
             </div>
           ) : (
-            <div className={styles["carousel__element"]}>
-              <DetachedThumbnail element={element} index={index} />
+            <div key={index} className={styles["carousel__element"]}>
+              <DetachedThumbnail element={element} />
             </div>
           )
         )}

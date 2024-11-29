@@ -1,5 +1,5 @@
-import { Post } from "./post";
+import { PostType } from "./post";
 
-type PostList = Post[];
+type PostList = PostType[];
 
 export type { PostList };

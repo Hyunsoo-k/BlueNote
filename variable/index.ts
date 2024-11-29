@@ -6,7 +6,7 @@ const mainCategory = [
   { main: "job", label: "Job" },
 ];
 
-const subCategoryListMap = {
+const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job", string[]> = {
   notice: ["공지", "All"],
   news: ["국내", "국외", "All"],
   board: ["일반", "녹음", "팁", "All"],
@@ -30,19 +30,19 @@ const subCategoryMap = {
 
 }
 
-const subCategoryUrlMap = {
-  All: "All",
-  공지: "notification",
-  국내: "domestic",
-  국외: "overseas",
-  일반: "common",
-  녹음: "record",
-  팁: "tip",
-  밴드홍보: "bandPromotion",
-  앨범홍보: "albumPromotion",
-  재즈바홍보: "jazzbarPromotion",
-  구인: "jobPosting",
-  구직: "jobSeeking",
+const subCategoryUrlMap: { [key: string]: string } = {
+  All: 'All',
+  공지: 'notice',
+  국내: 'domestic',
+  국외: 'international',
+  일반: 'general',
+  녹음: 'recording',
+  팁: 'tip',
+  밴드홍보: 'band-promotion',
+  앨범홍보: 'album-promotion',
+  재즈바홍보: 'jazz-bar-promotion',
+  구인: 'job-offer',
+  구직: 'job-seeker'
 };
 
 export { mainCategory, subCategoryListMap, subCategoryMap, subCategoryUrlMap };

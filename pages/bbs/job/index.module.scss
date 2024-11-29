@@ -2,4 +2,11 @@
   max-width: 1150px;
   margin: 0 auto;
   padding: 40px 20px 20px 20px;
+
+  .job-page__control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 10px;
+  }
 }

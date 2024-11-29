@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { RiThumbUpLine } from "react-icons/ri";
-import { RiThumbUpFill } from "react-icons/ri";
 
-import { Post as PostType } from "@/types/post";
+import { PostType } from "@/types/post";
 import { formatYMD } from "@/utils/dateFormatter";
-import PostActionButton from "@/components/bbs/PostActionBtns";
-import { useGetUser } from "@/hooks/auth/useGetUser";
-import Comment from "../comment";
+import PostActionButton from "@/components/bbs/postActionButton";
+import CommentSection from "../commentSection";
 
 import styles from "./index.module.scss";
 
@@ -15,7 +12,6 @@ interface Props {
 }
 
 const BbsPost = ({ post }: Props) => {
-  const { data: userMe } = useGetUser();
   const [content, setContent] = useState<any>(null);
 
   useEffect(() => {
@@ -54,8 +50,8 @@ const BbsPost = ({ post }: Props) => {
         </div>
       </div>
       <div dangerouslySetInnerHTML={{ __html: content }} className={styles["bbs-post__content"]}></div>
-      {userMe?._id && <PostActionButton post={post} userMe_id={userMe._id} />}
-      <Comment post={post} />
+      <PostActionButton post={post} />
+      <CommentSection post={post} />
     </div>
   );
 };

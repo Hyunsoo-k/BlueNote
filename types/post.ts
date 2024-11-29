@@ -14,8 +14,9 @@ type SubCategory =
   | "구인"
   | "구직"
 
-interface Post {
+interface PostType {
     _id: string;
+    number: number;
     mainCategory: MainCategory;
     subCategory: SubCategory;
     writer: { _id: string, nickname: string };
@@ -29,4 +30,4 @@ interface Post {
     __v: number;
 }
 
-export type { Post };
+export type { PostType };

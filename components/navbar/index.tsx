@@ -8,7 +8,8 @@ import styles from "./index.module.scss";
 const NavBar = () => {
   const router = useRouter();
 
-  const { viewport, setViewport } = useContext(ViewportContext);
+  const viewportContext = useContext(ViewportContext);
+  const viewport = viewportContext?.viewport || "mobile";
 
   const handleClick = (key: string) => router.push(`/bbs/${key}`);
 

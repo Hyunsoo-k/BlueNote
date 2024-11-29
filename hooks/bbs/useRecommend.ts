@@ -4,8 +4,8 @@ import { MainCategory } from "@/types/categorys";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const recommendPostFn = async (mainCategory: MainCategory, post_id: string) => {
-  const response = await instance.post(`/bbs/${mainCategory}/post/${post_id}/recommend`);
+const recommendPostFn = async (mainCategory: MainCategory, post_id: string, requsetBody: any) => {
+  const response = await instance.post(`/bbs/${mainCategory}/post/${post_id}/recommend`, requsetBody);
 
   return response;
 };
@@ -14,11 +14,13 @@ const useRecommendPost = (mainCategory: MainCategory, post_id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => recommendPostFn(mainCategory, post_id),
+    mutationFn: (requsetBody: any) => recommendPostFn(mainCategory, post_id, requsetBody),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.post(mainCategory,post_id) });
+      queryClient.invalidateQueries({ queryKey: queryKey.post(post_id) });
     },
-    onError: (error: any) => { console.log(error); }
+    onError: (error: any) => {
+      console.log(error);
+    },
   });
 };
 

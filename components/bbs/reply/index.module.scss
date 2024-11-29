@@ -1,0 +1,91 @@
+@use "@/styles/variables.scss" as *;
+@import url("//fonts.googleapis.com/earlyaccess/notosanskr.css");
+//font-family: 'Noto Sans KR', sans-serif;
+//모바일 드롭다운 카테고리 하위 폰트
+
+.reply {
+  position: relative;
+  padding: 0 10px 0 100px;
+  border-bottom: 1px solid $gray-color-100;
+  
+  .reply__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+    font-family: "Noto Sans KR", sans-serif;
+
+    .reply__writer {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgb(50, 50, 50);
+
+      .reply__post_writer {
+        margin-left: 6px;
+        font-size: 13px;
+        color: $sub-color;
+      }
+
+      .reply__userMe_writer {
+        margin-left: 6px;
+        font-size: 13px;
+        color: rgb(255, 156, 7);
+      }
+    }
+
+
+      .reply__action-button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        padding-right: 10px;
+        border: none;
+        font-size: 13px;
+        color: $gray-color-300;
+  
+        span:hover {
+          cursor: pointer;
+          color: $sub-color;
+        }
+      }
+
+
+  }
+
+  .reply__content {
+    margin: 0;
+    padding: 7px 0 13px 0;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgb(50, 50, 50);
+  }
+
+  .reply__footer {
+    display: flex;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: $gray-color-300;
+
+    .reply__created-at {
+      margin: 0;
+      padding: 0 15px 8px 0;
+      font-weight: 400;
+    }
+  
+    .reply__create-reply-button {
+      padding: 0 0 8px 0;
+      background-color: inherit;
+      border: none;
+      font-size: 13px;
+      font-family: "Noto Sans KR", sans-serif;
+      color: $gray-color-300;
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

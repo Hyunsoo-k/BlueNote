@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { LuPlus } from "react-icons/lu";
 
 import { formatYMD } from "@/utils/dateFormatter";
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUser";
 import { useEditUser } from "@/hooks/myPage/useEditUser";
 import { uploadImageToFirebase, deleteImageFromFirebase } from "@/utils/firebase";
 import MyPageMenu from "@/components/myPageMenu";
@@ -68,7 +68,6 @@ const UserPage = () => {
         if (editedUrl !== null) {
           fileName = Date.now().toString();
           imageUrl = await uploadImageToFirebase(`user/${fileName}`, newFile);
-          console.log(imageUrl);
         }
       }
 
@@ -155,7 +154,10 @@ const UserPage = () => {
                 autoComplete="off"
                 className={styles["user-page__nickname-input"]}
               />
-              {errors.nickname && <span className={styles["user-page__error-message"]}>{errors.nickname.message}</span>}
+              {errors.nickname &&
+                <span className={styles["user-page__error-message"]}>
+                  {typeof errors.nickname.message === "string" ? errors.nickname.message : ""}
+                </span>}
             </div>
             <div className={styles["user-page__part-field"]}>
               <p className={styles["user-page__part"]}>분야</p>

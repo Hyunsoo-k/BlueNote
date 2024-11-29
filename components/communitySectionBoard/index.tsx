@@ -1,44 +1,63 @@
-import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { useGetPostList } from "@/hooks/bbs/useGetPostList";
-import { subCategoryListMap, subCategoryUrlMap } from "@/variable";
+import { subCategoryListMap } from "@/variable";
+import { useGetCommunitySectionBoard } from "@/hooks/bbs/useGetCommunitySectionBoard";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
 
 interface Props {
   initialData: any;
-}
+};
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
-  const [variableData, setVariableData] = useState(initialData);
-  const [crruentSubCategory, setCruuentSubCategory] = useState<string>("All");
+  const router = useRouter();
 
-  const { data } = useGetPostList(variableData);
+  console.log(initialData);
 
-  const subCategoryList = subCategoryListMap[data.mainCategory];
+  const [subCategory, setSubCategory] = useState<string>("All");
+  const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 
-  const switchSubCategory = (e: any) => {
-    setVariableData((prev: any) => ({ ...prev, subCategory: subCategoryUrlMap[e.target.innerHTML] }));
+  const { data } = useGetCommunitySectionBoard(
+    initialData.mainCategory,
+    subCategory,
+    initialData,
+    conveyInitialData
+  );
 
-    setCruuentSubCategory(e.target.innerHTML);
+  const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
+
+  const handleClickHeader = () => {
+    router.push(`/bbs/${initialData.mainCategory}`);
+  };
+
+  const handleClickSubCategory = (e: any) => {
+    setSubCategory(e.target.innerHTML);
+    setConveyInitialData(false);
   };
 
   return (
     <div className={styles["community-section-board"]}>
-      <p className={styles["community-section-board__title"]}>
-        <span>{data.mainCategory === "board" ? "Board" : "Job"}</span>
-        <IoIosArrowForward size={25} style={{ position: "relative", top: "1px" }} />
+      <p
+        onClick={handleClickHeader}
+        className={styles["community-section-board__title"]}
+      >
+        <span>{initialData.mainCategory === "board" ? "Board" : "Job"}</span>
+        <IoIosArrowForward
+          size={25}
+          style={{ position: "relative", top: "1px" }}
+        />
       </p>
       <table className={styles["community-section-board__content"]}>
         <thead>
           <tr className={styles["community-section-board__sub-category"]}>
-            {subCategoryList.map((value: string, index: number) => (
+            {subCategoryList?.map((value: string, index: number) => (
               <td
-                onClick={switchSubCategory}
+                onClick={(e: any) => { handleClickSubCategory(e); }}
                 key={index}
-                style={crruentSubCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
+                style={subCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
               >
                 {value}
               </td>
@@ -46,7 +65,7 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
           </tr>
         </thead>
         <tbody className={styles["community-section-board__post-list"]}>
-          {data.postList.map((post: any, index: number) => {
+          {data?.postList.map((post: any, index: number) => {
             return (
               index < 8 && (
                 <tr key={index} className={styles["community-section-board__element"]}>

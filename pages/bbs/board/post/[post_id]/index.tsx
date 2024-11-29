@@ -8,11 +8,12 @@ import BbsPost from "@/components/bbs/bbsPost";
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  initialPost: any;
-}
+  urlWithoutQuery: string;
+  initialData: any;
+};
 
-const BoardPostPage = ({ initialPost }: ServerSideProps) => {
-  const { data: post } = useGetPost(initialPost);
+const BoardPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
+  const { data: post } = useGetPost(urlWithoutQuery, initialData);
 
   return (
     <div className={styles["board-post-page"]}>
@@ -25,15 +26,18 @@ const BoardPostPage = ({ initialPost }: ServerSideProps) => {
 export default BoardPostPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { resolvedUrl, params } = context;
-  
-  await instance.post(`${resolvedUrl}/views`);
-  const { data: initialPost } = await instance.get(`${resolvedUrl}`);
+  const { resolvedUrl } = context;
+
+  const urlWithoutQuery = new URL(resolvedUrl, `http://${context.req.headers.host}`).pathname;
+
+  await instance.post(`${urlWithoutQuery}/views`);
+
+  const { data: initialData } = await instance.get(`${urlWithoutQuery}`);
 
   return {
     props: {
-      post_id: params?.post_id,
-      initialPost,
+      urlWithoutQuery,
+      initialData,
     },
   };
 };
