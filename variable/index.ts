@@ -31,7 +31,7 @@ const subCategoryMap = {
 }
 
 const subCategoryUrlMap: { [key: string]: string } = {
-  All: 'all',
+  All: 'All',
   공지: 'notice',
   국내: 'domestic',
   국외: 'international',

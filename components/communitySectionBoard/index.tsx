@@ -15,6 +15,8 @@ interface Props {
 const CommunitySectionBoard = ({ initialData }: Props) => {
   const router = useRouter();
 
+  console.log(initialData);
+
   const [subCategory, setSubCategory] = useState<string>("All");
   const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 
@@ -24,8 +26,6 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
     initialData,
     conveyInitialData
   );
-
-  console.log(data);
 
   const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
 
