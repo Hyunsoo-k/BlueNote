@@ -23,7 +23,11 @@ const CheckPassword = () => {
           }
         })}
       />
-      {errors?.checkPassword && <span>{errors.checkPassword.message}</span>}
+      {errors?.checkPassword &&
+        <span>
+          {typeof errors.checkPassword.message === "string" ? errors.checkPassword.message : ""}
+        </span>
+      }
     </div>
   );
 };
