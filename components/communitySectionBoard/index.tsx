@@ -15,8 +15,6 @@ interface Props {
 const CommunitySectionBoard = ({ initialData }: Props) => {
   const router = useRouter();
 
-  console.log(initialData);
-
   const [subCategory, setSubCategory] = useState<string>("All");
   const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 

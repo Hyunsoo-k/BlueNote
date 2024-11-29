@@ -20,11 +20,13 @@ const DetachedThumbnail = ({ element }: Props) => {
     setTextContent(textHtml.body.textContent || "");
   }, [element]);
 
+  const handleClickThumbnail = () => {
+    router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
+  };
+
   return (
     <div
-      onClick={() => {
-        router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
-      }}
+      onClick={handleClickThumbnail}
       className={styles["detached-thumbnail"]}
     >
       <div
