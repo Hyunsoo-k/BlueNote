@@ -1,13 +1,22 @@
 import React, { createContext, useState } from "react";
 
-export const ModalStateContext = createContext(null);
-export const ModalSetterContext = createContext(null);
+interface ModalState {
+  type: string | null;
+  message: string;
+  handleClick: () => void;
+  handleCancel?: () => void;
+};
 
-function ModalProvider({ children }: any) {
-  const [modalState, setModalState] = useState({
+type ModalSetter = React.Dispatch<React.SetStateAction<ModalState>>;
+
+const ModalStateContext = createContext<ModalState | null>(null);
+const ModalSetterContext = createContext<ModalSetter | null>(null);
+
+function ModalProvider({ children }: { children: React.ReactNode }) {
+  const [modalState, setModalState] = useState<ModalState>({
     type: null,
     message: "",
-    handleClick: () => {}
+    handleClick: () => {},
   });
 
   return (
@@ -20,3 +29,4 @@ function ModalProvider({ children }: any) {
 }
 
 export default ModalProvider;
+export { ModalStateContext, ModalSetterContext };

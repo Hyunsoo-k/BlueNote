@@ -6,9 +6,9 @@ import styles from "./index.module.scss";
 
 interface Props {
   message: string;
-  handleCancel: any;
-  handleClick: any;
-}
+  handleClick: () => void;
+  handleCancel?: () => void;
+};
 
 const ConfirmModal = ({ message, handleClick }: Props) => {
   const { closeModal } = useModal();
