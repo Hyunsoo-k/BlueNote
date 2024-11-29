@@ -18,7 +18,11 @@ const Email = () => {
           },
         })}
       />
-      {errors?.email && <span>{errors.email.message}</span>}
+      {errors?.email &&
+        <span>
+          {typeof errors.email.message === "string" ? errors.email.message  : ""}
+        </span>
+      }
     </div>
   );
 };

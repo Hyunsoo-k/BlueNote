@@ -22,7 +22,11 @@ const Nickname = () => {
           },
         })}
       />
-      {errors?.nickname && <span>{errors.nickname.message}</span>}
+      {errors?.nickname &&
+        <span>
+          {typeof errors.nickname.message === "string" ? errors.nickname.message : ""}
+        </span>
+      }
     </div>
   );
 };
