@@ -154,7 +154,10 @@ const UserPage = () => {
                 autoComplete="off"
                 className={styles["user-page__nickname-input"]}
               />
-              {errors.nickname && <span className={styles["user-page__error-message"]}>{errors.nickname.message}</span>}
+              {errors.nickname &&
+                <span className={styles["user-page__error-message"]}>
+                  {typeof errors.nickname.message === "string" ? errors.nickname.message : ""}
+                </span>}
             </div>
             <div className={styles["user-page__part-field"]}>
               <p className={styles["user-page__part"]}>분야</p>

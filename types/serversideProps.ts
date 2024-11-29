@@ -1,7 +1,7 @@
-import { SubCtg } from "./categorys";
+import { SubCategory } from "./categorys";
 
 interface ServerSideProps {
-  sub: SubCtg;
+  sub: SubCategory;
   page: string;
 }
 
