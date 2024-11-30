@@ -1,10 +1,5 @@
 @use "@/styles/variables.scss" as *;
 
-@import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
-//font-family: 'Noto Sans KR', sans-serif;
-@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
-//font-family: "Metrophobic", sans-serif;
-
 .home-page {
   display: flex;
   flex-direction: column;
@@ -14,12 +9,6 @@
   margin: 0 auto;
   padding: 20px;
   padding-top: 40px;
-
-  @include tablet {
-  }
-
-  @include desktop {
-  }
 
   .home-page__news-section {
     padding-bottom: 50px;

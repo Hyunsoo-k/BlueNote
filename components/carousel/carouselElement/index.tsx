@@ -21,10 +21,14 @@ const CarouselElement = ({ element, key }: Props) => {
     setTextContent(textHtml.body.textContent || "");
   }, []);
 
+  const handleClickItem = () => {
+    router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
+  };
+
   return (
     <div
       key={key}
-      onClick={() => router.push(`/bbs/${element.mainCategory}/post/${element._id}`)}
+      onClick={handleClickItem}
       className={styles["carousel-element"]}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,
