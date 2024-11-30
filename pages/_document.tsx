@@ -4,8 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link href="//fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Metrophobic&display=swap" rel="stylesheet" />
       </Head>
       <body style={{ position: "relative" }}>
         <Main />
