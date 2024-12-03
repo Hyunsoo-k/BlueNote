@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { useContext } from "react";
 
+import { ViewportContext } from "@/contexts/viewport";
 import { useGetUser } from "@/hooks/user/useGetUser";
 import HeaderNotification from "@/components/header/headerNotification";
 import HeaderProfile from "@/components/header/headerProfile";
@@ -8,6 +10,10 @@ import NavBar from "@/components/navbar";
 import styles from "./index.module.scss";
 
 const Header = () => {
+  const viewportContext = useContext(ViewportContext);
+  
+  const viewport = viewportContext?.viewport || "mobile";
+
   const { data: userMe } = useGetUser();
 
   return (
@@ -16,14 +22,15 @@ const Header = () => {
         <Link href="/" className={styles["header__title"]}>
           BLUE NOTE
         </Link>
-        {userMe ? (
-          <div className={styles["header__userMe"]}>
-            <HeaderNotification userMe_id={userMe._id} />
+        {userMe && (
+          <div className={styles["header__isLoggedIn"]}>
+            <HeaderNotification userMe_id={userMe._id} viewport={viewport} />
             <div className={styles["header__boundary-line"]}></div>
-            <HeaderProfile userMe={userMe} />
+            <HeaderProfile userMe={userMe} viewport={viewport} />
           </div>
-        ) : (
-          <div className={styles["header__btn"]}>
+        )} 
+        {!userMe && (
+          <div className={styles["header__isLoggedOut"]}>
             <Link href="/auth?initial=signIn" className={styles["header__signIn"]}>
               Login
             </Link>

@@ -5,20 +5,15 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  justify-items: center;
   width: 100%;
+  padding: 0 8px;
   background-color: #efebe9;
-  border-bottom: 1px solid $gray-color-100;
 
   @include tablet {
-    display: block;
+    padding: 0;
   }
 
   @include desktop {
-    display: block;
   }
 
   .header__top {
@@ -30,20 +25,18 @@
     .header__title {
       display: block;
       padding-top: 10px;
-      letter-spacing: -3px;
+      padding-bottom: 30px;
+      letter-spacing: -1px;
       text-decoration: none;
-      font-size: 47px;
+      font-size: 28px;
       font-weight: 700;
       font-family: "Varela Round", sans-serif;
       color: $main-color;
 
-      &:hover {
-        cursor: pointer;
-      }
-
       @include tablet {
         width: 400px;
         margin: 0 auto;
+        padding-bottom: 0;
         text-align: center;
         font-size: 60px;
       }
@@ -52,64 +45,32 @@
         width: 500px;
         letter-spacing: 0;
       }
+      
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .burger-menu:hover {
       cursor: pointer;
     }
 
-    .header__btn {
+    .header__isLoggedIn {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 10px;
+      right: 0;
       display: flex;
       justify-content: space-between;
-      gap: 15px;
+      width: 70px;
 
       @include tablet {
+        position: absolute;
         top: 20px;
-        gap: 20px;
-        font-size: 24px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        width: 85px;
       }
-
-      @include desktop {
-        top: 20px;
-        gap: 20px;
-        font-size: 24px;
-      }
-
-      .header__signIn {
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 700;
-        font-family: "Metrophobic", sans-serif;
-        color: black;
-
-        &:hover {
-          color: $sub-color;
-        }
-      }
-
-      .header__signUp {
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 700;
-        font-family: "Metrophobic", sans-serif;
-        color: black;
-
-        &:hover {
-          color: $sub-color;
-        }
-      }
-    }
-
-    .header__userMe {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      justify-content: space-between;
-      width: 85px;
 
       &:hover {
         cursor: pointer;
@@ -117,9 +78,13 @@
 
       .header__boundary-line {
         width: 2px;
-        height: 35px;
+        height: 28px;
         margin-top: 2px;
         background-color: $gray-color-200;
+
+        @include tablet {
+          height: 35px;
+        }
       }
 
       .header__user {
@@ -152,38 +117,50 @@
         }
       }
     }
-  }
 
-  .header__mobile-dropdown-on {
-    z-index: 999;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 250px;
-    height: 100vh;
-  }
+    .header__isLoggedOut {
+      position: absolute;
+      top: 12px;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 700;
+      font-family: "Metrophobic", sans-serif;
 
-  @keyframes mobile-dropdown-on-animation {
-    0% {
-    }
+      @include tablet {
+        top: 18px;
+        right: 20px;
+        gap: 20px;
+      }
 
-    100% {
-    }
-  }
+      .header__signIn {
+        text-decoration: none;
+        font-size: 13px;
+        color: black;
 
-  .header__mobile-dropdown-off {
-    // position: absolute;
-    // top: 0px;
-    // right: -250px;
-    // width: 250px;
-    display: none;
-  }
+        @include tablet {
+          font-size: 17px;
+        }
 
-  @keyframes mobile-dropdown-off-animation {
-    0% {
-    }
+        &:hover {
+          color: $sub-color;
+        }
+      }
 
-    100% {
+      .header__signUp {
+        text-decoration: none;
+        font-size: 13px;
+        color: black;
+
+        @include tablet {
+          font-size: 17px;
+        }
+
+        &:hover {
+          color: $sub-color;
+        }
+      }
     }
   }
 }
