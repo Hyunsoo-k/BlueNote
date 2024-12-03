@@ -18,7 +18,6 @@ const CombinedThumbnail = ({ element }: Props) => {
     const imageList = textHtml.querySelector("img");
     setImageUrl(imageList && imageList.getAttribute("src"));
     setTextContent(textHtml.body.textContent || "");
-    console.log(textHtml.body.textContent)
   }, []);
 
   return (
