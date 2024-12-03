@@ -4,62 +4,86 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 40px;
+  gap: 30px;
   max-width: 1150px;
   margin: 0 auto;
-  padding: 20px;
-  padding-top: 40px;
+  padding: 40px 0 20px;
+
+  @include tablet {
+    gap: 30px;
+    padding: 40px 20px 20px;
+  }
 
   .home-page__news-section {
-    padding-bottom: 50px;
+    padding: 0 8px 50px;
     border-bottom: 1px solid $gray-color-100;
 
-    .home-page__section-title {
-      margin: 0 0 40px 0;
-      text-align: center;
-      letter-spacing: 1px;
-      font-size: 25px;
-      font-weight: 600;
-      font-family: "Metrophobic", sans-serif;
+    @include tablet {
+      padding: 0 0 50px;
     }
   }
 
   .home-page__promote-section {
-    padding-bottom: 50px;
+    padding: 0 8px 50px;
     border-bottom: 1px solid $gray-color-100;
 
-    .home-page__section-title {
+    @include tablet {
       margin: 0 0 40px 0;
+      padding: 0 0 50px;
+      text-align: center;
+    }
+
+    .home-page__section-title {
+      margin: 0 0 30px 0;
       text-align: center;
       letter-spacing: 1px;
-      font-size: 25px;
+      font-size: 22px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
+
+      @include tablet {
+        font-size: 24px;
+      }
     }
 
     .home-page__thumbnail-wrapper {
       display: grid;
-      grid-template: 1fr 1fr / 24% 24% 24% 24%;
+      grid-template: 170px 170px 170px 170px / 49% 49%;
       row-gap: 15px;
       justify-content: space-between;
+
+      @include tablet {
+        grid-template: 1fr 1fr / 33% 33% 33%;
+      }
+
+      @include desktop {
+        grid-template: 1fr 1fr / 24% 24% 24% 24%;
+      }
     }
 
     .home-page__more-button {
-      display: block;
-      width: 270px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
       height: 40px;
       margin: 40px auto 0;
-      padding-top: 5px;
       background-color: #fff;
       border: 2px solid black;
       border-radius: 20px;
       letter-spacing: 1px;
       text-align: center;
       text-decoration: none;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 500;
       font-family: 'Noto Sans KR', sans-serif;
       color: black;
       box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+
+      @include tablet {
+        width: 280px;
+        font-size: 16px;
+      }
 
       &:hover {
         cursor: pointer;
@@ -69,17 +93,26 @@
 
   .home-page__community-section {
     display: grid;
-    grid-template: auto auto / 45% 45%;
+    grid-template: auto auto / 50% 50%;
     justify-content: space-between;
+
+    @include tablet {
+      grid-template: auto auto / 45% 45%;
+    }
 
     .home-page__section-title {
       grid-column: 1 / 3;
-      margin: 0 0 60px 0;
+      margin: 0 0 50px 0;
       text-align: center;
       letter-spacing: 1px;
-      font-size: 25px;
+      font-size: 22px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
+
+      @include tablet {
+        margin: 0 0 60px 0;
+        font-size: 22px;
+      }
     }
   }
 }
