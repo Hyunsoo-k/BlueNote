@@ -1,19 +1,28 @@
 @use "@/styles/variables.scss" as *;
 
-.community-section-board {
+.community-section {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 380px;
+  padding: 0 8px;
 
-  .community-section-board__title {
+  @include tablet {
+    height: 380px;
+    padding: 0;
+  }
+
+  .community-section__title {
     display: flex;
     justify-content: space-between;
     margin: 0 0 30px 0;
     letter-spacing: 1px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     font-family: "Metrophobic", sans-serif;
+
+    @include tablet {
+      font-size: 20px;
+    }
 
     &:hover {
       cursor: pointer;
@@ -24,7 +33,7 @@
     }
   }
 
-  .community-section-board__content {
+  .community-section__content {
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -32,16 +41,20 @@
     width: 100%;
     margin: 0;
 
-    .community-section-board__sub-category {
-      list-style-type: none;
-      display: flex;
-      gap: 20px;
-      margin: 0 0 15px 0;
-      padding: 0 0 10px 0;
-      border-bottom: 1px solid $gray-color-100;
-      font-size: 17px;
-      font-weight: 500;
-      font-family: "Noto Sans KR", sans-serif;
+    .community-section__header {
+      display: none;
+
+      @include tablet {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+        margin: 0 0 15px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px solid $gray-color-100;
+        font-size: 17px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+      }
 
       td {
         color: $gray-color-300;
@@ -52,65 +65,80 @@
       }
     }
 
-    .community-section-board__post-list {
+    .community-section__post-list {
       list-style-type: none;
       flex-grow: 1;
       padding: 0;
       margin: 0;
     }
 
-    .community-section-board__element {
-      list-style-type: none;
+    .community-section__post {
       display: flex;
-      justify-content: space-between;
       padding: 5px 0;
-      
 
       td {
-        display: flex;
-        align-items: center;
-        margin: 0;
-        padding: 0 15px 0 0;
         font-family: "Noto Sans KR", sans-serif;
-
-        span {
-          padding-left: 7px;
-          font-weight: 500;
-          color: $sub-color;
-        }
 
         &:hover {
           cursor: pointer;
         }
       }
 
-      td:nth-of-type(1) {
-        width: 10%;
+      .community-section__sub-category {
+        flex-shrink: 0;
+        padding-right: 5px;
         font-weight: 500;
+        font-size: 13px;
         color: $sub-color;
+
+        @include tablet {
+          padding-right: 10px;
+          font-size: 14px;
+          color: $sub-color;
+        }
       }
 
-      td:nth-of-type(2) {
+      .community-section__post-title {
         overflow: hidden;
-        width: 60%;
         white-space: nowrap;
+        padding-right: 5px;
         text-overflow: ellipsis;
-        font-size: 15px;
-      }
-
-      td:nth-of-type(3) {
-        justify-content: flex-end;
-        overflow: hidden;
-        width: 30%;
-        padding: 0;
-        text-align: right;
         font-size: 14px;
-        color: $gray-color-300;
-      }
-    }
+        color: rgb(70, 70, 70);
 
-    .community-section-board__element:nth-last-of-type(1) {
-      margin: 0;
+        @include tablet {
+          font-size: 15px;
+        }
+      }
+      
+      .community-section__comment-count {
+        display: block;
+        flex-shrink: 0;
+        text-align: start;
+        font-weight: 500;
+        font-size: 13px;
+        color: $sub-color;
+
+        @include tablet {
+          padding-right: 10px;
+          font-size: 15px;
+        }
+      }
+
+      .community-section__created-at {
+        display: none;
+
+        @include tablet {
+          display: flex;
+          flex-shrink: 0;
+          align-items: center;
+          margin-left: auto;
+          padding: 0;
+          text-align: right;
+          font-size: 14px;
+          color: rgb(70, 70, 70);
+        }
+      }
     }
   }
 }
