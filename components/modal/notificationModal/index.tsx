@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { IoCloseOutline } from "react-icons/io5";
-import { useEffect } from "react";
 
 import { useCheckNotification } from "@/hooks/user/useCheckNotification";
 import { useDeleteNotification } from "@/hooks/user/useDeleteNotification";
@@ -46,21 +46,20 @@ const NotificationModal = ({
   };
 
   useEffect(() => {
-    if (viewport === "mobile" && showModal) {
+    if (viewport === "mobile") {
+      window.history.pushState(null, "", router.asPath);
+
       const handlePopState = () => {
-        handleClickClose();
+        setShowModal(false);
       };
 
       window.addEventListener("popstate", handlePopState);
 
-      history.pushState(null, "", router.asPath);
-
       return () => {
         window.removeEventListener("popstate", handlePopState);
-        history.back();
       };
     }
-  }, [viewport, showModal, router.asPath]);
+  }, [viewport, router.asPath, setShowModal]);
 
   if (!showModal) {
     return null;

@@ -47,7 +47,11 @@ const HeaderNotification = ({ userMe_id, viewport }: Props) => {
   };
 
   return (
-    <div id="notificationIcon" onMouseDown={handleShowModal} className={styles["header-notification"]}>
+    <div
+      id="notificationIcon"
+      onMouseDown={handleShowModal}
+      className={styles["header-notification"]}
+    >
       {notificationData?.newNotificationCount > 0 && <div className={styles["header-notification__red-light"]}></div>}
       <VscBell
         size={viewport === "mobile" ? 29 : 33}
