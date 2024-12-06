@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { FaCircle } from "react-icons/fa";
 
+import { ViewportContext } from "@/contexts/viewport";
 import CombinedThumbnail from "../combinedThumbnail";
 import DetachedThumbnail from "../detachedThumbnail";
 
@@ -12,6 +13,10 @@ interface Props {
 }
 
 const Carousel = ({ elementList, elementType }: Props) => {
+  const viewportContext = useContext(ViewportContext);
+
+  const viewport = viewportContext?.viewport || "mobile";
+
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const carouselWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,7 +26,9 @@ const Carousel = ({ elementList, elementType }: Props) => {
     if (!carouselWrapper) return;
 
     const totalElements = elementList.length;
-    const gap = 20;
+
+    const gap = viewport && typeof viewport === "string" && viewport === "mobile" ? 0 : 20;
+
     const elementWidth = carouselWrapper.firstChild instanceof HTMLElement
       ? carouselWrapper.firstChild.getBoundingClientRect().width
       : 0;
@@ -49,7 +56,7 @@ const Carousel = ({ elementList, elementType }: Props) => {
     }, 4000);
 
     return () => clearInterval(scrollInterval);
-  }, [elementList]);
+  }, [elementList, viewport]);
 
   return (
     <div className={styles["carousel"]}>
