@@ -1,49 +1,81 @@
 @use "@/styles/variables.scss" as *;
 
+// Background card section
+
 .auth-card {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 90%;
   max-width: 800px;
-  height: 500px;
-  margin: 90px auto 120px;
-  padding: 20px 15px 20px 15px;
+  margin: 0 auto;
   border-radius: 8px;
   background-color: #f6f6f6;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 
+  @include tablet {
+    flex-direction: row;
+    gap: 0;
+    height: 500px;
+    margin: 90px auto 120px;
+    padding: 20px 15px 20px 15px;
+  }
+
   .auth-card__section {
-    width: 45%;
-    height: 220px;
-    padding: 10px;
+    width: 100%;
+    padding: 25px 0;
+
+    @include tablet {
+      width: 45%;
+      padding: 10px;
+    }
 
     .auth-card__title {
       position: relative;
-      margin: 20px 0 0;
+      margin: 0;
       text-align: center;
-      font-size: 35px;
+      font-size: 28px;
       font-weight: 700;
       font-family: "Metrophobic", sans-serif;
       color: $main-color;
+
+      @include tablet {
+        margin: 20px 0 0;
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        font-family: "Metrophobic", sans-serif;
+        color: $main-color;
+      }
     }
 
     .auth-card__sub-title {
       margin: 10px 0 0;
       text-align: center;
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
       color: $gray-color-200;
+
+      @include tablet {
+        font-size: 16px;
+      }
     }
 
     .auth-card__img {
       overflow: hidden;
       position: relative;
-      width: 150px;
-      height: 150px;
-      margin: 50px auto 0;
+      width: 100px;
+      height: 100px;
+      margin: 30px auto 0;
       border-radius: 50%;
+
+      @include tablet {
+        width: 150px;
+        height: 150px;
+        margin: 30px auto 0;
+      }
     }
 
     .auto-card__ask {
@@ -53,7 +85,7 @@
       color: $gray-color-200;
     }
 
-    .auth-card__switch-btn {
+    .auth-card__switch-button {
       display: block;
       width: 50%;
       height: 40px;
@@ -75,58 +107,24 @@
   }
 }
 
-.auth-card__signIn-form {
+// Input card section
+
+.auth-card__form-box {
   position: absolute;
   top: 20px;
   left: -5%;
   width: 110%;
-  height: 220px;
+  height: 48%;
   margin: 0 auto;
-  padding: 60px 20px 60px;
+  padding: 15px 20px 15px;
   border-radius: 8px;
   background-color: $sub-color;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  animation-name: auth-card__signIn__animation;
-  animation-duration: 0.5s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-
-  @include tablet {
-    top: -20px;
-    width: 52%;
-    height: 540px;
-    animation-name: auth-card__signIn__animation__tablet;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-  }
-
-  @keyframes auth-card__signIn__animation {
-    0% {
-      top: 260px;
-      height: 330px;
-    }
-
-    100% {
-      top: 20px;
-      height: 220px;
-    }
-  }
-
-  @keyframes auth-card__signIn__animation__tablet {
-    0% {
-      left: 50%;
-    }
-
-    100% {
-      left: 0%;
-    }
-  }
 
   .auth-card__current-form {
     margin: 0 auto;
     text-align: center;
-    font-size: 28px;
+    font-size: 25px;
     font-family: "Metrophobic", sans-serif;
     color: #f6f6f6;
 
@@ -139,26 +137,28 @@
   .auth-card__input-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
     height: 100%;
     margin: 0 auto;
-    padding-top: 100px;
+    padding-top: 55px;
 
     @include tablet {
       gap: 60px;
+      padding-top: 100px;
     }
   }
 
-  .auth-card__submit-btn {
+  .auth-card__submit-button {
     width: 50%;
-    height: 25px;
-    margin: 5px auto 0;
+    height: 30px;
+    margin: 12px auto 0;
     border: 1px solid #f6f6f6;
     border-radius: 4px;
     background-color: inherit;
     color: #f6f6f6;
 
     @include tablet {
+      height: 25px;
       margin-top: 30px;
       height: 40px;
     }
@@ -171,19 +171,12 @@
   }
 }
 
-.auth-card__signUp-form {
-  overflow: hidden;
-  position: absolute;
-  left: 50%;
-  top: 20px;
-  width: 110%;
-  height: 220px;
-  margin: 0 auto;
-  padding: 60px 20px 60px;
-  border-radius: 8px;
-  background-color: $sub-color;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  animation-name: auth-card__signUp__animation;
+//-----------------------------------------------------------
+
+//signIn state
+
+.signIn{
+  animation-name: auth-card__signIn__animation;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
@@ -192,21 +185,61 @@
     top: -20px;
     width: 52%;
     height: 540px;
+    padding: 60px 20px 60px;
+    animation-name: auth-card__signIn__animation__tablet;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes auth-card__signIn__animation {
+  0% {
+    top: 50%;
+  }
+
+  100% {
+    top: 20px;
+  }
+}
+
+@keyframes auth-card__signIn__animation__tablet {
+  0% {
+    left: 50%;
+  }
+
+  100% {
+    left: 0%;
+  }
+}
+
+// signUp state
+
+.signUp {
+  animation-name: auth-card__signUp__animation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+
+  @include tablet {
+    top: -20px;
+    left: 50%;
+    width: 52%;
+    height: 540px;
+    padding: 60px 20px 60px;
     animation-name: auth-card__signUp__animation__tablet;
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
   }
 
-  @keyframes auth-card__signUp__animation {
+  @keyframes auth-card__signUp__animation { 
     0% {
       top: 20px;
-      height: 220px;
     }
 
     100% {
-      top: 260px;
-      height: 330px;
+      top: 50%;
     }
   }
 
@@ -220,10 +253,12 @@
     }
   }
 
+  //-----------------------------------------------------------
+
   .auth-card__current-form {
     margin: 0 auto;
     text-align: center;
-    font-size: 28px;
+    font-size: 25px;
     font-family: "Metrophobic", sans-serif;
     color: #f6f6f6;
 
@@ -235,7 +270,7 @@
   .auth-card__input-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 27px;
     padding-top: 20px;
 
     @include tablet {
@@ -243,9 +278,9 @@
     }
   }
 
-  .auth-card__submit-btn {
+  .auth-card__submit-button {
     width: 50%;
-    height: 25px;
+    height: 30px;
     margin: 5px auto 0;
     border: 1px solid #f6f6f6;
     border-radius: 4px;

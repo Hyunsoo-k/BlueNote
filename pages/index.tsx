@@ -1,7 +1,9 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import { useContext } from "react";
 
 import { instance } from "@/axios";
+import { ViewportContext } from "@/contexts/viewport";
 import Carousel from "@/components/carousel";
 import CombinedThumbnail from "@/components/combinedThumbnail";
 import CommunitySectionBoard from "@/components/communitySectionBoard";
@@ -23,22 +25,24 @@ const Home = ({
   initialBoardData,
   initialJobData
 }: Props) => {
+  const viewportContext = useContext(ViewportContext);
+
+  const viewport = viewportContext?.viewport || "mobile";
 
   return (
     <div className={styles["home-page"]}>
       <div className={styles["home-page__news-section"]}>
-        <p className={styles["home-page__section-title"]}>News</p>
-        <Carousel elementList={initialNewsData.postList} elementType="detached" />
+        <Carousel elementList={initialNewsData.postList} elementType={viewport === "mobile" ? "combined" : "detached"} />
       </div>
       <div className={styles["home-page__promote-section"]}>
         <p className={styles["home-page__section-title"]}>Promote</p>
         <div className={styles["home-page__thumbnail-wrapper"]}>
           {initialPromoteData.postList.map((post: any, index: number) => {
-            return index < 8 && <CombinedThumbnail element={post} key={index} />;
+            return index < (viewport === "tablet" ? 6 : 8) && <CombinedThumbnail element={post} key={index} />;
           })}
         </div>
         <Link href="/bbs/promote" className={styles["home-page__more-button"]}>
-          더보기
+          더 보기
         </Link>
       </div>
       <div className={styles["home-page__community-section"]}>

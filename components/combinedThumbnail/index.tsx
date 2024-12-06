@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
-};
+}
 
 const CombinedThumbnail = ({ element }: Props) => {
   const router = useRouter();
@@ -31,9 +31,7 @@ const CombinedThumbnail = ({ element }: Props) => {
       <div className={styles["combined-thumbnail__explantion"]}>
         <p className={styles["combined-thumbnail__category"]}>{element.category}</p>
         <p className={styles["combined-thumbnail__title"]}>{element.title}</p>
-        <div className={styles["combined-thumbnail__content-wrapper"]}>
-          <p className={styles["combined-thumbnail__content"]}>{textContent}</p>
-        </div>
+        <p className={styles["combined-thumbnail__content"]}>{textContent}</p>
       </div>
     </div>
   );

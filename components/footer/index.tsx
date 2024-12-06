@@ -21,13 +21,13 @@ const Footer = () => {
         </Link>
       </ul>
       <div className={styles["footer__bottom-section"]}>
-        <p>
+        <p className={styles["footer__title"]}>
           BLUE NOTE
           <span>
             <PiVinylRecordFill size={30} style={{ position: "relative", top: "5px", left: "5px" }} />
           </span>
         </p>
-        <p>Copyright ⓒ BlueNote. All rights reservied.</p>
+        <p className={styles["footer__copyright"]}>Copyright ⓒ BlueNote. All rights reservied.</p>
       </div>
     </div>
   );

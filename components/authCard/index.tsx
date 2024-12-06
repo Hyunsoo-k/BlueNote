@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { PiVinylRecordFill } from "react-icons/pi";
 
@@ -13,6 +13,7 @@ import Password from "../input/password";
 import CheckPassword from "../input/check-password";
 
 import styles from "./index.module.scss";
+import { ViewportContext } from "@/contexts/viewport";
 
 const AlertModal = dynamic(() => import("../modal/alertModal"), { ssr: false });
 
@@ -23,6 +24,12 @@ interface CurrentForm {
 
 const AuthCard = () => {
   const router = useRouter();
+
+  const viewportContext = useContext(ViewportContext);
+
+  const viewport = viewportContext?.viewport || "mobile";
+
+
   const [alertModal, setAlertModal] = useState({
     show: false,
     message: "",
@@ -72,16 +79,22 @@ const AuthCard = () => {
         <div className={styles["auth-card__section"]} key={index}>
           <p className={styles["auth-card__title"]}>
             Blue Note
-            <span>
-              <PiVinylRecordFill size={30} style={{ position: "relative", top: "5px", left: "5px" }} />
-            </span>
+              <PiVinylRecordFill
+                size={viewport === "mobile" ? 27 : 30}
+                style={{ position: "relative", top: "5px", left: "5px" }}
+              />
           </p>
           <p className={styles["auth-card__sub-title"]}>community for jazz musicians</p>
           <div className={styles["auth-card__img"]}>
             <Image src={formImg[index]} fill alt="" />
           </div>
-          <p className={styles["auto-card__ask"]}>{index ? "don't have an account?" : "have an account?"}</p>
-          <button onClick={currentFormHandler} className={styles["auth-card__switch-btn"]}>
+          <p className={styles["auto-card__ask"]}>
+            {index ? "don't have an account?" : "have an account?"}
+          </p>
+          <button
+            onClick={currentFormHandler}
+            className={styles["auth-card__switch-button"]}
+          >
             {item === "signIn" ? "Login" : "Sign Up"}
           </button>
         </div>
@@ -89,16 +102,21 @@ const AuthCard = () => {
       <FormProvider {...formTools}>
         <form
           onSubmit={formTools.handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
-          className={styles[`auth-card__${currentForm.form}-form`]}
+          className={`
+            ${styles[`auth-card__form-box`]}
+            ${styles[currentForm.form]}
+          `}
           style={currentForm.initial ? { animationName: "none" } : {}}
         >
-          <p className={styles["auth-card__current-form"]}>{currentForm.form === "signIn" ? "Login" : "Sign Up"}</p>
+          <p className={styles["auth-card__current-form"]}>
+            {currentForm.form === "signIn" ? "Login" : "Sign Up"}
+          </p>
           <div className={styles["auth-card__input-list"]}>
             <Email />
             {currentForm.form === "signUp" && <Nickname />}
             <Password />
             {currentForm.form === "signUp" && <CheckPassword />}
-            <button className={styles["auth-card__submit-btn"]}>
+            <button className={styles["auth-card__submit-button"]}>
               {currentForm.form === "signIn" ? "Login" : "Sign Up"}
             </button>
           </div>

@@ -1,3 +1,5 @@
+@use "@/styles/variables.scss" as *;
+
 .check-password {
   position: relative;
   width: 100%;
@@ -8,7 +10,7 @@
     border: none;
     border-bottom: 1px solid #f6f6f6;
     background-color: inherit;
-    font-size: 17px;
+    font-size: 15px;
     font-family: "Metrophobic", sans-serif;
     color: #f6f6f6;
 
@@ -19,16 +21,24 @@
     &:focus {
       outline: none;
     }
+
+    @include tablet {
+      font-size: 17px;
+    }
   }
 
   span {
     position: absolute;
-    bottom: -30px;
+    bottom: -25px;
     left: 0;
     padding-left: 5px;
     font-size: 13px;
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 500;
     color: red;
+
+    @include tablet {
+      bottom: -30px;
+    }
   }
 }
