@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 
 import styles from "./index.module.scss";
@@ -11,43 +11,33 @@ interface Props {
 };
 
 const Wysiwyg = ({ wysiwygRef, initialContent }: Props) => {
-  console.log(initialContent);
+  useEffect(() => {
+    wysiwygRef.current?.editor.root.setAttribute("spellcheck", "false");
+  }, []);
+
   const modules = {
     toolbar: [
-      [{ size: ["small", false, "large", "huge"] }],
-      [{ color: [] }, { background: [] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+      [{ size: ["small", false, "large", "huge"] }],  
       ["link", "image"],
     ],
   };
 
-  const formats = [
-    "size",
-    "color",
-    "background",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-  ];
+  const handleClickContent = () => {
+    if (wysiwygRef.current) {
+      wysiwygRef.current.focus();
+    }
+  };
 
   return (
-    <ReactQuill
-      ref={wysiwygRef}
-      theme="snow"
-      modules={modules}
-      formats={formats}
-      value={initialContent ? initialContent : null}
-      style={{ margin: "4px" }}
-      placeholder="내용을 입력하세요."
-    />
+    <div onClick={handleClickContent} className={styles["wisiwg"]}>
+      <ReactQuill
+        ref={wysiwygRef}
+        theme="snow"
+        modules={modules}
+        value={initialContent ? initialContent : null}
+        placeholder="내용을 입력하세요."
+      />
+    </div>
   );
 };
 

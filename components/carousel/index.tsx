@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { FaCircle } from "react-icons/fa";
 
 import { ViewportContext } from "@/contexts/viewport";
-import CombinedThumbnail from "../combinedThumbnail";
-import DetachedThumbnail from "../detachedThumbnail";
+import CombinedThumbnail from "../thumbnail/combinedThumbnail";
+import DetachedThumbnail from "../thumbnail/detachedThumbnail";
 
 import styles from "./index.module.scss";
 
@@ -29,9 +29,8 @@ const Carousel = ({ elementList, elementType }: Props) => {
 
     const gap = viewport && typeof viewport === "string" && viewport === "mobile" ? 0 : 20;
 
-    const elementWidth = carouselWrapper.firstChild instanceof HTMLElement
-      ? carouselWrapper.firstChild.getBoundingClientRect().width
-      : 0;
+    const elementWidth =
+      carouselWrapper.firstChild instanceof HTMLElement ? carouselWrapper.firstChild.getBoundingClientRect().width : 0;
 
     const scrollInterval = setInterval(() => {
       setCurrentIndex((prevIndex) => {

@@ -1,0 +1,60 @@
+@use "@/styles/variables.scss" as *;
+
+.wisiwg {
+  margin: 0;
+
+  :global {
+
+    .quill {
+      border: none;
+      height: 100%;
+      
+      .ql-toolbar {
+        border-top: none;
+
+        .ql-formats {
+          margin-right: 5px;
+          
+          .ql-size.ql-picker {
+            width: 70px;
+          }
+    
+          .ql-picker-label {
+            padding: 0;
+          }
+        }
+      }
+
+      .ql-container {
+        min-height: 400px;
+        padding: 20px 8px;
+        border-bottom: none;
+        font-family: "Noto Sans KR", sans-serif;
+        color: #2C2C2C;
+
+        @include tablet {
+          min-height: 500px;
+          padding: 20px 10px;
+          border-bottom: 1px solid $gray-color-100;
+          font-size: 15px;
+        }
+
+        .ql-editor {
+          padding: 0;
+        }
+
+        .ql-editor.ql-blank::before {
+          left: 8px;
+          margin-left: 0;
+          padding-left: 0;
+          font-style: normal;
+          color: $gray-color-300;
+
+          @include tablet {
+            margin-left: 2px;
+          }
+        }
+      }
+    }
+  }
+}

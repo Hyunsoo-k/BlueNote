@@ -1,0 +1,26 @@
+@use "@/styles/variables.scss" as *;
+
+.mobile-post-action-bar {
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px 15px;
+  background-color: $background-color;
+  border-top: 1px solid $gray-color-100;
+
+  .mobile-post-action-bar__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .mobile-post-action-bar__explan {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 450;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+  }
+}

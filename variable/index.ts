@@ -35,14 +35,14 @@ const subCategoryUrlMap: { [key: string]: string } = {
   공지: 'notice',
   국내: 'domestic',
   국외: 'international',
-  일반: 'general',
-  녹음: 'recording',
+  일반: 'common',
+  녹음: 'record',
   팁: 'tip',
-  밴드홍보: 'band-promotion',
-  앨범홍보: 'album-promotion',
-  재즈바홍보: 'jazz-bar-promotion',
-  구인: 'job-offer',
-  구직: 'job-seeker'
+  밴드홍보: 'bandPromotion',
+  앨범홍보: 'albumPromotion',
+  재즈바홍보: 'jazzbarPromotion',
+  구인: 'jobPosting',
+  구직: 'jobSeeking'
 };
 
 export { mainCategory, subCategoryListMap, subCategoryMap, subCategoryUrlMap };

@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
+import { GoArrowLeft } from "react-icons/go";
 
 import { MainCategory } from "@/types/categorys";
 import { uploadImageToFirebase, dataURLToBlob } from "@/utils/firebase";
@@ -15,10 +17,14 @@ const Wysiwyg = dynamic(() => import("@/components/bbs/wysiwyg"), { ssr: false }
 
 interface Props {
   post: any;
-}
+  viewport: string;
+};
 
-const EditPost = ({ post }: Props) => {
+const EditPost = ({ post, viewport }: Props) => {
+  const router = useRouter();
+
   const subCategoryList = subCategoryListMap[post.mainCategory as keyof typeof subCategoryListMap].filter((item: string) => item !== "All");
+  
   const [currentCategory, setCurrentCategory] = useState<string>(post.subCategory);
 
   const wysiwygRef = useRef<any>(null);
@@ -29,10 +35,13 @@ const EditPost = ({ post }: Props) => {
 
   const editPostMutation = useEditPost(post.mainCategory, post._id);
 
-
   useEffect(() => {
     setValue("title", post.title);
   }, []);
+
+  const handleClickBack = () => {
+    router.push(`/bbs/${post.mainCategory}/post/${post._id}`);
+  };
 
   const submitHandler = {
     onSubmit: async (data: any) => {
@@ -69,42 +78,73 @@ const EditPost = ({ post }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["edit-post"]}>
-      <p className={styles["edit-post__main-category"]}>{post.mainCategory}</p>
-      <div className={styles["edit-post__header"]}>
+    <form
+      onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
+      className={styles["container"]}
+    >
+      {viewport === "mobile" && (
+        <div className={styles["action-box--mobile"]}>
+          <GoArrowLeft
+            size={25}
+            color="#2C2C2C"
+            onClick={handleClickBack}
+            style={{
+              marginRight: "auto"
+            }}
+          />
+          <span className={styles["title--mobile"]}>글수정</span>
+          <button className={styles["submit-button--mobile"]}>수정</button>
+        </div>
+      )}
+      {viewport !== "mobile" && (
+        <p className={styles["main-category"]}>
+          {post.mainCategory.charAt(0).toUpperCase() + post.mainCategory.slice(1)}
+        </p>
+      )}
+      <div className={styles["header"]}>
         <input
           {...register("title", { required: "제목을 입력해주세요." })}
-          placeholder="제목"
-          className={styles["edit-post__title"]}
+          placeholder="제목을 입력하세요."
+          spellCheck="false"
+          className={styles["title-input"]}
         />
-        <div className={styles["edit-post__details"]}>
-          <p className={styles["edit-post__writer"]}>
-            작성자<span>운영자</span>
-          </p>
-          <ul className={styles["edit-post__sub-category-list"]}>
-            <li className={styles["edit-post__division"]}>분류</li>
+        <div className={styles["header__information"]}>
+          <div className={styles["header__writer-box"]}>
+            <span className={styles["header__writer"]}>작성자</span>
+            <span className={styles["header__writer-value"]}>
+              {post?.writer.nickname}
+            </span>
+          </div>
+          <div className={styles["header__sub-category-box"]}>
+            <span className={styles["header__division"]}>분류</span>
+            <div className={styles["header__division-boundary-line"]}></div>
             {subCategoryList.map((value: string, index: number) => (
-              <li
+              <span
                 key={index}
                 onClick={() => setCurrentCategory(value)}
                 className={`${
                   currentCategory === value
-                    ? styles["edit-post__sub-category--selected"]
-                    : styles["edit-post__sub-category"]
+                    ? styles["header__division-value--selected"]
+                    : styles["header__division-value"]
                 }`}
               >
                 {value}
-              </li>
+              </span>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
-      <div className={styles["edit-post__content"]}>
+      <div className={styles["content"]}>
         <Wysiwyg wysiwygRef={wysiwygRef} initialContent={post.content}/>
       </div>
-      <button type="submit" className={styles["edit-post__submit-btn"]}>
-        등록
-      </button>
+      {viewport !== "mobile" && (
+        <div className={styles["button-box"]}>
+          <span className={styles["cancel-button"]}>취소</span>
+          <button type="submit" className={styles["submit-button"]}>
+            등록
+          </button>
+        </div>
+      )}
       <ModalContainer />
     </form>
   );

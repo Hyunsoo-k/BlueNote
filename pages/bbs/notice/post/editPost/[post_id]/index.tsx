@@ -1,8 +1,10 @@
-import EditPost from "@/components/bbs/editPost";
 import { GetServerSideProps } from "next";
+import { useContext } from "react";
 
 import { instance } from "@/axios";
-import { useGetPost } from "@/hooks/bbs/useGetPost";
+import { ViewportContext } from "@/contexts/viewport";
+import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
+import EditPost from "@/components/bbs/editPost";
 
 import styles from "./index.module.scss";
 
@@ -12,11 +14,14 @@ interface ServerSideProps {
 };
 
 const NoticePostEditPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
-  const { data: post } = useGetPost(urlWithoutQuery, initialData);
+  const viewportContext = useContext(ViewportContext);
+  const viewport = viewportContext?.viewport || "mobile";
+
+  const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
 
   return (
-    <div className={styles["notice-edit-post-page"]}>
-      <EditPost post={post} />
+    <div className={styles["container"]}>
+      <EditPost post={post} viewport={viewport} />
     </div>
   );
 };
@@ -37,4 +42,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
-

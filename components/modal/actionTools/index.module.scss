@@ -1,0 +1,60 @@
+@use "@/styles/variables.scss" as *;
+
+.action-tools {
+  z-index: 999;
+  position: absolute;
+  top: 30px;
+  left: -100px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 110px;
+  padding: 4px 8px 8px 8px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+
+  @include tablet {
+    top: 35px;
+    left: -140px;
+    gap: 10px;
+    width: 150px;
+    padding: 4px 10px 8px 10px;
+  }
+
+  .action-tools__edit-section {
+    display: flex;
+    justify-content: space-between;
+
+    .action-tools__edit-button {
+      display: flex;
+      align-items: center;
+      height: 35px;
+      font-size: 12px;
+      font-family: "Noto Sans KR", sans-serif;
+      color: rgb(50, 50, 50);
+
+      @include tablet {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .action-tools__delete-section {
+    display: flex;
+    justify-content: space-between;
+    
+    .action-tools__delete-button {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      font-size: 12px;
+      font-family: "Noto Sans KR", sans-serif;
+      color: rgb(50, 50, 50);
+
+      @include tablet {
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,34 +1,32 @@
 @use "@/styles/variables.scss" as *;
 
-.header {
+.container {
   z-index: 998;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
-  padding: 0 8px;
   background-color: #efebe9;
 
   @include tablet {
+    top: 0;
     padding: 0;
   }
 
   @include desktop {
   }
 
-  .header__top {
+  .header {
     position: relative;
     width: 100%;
     max-width: 1150px;
     margin: 0 auto;
+    padding: 10px 15px 18px;
 
     .header__title {
       display: block;
-      padding-top: 10px;
-      padding-bottom: 30px;
       letter-spacing: -1px;
       text-decoration: none;
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 700;
       font-family: "Varela Round", sans-serif;
       color: $main-color;
@@ -58,10 +56,10 @@
     .header__isLoggedIn {
       position: absolute;
       top: 10px;
-      right: 0;
+      right: 8px;
       display: flex;
       justify-content: space-between;
-      width: 70px;
+      width: 60px;
 
       @include tablet {
         position: absolute;
@@ -78,8 +76,8 @@
 
       .header__boundary-line {
         width: 2px;
-        height: 28px;
-        margin-top: 2px;
+        height: 23px;
+        margin-top: 3px;
         background-color: $gray-color-200;
 
         @include tablet {
@@ -121,7 +119,7 @@
     .header__isLoggedOut {
       position: absolute;
       top: 12px;
-      right: 0;
+      right: 8px;
       display: flex;
       justify-content: space-between;
       gap: 10px;
@@ -130,7 +128,7 @@
 
       @include tablet {
         top: 18px;
-        right: 20px;
+        right: 15px;
         gap: 20px;
       }
 
@@ -140,7 +138,7 @@
         color: black;
 
         @include tablet {
-          font-size: 17px;
+          font-size: 16px;
         }
 
         &:hover {
@@ -154,7 +152,7 @@
         color: black;
 
         @include tablet {
-          font-size: 17px;
+          font-size: 16px;
         }
 
         &:hover {

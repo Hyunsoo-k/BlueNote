@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { PiArrowElbowDownRightThin } from "react-icons/pi";
 
-import { useGetUser } from "@/hooks/user/useGetUser";
+import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useCreateReply } from "@/hooks/bbs/useCreateReply";
 
 import styles from "./index.module.scss";
@@ -10,9 +10,10 @@ interface Props {
   post_id: string;
   comment_id: string;
   setIsCreatingReply: any;
-}
+  viewport: string;
+};
 
-const CreateReply = ({ post_id, comment_id, setIsCreatingReply }: Props) => {
+const CreateReply = ({ post_id, comment_id, setIsCreatingReply, viewport }: Props) => {
   const {
     register,
     handleSubmit,
@@ -20,7 +21,7 @@ const CreateReply = ({ post_id, comment_id, setIsCreatingReply }: Props) => {
     reset,
   } = useForm({ mode: "onChange" });
 
-  const { data: userMe } = useGetUser();
+  const { data: userMe } = useGetUserQuery();
 
   const createReplyMutation = useCreateReply(post_id, comment_id, setIsCreatingReply);
 
@@ -45,7 +46,7 @@ const CreateReply = ({ post_id, comment_id, setIsCreatingReply }: Props) => {
   return (
     <div className={styles["create-reply"]}>
       <PiArrowElbowDownRightThin
-        size={23}
+        size={viewport === "mobile" ? 18 : 23}
         color="rgb(138, 131, 131)"
         style={{ position: "absolute", top: "20px", left: "10px" }}
       />

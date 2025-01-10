@@ -74,26 +74,26 @@ const AuthCard = () => {
   const formImg = ["/images/carousel/playing-trumpet.png", "/images/auth/saxophone.png"];
 
   return (
-    <div className={styles["auth-card"]}>
+    <div className={styles["container"]}>
       {formImg.map((item: string, index: number) => (
-        <div className={styles["auth-card__section"]} key={index}>
-          <p className={styles["auth-card__title"]}>
+        <div className={styles["background"]} key={index}>
+          <p className={styles["background__title"]}>
             Blue Note
               <PiVinylRecordFill
                 size={viewport === "mobile" ? 27 : 30}
                 style={{ position: "relative", top: "5px", left: "5px" }}
               />
           </p>
-          <p className={styles["auth-card__sub-title"]}>community for jazz musicians</p>
-          <div className={styles["auth-card__img"]}>
+          <p className={styles["background__sub-title"]}>community for jazz musicians</p>
+          <div className={styles["background__image"]}>
             <Image src={formImg[index]} fill alt="" />
           </div>
-          <p className={styles["auto-card__ask"]}>
+          <p className={styles["background__asking"]}>
             {index ? "don't have an account?" : "have an account?"}
           </p>
           <button
             onClick={currentFormHandler}
-            className={styles["auth-card__switch-button"]}
+            className={styles["background__switching-button"]}
           >
             {item === "signIn" ? "Login" : "Sign Up"}
           </button>
@@ -103,20 +103,20 @@ const AuthCard = () => {
         <form
           onSubmit={formTools.handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
           className={`
-            ${styles[`auth-card__form-box`]}
+            ${styles["form"]}
             ${styles[currentForm.form]}
           `}
           style={currentForm.initial ? { animationName: "none" } : {}}
         >
-          <p className={styles["auth-card__current-form"]}>
+          <p className={styles["form__current-state"]}>
             {currentForm.form === "signIn" ? "Login" : "Sign Up"}
           </p>
-          <div className={styles["auth-card__input-list"]}>
+          <div className={styles["form__input-wrapper"]}>
             <Email />
             {currentForm.form === "signUp" && <Nickname />}
             <Password />
             {currentForm.form === "signUp" && <CheckPassword />}
-            <button className={styles["auth-card__submit-button"]}>
+            <button className={styles["form__submit-button"]}>
               {currentForm.form === "signIn" ? "Login" : "Sign Up"}
             </button>
           </div>

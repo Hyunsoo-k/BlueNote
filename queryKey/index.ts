@@ -9,6 +9,7 @@ const queryKey = {
     subCategory,
   ],
   myPostList: (page: string) => ["myPostList", page],
+  mobilePostListData: (mainCategory: MainCategory, page: number) => ["mobilePostListData", mainCategory, page],
   postListData: (mainCategory: MainCategory, resolveURL: string) => ["postListData", mainCategory, resolveURL],
   post: (post_id: string) => ["post", post_id],
   comments: (post_id: string) => ["comments", post_id],

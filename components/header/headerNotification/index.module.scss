@@ -1,13 +1,22 @@
+@use "@/styles/variables.scss" as *;
+
 .header-notification {
   position: relative;
 
   .header-notification__red-light {
     position: absolute;
-    top: 2px;
-    left: 1px;
-    width: 6px;
-    height: 6px;
+    top: 1px;
+    left: 0;
+    width: 5px;
+    height: 5px;
     background-color: red;
     border-radius: 50%;
+
+    @include tablet {
+      top: 2px;
+      left: 1px;
+      width: 6px;
+      height: 6px;
+    }
   }
 }

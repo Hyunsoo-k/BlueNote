@@ -11,7 +11,7 @@ import styles from "./index.module.scss";
 
 interface Props {
   initialData: any;
-}
+};
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
   const viewportContext = useContext(ViewportContext);
@@ -37,38 +37,45 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
   };
 
   return (
-    <div className={styles["community-section"]}>
-      <p onClick={handleClickHeader} className={styles["community-section__title"]}>
-        <span>{initialData.mainCategory === "board" ? "Board" : "Job"}</span>
-        <IoIosArrowForward size={viewport === "mobile" ? 20 : 25} style={{ position: "relative", top: "1px" }} />
-      </p>
-      <table className={styles["community-section__content"]}>
+    <div className={styles["container"]}>
+      <div onClick={handleClickHeader} className={styles["header"]}>
+        <span className={styles["title"]}>{initialData.mainCategory === "board" ? "Board" : "Job"}</span>
+        <IoIosArrowForward
+          size={viewport === "mobile" ? 20 : 25}
+          style={{ position: "relative", top: "1px" }}
+        />
+      </div>
+      <table className={styles["content"]}>
         <thead>
-          <tr className={styles["community-section__header"]}>
+          <tr className={styles["content__header"]}>
             {subCategoryList?.map((value: string, index: number) => (
               <td
                 onClick={(e: any) => {
                   handleClickSubCategory(e);
                 }}
                 key={index}
-                style={subCategory === value ? { color: "rgb(48, 140, 204)" } : {}}
+                className={`${
+                  value === subCategory
+                    ? styles["content__division--selected"]
+                    : styles["content__division"]
+                }`}
               >
                 {value}
               </td>
             ))}
           </tr>
         </thead>
-        <tbody className={styles["community-section__post-list"]}>
+        <tbody className={styles["element-wrapper"]}>
           {data?.postList.map((post: any, index: number) => {
             return (
               index < 8 && (
-                <tr key={index} className={styles["community-section__post"]}>
-                  <td className={styles["community-section__sub-category"]}>{post.subCategory}</td>
-                  <td className={styles["community-section__post-title"]}>{post.title}</td>
+                <tr key={index} className={styles["element"]}>
+                  <td className={styles["element__sub-category"]}>{post.subCategory}</td>
+                  <td className={styles["element__title"]}>{post.title}</td>
                   {post.commentList.length > 0 && (
-                    <td className={styles["community-section__comment-count"]}>({post.commentList.length})</td>
+                    <td className={styles["element__comment-count"]}>({post.commentList.length})</td>
                   )}
-                  <td className={styles["community-section__created-at"]}>{formatYM(post.createdAt)}</td>
+                  <td className={styles["element__created-at"]}>{formatYM(post.createdAt)}</td>
                 </tr>
               )
             );

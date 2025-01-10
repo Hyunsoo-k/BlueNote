@@ -5,23 +5,24 @@ import { FaRegCommentDots } from "react-icons/fa6";
 
 import { PostType } from "@/types/post";
 import { Comment as CommentType } from "@/types/comment";
-import { useGetUser } from "@/hooks/user/useGetUser";
+import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useRecommendPost } from "@/hooks/bbs/useRecommend";
-import Comment from "../comment";
-import CreateComment from "../comment/createComment";
 import useModal from "@/hooks/modal/useModal";
+import Comment from "@/components/bbs/comment";
+import CreateComment from "@/components/bbs/createComment";
 import ModalContainer from "@/components/modal/modalContainer";
 
 import styles from "./index.module.scss";
 
 interface Props {
   post: PostType;
-}
+  viewport: string;
+};
 
-const CommentSection = ({ post }: Props) => {
+const CommentSection = ({ post, viewport }: Props) => {
   const router = useRouter();
 
-  const { data: userMe } = useGetUser();
+  const { data: userMe } = useGetUserQuery();
 
   const { openModal, closeModal } = useModal();
 
@@ -30,7 +31,7 @@ const CommentSection = ({ post }: Props) => {
   const handleRecommendPost = () => {
     if (!userMe) {
       return openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
-    }
+    };
 
     const requsetBody = { targetUrl: router.asPath };
 
@@ -38,31 +39,58 @@ const CommentSection = ({ post }: Props) => {
   };
 
   return (
-    <div className={styles["comment-section"]}>
-      <div className={styles["comment-section-header"]}>
-        <button type="button" onClick={handleRecommendPost} className={styles["comment-section__post-recommend-count"]}>
+    <div className={styles["container"]}>
+      <div className={styles["header"]}>
+        <div
+          onClick={handleRecommendPost}
+          className={styles["recommend-count-box"]}
+        >
           {post.recommend.includes(userMe?._id) ? (
             <RiThumbUpFill
-              size={18}
+              size={viewport === "mobile" ? 16 : 18}
               color="rgb(48, 140, 204)"
-              style={{ position: "relative", top: "3px", marginRight: "5px" }}
+              style={{ position: "relative", top: "3px", marginRight: "3px" }}
             />
           ) : (
-            <RiThumbUpLine size={18} style={{ position: "relative", top: "3px", marginRight: "5px" }} />
+            <RiThumbUpLine
+              size={viewport === "mobile" ? 16 : 18}
+              color="#2C2C2C"
+              style={{ position: "relative", top: "3px", marginRight: "3px" }}
+            />
           )}
-          추천 <span>{post.recommend.length}</span>
-        </button>
-        <p className={styles["comment-section__count"]}>
-          <FaRegCommentDots size={18} color="black" style={{ position: "relative", top: "3px", marginRight: "5px" }} />
-          댓글 <span>{post.commentList.length}</span>
-        </p>
+          <span className={styles["recommend-count"]}>추천</span>
+          <span className={styles["recommend-count-value"]}>
+            {post.recommend.length}
+          </span>
+        </div>
+        <div className={styles["comment-count-box"]}>
+          <FaRegCommentDots
+            size={viewport === "mobile" ? 16 : 18}
+            color="#2C2C2C"
+            style={{ position: "relative", top: "3px", marginRight: "3px" }}
+          />
+          <span className={styles["comment-count"]}>댓글</span>
+          <span className={styles["comment-count-value"]}>
+            {post.commentList.length}
+          </span>
+        </div>
       </div>
-      <div className={styles["comment__list"]}>
+      <CreateComment
+        post_id={post._id}
+        userMe={userMe}
+        viewport={viewport}
+      />
+      <div className={styles["comment-wrapper"]}>
         {post.commentList.map((comment: CommentType, index: number) => (
-          <Comment key={index} comment={comment} userMe={userMe} post={post} />
+          <Comment
+            key={index}
+            comment={comment}
+            userMe={userMe}
+            post={post}
+            viewport={viewport}
+          />
         ))}
       </div>
-      <CreateComment post_id={post._id} />
       <ModalContainer />
     </div>
   );

@@ -27,6 +27,8 @@ interface PostType {
     commentList: Comment[];
     createdAt: string;
     updatedAt: string;
+    previousPost: any;
+    nextPost: any;
     __v: number;
 }
 

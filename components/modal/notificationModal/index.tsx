@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { IoCloseOutline } from "react-icons/io5";
-import { useEffect } from "react";
 
 import { useCheckNotification } from "@/hooks/user/useCheckNotification";
 import { useDeleteNotification } from "@/hooks/user/useDeleteNotification";
@@ -16,14 +16,14 @@ interface Props {
   showModal: boolean;
   setShowModal: any;
   userMe_id: string;
-}
+};
 
 const NotificationModal = ({
   viewport,
   notificationData,
   showModal,
   setShowModal,
-  userMe_id,
+  userMe_id
 }: Props) => {
   const router = useRouter();
 
@@ -46,34 +46,31 @@ const NotificationModal = ({
   };
 
   useEffect(() => {
-    if (viewport === "mobile" && showModal) {
+    if (viewport === "mobile") {
+      window.history.pushState(null, "", router.asPath);
+
       const handlePopState = () => {
-        handleClickClose();
+        setShowModal(false);
       };
 
       window.addEventListener("popstate", handlePopState);
 
-      history.pushState(null, "", router.asPath);
-
       return () => {
         window.removeEventListener("popstate", handlePopState);
-        history.back();
       };
     }
-  }, [viewport, showModal, router.asPath]);
+  }, [viewport, router.asPath, setShowModal]);
 
   if (!showModal) {
     return null;
-  }
+  };
 
   const ModalContent = (
     <div
-      onMouseDown={(e: any) => {
-        e.stopPropagation();
-      }}
-      className={styles["notification-modal"]}
+      onClick={(e: any) => { e.stopPropagation(); }}
+      className={styles["container"]}
     >
-      <p className={styles["notification-modal__title"]}>
+      <p className={styles["header"]}>
         새 알림 <span>{notificationData?.newNotificationCount}</span>
         <IoCloseOutline
           onClick={handleClickClose}
@@ -81,20 +78,17 @@ const NotificationModal = ({
           size={25}
         />
       </p>
-      <div className={styles["notification-modal__item-wrapper"]}>
+      <div className={styles["notification-box"]}>
         {notificationData?.list?.map((notification: any, index: number) => (
           <div
             key={index}
             onClick={(e: any) => {
               handleClickItem(e, notification);
             }}
-            className={styles["notification-modal__item"]}
+            className={styles["notification"]}
           >
             <Image
-              src={
-                notification.triggeredBy.profileImage.url ||
-                "/images/user/defaultProfileGray.png"
-              }
+              src={notification.triggeredBy.profileImage.url || "/images/user/defaultProfileGray.png"}
               width={33}
               height={33}
               alt=""
@@ -104,17 +98,14 @@ const NotificationModal = ({
                 borderRadius: "50%",
               }}
             />
-            {!notification.isChecked && (
-              <div className={styles["notifiaction-modal__red-light"]}></div>
-            )}
-            <div className={styles["notification-modal__main"]}>
-              <div className={styles["notification-modal__header"]}>
-                <p className={styles["notification-modal__triggeredBy"]}>
+            {!notification.isChecked && <div className={styles["notifiaction__red-light"]}></div>}
+            <div className={styles["notification__main"]}>
+              <div className={styles["notification__header"]}>
+                <p className={styles["notification__triggeredBy"]}>
                   {notification.triggeredBy.nickname}
+                  <span className={styles["notification__triggeredBy-span"]}>님이</span>
                 </p>
-                <p className={styles["notification-modal__lapse"]}>
-                  {formatLapse(notification.createdAt)}
-                </p>
+                <p className={styles["notification__lapse"]}>{formatLapse(notification.createdAt)}</p>
                 <IoCloseOutline
                   onClick={(e: any) => {
                     handleClickDeleteItem(e, notification._id);
@@ -123,10 +114,27 @@ const NotificationModal = ({
                   size={19}
                 />
               </div>
-              <p className={styles["notification-modal__content"]}>
-                님이 <span>{notification.targetTitle}</span> 글에{" "}
-                <span>{notification.type}</span>을 작성했습니다.
-              </p>
+              {notification.type === "추천"
+                ? (
+                  <p className={styles["notification__content"]}>
+                    <span className={styles["notification__taget-title"]}>
+                      {notification.targetTitle}
+                    </span>
+                    글에&nbsp;
+                    <span className={styles["notification__type"]}>{notification.type}</span>
+                    을 했습니다.
+                  </p>
+                  )
+                : (
+                  <p className={styles["notification__content"]}>
+                    <span className={styles["notification__taget-title"]}>
+                      {notification.targetTitle}
+                    </span>
+                    글에&nbsp;
+                    <span className={styles["notification__type"]}>{notification.type}</span>
+                    을 작성했습니다.
+                  </p>
+                )}
             </div>
           </div>
         ))}
@@ -134,9 +142,7 @@ const NotificationModal = ({
     </div>
   );
 
-  return viewport === "mobile"
-    ? createPortal(ModalContent, document.body)
-    : ModalContent;
+  return viewport === "mobile" ? createPortal(ModalContent, document.body) : ModalContent;
 };
 
 export default NotificationModal;

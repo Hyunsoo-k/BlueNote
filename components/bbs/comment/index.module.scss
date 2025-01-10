@@ -1,5 +1,7 @@
 @use "@/styles/variables.scss" as *;
 
+// deleted comment style
+
 .comment-deleted-having-reply {
   position: relative;
 
@@ -13,82 +15,117 @@
   }
 }
 
-.comment {
+.container {
   position: relative;
-  padding: 0 10px 0 60px;
+  padding: 0 10px 0 45px;
   border-bottom: 1px solid $gray-color-100;
 
-  .comment__header {
+  @include tablet {
+    padding: 0 10px 0 60px;
+  }
+
+  // header area
+
+  .header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 5px;
     font-family: "Noto Sans KR", sans-serif;
 
-    .comment__writer {
-      margin: 0;
-      font-size: 14px;
-      font-weight: 500;
-      color: rgb(50, 50, 50);
+    @include tablet {
+      padding-top: 10px;
+    }
 
-      .comment__post_writer {
-        margin-left: 6px;
-        font-size: 13px;
-        color: $sub-color;
+    .writer-wrapper {
+      margin: 0;
+
+      .writer {
+        font-size: 12px;
+        color: rgb(50, 50, 50);
+
+        @include tablet {
+          font-size: 14px;
+        }
       }
 
-      .comment__userMe_writer {
+      .post-writer {
         margin-left: 6px;
-        font-size: 13px;
+        font-size: 12px;
+        color: $sub-color;
+
+        @include tablet {
+          font-size: 13px;
+        }
+      }
+
+      .userMe-writer {
+        margin-left: 6px;
+        font-size: 12px;
         color: rgb(255, 156, 7);
+        
+        @include tablet {
+          font-size: 13px;
+        }
       }
     }
 
-    .comment__action-button {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin: 0;
-      padding-right: 10px;
-      border: none;
-      font-size: 13px;
-      color: $gray-color-300;
+    .tool {
+      position: relative;
+      padding-top: 3px;
 
-      span:hover {
-        cursor: pointer;
-        color: $sub-color;
+      @include tablet {
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
 
-  .comment__content {
+  // content area
+
+  .content {
     margin: 0;
     padding: 7px 0 13px 0;
-    font-size: 14px;
+    font-size: 13px;
     font-family: "Noto Sans KR", sans-serif;
     color: rgb(50, 50, 50);
+
+    @include tablet {
+      font-size: 14px;
+    }
   }
 
-  .comment__footer {
-    display: flex;
-    font-family: "Noto Sans KR", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: $gray-color-300;
+  // footer area
 
-    .comment__created-at {
+  .footer {
+    display: flex;
+
+    .created-at {
       margin: 0;
-      padding: 0 15px 8px 0;
+      padding: 0 10px 8px 0;
+      font-size: 12px;
       font-weight: 400;
+      font-family: "Noto Sans KR", sans-serif;
+      color: $gray-color-300;
+
+      @include tablet {
+        padding: 0 15px 8px 0;
+        font-size: 14px;
+      }
     }
 
-    .comment__create-reply-button {
+    .create-reply-button {
       padding: 0 0 8px 0;
       background-color: inherit;
       border: none;
-      font-size: 13px;
+      font-size: 12px;
       font-family: "Noto Sans KR", sans-serif;
       color: $gray-color-300;
+
+      @include tablet {
+        font-size: 13px;
+      }
 
       &:hover {
         cursor: pointer;

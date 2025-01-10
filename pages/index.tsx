@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import Carousel from "@/components/carousel";
-import CombinedThumbnail from "@/components/combinedThumbnail";
+import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
 import CommunitySectionBoard from "@/components/communitySectionBoard";
 
 import styles from "@/styles/Home.module.scss";
@@ -19,12 +19,7 @@ interface Props {
   initialJobData: any;
 }
 
-const Home = ({
-  initialNewsData,
-  initialPromoteData,
-  initialBoardData,
-  initialJobData
-}: Props) => {
+const Home = ({ initialNewsData, initialPromoteData, initialBoardData, initialJobData }: Props) => {
   const viewportContext = useContext(ViewportContext);
 
   const viewport = viewportContext?.viewport || "mobile";
@@ -32,17 +27,20 @@ const Home = ({
   return (
     <div className={styles["home-page"]}>
       <div className={styles["home-page__news-section"]}>
-        <Carousel elementList={initialNewsData.postList} elementType={viewport === "mobile" ? "combined" : "detached"} />
+        <Carousel
+          elementList={initialNewsData.postList}
+          elementType={viewport === "mobile" ? "combined" : "detached"}
+        />
       </div>
       <div className={styles["home-page__promote-section"]}>
         <p className={styles["home-page__section-title"]}>Promote</p>
         <div className={styles["home-page__thumbnail-wrapper"]}>
           {initialPromoteData.postList.map((post: any, index: number) => {
-            return index < (viewport === "tablet" ? 6 : 8) && <CombinedThumbnail element={post} key={index} />;
+            return index < (viewport === "mobile" || viewport === "tablet" ? 6 : 8) && <CombinedThumbnail element={post} key={index} />;
           })}
         </div>
         <Link href="/bbs/promote" className={styles["home-page__more-button"]}>
-          더 보기
+          더보기
         </Link>
       </div>
       <div className={styles["home-page__community-section"]}>

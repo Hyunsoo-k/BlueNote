@@ -2,7 +2,7 @@
 
 // Background card section
 
-.auth-card {
+.container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
     padding: 20px 15px 20px 15px;
   }
 
-  .auth-card__section {
+  .background {
     width: 100%;
     padding: 25px 0;
 
@@ -31,7 +31,7 @@
       padding: 10px;
     }
 
-    .auth-card__title {
+    .background__title {
       position: relative;
       margin: 0;
       text-align: center;
@@ -50,7 +50,7 @@
       }
     }
 
-    .auth-card__sub-title {
+    .background__sub-title {
       margin: 10px 0 0;
       text-align: center;
       font-size: 13px;
@@ -63,7 +63,7 @@
       }
     }
 
-    .auth-card__img {
+    .background__image {
       overflow: hidden;
       position: relative;
       width: 100px;
@@ -78,14 +78,14 @@
       }
     }
 
-    .auto-card__ask {
+    .background__asking {
       margin: 40px 0 0;
       text-align: center;
       font-family: "Metrophobic", sans-serif;
       color: $gray-color-200;
     }
 
-    .auth-card__switch-button {
+    .background__switching-button {
       display: block;
       width: 50%;
       height: 40px;
@@ -109,7 +109,7 @@
 
 // Input card section
 
-.auth-card__form-box {
+.form {
   position: absolute;
   top: 20px;
   left: -5%;
@@ -121,7 +121,7 @@
   background-color: $sub-color;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 
-  .auth-card__current-form {
+  .form__current-state {
     margin: 0 auto;
     text-align: center;
     font-size: 25px;
@@ -134,7 +134,7 @@
     }
   }
 
-  .auth-card__input-list {
+  .form__input-wrapper {
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -148,7 +148,7 @@
     }
   }
 
-  .auth-card__submit-button {
+  .form__submit-button {
     width: 50%;
     height: 30px;
     margin: 12px auto 0;
@@ -255,7 +255,7 @@
 
   //-----------------------------------------------------------
 
-  .auth-card__current-form {
+  .form__current-state {
     margin: 0 auto;
     text-align: center;
     font-size: 25px;
@@ -267,7 +267,7 @@
     }
   }
 
-  .auth-card__input-list {
+  .form__input-wrapper {
     display: flex;
     flex-direction: column;
     gap: 27px;
@@ -278,7 +278,7 @@
     }
   }
 
-  .auth-card__submit-button {
+  .form__submit-button {
     width: 50%;
     height: 30px;
     margin: 5px auto 0;

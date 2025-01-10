@@ -12,7 +12,7 @@ import styles from "./index.module.scss";
 
 const SearchingBar = () => {
   const router = useRouter();
-  
+
   const [selectDropdown, setSelectDropdown] = useState({
     open: false,
     value: "제목+내용",
@@ -64,37 +64,45 @@ const SearchingBar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["searching-bar"]}>
-      <div className={styles["searching-bar__select"]}>
+    <form
+      onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
+      className={styles["container"]}
+    >
+      <div className={styles["select-box"]}>
         <p
-          onMouseDown={(e: any) => {
+          onClick={(e: any) => {
             e.stopPropagation();
             setSelectDropdown((prev: any) => ({ ...prev, open: !prev.open }));
           }}
-          className={styles["searching-bar__select-value"]}
+          className={styles["select-value--selected"]}
         >
           {selectDropdown.value}
-          <IoIosArrowDown size={18} style={{ position: "absolute", top: "11px", right: "10px" }} />
+          <IoIosArrowDown size={16} style={{ position: "absolute", top: "11px", right: "10px" }} />
         </p>
         {selectDropdown.open && (
-          <ul ref={selectDropdown.ref} className={styles["searching-bar__select-list"]}>
-            <li onMouseDown={handleSelectValue}>제목+내용</li>
-            <li onMouseDown={handleSelectValue}>제목</li>
-            <li onMouseDown={handleSelectValue}>내용</li>
-            <li onMouseDown={handleSelectValue}>작성자</li>
+          <ul ref={selectDropdown.ref} className={styles["dropdown"]}>
+            <li onClick={handleSelectValue}>제목+내용</li>
+            <li onClick={handleSelectValue}>제목</li>
+            <li onClick={handleSelectValue}>내용</li>
+            <li onClick={handleSelectValue}>작성자</li>
           </ul>
         )}
       </div>
-        <input
-          {...register("keyword", {
-            required: "검색어를 입력해 주세요.",
-            minLength: { value: 2, message: "2 글자 이상 입력해 주세요." },
-          })}
-          className={styles["searching-bar__input"]}
+      <input
+        {...register("keyword", {
+          required: "검색어를 입력해 주세요.",
+          minLength: { value: 2, message: "2 글자 이상 입력해 주세요." },
+        })}
+        autoComplete="off"
+        className={styles["input"]}
+      />
+      <button className={styles["submit__button"]}>
+        <RiSearchLine 
+          size={20}
+          color="rgb(48, 140, 204)"
+          style={{ position: "relative", top: "2px"}}
         />
-        <button className={styles["searching-bar__button"]}>
-          <RiSearchLine size={20} color="rgb(48, 140, 204)" />
-        </button>
+      </button>
       <ModalContainer />
     </form>
   );

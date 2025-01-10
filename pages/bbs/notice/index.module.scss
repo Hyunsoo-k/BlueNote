@@ -1,12 +1,12 @@
-.notice-page {
-  max-width: 1150px;
-  margin: 0 auto;
-  padding: 40px 20px 20px 20px;
+@use "@/styles/variables.scss" as *;
 
-  .notice-page__control-section {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-top: 10px;
+.container {
+  position: relative;
+  margin: 0 auto;
+  padding: 35px 0 50px 0;
+
+  @include tablet {
+    max-width: 1150px;
+    padding: 60px 15px 20px;
   }
 }
