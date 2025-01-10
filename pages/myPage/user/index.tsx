@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { LuPlus } from "react-icons/lu";
 
 import { formatYMD } from "@/utils/dateFormatter";
-import { useGetUser } from "@/hooks/user/useGetUserQuery";
+import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useEditUser } from "@/hooks/myPage/useEditUser";
 import { uploadImageToFirebase, deleteImageFromFirebase } from "@/utils/firebase";
 import MyPageMenu from "@/components/myPageMenu";
@@ -13,7 +13,7 @@ import ModalContainer from "@/components/modal/modalContainer";
 import styles from "./index.module.scss";
 
 const UserPage = () => {
-  const { data: userMe } = useGetUser();
+  const { data: userMe } = useGetUserQuery();
 
   const {
     register,
