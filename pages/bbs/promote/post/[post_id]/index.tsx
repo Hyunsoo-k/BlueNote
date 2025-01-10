@@ -1,24 +1,29 @@
 import { GetServerSideProps } from "next";
+import { useContext } from "react";
 
-import { useGetPost } from "@/hooks/bbs/useGetPost";
 import { instance } from "@/axios";
+import { ViewportContext } from "@/contexts/viewport";
+import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import BbsPost from "@/components/bbs/bbsPost";
+import BbsPost from "@/components/bbs/post";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
   urlWithoutQuery: string;
   initialData: any;
-};
+}
 
 const PromotePostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
-  const { data: post } = useGetPost(urlWithoutQuery, initialData);
+  const viewportContext = useContext(ViewportContext);
+  const viewport = viewportContext?.viewport || "mobile";
+
+  const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
 
   return (
-    <div className={styles["promote-post-page"]}>
+    <div className={styles["container"]}>
       <BbsHeader mainCategory={post.mainCategory} subCategory={post.subCategory} />
-      <BbsPost post={post} />
+      <BbsPost post={post} viewport={viewport} />
     </div>
   );
 };

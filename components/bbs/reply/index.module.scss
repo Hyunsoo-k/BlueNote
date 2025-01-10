@@ -2,61 +2,81 @@
 
 .reply {
   position: relative;
-  padding: 0 10px 0 100px;
+  padding: 0 10px 0 73px;
   border-bottom: 1px solid $gray-color-100;
-  
+
+  @include tablet {
+    padding: 0 10px 0 100px;
+  }
+
   .reply__header {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding-top: 10px;
-    font-family: "Noto Sans KR", sans-serif;
+    padding-top: 5px;
 
-    .reply__writer {
+    @include tablet {
+      padding-top: 10px;
+    }
+
+    .reply__writer-info {
       margin: 0;
-      font-size: 14px;
-      font-weight: 500;
-      color: rgb(50, 50, 50);
+
+      .reply__writer {
+        font-size: 12px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: rgb(50, 50, 50);
+
+        @include tablet {
+          font-size: 14px;
+        }
+      }
 
       .reply__post_writer {
         margin-left: 6px;
-        font-size: 13px;
+        font-size: 12px;
+        font-family: "Noto Sans KR", sans-serif;
         color: $sub-color;
+
+        @include tablet {
+          font-size: 13px;
+        }
       }
 
       .reply__userMe_writer {
         margin-left: 6px;
-        font-size: 13px;
+        font-size: 12px;
+        font-family: "Noto Sans KR", sans-serif;
         color: rgb(255, 156, 7);
+
+        @include tablet {
+          font-size: 13px;
+        }
       }
     }
 
+    .reply__action-tools {
+      position: relative;
+      padding-top: 3px;
 
-      .reply__action-button {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin: 0;
-        padding-right: 10px;
-        border: none;
-        font-size: 13px;
-        color: $gray-color-300;
-  
-        span:hover {
+      @include tablet {
+        &:hover {
           cursor: pointer;
-          color: $sub-color;
         }
       }
-
-
+    }
   }
 
   .reply__content {
     margin: 0;
     padding: 7px 0 13px 0;
-    font-size: 14px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-family: "Noto Sans KR", sans-serif;
     color: rgb(50, 50, 50);
+
+    @include tablet {
+      font-size: 14px;
+    }
   }
 
   .reply__footer {
@@ -68,18 +88,28 @@
 
     .reply__created-at {
       margin: 0;
-      padding: 0 15px 8px 0;
+      padding: 0 10px 8px 0;
+      font-size: 12px;
       font-weight: 400;
+
+      @include tablet {
+        padding: 0 15px 8px 0;
+        font-size: 14px;
+      }
     }
-  
+
     .reply__create-reply-button {
       padding: 0 0 8px 0;
       background-color: inherit;
       border: none;
-      font-size: 13px;
+      font-size: 12px;
       font-family: "Noto Sans KR", sans-serif;
       color: $gray-color-300;
-  
+
+      @include tablet {
+        font-size: 13px;
+      }
+
       &:hover {
         cursor: pointer;
       }

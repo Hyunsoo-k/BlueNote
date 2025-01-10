@@ -28,7 +28,7 @@ const HeaderNotification = ({ userMe_id, viewport }: Props) => {
 
       if (!notificationIcon?.contains(targetNode)) {
         setShowModal(false);
-      }
+      };
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
@@ -47,16 +47,12 @@ const HeaderNotification = ({ userMe_id, viewport }: Props) => {
   };
 
   return (
-    <div
-      id="notificationIcon"
-      onMouseDown={handleShowModal}
-      className={styles["header-notification"]}
-    >
+    <div id="notificationIcon" onClick={handleShowModal} className={styles["header-notification"]}>
       {notificationData?.newNotificationCount > 0 && <div className={styles["header-notification__red-light"]}></div>}
       <VscBell
-        size={viewport === "mobile" ? 29 : 33}
+        size={viewport === "mobile" ? 23 : 33}
         color="rgb(120, 120, 120)"
-        style={{ position: "relative", top: "2px" }}
+        style={{ position: "relative", top: viewport === "mobile" ? "3px" : "2px" }}
       />
       <NotificationModal
         viewport={viewport}

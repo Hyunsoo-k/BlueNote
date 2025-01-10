@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { LuPlus } from "react-icons/lu";
 
 import { formatYMD } from "@/utils/dateFormatter";
-import { useGetUser } from "@/hooks/user/useGetUser";
+import { useGetUser } from "@/hooks/user/useGetUserQuery";
 import { useEditUser } from "@/hooks/myPage/useEditUser";
 import { uploadImageToFirebase, deleteImageFromFirebase } from "@/utils/firebase";
 import MyPageMenu from "@/components/myPageMenu";
@@ -154,10 +154,11 @@ const UserPage = () => {
                 autoComplete="off"
                 className={styles["user-page__nickname-input"]}
               />
-              {errors.nickname &&
+              {errors.nickname && (
                 <span className={styles["user-page__error-message"]}>
                   {typeof errors.nickname.message === "string" ? errors.nickname.message : ""}
-                </span>}
+                </span>
+              )}
             </div>
             <div className={styles["user-page__part-field"]}>
               <p className={styles["user-page__part"]}>분야</p>

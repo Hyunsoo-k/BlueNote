@@ -1,0 +1,11 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 50px auto 30px;
+
+  .top-area {
+    position: relative;
+  }
+}

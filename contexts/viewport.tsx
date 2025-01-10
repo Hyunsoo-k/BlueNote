@@ -5,19 +5,20 @@ type Viewport = "mobile" | "tablet" | "desktop";
 interface ViewportContextType {
   viewport: Viewport;
   setViewport: Dispatch<SetStateAction<Viewport>>;
-}
+};
 
 const ViewportContext = createContext<ViewportContextType | null>(null);
 
 const ViewportProvider = ({ children }: any) => {
   const [viewport, setViewport] = useState<Viewport>("mobile");
 
-    useEffect(() => {
+  useEffect(() => {
     const resizingHandler = () => {
       setViewport(window.innerWidth < 768 ? "mobile" : window.innerWidth < 1025 ? "tablet" : "desktop");
     };
 
     resizingHandler();
+
     window.addEventListener("resize", resizingHandler);
 
     return () => {

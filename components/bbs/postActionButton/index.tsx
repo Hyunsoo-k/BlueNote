@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import { PostType } from "@/types/post";
-import { useGetUser } from "@/hooks/user/useGetUser";
+import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useDeletePost } from "@/hooks/bbs/useDeletePost";
 import useModal from "@/hooks/modal/useModal";
 
@@ -9,12 +9,12 @@ import styles from "./index.module.scss";
 
 interface Props {
   post: PostType;
-}
+};
 
 const PostActionButton = ({ post }: Props) => {
   const router = useRouter();
 
-  const { data: userMe } = useGetUser();
+  const { data: userMe } = useGetUserQuery();
 
   const deletePostMutation = useDeletePost(post);
 

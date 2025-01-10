@@ -21,7 +21,7 @@ const ModalContainer = () => {
 
   if (!type) {
     return null;
-  }
+  };
 
   const Modal = ModalComponents[type as "confirm" | "alert"];
 

@@ -1,95 +1,177 @@
 @use "@/styles/variables.scss" as *;
 
-.bbs-header {
+.container {
+  z-index: 990;
+  position: fixed;
+  top: 94px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 20px;
   width: 100%;
-  margin: 0 auto 30px;
+  height: 35px;
+  margin: 0 auto;
+  background-color: $background-color;
+  border-bottom: 1px solid $gray-color-100;
 
-  .bbs-header__categorys {
-    display: flex;
+  @include tablet {
+    position: static;
     justify-content: space-between;
-    gap: 30px;
+    height: auto;
+    border-bottom: none;  
+  }
+
+  // category area
+
+  .category-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     margin: 0;
 
-    .bbs-header__main-category {
-      position: relative;
-      top: 3px;
-      height: 62px;
-      padding-top: 4px;
-      margin: 0;
-      font-size: 50px;
-      font-family: "Metrophobic", sans-serif;
-      color: $main-color;
+    @include tablet {
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
 
-      &:hover {
-        cursor: pointer;
+    .main-category {
+      display: none;
+
+      @include tablet {
+        display: block;
+        position: relative;
+        top: -3px;
+        margin: 0;
+        letter-spacing: -2px;
+        font-size: 35px;
+        font-family: "Metrophobic", serif;
+        color: $main-color;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 
-    .bbs-header__sub-category-list {
+    .sub-category-wrapper {
       display: flex;
-      gap: 10px;
+      gap: 30px;
       align-items: flex-end;
 
-      .bbs-header__sub-category {
+      @include tablet {
+        gap: 7px;
+      }
+
+      .sub-category {
+        display: flex;
+        align-items: center;
+        height: 100%;
         margin: 0;
         letter-spacing: 0px;
-        font-size: 16px;
-        font-weight: 500;
+        font-size: 12px;
+        font-weight: 450;
         font-family: "Noto Sans KR", sans-serif;
         color: $gray-color-300;
 
         &:hover {
           cursor: pointer;
         }
+
+        @include tablet {
+          padding-top: 10px;
+          font-size: 15px;
+        }
       }
 
-      .bbs-header__sub-category--selected {
+      .sub-category--selected {
+        display: flex;
+        align-items: center;
+        height: calc(100% - 3px);
         margin: 0;
+        border-bottom: 3px solid $sub-color;
         letter-spacing: 0px;
-        font-size: 16px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 450;
         font-family: "Noto Sans KR", sans-serif;
         color: $sub-color;
 
         &:hover {
           cursor: pointer;
         }
+
+        @include tablet {
+          position: relative;
+          height: auto;
+          border-bottom: none;
+          font-size: 15px;
+        }
       }
     }
   }
 
-  .bbs-header__data {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    width: 250px;
-    margin: 0;
-    padding: 0;
+  // information area
 
-    .bbs-header__count {
+  .post-information {
+    display: none;
+
+    @include tablet {
+      list-style-type: none;
       display: flex;
-      align-items: end;
+      justify-content: flex-end;
+      width: 250px;
       margin: 0;
       padding: 0;
-      font-size: 15px;
-      font-family: "Noto Sans KR", sans-serif;
+      font-size: 16px;
+    }
 
-      span {
+    .post-information__count {
+      display: none;
+
+      @include tablet {
+        display: flex;
+        align-items: flex-end;
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+    }
+
+    .post-information__count-value {
+      display: none;
+
+      @include tablet {
+        display: flex;
+        align-items: flex-end;
+        margin-right: 15px;
+        padding-left: 5px;
+        font-size: 15px;
+        font-family: "Noto Sans KR", sans-serif;
         color: $sub-color;
       }
     }
 
-    .bbs-header__current-page {
-      display: flex;
-      align-items: flex-end;
-      margin: 0;
-      font-size: 15px;
-      font-family: "Noto Sans KR", sans-serif;
+    .post-information__current-page {
+      display: none;
 
-      span {
+      @include tablet {
+        display: flex;
+        align-items: flex-end;
+        margin: 0;
+        font-size: 15px;
+        font-family: "Noto Sans KR", sans-serif;
+      }
+    }
+
+    .post-information__current-page-value {
+      display:  none;
+
+      @include tablet {
+        display: flex;
+        align-items: flex-end;
+        padding: 0 5px;
+        font-size: 15px;
+        font-family: "Noto Sans KR", sans-serif;
         color: $sub-color;
       }
     }

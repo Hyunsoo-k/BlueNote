@@ -2,8 +2,17 @@ import Link from "next/link";
 import { PiVinylRecordFill } from "react-icons/pi";
 
 import styles from "./index.module.scss";
+import { useContext } from "react";
+import { ViewportContext } from "@/contexts/viewport";
 
 const Footer = () => {
+  const viewportContext = useContext(ViewportContext);
+  const viewport = viewportContext?.viewport || "mobile";
+
+  if (viewport === "mobile") {
+    return null;
+  };
+
   return (
     <div className={styles["footer"]}>
       <ul className={styles["footer__top-section"]}>

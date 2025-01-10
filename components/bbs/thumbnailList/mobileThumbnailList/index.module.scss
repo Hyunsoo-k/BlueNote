@@ -1,0 +1,46 @@
+@use "@/styles/variables.scss" as *;
+
+.mobile-thumbnail-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  padding: 8px;
+
+  @include tablet {
+    display: grid;
+    grid-template: auto auto auto auto / 32% 32% 32%;
+    justify-content: space-between;
+    column-gap: 0;
+    row-gap: 25px;
+    padding: 0;
+  }
+
+  @include desktop {
+    grid-template: auto auto auto / 24% 24% 24% 24%;
+  }
+
+  .mobile-thumbnail-list__boundary-line {
+    border-bottom: 1px solid $gray-color-100;
+  }
+
+  button {
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    bottom: -77px;
+    width: 90px;
+    height: 40px;
+    background-color: $main-color;
+    border: none;
+    border-radius: 4px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $sub-color;
+    }
+  }
+}

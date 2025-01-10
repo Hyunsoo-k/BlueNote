@@ -2,70 +2,88 @@
 
 .create-reply {
   position: relative;
-  padding: 15px 0 15px 50px;
+  padding: 15px 8px 15px 45px;
   border-bottom: 1px solid $gray-color-100;
-
+  
   .create-reply__form {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 10px;
+    padding: 5px 10px 5px 10px;
     border: 1px solid $gray-color-100;
     border-radius: 4px;
     background-color: #fff;
     font-size: 15px;
     font-family: "Noto Sans KR", sans-serif;
-  
+
+    @include tablet {
+      width: 100%;
+    }
+
     .create-reply__writer {
       margin: 0;
-      font-size: 14px;
+      padding-bottom: 10px;
+      font-size: 13px;
       font-weight: 500;
       color: rgb(50, 50, 50);
     }
-  
+
     .create-reply__create-input {
       resize: none;
       outline: none;
       height: 70px;
-      margin-top: 10px;
       border: none;
+      font-size: 12px;
       font-family: "Noto Sans KR", sans-serif;
+      color: #2c2c2c;
+
+      @include tablet {
+        font-size: 14px;
+      }
     }
-  
+
     .create-reply__footer {
       display: flex;
       justify-content: space-between;
       margin-top: 5px;
-  
+
       .create-reply__error-message {
         display: flex;
         align-items: end;
         height: 30px;
         margin: 0;
         padding-bottom: 5px;
-        font-size: 14px;
+        font-size: 12px;
         color: red;
+
+        @include tablet {
+          font-size: 14px;
+        }
       }
 
       .create-reply__button-wrapper {
+        .create-reply__button {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          padding: 0;
+          background-color: inherit;
+          border: none;
+          font-size: 12px;
+          font-family: "Noto Sans KR", sans-serif;
+          color: $gray-color-300;
 
-      }
-  
-      .create-reply__button {
-        position: relative;
-        width: 45px;
-        height: 30px;
-        background-color: inherit;
-        border: none;
-        letter-spacing: 2px;
-        font-size: 14px;
-        font-family: "Noto Sans KR", sans-serif;
-        color: $gray-color-300;
-  
-        &:hover {
-          cursor: pointer;
-          color: $sub-color;
+          @include tablet {
+            width: 45px;
+            letter-spacing: 2px;
+            font-size: 14px;
+          }
+
+          &:hover {
+            cursor: pointer;
+            color: $sub-color;
+          }
         }
       }
     }

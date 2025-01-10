@@ -1,22 +1,28 @@
 import { GetServerSideProps } from "next";
+import { useContext } from "react";
 
 import { instance } from "@/axios";
+import { ViewportContext } from "@/contexts/viewport";
+import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import EditPost from "@/components/bbs/editPost";
-import { useGetPost } from "@/hooks/bbs/useGetPost";
 
 import styles from "./index.module.scss";
 
-interface ServerSideProps  {
+
+interface ServerSideProps {
   urlWithoutQuery: string;
   initialData: any;
-};
+}
 
 const JobEditPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
-  const { data: post } = useGetPost(urlWithoutQuery, initialData);
+  const viewportContext = useContext(ViewportContext);
+  const viewport = viewportContext?.viewport || "mobile";
+
+  const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
 
   return (
-    <div className={styles["job-edit-post-page"]}>
-      <EditPost post={post} />
+    <div className={styles["container"]}>
+      <EditPost post={post} viewport={viewport} />
     </div>
   );
 };

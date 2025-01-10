@@ -1,38 +1,67 @@
 import { GetServerSideProps } from "next";
+import { useContext } from "react";
 
 import { instance } from "@/axios";
+import { ViewportContext } from "@/contexts/viewport";
+import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import ThumbnailList from "@/components/thumbnailList";
+import MobileThumbnailList from "@/components/bbs/thumbnailList/mobileThumbnailList";
+import TabletThumbnailList from "@/components/bbs/thumbnailList/tabletThumbnailList";
+import MobilePostActionBar from "@/components/bbs/mobilePostActionBar";
 import Pagination from "@/components/pagination";
 import SearchingBar from "@/components/searchingBar";
+import CreatePostButton from "@/components/bbs/createPostButton";
 
 import styles from "./index.module.scss";
+import ActionBox from "@/components/bbs/actionBox";
 
 interface Props {
   query: any;
-  initialNewsData: any;
+  resolvedUrl: string;
+  initialData: any;
 };
 
-const NewsPage = ({ query, initialNewsData }: Props) => {
+const NewsPage = ({ query, resolvedUrl, initialData }: Props) => {
+  const viewportContext = useContext(ViewportContext);
+
+  const viewport = viewportContext?.viewport || "mobile";
+
+  const { data: userMe } = useGetUserQuery();
 
   return (
-    <div className={styles["news-page"]}>
+    <div className={styles["container"]}>
       <BbsHeader
-        mainCategory={initialNewsData.mainCategory}
-        subCategory={initialNewsData.subCategory}
-        totalPostCount={initialNewsData.totalPostCount}
+        mainCategory={initialData.mainCategory}
+        subCategory={initialData.subCategory}
+        totalPostCount={initialData.totalPostCount}
         page={query.page || 1}
-        totalPageCount={initialNewsData.totalPageCount}
+        totalPage={initialData.totalPage}
       />
-      <ThumbnailList postList={initialNewsData.postList} />
-      <div className={styles["news-page__control-section"]}>
-        <Pagination
-          subCategory={initialNewsData.subCategory}
-          page={query.page || 1}
-          totalPageCount={initialNewsData.totalPageCount}
+      {viewport === "mobile" && (
+        <MobileThumbnailList
+          initialData={initialData}
+          resolvedUrl={resolvedUrl}
+          viewport={viewport}
         />
-        <SearchingBar />
-      </div>
+      )}
+      {viewport !== "mobile" && (
+        <TabletThumbnailList
+          initialData={initialData}
+          resolvedUrl={resolvedUrl}
+          viewport={viewport}
+          userMe={userMe}
+        />
+      )}
+      {viewport === "mobile" && <MobilePostActionBar mainCategory={initialData.mainCategory} />}
+      {viewport !== "mobile" && (
+        <ActionBox
+          userMe={userMe}
+          isMyPage={false}
+          subCategory={query.subCategory || "All"}
+          page={initialData.page || 1}
+          totalPage={initialData.totalPage}
+        />
+      )}
     </div>
   );
 };
@@ -41,12 +70,13 @@ export default NewsPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query, resolvedUrl } = context;
-  const { data: initialNewsData } = await instance.get(resolvedUrl);
+  const { data: initialData } = await instance.get(resolvedUrl);
 
   return {
     props: {
       query,
-      initialNewsData
-    }
+      resolvedUrl,
+      initialData,
+    },
   };
 };

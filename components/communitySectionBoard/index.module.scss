@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.community-section {
+.container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -11,7 +11,9 @@
     padding: 0;
   }
 
-  .community-section__title {
+  // header area
+
+  .header {
     display: flex;
     justify-content: space-between;
     margin: 0 0 30px 0;
@@ -28,12 +30,23 @@
       cursor: pointer;
     }
 
-    span {
+    .title {
+      width: 50%;
       display: inline-block;
+      padding-bottom: 7px;
+      border-bottom: 2px solid #2C2C2C;
+      letter-spacing: 1px;
+
+      @include tablet {
+        width: auto;
+        border-bottom: none;
+      }
     }
   }
 
-  .community-section__content {
+  // content area
+
+  .content {
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -41,7 +54,7 @@
     width: 100%;
     margin: 0;
 
-    .community-section__header {
+    .content__header {
       display: none;
 
       @include tablet {
@@ -56,8 +69,18 @@
         font-family: "Noto Sans KR", sans-serif;
       }
 
-      td {
+      .content__division {
+        font-size: 15px;
         color: $gray-color-300;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .content__division--selected {
+        font-size: 15px;
+        color: rgb(48, 140, 204);
 
         &:hover {
           cursor: pointer;
@@ -65,14 +88,16 @@
       }
     }
 
-    .community-section__post-list {
+    // element area
+
+    .element-wrapper {
       list-style-type: none;
       flex-grow: 1;
       padding: 0;
       margin: 0;
     }
 
-    .community-section__post {
+    .element {
       display: flex;
       padding: 5px 0;
 
@@ -84,7 +109,7 @@
         }
       }
 
-      .community-section__sub-category {
+      .element__sub-category {
         flex-shrink: 0;
         padding-right: 5px;
         font-weight: 500;
@@ -98,20 +123,20 @@
         }
       }
 
-      .community-section__post-title {
+      .element__title {
         overflow: hidden;
         white-space: nowrap;
         padding-right: 5px;
         text-overflow: ellipsis;
         font-size: 14px;
-        color: rgb(70, 70, 70);
+        color: #2C2C2C;
 
         @include tablet {
           font-size: 15px;
         }
       }
       
-      .community-section__comment-count {
+      .element__comment-count {
         display: block;
         flex-shrink: 0;
         text-align: start;
@@ -125,7 +150,7 @@
         }
       }
 
-      .community-section__created-at {
+      .element__created-at {
         display: none;
 
         @include tablet {

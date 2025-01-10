@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { instance } from "@/axios";
 import { useGetMyPostList } from "@/hooks/myPage/useGetMyPostList";
 import MyPageMenu from "@/components/myPageMenu";
-import PostList from "@/components/bbs/bbsPostList";
+import PostList from "@/components/bbs/postList/mobilePostList";
 import Pagination from "@/components/pagination";
 
 import styles from "./index.module.scss";
@@ -28,7 +28,11 @@ const MyPostPage = ({ initialResponse }: MyPostPageProps) => {
               총 게시물&nbsp;<span>{response.totalPostCount}개</span>
             </p>
             <p className={styles["my-post-page__current-page"]}>
-              현재&nbsp;<span>({response.page}/{response.totalPageCount})</span>&nbsp;페이지
+              현재&nbsp;
+              <span>
+                ({response.page}/{response.totalPageCount})
+              </span>
+              &nbsp;페이지
             </p>
           </div>
         </div>

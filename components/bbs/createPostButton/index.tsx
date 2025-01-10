@@ -24,18 +24,7 @@ const CreatePostButton = ({ userMe, isMyPage }: Props) => {
     return null;
   };
 
-  if (isNoticeOrNewsPage && userMe.role === 1) {
-    return (
-      <button
-        onClick={handleClickButton}
-        className={styles["create-post-button"]}
-      >
-        글쓰기
-      </button>
-    )
-  };
-
-  if (!isNoticeOrNewsPage) {
+  if (isNoticeOrNewsPage && userMe?.role === 1 || !isNoticeOrNewsPage) {
     return (
       <button
         onClick={handleClickButton}

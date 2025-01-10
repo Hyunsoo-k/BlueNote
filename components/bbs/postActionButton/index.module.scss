@@ -10,11 +10,17 @@
   .post-action-button__delete {
     position: relative;
     top: 5px;
+    padding: 0 3px;
     background-color: inherit;
     border: none;
-    font-size: 14px;
+    font-size: 12px;
     font-family: "Noto Sans KR", sans-serif;
     color: $gray-color-300;
+
+    @include tablet {
+      padding: 0 5px;
+      font-size: 14px;
+    }
 
     &:hover {
       cursor: pointer;

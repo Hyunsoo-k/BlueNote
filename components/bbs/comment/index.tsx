@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 import useModal from "@/hooks/modal/useModal";
 import { useDeleteComment } from "@/hooks/bbs/useDeleteComment";
 import { formatYMD } from "@/utils/dateFormatter";
-import EditComment from "@/components/bbs/comment/editComment";
+import ActionTools from "@/components/modal/actionTools";
+import EditComment from "@/components/bbs/editComment";
 import CreateReply from "@/components/bbs/reply/createReply";
 import Reply from "@/components/bbs/reply";
 
@@ -16,10 +18,15 @@ interface Props {
   comment: any;
   userMe: any;
   post: any;
-}
+  viewport: string;
+};
 
-const Comment = ({ key, comment, userMe, post }: Props) => {
+const Comment = ({ key, comment, userMe, post, viewport }: Props) => {
   const router = useRouter();
+
+  const [openActionTools, setOpenActionTools] = useState<boolean>(false);
+  const [openEditiComment, setOpenEditComment] = useState<boolean>(false);
+  const [openCreateReply, setOpenCreateReply] = useState<boolean>(false);
 
   useEffect(() => {
     if (router.query.element_id === comment._id.toString()) {
@@ -31,30 +38,29 @@ const Comment = ({ key, comment, userMe, post }: Props) => {
         };
       };
 
-      requestAnimationFrame(scrollToElement);
-    }
+      window.requestAnimationFrame(scrollToElement);
+    };
   }, [router.query]);
-
-  const [isEditingComment, setIsEditingComment] = useState<boolean>(false);
-  const [isCreatingReply, setIsCreatingReply] = useState<boolean>(false);
 
   const { openModal, closeModal } = useModal();
 
   const deleteCommentMutation = useDeleteComment(post._id, comment._id, closeModal);
 
-  const handleEditComment = (e: any) => {
+  const handleClickActionTools = (e: any) => {
     e.stopPropagation();
-    setIsEditingComment((prev: boolean) => !prev);
+    setOpenActionTools((prev: boolean) => !prev);
   };
 
-  const handleDeleteComment = (e: any) => {
-    e.stopPropagation();
+  const handleEditComment = () => {
+    setOpenEditComment((prev: boolean) => !prev);
+  };
+
+  const handleDeleteComment = () => {
     openModal("confirm", "댓글을 삭제하시겠습니까?", () => deleteCommentMutation.mutate());
   };
 
-  const handleCreateReply = (e: any) => {
-    e.stopPropagation();
-    setIsCreatingReply((prev: boolean) => !prev);
+  const handleCreateReply = () => {
+    setOpenCreateReply((prev: boolean) => !prev);
   };
 
   if (comment.deletedHavingReply) {
@@ -62,7 +68,13 @@ const Comment = ({ key, comment, userMe, post }: Props) => {
       <div key={key} className={styles["comment-deleted-having-reply"]}>
         <p className={styles["comment__deleted-comment"]}>삭제된 댓글입니다</p>
         {comment.reply.map((reply: any, index: number) => (
-          <Reply key={index} reply={reply} post={post} comment_id={comment._id} />
+          <Reply
+            key={index}
+            reply={reply}
+            post={post}
+            comment_id={comment._id}
+            viewport={viewport}
+          />
         ))}
       </div>
     );
@@ -73,56 +85,90 @@ const Comment = ({ key, comment, userMe, post }: Props) => {
       <div
         key={key}
         id={comment._id}
-        className={styles["comment"]}
+        className={styles["container"]}
         style={ router.query.element_id === comment._id.toString() ? { backgroundColor: "red" } : {} }
       >
         <Image
           src={comment.writer.profileImage.url || "/images/user/defaultProfileGray.png"}
           alt=""
-          width={36}
-          height={36}
+          width={viewport === "mobile" ?  28 : 36}
+          height={viewport === "mobile" ?  28 : 36}
           style={{
             position: "absolute",
-            top: "15px",
+            top: viewport === "mobile" ? "10px" : "15px",
             left: "10px",
             borderRadius: "50%",
           }}
         />
-        <div className={styles["comment__header"]}>
-          <p className={styles["comment__writer"]}>
-            {comment.writer.nickname}
-            {post.writer._id === comment.writer._id && <span className={styles["comment__post_writer"]}>작성자</span>}
-            {comment.writer._id === userMe?._id && <span className={styles["comment__userMe_writer"]}>내가 쓴 글</span>}
-          </p>
-            {userMe?._id === comment.writer._id && !isEditingComment && (
-              <div className={styles["comment__action-button"]}>
-                <span onClick={(e: any) => { handleEditComment(e); }}>
-                  수정
-                </span>
-                <span onClick={(e: any) => { handleDeleteComment(e); }}>
-                  삭제
-                </span>
-              </div>
+        <div className={styles["header"]}>
+          <div className={styles["writer-wrapper"]}>
+            <span className={styles["writer"]}>
+              {comment.writer.nickname}
+            </span>
+            {post.writer._id === comment.writer._id && (
+              <span className={styles["post-writer"]}>작성자</span>
             )}
+            {comment.writer._id === userMe?._id && (
+              <span className={styles["userMe-writer"]}>내가 쓴 글</span>
+            )}
+          </div>
+          {userMe?._id === comment.writer._id && !openEditiComment && (
+            <div
+              id="comment__action-tools"
+              onClick={(e) => { handleClickActionTools(e); }}
+              className={styles["tool"]}
+            >
+              <HiOutlineDotsVertical
+                size={15}
+                color="rgb(138, 131, 131)"
+              />
+              {openActionTools && (
+                <ActionTools
+                  setOpenActionTools={setOpenActionTools}
+                  handleClickEdit={handleEditComment}
+                  handleClickDelete={handleDeleteComment}
+                />
+              )}
+            </div>
+          )}
         </div>
-        {!isEditingComment && <p className={styles["comment__content"]}>{comment.content}</p>}
-        {isEditingComment && <EditComment setIsEditing={setIsEditingComment} post={post} comment={comment} />}
-        <div className={styles["comment__footer"]}>
-          <p className={styles["comment__created-at"]}>{formatYMD(comment.createdAt)}</p>
+        {!openEditiComment && (
+          <p className={styles["content"]}>{comment.content}</p>
+        )}
+        {openEditiComment && (
+          <EditComment
+            setIsEditing={setOpenEditComment}
+            post={post}
+            comment={comment}
+          />
+        )}
+        <div className={styles["footer"]}>
+          <span className={styles["created-at"]}>{formatYMD(comment.createdAt)}</span>
           <button
             type="button"
-            onClick={(e: any) => { handleCreateReply(e); }}
-            className={styles["comment__create-reply-button"]}
+            onClick={handleCreateReply}
+            className={styles["create-reply-button"]}
           >
             답글 쓰기
           </button>
         </div>
       </div>
-      {isCreatingReply && (
-        <CreateReply post_id={post._id} comment_id={comment._id} setIsCreatingReply={setIsCreatingReply} />
+      {openCreateReply && (
+        <CreateReply
+          post_id={post._id}
+          comment_id={comment._id}
+          setIsCreatingReply={setOpenCreateReply}
+          viewport={viewport}
+        />
       )}
       {comment.reply.map((reply: any, index: number) => (
-        <Reply key={index} post={post} comment_id={comment._id} reply={reply} />
+        <Reply
+          key={index}
+          post={post}
+          comment_id={comment._id}
+          reply={reply}
+          viewport={viewport}
+        />
       ))}
     </>
   );

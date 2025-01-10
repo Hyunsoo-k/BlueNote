@@ -1,7 +1,9 @@
 import { GetServerSideProps } from "next";
+import { useContext } from "react";
 
 import { instance } from "@/axios";
-import { useGetPost } from "@/hooks/bbs/useGetPost";
+import { ViewportContext } from "@/contexts/viewport";
+import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import EditPost from "@/components/bbs/editPost";
 
 import styles from "./index.module.scss";
@@ -9,14 +11,17 @@ import styles from "./index.module.scss";
 interface Props {
   urlWithoutQuery: string;
   initialData: any;
-}
+};
 
 const NewsEditPostPage = ({ urlWithoutQuery, initialData }: Props) => {
-  const { data: post } = useGetPost(urlWithoutQuery, initialData);
+  const viewportContext = useContext(ViewportContext);
+  const viewport = viewportContext?.viewport || "mobile";
+
+  const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
 
   return (
-    <div className={styles["news-edit-post-page"]}>
-      <EditPost post={post} />
+    <div className={styles["container"]}>
+      <EditPost post={post} viewport={viewport} />
     </div>
   );
 };
