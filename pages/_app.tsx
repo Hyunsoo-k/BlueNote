@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import ViewportProvider from "@/contexts/viewport";
+import UserMeProvider from "@/contexts/userMe";
 import ModalsProvider from "@/contexts/modals";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -13,13 +14,15 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ModalsProvider>
-        <ViewportProvider>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-        </ViewportProvider>
-      </ModalsProvider>
+      <ViewportProvider>
+        <UserMeProvider>
+          <ModalsProvider>
+            <Header />
+            <Component {...pageProps} />
+            <Footer />
+          </ModalsProvider>
+        </UserMeProvider>
+      </ViewportProvider>
     </QueryClientProvider>
   );
 };

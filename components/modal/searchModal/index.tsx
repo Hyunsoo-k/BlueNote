@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 
+import { MainCategory } from "@/types/categorys";
 import { subCategoryListMap } from "@/variable";
 import { selectQueryMap } from "@/utils/selectQueryMap";
 
@@ -13,17 +14,17 @@ import styles from "./index.module.scss";
 
 interface Props {
   setShowSearchModal: any;
-  mainCategory: "notice" | "news" | "board" | "promote" | "job";
-}
+  mainCategory: MainCategory;
+};
 
 const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
   const router = useRouter();
 
-  const [currentFilterList, setCurrentFilterList] = useState({
+  const [filter, setFilter] = useState({
     open: false,
     currentValue: "제목+내용",
   });
-  const [currentSubCategoryList, setCurrentSubCategoryList] = useState({
+  const [subCategory, SetSubCategory] = useState({
     open: false,
     currentValue: "All",
   });
@@ -50,7 +51,7 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
       const filterList = document.getElementById("searching-bar__filter-list");
 
       if (!filterList?.contains(targetNode)) {
-        setCurrentFilterList((prev: any) => ({ ...prev, open: false }));
+        setFilter((prev: any) => ({ ...prev, open: false }));
       }
     };
 
@@ -59,7 +60,7 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
       const subCategoryList = document.getElementById("searching-bar__sub-category-list");
 
       if (!subCategoryList?.contains(targetNode)) {
-        setCurrentSubCategoryList((prev: any) => ({ ...prev, open: false }));
+        SetSubCategory((prev: any) => ({ ...prev, open: false }));
       }
     };
 
@@ -88,8 +89,8 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
   const submitHandler = {
     onSubmit: (e: any) => {
       router.push(
-        `?subCategory=${currentSubCategoryList.currentValue}&select=${
-          selectQueryMap[currentFilterList.currentValue]
+        `?subCategory=${subCategory.currentValue}&select=${
+          selectQueryMap[filter.currentValue]
         }&query=${e.keyword}`
       );
     },
@@ -98,26 +99,26 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
     },
   };
 
-  const handleClickFilter = (e: any) => {
+  const handleClickFilterDropdown = (e: any) => {
     e.stopPropagation();
-    setCurrentSubCategoryList((prev) => ({ ...prev, open: false }));
-    setCurrentFilterList((prev) => ({ ...prev, open: !prev.open }));
+    SetSubCategory((prev) => ({ ...prev, open: false }));
+    setFilter((prev) => ({ ...prev, open: !prev.open }));
   };
 
-  const handleClickFilterContent = (e: any) => {
+  const handleClickFilterOption = (e: any) => {
     e.stopPropagation();
-    setCurrentFilterList((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
+    setFilter((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
   };
 
-  const handleClickSubCategory = (e: any) => {
+  const handleClickSubCategoryDropdown = (e: any) => {
     e.stopPropagation();
-    setCurrentFilterList((prev) => ({ ...prev, open: false }));
-    setCurrentSubCategoryList((prev) => ({ ...prev, open: !prev.open }));
+    setFilter((prev) => ({ ...prev, open: false }));
+    SetSubCategory((prev) => ({ ...prev, open: !prev.open }));
   };
 
-  const handleClickSubCategoryContent = (e: any) => {
+  const handleClickSubCategoryOption = (e: any) => {
     e.stopPropagation();
-    setCurrentSubCategoryList((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
+    SetSubCategory((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
   };
 
   return createPortal(
@@ -131,25 +132,25 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
             <div className={styles["search-modal__filter"]}>
               <p
                 onClick={(e: any) => {
-                  handleClickFilter(e);
+                  handleClickFilterDropdown(e);
                 }}
                 className={styles["searching-bar__filter-value"]}
               >
-                {currentFilterList.currentValue}
+                {filter.currentValue}
                 <IoIosArrowDown size={18} style={{ position: "absolute", top: "2px", right: "0" }} />
               </p>
-              {currentFilterList.open && (
+              {filter.open && (
                 <ul id="searching-bar__filter-list" className={styles["searching-bar__filter-list"]}>
-                  <li onClick={(e) => { handleClickFilterContent(e); }}>
+                  <li onClick={(e) => { handleClickFilterOption(e); }}>
                     제목+내용
                   </li>
-                  <li onClick={(e) => { handleClickFilterContent(e); }}>
+                  <li onClick={(e) => { handleClickFilterOption(e); }}>
                     제목
                   </li>
-                  <li onClick={(e) => { handleClickFilterContent(e); }}>
+                  <li onClick={(e) => { handleClickFilterOption(e); }}>
                     내용
                   </li>
-                  <li onClick={(e) => { handleClickFilterContent(e); }}>
+                  <li onClick={(e) => { handleClickFilterOption(e); }}>
                     작성자
                   </li>
                 </ul>
@@ -158,20 +159,20 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
             <div className={styles["search-modal__sub-category"]}>
               <p
                 onClick={(e: any) => {
-                  handleClickSubCategory(e);
+                  handleClickSubCategoryDropdown(e);
                 }}
                 className={styles["searching-bar__sub-category-value"]}
               >
-                {currentSubCategoryList.currentValue}
+                {subCategory.currentValue}
                 <IoIosArrowDown size={18} style={{ position: "absolute", top: "2px", right: "0" }} />
               </p>
-              {currentSubCategoryList.open && (
+              {subCategory.open && (
                 <ul id="searching-bar__sub-category-list" className={styles["searching-bar__sub-category-list"]}>
                   {subCatgoryList.map((item: string, index: number) => (
                     <li
                       key={index}
                       onClick={(e) => {
-                        handleClickSubCategoryContent(e);
+                        handleClickSubCategoryOption(e);
                       }}
                     >
                       {item}

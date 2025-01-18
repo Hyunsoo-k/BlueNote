@@ -19,24 +19,36 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 360px;
-  height: 220px;
+  width: 80%;
+  max-width: 360px;
+  height: 190px;
   background-color: #f6f6f6;
   border: 1px solid $gray-color-200;
   border-radius: 4px;
 
+  @include tablet {
+    width: 360px;
+    height: 220px;
+  }
+
 
   .message {
-    margin-top: 80px;
+    margin-top: 75px;
     text-align: center;
+    font-size: 14px;
     font-family: 'Noto Sans KR', sans-serif;
+
+    @include tablet {
+      margin-top: 80px;
+      font-size: 16px;
+    }
   }
 
   .button {
     display: block;
-    width: 240px;
-    height: 45px;
-    margin: 25px auto 0;
+    width: 160px;
+    height: 40px;
+    margin: 15px auto 0;
     background-color: $sub-color;
     border: none;
     border-radius: 4px;
@@ -47,6 +59,12 @@
     &:hover {
       cursor: pointer;
       background-color: $gray-color-200;
+    }
+
+    @include tablet {
+      margin: 25px auto 0;
+      width: 240px;
+      height: 45px;
     }
   }
 }

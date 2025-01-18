@@ -51,8 +51,12 @@ const HeaderNotification = ({ userMe_id, viewport }: Props) => {
       {notificationData?.newNotificationCount > 0 && <div className={styles["header-notification__red-light"]}></div>}
       <VscBell
         size={viewport === "mobile" ? 23 : 33}
-        color="rgb(120, 120, 120)"
-        style={{ position: "relative", top: viewport === "mobile" ? "3px" : "2px" }}
+        color="#2C2C2C"
+        style={{
+          position: "relative",
+          top: viewport === "mobile" ? "3px" : "2px",
+          right: "-2px"
+        }}
       />
       <NotificationModal
         viewport={viewport}

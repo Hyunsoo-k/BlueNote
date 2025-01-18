@@ -20,6 +20,13 @@ const useSignIn = (setAlertModal: any) => {
         path: "/",
         maxAge: 60 * 60 * 12,
       });
+
+      const userMe = response.data.userMe;
+
+      if (userMe) {
+        localStorage.setItem("userMe", JSON.stringify(userMe));
+      };
+
       router.push("/");
     },
     onError: (error: any) => {

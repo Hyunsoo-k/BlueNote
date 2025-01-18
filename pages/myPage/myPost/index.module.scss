@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.my-post-page {
+.container {
   display: flex;
   justify-content: space-between;
   max-width: 1150px;
@@ -8,29 +8,30 @@
   padding: 80px 20px 20px 20px;
   font-family: 'Noto Sans KR', sans-serif;
 
-  .my-post-page__content {
+  .main {
     width: 80%;
 
-    .my-post-page__header {
+    .header {
       display: flex;
       justify-content: space-between;
       gap: 20px;
       width: 100%;
       margin: 0 auto 30px;
 
-      .my-post-page__title {
+      .header__title {
         margin: 0;
-        font-size: 24px;
-        font-weight: 500;
+        font-size: 21px;
+        color: #2C2C2C;
       }
 
-      .my-post-page__data {
+      .information__box {
         display: flex;
         justify-content: space-between;
-        width: 250px;
+        // width: 250px;
         padding-left: 10px;
+        color: #2C2C2C;
     
-        .my-post-page__count {
+        .post-count {
           display: flex;
           align-items: end;
           margin: 0;
@@ -38,11 +39,13 @@
           font-family: "Noto Sans KR", sans-serif;
     
           span {
+            margin-right: 15px;
+            padding-left: 5px;
             color: $sub-color;
           }
         }
     
-        .my-post-page__current-page {
+        .current-page {
           display: flex;
           align-items: end;
           margin: 0;
@@ -50,11 +53,19 @@
           font-family: "Noto Sans KR", sans-serif;
     
           span {
+            margin-right: 5px;
+            padding-left: 5px;
             color: $sub-color;
           }
         }
       }
+    }
 
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      margin-bottom: 50px;
     }
   }
 }

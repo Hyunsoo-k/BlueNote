@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useContext } from "react";
+import { useState, useEffect } from "react";
 
-import { ViewportContext } from "@/contexts/viewport";
+import { useGetViewport } from "@/hooks/viewport";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
+import HeaderUserPanel from "./headerUserPanel";
 import HeaderNotification from "@/components/header/headerNotification";
 import HeaderProfile from "@/components/header/headerProfile";
 import NavBar from "@/components/header/navbar";
@@ -13,17 +14,19 @@ import styles from "./index.module.scss";
 const Header = () => {
   const router = useRouter();
 
-  const viewportContext = useContext(ViewportContext);
+  const [isClient, setIsClient] = useState(false);
 
-  const viewport = viewportContext?.viewport || "mobile";
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const viewport = useGetViewport();
+  
+  const { data: userMe, isLoading } = useGetUserQuery();
 
   const paths = router.pathname.split('/').filter(Boolean);
 
-  const isEditOrCreatePostPage = paths[3] === 'editPost' || paths[3] === 'createPost';
-
-  const { data: userMe } = useGetUserQuery();
-
-  if (viewport === "mobile" &&  isEditOrCreatePostPage) {
+  if (viewport === "mobile" && (paths[3] === 'editPost' || paths[3] === 'createPost')) {
     return null;
   };
 
@@ -33,14 +36,10 @@ const Header = () => {
         <Link href="/" className={styles["header__title"]}>
           BLUE NOTE
         </Link>
-        {userMe && (
-          <div className={styles["header__isLoggedIn"]}>
-            <HeaderNotification userMe_id={userMe._id} viewport={viewport} />
-            <div className={styles["header__boundary-line"]}></div>
-            <HeaderProfile userMe={userMe} viewport={viewport} />
-          </div>
+        {isClient && !isLoading && userMe && (
+          <HeaderUserPanel userMe={userMe} viewport={viewport} />
         )}
-        {!userMe && (
+        {isClient && !isLoading && !userMe && (
           <div className={styles["header__isLoggedOut"]}>
             <Link href="/auth?initial=signIn" className={styles["header__signIn"]}>
               Login

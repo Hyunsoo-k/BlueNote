@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 
 import styles from "./index.module.scss";
+import useModal from "@/hooks/modal/useModal";
 
 interface Props {
   userMe: any;
@@ -10,6 +11,8 @@ interface Props {
 const CreatePostButton = ({ userMe, isMyPage }: Props) => {
   const router = useRouter();
 
+  const { openModal, closeModal } = useModal();
+
   const isNoticeOrNewsPage =
     router.pathname.split("/")[2] === "notice" ||
     router.pathname.split("/")[2] === "news";
@@ -17,6 +20,10 @@ const CreatePostButton = ({ userMe, isMyPage }: Props) => {
   const mainCategory = !isMyPage ? router.pathname.split("/").pop() : null;
 
   const handleClickButton = () => {
+    if (!userMe) {
+      return openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
+    };
+    
     router.push(`/bbs/${mainCategory}/post/createPost`)
   };
 

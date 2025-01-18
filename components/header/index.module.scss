@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #efebe9;
+  background-color: $background-color;
 
   @include tablet {
     top: 0;
@@ -37,82 +37,15 @@
         padding-bottom: 0;
         text-align: center;
         font-size: 60px;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       @include desktop {
         width: 500px;
         letter-spacing: 0;
-      }
-      
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
-    .burger-menu:hover {
-      cursor: pointer;
-    }
-
-    .header__isLoggedIn {
-      position: absolute;
-      top: 10px;
-      right: 8px;
-      display: flex;
-      justify-content: space-between;
-      width: 60px;
-
-      @include tablet {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        display: flex;
-        justify-content: space-between;
-        width: 85px;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-
-      .header__boundary-line {
-        width: 2px;
-        height: 23px;
-        margin-top: 3px;
-        background-color: $gray-color-200;
-
-        @include tablet {
-          height: 35px;
-        }
-      }
-
-      .header__user {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 110px;
-
-        p {
-          overflow: hidden;
-          margin: 0;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          font-size: 16px;
-          font-weight: 500;
-          font-family: "Noto Sans KR", sans-serif;
-          color: $main-color;
-
-          span {
-            padding-left: 2px;
-            font-size: 16px;
-            color: $gray-color-300;
-          }
-        }
-
-        .header__email {
-          font-size: 15px;
-          font-weight: 400;
-          color: $gray-color-300;
-        }
       }
     }
 

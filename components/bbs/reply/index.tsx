@@ -72,7 +72,7 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
         key={key}
         id={reply._id}
         className={styles["reply"]}
-        style={router.query.element_id === reply._id.toString() ? { backgroundColor: "rgb(225, 225, 225)" } : {}}
+        style={router.query.element_id === reply._id.toString() ? { backgroundColor: "rgb(230, 230, 230)" } : {}}
       >
         <PiArrowElbowDownRightThin
         size={viewport === "mobile" ? 18 : 23}

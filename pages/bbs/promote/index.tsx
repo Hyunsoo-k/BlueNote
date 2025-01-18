@@ -7,7 +7,7 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobileThumbnailList from "@/components/bbs/thumbnailList/mobileThumbnailList";
 import TabletThumbnailList from "@/components/bbs/thumbnailList/tabletThumbnailList";
-import MobilePostActionBar from "@/components/bbs/mobilePostActionBar";
+import PostListActionTool from "@/components/bbs/postListActionTool";
 import ActionBox from "@/components/bbs/actionBox";
 
 import styles from "./index.module.scss";
@@ -49,7 +49,13 @@ const PromotePage = ({ query, resolvedUrl, initialData }: Props) => {
           userMe={userMe}
         />
       )}
-      {viewport === "mobile" && <MobilePostActionBar mainCategory={initialData.mainCategory} />}
+      {viewport === "mobile" && (
+        <PostListActionTool
+          userMe={userMe}
+          mainCategory="promote"
+          isNoticeOrNewsPage={false}
+        />
+      )}
       {viewport !== "mobile" && (
         <ActionBox
           userMe={userMe}
