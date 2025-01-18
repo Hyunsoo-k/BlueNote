@@ -36,8 +36,11 @@ const NotificationModal = ({
 
   const handleClickItem = (e: any, notification: any) => {
     e.stopPropagation();
-    CheckNotificationMutation.mutate(notification._id);
-    router.push(`${notification.postUrl}?element_id=${notification.target_id}`);
+    CheckNotificationMutation.mutate({
+      notification_id: notification._id,
+      navigate: () => { router.push(`${notification.postUrl}?element_id=${notification.target_id}`); }
+      }
+    );
   };
 
   const handleClickDeleteItem = (e: any, notification_id: string) => {
@@ -82,9 +85,7 @@ const NotificationModal = ({
         {notificationData?.list?.map((notification: any, index: number) => (
           <div
             key={index}
-            onClick={(e: any) => {
-              handleClickItem(e, notification);
-            }}
+            onClick={(e: any) => { handleClickItem(e, notification); }}
             className={styles["notification"]}
           >
             <Image

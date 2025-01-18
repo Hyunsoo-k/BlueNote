@@ -69,7 +69,7 @@ const Pagination = ({ subCategory, page, totalPage }: Props) => {
               onClick={() => navigate(value)}
               style={
                 value === Number(page)
-                  ? { backgroundColor: "rgb(48, 140, 204)", color: "#fff" }
+                  ? { backgroundColor: "rgb(11, 66, 122)", color: "#fff" }
                   : { backgroundColor: "rgb(209, 209, 209)", color: "black" }
               }
             >

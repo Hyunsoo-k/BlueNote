@@ -10,7 +10,7 @@ import styles from "./index.module.scss";
 interface Props {
   elementList: any;
   elementType: "combined" | "detached";
-}
+};
 
 const Carousel = ({ elementList, elementType }: Props) => {
   const viewportContext = useContext(ViewportContext);
@@ -75,9 +75,9 @@ const Carousel = ({ elementList, elementType }: Props) => {
       <div className={styles["carousel-dots"]}>
         {Array.from({ length: elementList.length - 3 }).map((_, index) =>
           index === currentIndex ? (
-            <FaCircle key={index} size={10} color="rgb(23, 23, 119)" />
+            <FaCircle key={index} size={10} color="rgb(11, 66, 122)" />
           ) : (
-            <FaCircle key={index} size={10} color="#308ccc" />
+            <FaCircle key={index} size={10} color="rgb(48, 140, 204)" />
           )
         )}
       </div>

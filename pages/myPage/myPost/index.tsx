@@ -5,7 +5,8 @@ import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import { useGetMyPostList } from "@/hooks/myPage/useGetMyPostList";
 import MyPageMenu from "@/components/myPageMenu";
-import PostList from "@/components/bbs/postList/mobilePostList";
+import MobilePostList from "@/components/bbs/postList/mobilePostList";
+import TabletPostList from "@/components/bbs/postList/tabletPostList";
 import Pagination from "@/components/pagination";
 
 import styles from "./index.module.scss";
@@ -21,29 +22,23 @@ const MyPostPage = ({ initialData }: ServerSideProps) => {
   console.log(initialData);
 
   return (
-    <div className={styles["my-post-page"]}>
+    <div className={styles["container"]}>
       <MyPageMenu currentPage="내가 쓴 글" />
-      <div className={styles["my-post-page__content"]}>
-        <div className={styles["my-post-page__header"]}>
-          <p className={styles["my-post-page__title"]}>내가 쓴 글</p>
-          <div className={styles["my-post-page__data"]}>
-            <p className={styles["my-post-page__count"]}>
-              총 게시물&nbsp;<span>{initialData.totalPostCount}개</span>
+      <div className={styles["main"]}>
+        <div className={styles["header"]}>
+          <p className={styles["header__title"]}>내가 쓴 글</p>
+          <div className={styles["information__box"]}>
+            <p className={styles["post-count"]}>
+              총 게시물<span>{initialData.totalPostCount}개</span>
             </p>
-            <p className={styles["my-post-page__current-page"]}>
-              현재&nbsp;
-              <span>
-                ({initialData.page}/{initialData.totalPageCount})
-              </span>
-              &nbsp;페이지
+            <p className={styles["current-page"]}>
+              현재<span>({initialData.page}/{initialData.totalPage})</span>페이지
             </p>
           </div>
         </div>
-        <div className={styles["my-post-page__post-list"]}>
-          <PostList
-            initialData={initialData}
-            resolvedUrl={""}
-            viewport={viewport}
+        <div className={styles["content"]}>
+          <TabletPostList
+            postList={initialData.postList}
           />
           <Pagination
             page={initialData.page}

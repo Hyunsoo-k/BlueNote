@@ -86,7 +86,7 @@ const Comment = ({ key, comment, userMe, post, viewport }: Props) => {
         key={key}
         id={comment._id}
         className={styles["container"]}
-        style={ router.query.element_id === comment._id.toString() ? { backgroundColor: "red" } : {} }
+        style={ router.query.element_id === comment._id.toString() ? { backgroundColor: "rgb(230, 230, 230)" } : {} }
       >
         <Image
           src={comment.writer.profileImage.url || "/images/user/defaultProfileGray.png"}

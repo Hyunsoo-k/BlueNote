@@ -24,6 +24,8 @@ const Home = ({ initialNewsData, initialPromoteData, initialBoardData, initialJo
 
   const viewport = viewportContext?.viewport || "mobile";
 
+  console.log(viewport)
+
   return (
     <div className={styles["home-page"]}>
       <div className={styles["home-page__news-section"]}>

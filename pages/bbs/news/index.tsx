@@ -7,10 +7,7 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobileThumbnailList from "@/components/bbs/thumbnailList/mobileThumbnailList";
 import TabletThumbnailList from "@/components/bbs/thumbnailList/tabletThumbnailList";
-import MobilePostActionBar from "@/components/bbs/mobilePostActionBar";
-import Pagination from "@/components/pagination";
-import SearchingBar from "@/components/searchingBar";
-import CreatePostButton from "@/components/bbs/createPostButton";
+import PostListActionTool from "@/components/bbs/postListActionTool";
 
 import styles from "./index.module.scss";
 import ActionBox from "@/components/bbs/actionBox";
@@ -52,7 +49,13 @@ const NewsPage = ({ query, resolvedUrl, initialData }: Props) => {
           userMe={userMe}
         />
       )}
-      {viewport === "mobile" && <MobilePostActionBar mainCategory={initialData.mainCategory} />}
+      {viewport === "mobile" && (
+        <PostListActionTool
+          userMe={userMe}
+          mainCategory="promote"
+          isNoticeOrNewsPage={true}
+        />
+      )}
       {viewport !== "mobile" && (
         <ActionBox
           userMe={userMe}

@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
@@ -13,9 +12,10 @@ const useCheckNotification = (userMe_id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (notification_id: string) => checkNotificationFn(notification_id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.notification(userMe_id) });
+    mutationFn: (variables: any) => checkNotificationFn(variables.notification_id),
+    onSuccess: async (data: any, variables: any) => {
+      await queryClient.invalidateQueries({ queryKey: queryKey.notification(userMe_id) });
+      variables.navigate();
     },
     onError: (error: any) => {
       console.log(error);

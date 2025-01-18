@@ -21,6 +21,7 @@ const ProfileModal = ({ showModal, userMe }: Props) => {
 
   const logout = () => {
     logoutFn();
+    window.localStorage.removeItem("userMe");
     window.location.replace("/");
   };
 

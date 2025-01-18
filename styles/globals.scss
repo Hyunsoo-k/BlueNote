@@ -6,29 +6,12 @@
 
 html {
   height: 100%;
-
-  &::-webkit-scrollbar {
-    display: none;
-
-    @include tablet {
-      width: 12px;
-    }
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: #EFEBE9;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, rgb(60, 60, 160) 0%, $sub-color 100%);
-    border-radius: 8px;
-  }
 }
 
 body {
   position: relative; 
   height: 100%;
-  background-color: #EFEBE9;
+  background-color: $background-color;
   margin: 0;
   padding: 94px 0 0 0;
 

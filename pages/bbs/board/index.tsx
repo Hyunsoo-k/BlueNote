@@ -7,7 +7,7 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobilePostList from "@/components/bbs/postList/mobilePostList";
 import TabletPostList from "@/components/bbs/postList/tabletPostList";
-import MobilePostActionBar from "@/components/bbs/mobilePostActionBar";
+import PostListActionTool from "@/components/bbs/postListActionTool";
 import ActionBox from "@/components/bbs/actionBox";
 
 import styles from "./index.module.scss";
@@ -47,7 +47,13 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
           postList={initialData.postList}
         />
       )}
-      {viewport === "mobile" && <MobilePostActionBar mainCategory={initialData.mainCategory} />}
+      {viewport === "mobile" && (
+        <PostListActionTool
+          userMe={userMe}
+          mainCategory="promote"
+          isNoticeOrNewsPage={false}
+        />
+      )}
       {viewport !== "mobile" && 
         <ActionBox
           userMe={userMe}
