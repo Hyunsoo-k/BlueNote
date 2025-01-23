@@ -202,7 +202,7 @@
     .submit-button {
       width: 70px;
       margin-left: 15px;
-      background: $sub-color;
+      background-color: #2C2C2C;
       border-radius: 18px;
       border: none;
       letter-spacing: 2px;
@@ -213,6 +213,7 @@
       @include tablet {
         &:hover {
           cursor: pointer;
+          background-color: $gray-color-200;
         }
       }
     }

@@ -43,12 +43,11 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
   const submitHandler = {
     onSubmit: async (data: any) => {
       const editor = wysiwygRef.current.getEditor();
-      const content = editor.root.innerHTML;
       const parser = new DOMParser();
-      const parsedContent = parser.parseFromString(content, "text/html");
-      const imgTagList = parsedContent.querySelectorAll("img");
+      const parsedContent = parser.parseFromString(editor.root.innerHTML, "text/html");
+      const imgTagList = Array.from(parsedContent.querySelectorAll("img"));
 
-      Array.from(imgTagList).forEach(async (imgTag) => {
+      const uploadPromises = imgTagList.map(async (imgTag) => {
         const src = imgTag.getAttribute("src");
 
         if (src?.startsWith("data:")) {
@@ -59,6 +58,8 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
           imgTag.setAttribute("src", StorageURL || "");
         }
       });
+
+      await Promise.all(uploadPromises);
 
       const requestBody = {
         subCategory: currentCategory,

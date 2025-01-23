@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import { useGetViewport } from "@/hooks/viewport";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import HeaderUserPanel from "./headerUserPanel";
-import HeaderNotification from "@/components/header/headerNotification";
-import HeaderProfile from "@/components/header/headerProfile";
 import NavBar from "@/components/header/navbar";
 
 import styles from "./index.module.scss";

@@ -46,27 +46,28 @@ const EditPost = ({ post, viewport }: Props) => {
   const submitHandler = {
     onSubmit: async (data: any) => {
       const editor = wysiwygRef.current.getEditor();
-      const content = editor.root.innerHTML;
       const parser = new DOMParser();
-      const parsedContent = parser.parseFromString(content, "text/html");
-      const imgTagList = parsedContent.querySelectorAll("img");
-  
-      Array.from(imgTagList).forEach(async (imgTag) => {
+      const parsedContent = parser.parseFromString(editor.root.innerHTML, "text/html");
+      const imgTagList = Array.from(parsedContent.querySelectorAll("img"));
+
+      const uploadPromises = imgTagList.map(async (imgTag) => {
         const src = imgTag.getAttribute("src");
-      
+
         if (src?.startsWith("data:")) {
           const blob = dataURLToBlob(src);
           const fileName = Date.now().toString();
           const StorageURL = await uploadImageToFirebase(`bbs/${post.mainCategory}/${fileName}`, blob);
-      
+
           imgTag.setAttribute("src", StorageURL || "");
         }
       });
-  
+
+      await Promise.all(uploadPromises);
+
       const requestBody = {
         subCategory: currentCategory,
         title: data.title,
-        content: parsedContent.body.innerHTML
+        content: parsedContent.body.innerHTML,
       };
   
       editPostMutation.mutate(requestBody);

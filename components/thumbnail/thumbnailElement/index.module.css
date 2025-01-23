@@ -1,0 +1,54 @@
+.thumbnail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.thumbnail:hover {
+  cursor: pointer;
+  background-size: 110% 110%;
+}
+.thumbnail .thumbnail__bg {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 170px;
+  padding: 5px;
+  background-size: 100% 100%;
+  background-repeat: "no-repeat";
+  background-position: center;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #fff;
+}
+.thumbnail .thumbnail__bg .thumbnail__info {
+  margin: 0;
+}
+.thumbnail .thumbnail__bg .thumbnail__info span {
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+.thumbnail .thumbnail__description {
+  padding-top: 10px;
+}
+.thumbnail .thumbnail__description .thumbnail__title {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 17px;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+}
+.thumbnail .thumbnail__description .thumbnail__content {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  height: 70px;
+  margin: 0;
+  padding: 10px 0 4px 0;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  font-family: "Noto Sans KR", sans-serif;
+  color: rgb(114, 114, 114);
+}/*# sourceMappingURL=index.module.css.map */

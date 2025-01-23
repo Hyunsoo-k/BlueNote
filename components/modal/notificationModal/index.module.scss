@@ -1,148 +1,166 @@
 @use "@/styles/variables.scss" as *;
 
-.container {
-  z-index: 999;
+.overlay {
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
+  z-index: 999;
   width: 100%;
-  height: calc(100% + 94px);
-  background-color: #fff;
+  height: 100%;
 
   @include tablet {
+    position: absolute;
     top: 60px;
-    right: -50px;
+    left: -265px;
     width: 350px;
-    height: auto;
+    height: 500px;
     border-radius: 4px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   }
 
-  // header area
-
-  .header {
-    margin: 0;
-    padding: 10px 15px;
-    border-bottom: 1px solid $gray-color-100;
-    letter-spacing: 1px;
-    font-size: 14px;
-    font-family: "Noto Sans KR", sans-serif;
-
-    span {
-      padding-right: 2px;
-      font-weight: 500;
-      color: red;
-    }
-  }
-
-  // notification element area
-
-  .notification-box {
-    // overflow: hidden;
-    overflow-y: auto;
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
     background-color: #fff;
 
     @include tablet {
-      height: 460px;
-    }
-
-    &::-webkit-scrollbar {
       overflow: hidden;
-      width: 12px;
+      height: auto;
     }
 
-    &::-webkit-scrollbar-thumb {
-      background: $gray-color-100;
-      border: 4px solid transparent;
-      background-clip: content-box;
-      border-radius: 8px;
-    }
+    // header area
 
-    &::-webkit-scrollbar-track {
-      overflow-y: hidden;
-      background: inherit;
-    }
-
-    .notification {
-      position: relative;
-      display: flex;
-      padding: 15px;
+    .header {
+      height: 40px;
+      width: 100%;
+      padding: 10px 15px;
       border-bottom: 1px solid $gray-color-100;
+      font-size: 14px;
+      font-family: "Noto Sans KR", sans-serif;
 
-      &:hover {
-        cursor: pointer;
-        background-color: rgb(246, 246, 246);
+      .header__title {
+        letter-spacing: 1px;
       }
 
-      .notifiaction__red-light {
-        position: absolute;
-        top: 17px;
-        left: 12px;
-        background-color: red;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
+      .header__count {
+        padding-left: 5px;
+        font-weight: 500;
+        color: red;
+      }
+    }
+
+    // notification element area
+
+    .notification-box {
+      overflow-y: auto;
+      height: calc(100% - 40px);
+      background-color: #fff;
+
+      &::-webkit-scrollbar {
+        overflow: hidden;
+        width: 12px;
       }
 
-      .notification__main {
+      &::-webkit-scrollbar-thumb {
+        background: $gray-color-100;
+        border: 4px solid transparent;
+        background-clip: content-box;
+        border-radius: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        overflow-y: hidden;
+        background: inherit;
+      }
+
+      @include tablet {
+        height: 460px;
+      }
+
+      .notification__element {
+        position: relative;
         display: flex;
-        flex-direction: column;
-        width: 100%;
+        padding: 15px;
+        border-bottom: 1px solid $gray-color-100;
 
-        .notification__header {
-          position: relative;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(246, 246, 246);
+        }
+
+        .notifiaction__red-light {
+          position: absolute;
+          top: 17px;
+          left: 12px;
+          background-color: red;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+        }
+
+        .notification__main {
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
           width: 100%;
-          padding-left: 15px;
-          font-family: "Noto Sans KR", sans-serif;
 
-          .notification__triggeredBy {
+          .notification__header {
+            position: relative;
             display: flex;
-            align-items: end;
-            margin: 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: rgb(50, 50, 50);
+            justify-content: space-between;
+            width: 100%;
+            padding-left: 15px;
+            font-family: "Noto Sans KR", sans-serif;
 
-            .notification__triggeredBy-span {
-              padding-left: 3px;
-              font-size: 13px;
+            .notification__triggeredBy {
+              display: flex;
+              align-items: end;
+              margin: 0;
+              font-size: 14px;
+              font-weight: 500;
+              color: rgb(50, 50, 50);
+
+              .notification__triggeredBy-span {
+                padding-left: 3px;
+                font-size: 13px;
+                color: $gray-color-300;
+              }
+            }
+
+            .notification__lapse {
+              display: flex;
+              align-items: end;
+              margin: 0 23px 0 0;
+              font-size: 12px;
               color: $gray-color-300;
             }
           }
 
-          .notification__lapse {
-            display: flex;
-            align-items: end;
-            margin: 0 23px 0 0;
-            font-size: 12px;
+          .notification__content {
+            margin: 3px 0 0;
+            padding-left: 15px;
+            font-size: 13px;
+            font-weight: 400;
+            font-family: "Noto Sans KR", sans-serif;
             color: $gray-color-300;
-          }
-        }
 
-        .notification__content {
-          margin: 3px 0 0;
-          padding-left: 15px;
-          font-size: 13px;
-          font-weight: 400;
-          font-family: "Noto Sans KR", sans-serif;
-          color: $gray-color-300;
+            .notification__taget-title {
+              overflow: hidden;
+              display: inline-block;
+              position: relative;
+              top: 4px;
+              max-width: 210px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              color: $sub-color;
+            }
 
-          .notification__taget-title {
-            overflow: hidden;
-            display: inline-block;
-            position: relative;
-            top: 4px;
-            max-width: 210px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            color: $sub-color;
-          }
-
-          .notification__type {
-            color: rgb(255, 156, 7);
+            .notification__type {
+              color: rgb(255, 156, 7);
+            }
           }
         }
       }

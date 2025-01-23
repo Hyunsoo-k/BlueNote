@@ -1,22 +1,20 @@
 import { useRouter } from "next/router";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { ViewportContext } from "@/contexts/viewport";
 import { subCategoryListMap } from "@/variable";
 import { useGetCommunitySectionBoard } from "@/hooks/bbs/useGetCommunitySectionBoard";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
+import { useGetViewport } from "@/hooks/viewport";
 
 interface Props {
   initialData: any;
 };
 
 const CommunitySectionBoard = ({ initialData }: Props) => {
-  const viewportContext = useContext(ViewportContext);
-
-  const viewport = viewportContext?.viewport || "mobile";
+  const viewport = useGetViewport();
 
   const router = useRouter();
 

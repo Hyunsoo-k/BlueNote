@@ -1,9 +1,9 @@
 @use "@/styles/variables.scss" as *;
 
-.header-notification {
+.container {
   position: relative;
 
-  .header-notification__red-light {
+  .red-light {
     position: absolute;
     top: 2px;
     left: 1px;
