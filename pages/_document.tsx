@@ -10,6 +10,7 @@ export default function Document() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Metrophobic&family=Noto+Sans+KR:wght@100..500&family=Varela+Round&display=swap"
         />
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=062737a11ba892d22d26ed9e7ef513f1"></script>
       </Head>
       <body style={{ position: "relative" }}>
         <Main />

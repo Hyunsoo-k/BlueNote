@@ -24,7 +24,8 @@ const useGetMobileBoardQuery = (
     return useInfiniteQuery({
       queryKey: queryKey.postListData(mainCategory, resolvedUrl),
       queryFn: ({ pageParam = 1 }) => queryFn(resolvedUrl, pageParam),
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: (lastPage: any /* 마지막으로 응답받은 일반 리스폰스 값 */) => {
+        console.log(lastPage)
         return lastPage.page < lastPage.totalPage ? lastPage.page + 1 : undefined;
       },
       initialData: {
