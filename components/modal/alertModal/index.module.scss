@@ -1,11 +1,11 @@
 @use "@/styles/variables.scss" as *;
 
 .overlay {
-  z-index: 999;
   overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;

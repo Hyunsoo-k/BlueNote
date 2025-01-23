@@ -13,16 +13,16 @@ import styles from "./index.module.scss";
 interface Props {
   viewport: string;
   notificationData: any;
-  showModal: boolean;
-  setShowModal: any;
+  openModal: boolean;
+  setOpenModal: any;
   userMe_id: string;
 };
 
 const NotificationModal = ({
   viewport,
   notificationData,
-  showModal,
-  setShowModal,
+  openModal,
+  setOpenModal,
   userMe_id
 }: Props) => {
   const router = useRouter();
@@ -31,7 +31,7 @@ const NotificationModal = ({
   const deleteNotificationMutation = useDeleteNotification(userMe_id);
 
   const handleClickClose = () => {
-    setShowModal(false);
+    setOpenModal(false);
   };
 
   const handleClickItem = (e: any, notification: any) => {
@@ -53,7 +53,7 @@ const NotificationModal = ({
       window.history.pushState(null, "", router.asPath);
 
       const handlePopState = () => {
-        setShowModal(false);
+        setOpenModal(false);
       };
 
       window.addEventListener("popstate", handlePopState);
@@ -62,83 +62,88 @@ const NotificationModal = ({
         window.removeEventListener("popstate", handlePopState);
       };
     }
-  }, [viewport, router.asPath, setShowModal]);
+  }, [viewport, router.asPath, setOpenModal]);
 
-  if (!showModal) {
+  if (!openModal) {
     return null;
   };
 
   const ModalContent = (
-    <div
-      onClick={(e: any) => { e.stopPropagation(); }}
-      className={styles["container"]}
-    >
-      <p className={styles["header"]}>
-        새 알림 <span>{notificationData?.newNotificationCount}</span>
-        <IoCloseOutline
-          onClick={handleClickClose}
-          style={{ position: "absolute", right: "5px", top: "8px" }}
-          size={25}
-        />
-      </p>
-      <div className={styles["notification-box"]}>
-        {notificationData?.list?.map((notification: any, index: number) => (
-          <div
-            key={index}
-            onClick={(e: any) => { handleClickItem(e, notification); }}
-            className={styles["notification"]}
-          >
-            <Image
-              src={notification.triggeredBy.profileImage.url || "/images/user/defaultProfileGray.png"}
-              width={33}
-              height={33}
-              alt=""
-              style={{
-                position: "relative",
-                top: "3px",
-                borderRadius: "50%",
-              }}
-            />
-            {!notification.isChecked && <div className={styles["notifiaction__red-light"]}></div>}
-            <div className={styles["notification__main"]}>
-              <div className={styles["notification__header"]}>
-                <p className={styles["notification__triggeredBy"]}>
-                  {notification.triggeredBy.nickname}
-                  <span className={styles["notification__triggeredBy-span"]}>님이</span>
-                </p>
-                <p className={styles["notification__lapse"]}>{formatLapse(notification.createdAt)}</p>
-                <IoCloseOutline
-                  onClick={(e: any) => {
-                    handleClickDeleteItem(e, notification._id);
-                  }}
-                  style={{ position: "absolute", right: "0", top: "1px" }}
-                  size={19}
-                />
+    <div className={styles["overlay"]}>
+      <div
+        onClick={(e: any) => { e.stopPropagation(); }}
+        className={styles["container"]}
+      >
+        <div className={styles["header"]}>
+          <span className={styles["header__title"]}>새 알림</span>
+          <span className={styles["header__count"]}>
+            {notificationData?.newNotificationCount}
+          </span>
+          <IoCloseOutline
+            onClick={handleClickClose}
+            style={{ position: "absolute", right: "5px", top: "8px" }}
+            size={25}
+          />
+        </div>
+        <div className={styles["notification-box"]}>
+          {notificationData?.list?.map((notification: any, index: number) => (
+            <div
+              key={index}
+              onClick={(e: any) => { handleClickItem(e, notification); }}
+              className={styles["notification__element"]}
+            >
+              <Image
+                src={notification.triggeredBy.profileImage.url || "/images/user/defaultProfileGray.png"}
+                width={33}
+                height={33}
+                alt=""
+                style={{
+                  position: "relative",
+                  top: "3px",
+                  borderRadius: "50%",
+                }}
+              />
+              {!notification.isChecked && <div className={styles["notifiaction__red-light"]}></div>}
+              <div className={styles["notification__main"]}>
+                <div className={styles["notification__header"]}>
+                  <p className={styles["notification__triggeredBy"]}>
+                    {notification.triggeredBy.nickname}
+                    <span className={styles["notification__triggeredBy-span"]}>님이</span>
+                  </p>
+                  <p className={styles["notification__lapse"]}>{formatLapse(notification.createdAt)}</p>
+                  <IoCloseOutline
+                    onClick={(e: any) => {
+                      handleClickDeleteItem(e, notification._id);
+                    }}
+                    style={{ position: "absolute", right: "0", top: "1px" }}
+                    size={19}
+                  />
+                </div>
+                {notification.type === "추천"
+                  ? (
+                    <p className={styles["notification__content"]}>
+                      <span className={styles["notification__taget-title"]}>
+                        {notification.targetTitle}
+                      </span>
+                      글에&nbsp;
+                      <span className={styles["notification__type"]}>{notification.type}</span>
+                      을 했습니다.
+                    </p>
+                    )
+                  : (
+                    <p className={styles["notification__content"]}>
+                      <span className={styles["notification__taget-title"]}>
+                        {notification.targetTitle}
+                      </span>
+                      글에&nbsp;
+                      <span className={styles["notification__type"]}>{notification.type}</span>
+                      을 작성했습니다.
+                    </p>
+                  )}
               </div>
-              {notification.type === "추천"
-                ? (
-                  <p className={styles["notification__content"]}>
-                    <span className={styles["notification__taget-title"]}>
-                      {notification.targetTitle}
-                    </span>
-                    글에&nbsp;
-                    <span className={styles["notification__type"]}>{notification.type}</span>
-                    을 했습니다.
-                  </p>
-                  )
-                : (
-                  <p className={styles["notification__content"]}>
-                    <span className={styles["notification__taget-title"]}>
-                      {notification.targetTitle}
-                    </span>
-                    글에&nbsp;
-                    <span className={styles["notification__type"]}>{notification.type}</span>
-                    을 작성했습니다.
-                  </p>
-                )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

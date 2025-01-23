@@ -10,16 +10,16 @@ import styles from "./index.module.scss";
 interface Props {
   userMe_id: string;
   viewport: any;
-}
+};
 
 const HeaderNotification = ({ userMe_id, viewport }: Props) => {
   const router = useRouter();
 
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
     const handleRouteChange = () => {
-      setShowModal(false);
+      setOpenModal(false);
     };
 
     const handleClickOutside = (e: MouseEvent) => {
@@ -27,28 +27,33 @@ const HeaderNotification = ({ userMe_id, viewport }: Props) => {
       const notificationIcon = document.getElementById("notificationIcon");
 
       if (!notificationIcon?.contains(targetNode)) {
-        setShowModal(false);
+        setOpenModal(false);
       };
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
-    window.addEventListener("mousedown", handleClickOutside);
+    viewport !== "mobile" && window.addEventListener("click", handleClickOutside);
 
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
-      window.removeEventListener("mousedown", handleClickOutside);
+      viewport !== "mobile" && window.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [viewport]);
 
   const { data: notificationData } = useGetNotification(userMe_id);
 
   const handleShowModal = () => {
-    setShowModal(!showModal);
+    setOpenModal(!openModal);
+    console.log("handleShowModal done")
   };
 
   return (
-    <div id="notificationIcon" onClick={handleShowModal} className={styles["header-notification"]}>
-      {notificationData?.newNotificationCount > 0 && <div className={styles["header-notification__red-light"]}></div>}
+    <div
+      id="notificationIcon"
+      onClick={handleShowModal}
+      className={styles["container"]}
+    >
+      {notificationData?.newNotificationCount > 0 && <div className={styles["red-light"]}></div>}
       <VscBell
         size={viewport === "mobile" ? 23 : 33}
         color="#2C2C2C"
@@ -61,8 +66,8 @@ const HeaderNotification = ({ userMe_id, viewport }: Props) => {
       <NotificationModal
         viewport={viewport}
         notificationData={notificationData}
-        showModal={showModal}
-        setShowModal={setShowModal}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
         userMe_id={userMe_id}
       />
     </div>
