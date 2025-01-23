@@ -23,15 +23,14 @@ const CombinedThumbnail = ({ element }: Props) => {
   return (
     <div
       onClick={() => router.push(`/bbs/${element.mainCategory}/post/${element._id}`)}
-      className={styles["combined-thumbnail"]}
+      className={styles["container"]}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,
       }}
     >
-      <div className={styles["combined-thumbnail__explantion"]}>
-        <p className={styles["combined-thumbnail__category"]}>{element.category}</p>
-        <p className={styles["combined-thumbnail__title"]}>{element.title}</p>
-        <p className={styles["combined-thumbnail__content"]}>{textContent}</p>
+      <div className={styles["explantion"]}>
+        <p id="explantion__title" className={styles["explantion__title"]}>{element.title}</p>
+        <p className={styles["explantion__content"]}>{textContent}</p>
       </div>
     </div>
   );

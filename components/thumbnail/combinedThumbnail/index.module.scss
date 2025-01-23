@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.combined-thumbnail {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -30,7 +30,7 @@
     background-size: 110% 110%;
   }
 
-  .combined-thumbnail__explantion {
+  .explantion {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,24 +46,7 @@
       width: 100%;
     }
 
-    .combined-thumbnail__category {
-      width: 120px;
-      margin: 0 0 5px 0;
-      padding-bottom: 5px;
-      border-bottom: $gray-color-300;
-      font-size: 18px;
-      font-weight: 600;
-      font-family: "Metrophobic", sans-serif;
-      color: #fff;
-
-      @include tablet {
-        margin: 0 0 8px 0;
-        padding-bottom: 0;
-        font-size: 26px;
-      }
-    }
-
-    .combined-thumbnail__title {
+    .explantion__title {
       overflow: hidden;
       margin: 0 0 5px 0;
       text-overflow: ellipsis;
@@ -81,7 +64,7 @@
       }
     }
 
-    .combined-thumbnail__content {
+    .explantion__content {
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;

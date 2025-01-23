@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.home-page {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -14,7 +14,9 @@
     padding: 40px 20px 20px;
   }
 
-  .home-page__news-section {
+  // news section
+
+  .news-section {
     padding: 0 8px 50px;
     border-bottom: 1px solid $gray-color-100;
 
@@ -23,17 +25,18 @@
     }
   }
 
-  .home-page__promote-section {
+  // band section
+
+  .band-section {
     padding: 0 8px 50px;
     border-bottom: 1px solid $gray-color-100;
 
     @include tablet {
-      // margin: 0 0 40px 0;
       padding: 0 0 50px;
       text-align: center;
     }
 
-    .home-page__section-title {
+    .band-section__title {
       margin: 0 0 30px 0;
       text-align: center;
       letter-spacing: 1px;
@@ -46,7 +49,7 @@
       }
     }
 
-    .home-page__thumbnail-wrapper {
+    .band-section__thumbnail-box {
       display: grid;
       grid-template: 170px 170px 170px / 49% 49%;
       row-gap: 15px;
@@ -60,38 +63,89 @@
         grid-template: 1fr 1fr / 24% 24% 24% 24%;
       }
     }
+  }
 
-    .home-page__more-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 80%;
-      height: 40px;
-      margin: 40px auto 0;
-      background-color: #fff;
-      border: 2px solid black;
-      border-radius: 20px;
-      letter-spacing: 1px;
+  // album section
+
+  .album-section {
+    padding: 0 8px 50px;
+    border-bottom: 1px solid $gray-color-100;
+
+    @include tablet {
+      padding: 0 0 50px;
       text-align: center;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      font-family: 'Noto Sans KR', sans-serif;
-      color: black;
-      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .album-section__title {
+      margin: 0 0 30px 0;
+      text-align: center;
+      letter-spacing: 1px;
+      font-size: 22px;
+      font-weight: 600;
+      font-family: "Metrophobic", sans-serif;
 
       @include tablet {
-        width: 280px;
-        font-size: 16px;
+        font-size: 24px;
+      }
+    }
+
+    .album-section__thumbnail-box {
+      display: grid;
+      justify-content: space-between;
+      row-gap: 15px;
+
+      @include tablet {
+        grid-template: 1fr 1fr / 32% 32% 32%;
       }
 
-      &:hover {
-        cursor: pointer;
+      & > :first-child {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+
+        @include tablet {
+          height: 495px;
+        }
+
+        @include desktop {
+          height: 545px;
+        }
       }
     }
   }
 
-  .home-page__community-section {
+  // jazzbar section
+
+  .jazzbar-section {
+    padding: 0 8px 50px;
+    border-bottom: 1px solid $gray-color-100;
+    
+    @include tablet {
+      padding: 0 0 50px;
+    }
+
+    .jazzbar-section__title {
+      margin: 0 0 30px 0;
+      text-align: center;
+      letter-spacing: 1px;
+      font-size: 22px;
+      font-weight: 600;
+      font-family: "Metrophobic", sans-serif;
+
+      @include tablet {
+        font-size: 24px;
+      }
+    }
+
+    .jazzbar-section__thumbnail-box {
+      display: grid;
+      grid-template: 1fr / 24% 24% 24% 24%;
+      justify-content: space-between;
+    }
+  }
+
+  // community section
+
+  .community-section {
     display: grid;
     grid-template: auto auto / 50% 50%;
     justify-content: space-between;
@@ -100,7 +154,7 @@
       grid-template: auto auto / 45% 45%;
     }
 
-    .home-page__section-title {
+    .community-section__title {
       grid-column: 1 / 3;
       margin: 0 0 50px 0;
       text-align: center;
@@ -113,6 +167,35 @@
         margin: 0 0 60px 0;
         font-size: 22px;
       }
+    }
+  }
+
+  .more-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 40px;
+    margin: 40px auto 0;
+    background-color: #fff;
+    border: 2px solid black;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: black;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+
+    @include tablet {
+      width: 280px;
+      font-size: 16px;
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }
