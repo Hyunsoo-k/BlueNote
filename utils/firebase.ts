@@ -1,6 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
+const dataURLToBlob = (dataURL: string) => {
+  const [header, data] = dataURL.split(",");  // data:[<MIME-type>][;charset=<encoding>(선택사항)][;base64],<data>
+  const mimeString = header.split(":")[1].split(";")[0];
+  const byteString = atob(data); // base64 값을 디코딩
+  const array = new Uint8Array(byteString.length); // 바이너리 데이터를 8비트 부호 없는 정수(0~255) 배열로 변환
+  for (let i = 0; i < byteString.length; i++) {
+    array[i] = byteString.charCodeAt(i); // charCodeAt: 문자열에서 특정 위치에 있는 문자의 유니코드 값을 반환
+  }
+  return new Blob([array], { type: mimeString });
+};
+
 const firebaseConfig = {
   apiKey: "AIzaSyCbSzWsJTefyjS9LJdeCVKc4LuqFdH2PT0",
   authDomain: "bluenote-storage-f16b8.firebaseapp.com",
@@ -33,19 +44,6 @@ const deleteImageFromFirebase = async (path: string) => {
   } catch (error) {
     console.error("Error deleting file:", error);
   }
-};
-
-const dataURLToBlob = (dataURL: string) => {
-  //data:[<MIME-type>][;charset=<encoding>][;base64],<data>
-
-  const [header, data] = dataURL.split(",");
-  const mimeString = header.split(":")[1].split(";")[0];
-  const byteString = atob(data);
-  const array = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) {
-    array[i] = byteString.charCodeAt(i);
-  }
-  return new Blob([array], { type: mimeString });
 };
 
 export { uploadImageToFirebase, deleteImageFromFirebase, dataURLToBlob };
