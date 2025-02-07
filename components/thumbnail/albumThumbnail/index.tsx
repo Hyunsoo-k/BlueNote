@@ -5,11 +5,11 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
+  index: number;
 };
 
-const CombinedThumbnail = ({ element }: Props) => {
+const AlbumThumbnail = ({ element, index }: Props) => {
   const router = useRouter();
-  const [textContent, setTextContent] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -17,23 +17,22 @@ const CombinedThumbnail = ({ element }: Props) => {
     const textHtml = parser.parseFromString(element.content, "text/html");
     const imageList = textHtml.querySelector("img");
     setImageUrl(imageList && imageList.getAttribute("src"));
-    setTextContent(textHtml.body.textContent || "");
   }, []);
+
+  const handleClickThumbnail = () => {
+    router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
+  };
 
   return (
     <div
-      onClick={() => router.push(`/bbs/${element.mainCategory}/post/${element._id}`)}
+      onClick={handleClickThumbnail}
       className={styles["container"]}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${imageUrl})`,
       }}
     >
-      <div className={styles["explantion"]}>
-        <p id="explantion__title" className={styles["explantion__title"]}>{element.title}</p>
-        <p className={styles["explantion__content"]}>{textContent}</p>
-      </div>
     </div>
   );
 };
 
-export default CombinedThumbnail;
+export default AlbumThumbnail;

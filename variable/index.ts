@@ -1,9 +1,9 @@
 const mainCategory = [
-  { main: "notice", label: "Notice" },
-  { main: "news", label: "News" },
-  { main: "board", label: "Board" },
-  { main: "promote", label: "Promote" },
-  { main: "job", label: "Job" },
+  { main: "notice", label: "NOTICE" },
+  { main: "news", label: "NEWS" },
+  { main: "board", label: "BOARD" },
+  { main: "promote", label: "PROMOTE" },
+  { main: "job", label: "JOB" },
 ];
 
 const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job", string[]> = {

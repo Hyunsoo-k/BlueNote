@@ -67,11 +67,11 @@
 
       .header__signIn {
         text-decoration: none;
-        font-size: 13px;
-        color: black;
+        font-size: 11px;
+        color: #2C2C2C;
 
         @include tablet {
-          font-size: 16px;
+          font-size: 15px;
         }
 
         &:hover {
@@ -81,11 +81,11 @@
 
       .header__signUp {
         text-decoration: none;
-        font-size: 13px;
-        color: black;
+        font-size: 11px;
+        color: #2C2C2C;
 
         @include tablet {
-          font-size: 16px;
+          font-size: 15px;
         }
 
         &:hover {

@@ -74,9 +74,5 @@
 
   .comment-wrapper {
     min-height: 25px;
-
-    @include tablet {
-      padding-bottom: 10px;
-    }
   }
 }

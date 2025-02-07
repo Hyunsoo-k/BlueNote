@@ -4,13 +4,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 30px;
   max-width: 1150px;
   margin: 0 auto;
   padding: 40px 0 20px;
 
   @include tablet {
-    gap: 40px;
     padding: 40px 20px 20px;
   }
 
@@ -18,7 +16,7 @@
 
   .news-section {
     padding: 0 8px 50px;
-    border-bottom: 1px solid $gray-color-100;
+    border-bottom: 2px solid #747070;
 
     @include tablet {
       padding: 0 0 50px;
@@ -28,11 +26,11 @@
   // band section
 
   .band-section {
-    padding: 0 8px 50px;
-    border-bottom: 1px solid $gray-color-100;
+    padding: 30px 8px 50px;
+    border-bottom: 2px solid #747070;
 
     @include tablet {
-      padding: 0 0 50px;
+      padding: 40px 0 50px;
       text-align: center;
     }
 
@@ -43,15 +41,17 @@
       font-size: 22px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
+      color: #2C2C2C;
 
       @include tablet {
-        font-size: 24px;
+        margin: 0 0 50px 0;
+        font-size: 30px;
       }
     }
 
     .band-section__thumbnail-box {
       display: grid;
-      grid-template: 170px 170px 170px / 49% 49%;
+      grid-template: 170px 170px / 49% 49%;
       row-gap: 15px;
       justify-content: space-between;
 
@@ -60,7 +60,7 @@
       }
 
       @include desktop {
-        grid-template: 1fr 1fr / 24% 24% 24% 24%;
+        grid-template: 1fr 1fr / 33% 33% 33%;
       }
     }
   }
@@ -68,11 +68,11 @@
   // album section
 
   .album-section {
-    padding: 0 8px 50px;
-    border-bottom: 1px solid $gray-color-100;
+    padding: 30px 8px 50px;
+    border-bottom: 2px solid #747070;
 
     @include tablet {
-      padding: 0 0 50px;
+      padding: 40px 0 50px;
       text-align: center;
     }
 
@@ -83,9 +83,11 @@
       font-size: 22px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
+      color: #2C2C2C;
 
       @include tablet {
-        font-size: 24px;
+        margin: 0 0 50px 0;
+        font-size: 30px;
       }
     }
 
@@ -116,11 +118,11 @@
   // jazzbar section
 
   .jazzbar-section {
-    padding: 0 8px 50px;
-    border-bottom: 1px solid $gray-color-100;
+    padding: 30px 8px 50px;
+    border-bottom: 2px solid #747070;
     
     @include tablet {
-      padding: 0 0 50px;
+      padding: 40px 0 50px;
     }
 
     .jazzbar-section__title {
@@ -130,17 +132,24 @@
       font-size: 22px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
+      color: #2C2C2C;
 
       @include tablet {
-        font-size: 24px;
+        margin: 0 0 50px 0;
+        font-size: 30px;
       }
     }
 
-    .jazzbar-section__thumbnail-box {
-      display: grid;
-      grid-template: 1fr / 24% 24% 24% 24%;
-      justify-content: space-between;
-    }
+    // .jazzbar-section__thumbnail-box {
+    //   display: flex;
+    //   justify-content: space-between;
+
+    //   @include tablet {
+    //     display: grid;
+    //     grid-template: 1fr / 24% 24% 24% 24%;
+    //     justify-content: space-between;
+    //   }
+    // }
   }
 
   // community section
@@ -152,6 +161,7 @@
 
     @include tablet {
       grid-template: auto auto / 45% 45%;
+      padding: 40px 0 50px;
     }
 
     .community-section__title {
@@ -162,15 +172,17 @@
       font-size: 22px;
       font-weight: 600;
       font-family: "Metrophobic", sans-serif;
+      color: #2C2C2C;
 
       @include tablet {
         margin: 0 0 60px 0;
-        font-size: 22px;
+        font-size: 30px;
       }
     }
   }
 
   .more-button {
+    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;

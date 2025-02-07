@@ -38,7 +38,6 @@ const PromotePage = ({ query, resolvedUrl, initialData }: Props) => {
         <MobileThumbnailList
           initialData={initialData}
           resolvedUrl={resolvedUrl}
-          viewport={viewport}
         />
       )}
       {viewport !== "mobile" && (
