@@ -40,10 +40,10 @@ const Header = () => {
         {isClient && !isLoading && !userMe && (
           <div className={styles["header__isLoggedOut"]}>
             <Link href="/auth?initial=signIn" className={styles["header__signIn"]}>
-              Login
+              LOGIN
             </Link>
             <Link href="/auth?initial=signUp" className={styles["header__signUp"]}>
-              Join
+              JOIN
             </Link>
           </div>
         )}
