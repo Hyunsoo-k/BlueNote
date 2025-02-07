@@ -26,7 +26,7 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
 
   const subCategoryList = subCategoryListMap[mainCategory].filter((item) => item !== "All");
 
-  const [currentCategory, setCurrentCategory] = useState<string>(subCategoryList[0]);
+  const [subCategory, setSubCategory] = useState<string>(subCategoryList[0]);
 
   const wysiwygRef = useRef<any>(null);
 
@@ -62,7 +62,7 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
       await Promise.all(uploadPromises);
 
       const requestBody = {
-        subCategory: currentCategory,
+        subCategory: subCategory,
         title: data.title,
         content: parsedContent.body.innerHTML,
       };
@@ -118,9 +118,9 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
             {subCategoryList.map((value: string, index: number) => (
               <span
                 key={index}
-                onClick={() => setCurrentCategory(value)}
+                onClick={() => setSubCategory(value)}
                 className={`${
-                  currentCategory === value
+                  subCategory === value
                     ? styles["header__division-value--selected"]
                     : styles["header__division-value"]
                 }`}

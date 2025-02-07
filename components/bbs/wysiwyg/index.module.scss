@@ -41,6 +41,10 @@
 
         .ql-editor {
           padding: 0;
+
+          img {
+            max-height: 550px;
+          }
         }
 
         .ql-editor.ql-blank::before {

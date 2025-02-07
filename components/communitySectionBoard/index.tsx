@@ -37,9 +37,10 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
   return (
     <div className={styles["container"]}>
       <div onClick={handleClickHeader} className={styles["header"]}>
-        <span className={styles["title"]}>{initialData.mainCategory === "board" ? "Board" : "Job"}</span>
+        <span className={styles["title"]}>{initialData.mainCategory === "board" ? "BOARD" : "JOB"}</span>
         <IoIosArrowForward
           size={viewport === "mobile" ? 20 : 25}
+          color="#2C2C2C"
           style={{ position: "relative", top: "1px" }}
         />
       </div>

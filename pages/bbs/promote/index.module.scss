@@ -3,10 +3,10 @@
 .container {
   position: relative;
   margin: 0 auto;
-  padding: 35px 0 48px 0;
+  padding: 35px 0 0 0;
 
   @include tablet {
     max-width: 1150px;
-    padding: 60px 15px 50px;
+    padding: 60px 15px 100px;
   }
 }

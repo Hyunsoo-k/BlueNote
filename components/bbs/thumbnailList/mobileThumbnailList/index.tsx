@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import { useGetMobileBoardQuery } from "@/hooks/bbs/useGetMobileBoardQuery";
 import DetachedThumbnail from "@/components/thumbnail/detachedThumbnail";
@@ -8,10 +8,11 @@ import styles from "./index.module.scss";
 interface Props {
   initialData: any;
   resolvedUrl: string;
-  viewport: string;
 };
 
-const MobileThumbnailList = ({ initialData, resolvedUrl, viewport }: Props) => {
+const MobileThumbnailList = ({ initialData, resolvedUrl }: Props) => {
+  const lastBoundaryRef = useRef<HTMLDivElement | null>(null);
+
   const {
     isFetchingNextPage,
     fetchNextPage,
@@ -20,43 +21,37 @@ const MobileThumbnailList = ({ initialData, resolvedUrl, viewport }: Props) => {
   } = useGetMobileBoardQuery(initialData.mainCategory, resolvedUrl, initialData);
 
   useEffect(() => {
-    const elements = document.getElementsByClassName("detachedThumbnail_detached-thumbnail__kaCsP");
-
-    if (elements.length === 0) {
-      return;
-    };
-
-    const lastElement = elements[elements.length - 1] || undefined;
-    const lastElementWidth = lastElement?.getBoundingClientRect().height;
-
     const io = new IntersectionObserver(
       (entries) => {
         entries[0].isIntersecting && hasNextPage && fetchNextPage();
       },
       {
         root: null,
-        rootMargin: `0px 0px ${lastElementWidth + 46}px 0px`,
+        threshold: 1,
       }
     );
 
-    lastElement && io.observe(lastElement);
+    lastBoundaryRef?.current && io.observe(lastBoundaryRef.current);
 
     return () => {
-      lastElement && io.unobserve(lastElement);
+      lastBoundaryRef?.current && io.unobserve(lastBoundaryRef.current);
     };
-  }, [queryData]);
+  }, [queryData]);  
 
   return (
-    <div className={styles["mobile-thumbnail-list"]}>
+    <div className={styles["container"]}>
       {queryData?.pages?.map((page: any, pageIndex: number) =>
         page?.postList?.map((post: any, index: number) => (
           <>
             <DetachedThumbnail element={post} key={(pageIndex + 1) * index} />
-            {viewport === "mobile" && <div className={styles["mobile-thumbnail-list__boundary-line"]}></div>}
+            <div
+              ref={(pageIndex === queryData?.pages?.length - 1 && index === page?.postList?.length - 1) ? lastBoundaryRef : null}
+              className={styles["boundary-line"]}
+            ></div>
           </>
         ))
       )}
-      {isFetchingNextPage && <div className={styles["bbs-post-list__spinner"]}></div>}
+      {/* {isFetchingNextPage && <div className={styles["spinner"]}></div>} */}
     </div>
   );
 };
