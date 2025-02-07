@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
+  // margin-top: 30px;
   font-family: "Noto Sans KR", sans-serif;
   background-color: $main-color;
 
@@ -14,7 +14,7 @@
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    padding: 20px 8px 10px;
+    padding: 20px 20px 10px;
 
     @include tablet {
       max-width: 1150px;
@@ -28,7 +28,7 @@
       .main__division-title {
         letter-spacing: 1px;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         color: #fff;
 

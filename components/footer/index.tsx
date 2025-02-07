@@ -11,9 +11,9 @@ const Footer = () => {
   const viewportContext = useContext(ViewportContext);
   const viewport = viewportContext?.viewport || "mobile";
 
-  if (viewport === "mobile" && router.pathname !== "/") {
-    return null;
-  };
+  // if (viewport === "mobile" && router.pathname !== "/") {
+  //   return null;
+  // };
 
   return (
     <div className={styles["container"]}>
