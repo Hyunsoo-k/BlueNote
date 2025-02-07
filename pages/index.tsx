@@ -5,10 +5,11 @@ import { instance } from "@/axios";
 import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel";
 import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
+import DetachedThumbnail from "@/components/thumbnail/detachedThumbnail";
 import CommunitySectionBoard from "@/components/communitySectionBoard";
 
 import styles from "@/styles/Home.module.scss";
-import DetachedThumbnail from "@/components/thumbnail/detachedThumbnail";
+import AlbumCarousel from "@/components/bbs/albumCarousel";
 
 interface Props {
   initialNewsData: any;
@@ -35,13 +36,16 @@ const Home = ({
         <Carousel
           elementList={initialNewsData.postList}
           elementType={viewport === "mobile" ? "combined" : "detached"}
+          viewport={viewport}
+          isElementJazzBar={false}
         />
       </div>
       <div className={styles["band-section"]}>
-        <p className={styles["band-section__title"]}>Band</p>
+        <p className={styles["band-section__title"]}>BAND</p>
         <div className={styles["band-section__thumbnail-box"]}>
           {initialBandData.postList.map((post: any, index: number) => {
-            return index < (viewport === "mobile" || viewport === "tablet" ? 6 : 8) && <CombinedThumbnail element={post} key={index} />;
+            return index < (viewport === "mobile" ? 4 : 6)
+              && <CombinedThumbnail element={post} key={index} />;
           })}
         </div>
         <Link href="/bbs/promote?subCategory=bandPromotion" className={styles["more-button"]}>
@@ -49,32 +53,31 @@ const Home = ({
         </Link>
       </div>
       <div className={styles["album-section"]}>
-        <p className={styles["album-section__title"]}>Album</p>
-        <div className={styles["album-section__thumbnail-box"]}>
-          {initialAlbumData.postList.map((post: any, index: number) => {
-            return index < (viewport === "mobile" || viewport === "tablet" ? 6 : 8) && <CombinedThumbnail element={post} key={index} />;
-          })}
-        </div>
+        <p className={styles["album-section__title"]}>ALBUM</p>
+        <AlbumCarousel elementList={initialAlbumData.postList} viewport={viewport} />
         <Link href="/bbs/promote?subCategory=albumPromotion" className={styles["more-button"]}>
           더보기
         </Link>
       </div>
       <div className={styles["jazzbar-section"]}>
-        <p className={styles["jazzbar-section__title"]}>Jazz bar</p>
-        <div className={styles["jazzbar-section__thumbnail-box"]}>
-          {initialJazzbarData.postList.map((post: any, index: number) => {
-            return index < (viewport === "mobile" ? 2 : viewport === "tablet" ? 3 : 4) && <DetachedThumbnail element={post} key={index} />
-          })}
-        </div>
+        <p className={styles["jazzbar-section__title"]}>JAZZ BAR</p>
+          <Carousel
+            elementList={initialJazzbarData.postList}
+            elementType="detached"
+            viewport={viewport}
+            isElementJazzBar={true}
+          />
         <Link href="/bbs/promote?subCategory=jazzbarPromotion" className={styles["more-button"]}>
           더보기
         </Link>
       </div>
-      <div className={styles["community-section"]}>
-        <p className={styles["community-section__title"]}>Community</p>
-        <CommunitySectionBoard initialData={initialBoardData} />
-        <CommunitySectionBoard initialData={initialJobData} />
-      </div>
+      {viewport !== "mobile" && (
+        <div className={styles["community-section"]}>
+          <p className={styles["community-section__title"]}>COMMUNITY</p>
+          <CommunitySectionBoard initialData={initialBoardData} />
+          <CommunitySectionBoard initialData={initialJobData} />
+        </div>
+      )}
     </div>
   );
 };

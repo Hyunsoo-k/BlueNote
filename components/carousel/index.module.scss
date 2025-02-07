@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.carousel {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,9 +11,10 @@
     gap: 25px;
   }
 
-  .carousel__element-wrapper {
+  .element-wrapper {
     overflow: hidden;
     display: flex;
+    gap: 8px;
     width: 100%;
     height: 200px;
     margin: 0 auto;
@@ -24,7 +25,7 @@
     }
   }
 
-  .carousel__element {
+  .element {
     width: 100%;
     flex-shrink: 0;
 
@@ -37,7 +38,20 @@
     }
   }
 
-  .carousel-dots {
+  .element--jazzbar {
+    width: calc((100% - 1 * 8px) / 2);
+    flex-shrink: 0;
+
+    @include tablet {
+      width: calc((100% - 2 * 20px) / 3);
+    }
+  
+    @include desktop {
+      width: calc((100% - 3 * 20px) / 4);
+    }
+  }
+
+  .dot-box {
     display: flex;
     gap: 8px;
     margin: 0 auto;

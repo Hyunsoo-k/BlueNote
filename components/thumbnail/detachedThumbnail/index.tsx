@@ -5,9 +5,10 @@ import styles from "./index.module.scss";
 
 interface Props {
   element: any;
+  hideTextOverlay?: boolean;
 };
 
-const DetachedThumbnail = ({ element }: Props) => {
+const DetachedThumbnail = ({ element, hideTextOverlay }: Props) => {
   const router = useRouter();
   const [textContent, setTextContent] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -35,9 +36,11 @@ const DetachedThumbnail = ({ element }: Props) => {
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url(${imageUrl || "/images/no-image.png"})`,
         }}
       >
-        <p className={styles["detached-thumbnail__info"]}>
-          <span>{element.subCategory}</span> | {element.createdAt.split("T")[0]}
-        </p>
+        {!hideTextOverlay && (
+          <p className={styles["detached-thumbnail__info"]}>
+            <span>{element.subCategory}</span> | {element.createdAt.split("T")[0]}
+          </p>
+        )}
       </div>
       <div className={styles["detached-thumbnail__description"]}>
         <p className={styles["detached-thumbnail__title"]}>{element.title}</p>
