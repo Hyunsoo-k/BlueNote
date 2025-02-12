@@ -71,7 +71,7 @@ const CommentSection = ({ post, viewport }: Props) => {
           />
           <span className={styles["comment-count"]}>댓글</span>
           <span className={styles["comment-count-value"]}>
-            {post.commentCount}
+            {post.commentList.length}
           </span>
         </div>
       </div>
