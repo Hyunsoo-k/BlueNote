@@ -20,7 +20,6 @@ interface Props {
 const Post = ({ post, viewport }: Props) => {
   const router = useRouter();
 
-  
   const { openModal } = useModal();
 
   const [content, setContent] = useState<any>(null);
