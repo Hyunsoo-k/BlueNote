@@ -61,8 +61,8 @@ const MobilePostList = ({ initialData, resolvedUrl, viewport }: Props) => {
               >
                 <div className={styles["top"]}>
                   <span className={styles["top__title"]}>{post.title}</span>
-                  {post.commentList.length > 0 && (
-                    <span className={styles["top__comment"]}>({post.commentList.length})</span>
+                  {post.commentCount && (
+                    <span className={styles["top__comment"]}>({post.commentCount})</span>
                   )}
                 </div>
                 <div className={styles["bottom"]}>
@@ -76,7 +76,6 @@ const MobilePostList = ({ initialData, resolvedUrl, viewport }: Props) => {
             ))
           )}
         </ul>
-        {/* {isFetchingNextPage && <div className={styles["mobile-post-list__spinner"]}></div>} */}
       </>
     );
   }

@@ -45,7 +45,7 @@ const TabletPostList = ({ postList }: Props) => {
             <td className={styles["element__sub-category"]}>{post.subCategory}</td>
             <td className={styles["element__title"]}>
               {post.title}
-              {post.commentList.length > 0 && <span>({post.commentList.length})</span>}
+              {post.commentCount && <span>({post.commentCount})</span>}
             </td>
             {!isMyPage && <td className={styles["element__writer"]}>{post.writer.nickname}</td>}
             <td className={styles["element__created-at"]}>{formatYM(post.createdAt)}</td>

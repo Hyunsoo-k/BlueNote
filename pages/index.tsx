@@ -4,12 +4,11 @@ import Link from "next/link";
 import { instance } from "@/axios";
 import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel";
+import AlbumCarousel from "@/components/bbs/albumCarousel";
 import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
-import DetachedThumbnail from "@/components/thumbnail/detachedThumbnail";
 import CommunitySectionBoard from "@/components/communitySectionBoard";
 
 import styles from "@/styles/Home.module.scss";
-import AlbumCarousel from "@/components/bbs/albumCarousel";
 
 interface Props {
   initialNewsData: any;
@@ -45,7 +44,7 @@ const Home = ({
         <div className={styles["band-section__thumbnail-box"]}>
           {initialBandData.postList.map((post: any, index: number) => {
             return index < (viewport === "mobile" ? 4 : 6)
-              && <CombinedThumbnail element={post} key={index} />;
+              && <CombinedThumbnail element={post} key={post._id} />;
           })}
         </div>
         <Link href="/bbs/promote?subCategory=bandPromotion" className={styles["more-button"]}>
@@ -84,22 +83,31 @@ const Home = ({
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data: initialNewsData } = await instance.get("/bbs/news");
-  const { data: initialBandData } = await instance.get("/bbs/promote?subCategory=bandPromotion");
-  const { data: initialAlbumData } = await instance.get("/bbs/promote?subCategory=albumPromotion");
-  const { data: initialJazzbarData } = await instance.get("/bbs/promote?subCategory=jazzbarPromotion");
-  const { data: initialBoardData } = await instance.get("/bbs/board");
-  const { data: initialJobData } = await instance.get("/bbs/job");
+export const getServerSideProps: GetServerSideProps = async () => {
+  const [
+    initialNewsData,
+    initialBandData,
+    initialAlbumData,
+    initialJazzbarData,
+    initialBoardData,
+    initialJobData
+  ] = await Promise.all([
+    instance.get("/bbs/news"),
+    instance.get("/bbs/promote?subCategory=bandPromotion"),
+    instance.get("/bbs/promote?subCategory=albumPromotion"),
+    instance.get("/bbs/promote?subCategory=jazzbarPromotion"),
+    instance.get("/bbs/board"),
+    instance.get("/bbs/job")
+  ]);
 
   return {
     props: {
-      initialNewsData,
-      initialBandData,
-      initialAlbumData,
-      initialJazzbarData,
-      initialBoardData,
-      initialJobData,
+      initialNewsData: initialNewsData.data,
+      initialBandData: initialBandData.data,
+      initialAlbumData: initialAlbumData.data,
+      initialJazzbarData: initialJazzbarData.data,
+      initialBoardData: initialBoardData.data,
+      initialJobData: initialJobData.data,
     },
   };
 };

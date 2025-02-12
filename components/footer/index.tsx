@@ -2,18 +2,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import styles from "./index.module.scss";
-import { useContext } from "react";
-import { ViewportContext } from "@/contexts/viewport";
 
 const Footer = () => {
   const router = useRouter();
-
-  const viewportContext = useContext(ViewportContext);
-  const viewport = viewportContext?.viewport || "mobile";
-
-  // if (viewport === "mobile" && router.pathname !== "/") {
-  //   return null;
-  // };
 
   return (
     <div className={styles["container"]}>

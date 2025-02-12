@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
 
 import styles from "./index.module.scss";
 
@@ -10,16 +9,6 @@ interface Props {
 
 const DetachedThumbnail = ({ element, hideTextOverlay }: Props) => {
   const router = useRouter();
-  const [textContent, setTextContent] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    const parser = new DOMParser();
-    const textHtml = parser.parseFromString(element.content, "text/html");
-    const imageTag = textHtml.querySelector("img");
-    setImageUrl(imageTag && imageTag.getAttribute("src"));
-    setTextContent(textHtml.body.textContent || "");
-  }, [element]);
 
   const handleClickThumbnail = () => {
     router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
@@ -33,7 +22,7 @@ const DetachedThumbnail = ({ element, hideTextOverlay }: Props) => {
       <div
         className={styles["detached-thumbnail__back-ground"]}
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url(${imageUrl || "/images/no-image.png"})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url(${element.thumbnailSrc|| "/images/no-image.png"})`,
         }}
       >
         {!hideTextOverlay && (
@@ -44,7 +33,7 @@ const DetachedThumbnail = ({ element, hideTextOverlay }: Props) => {
       </div>
       <div className={styles["detached-thumbnail__description"]}>
         <p className={styles["detached-thumbnail__title"]}>{element.title}</p>
-        <p className={styles["detached-thumbnail__content"]}>{textContent}</p>
+        <p className={styles["detached-thumbnail__content"]}>{element.content}</p>
       </div>
     </div>
   );

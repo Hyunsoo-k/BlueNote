@@ -24,7 +24,7 @@ interface PostType {
     content: string;
     views: number;
     recommend: string[];
-    commentList: Comment[];
+    commentCount: number;
     createdAt: string;
     updatedAt: string;
     previousPost: any;
