@@ -71,8 +71,8 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
                 <tr key={index} className={styles["element"]}>
                   <td className={styles["element__sub-category"]}>{post.subCategory}</td>
                   <td className={styles["element__title"]}>{post.title}</td>
-                  {post.commentList.length > 0 && (
-                    <td className={styles["element__comment-count"]}>({post.commentList.length})</td>
+                  {post.commentCount&& (
+                    <td className={styles["element__comment-count"]}>({post.commentCount})</td>
                   )}
                   <td className={styles["element__created-at"]}>{formatYM(post.createdAt)}</td>
                 </tr>

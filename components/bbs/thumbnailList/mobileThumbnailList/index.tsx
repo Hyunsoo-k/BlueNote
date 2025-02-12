@@ -14,7 +14,6 @@ const MobileThumbnailList = ({ initialData, resolvedUrl }: Props) => {
   const lastBoundaryRef = useRef<HTMLDivElement | null>(null);
 
   const {
-    isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
     data: queryData,
@@ -51,7 +50,6 @@ const MobileThumbnailList = ({ initialData, resolvedUrl }: Props) => {
           </>
         ))
       )}
-      {/* {isFetchingNextPage && <div className={styles["spinner"]}></div>} */}
     </div>
   );
 };

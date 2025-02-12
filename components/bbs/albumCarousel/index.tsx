@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import AlbumThumbnail from "@/components/thumbnail/albumThumbnail";
+
 import styles from "./index.module.scss";
 
 interface Props {
@@ -52,7 +53,7 @@ const AlbumCarousel = ({ elementList, viewport }: Props) => {
             data-title={element.title}
             className={`${styles["element"]} ${styles[`element__${elementIndex[index]}`]}`}
           >
-            <AlbumThumbnail element={element} index={index} />
+            <AlbumThumbnail element={element} />
           </div>
         ))}
       </div>
