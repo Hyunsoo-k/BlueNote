@@ -10,10 +10,11 @@ import styles from "./index.module.scss";
 import { useGetViewport } from "@/hooks/viewport";
 
 interface Props {
+  mainCategory: "board" | "job";
   initialData: any;
 };
 
-const CommunitySectionBoard = ({ initialData }: Props) => {
+const CommunitySectionBoard = ({ mainCategory, initialData }: Props) => {
   const viewport = useGetViewport();
 
   const router = useRouter();
@@ -21,9 +22,15 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
   const [subCategory, setSubCategory] = useState<string>("All");
   const [conveyInitialData, setConveyInitialData] = useState<boolean>(true);
 
-  const { data } = useGetCommunitySectionBoard(initialData.mainCategory, subCategory, initialData, conveyInitialData);
+  const { data }
+    = useGetCommunitySectionBoard(
+      mainCategory,
+      subCategory,
+      initialData,
+      conveyInitialData
+    );
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
+  const subCategoryList = subCategoryListMap[mainCategory as keyof typeof subCategoryListMap];
 
   const handleClickHeader = () => {
     router.push(`/bbs/${initialData.mainCategory}`);
@@ -37,7 +44,7 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
   return (
     <div className={styles["container"]}>
       <div onClick={handleClickHeader} className={styles["header"]}>
-        <span className={styles["title"]}>{initialData.mainCategory === "board" ? "BOARD" : "JOB"}</span>
+        <span className={styles["title"]}>{mainCategory === "board" ? "BOARD" : "JOB"}</span>
         <IoIosArrowForward
           size={viewport === "mobile" ? 20 : 25}
           color="#2C2C2C"
@@ -65,13 +72,13 @@ const CommunitySectionBoard = ({ initialData }: Props) => {
           </tr>
         </thead>
         <tbody className={styles["element-wrapper"]}>
-          {data?.postList.map((post: any, index: number) => {
+          {data.postList?.map((post: any, index: number) => {
             return (
               index < 8 && (
                 <tr key={index} className={styles["element"]}>
                   <td className={styles["element__sub-category"]}>{post.subCategory}</td>
                   <td className={styles["element__title"]}>{post.title}</td>
-                  {post.commentCount&& (
+                  {!!post.commentCount&& (
                     <td className={styles["element__comment-count"]}>({post.commentCount})</td>
                   )}
                   <td className={styles["element__created-at"]}>{formatYM(post.createdAt)}</td>
