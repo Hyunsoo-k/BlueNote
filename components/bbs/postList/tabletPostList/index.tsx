@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 
-import { PostType } from "@/types/post";
+import { PostListItemType, PostListType } from "@/types/postList";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  postList: PostType[];
+  postList: PostListType[];
 };
 
 const TabletPostList = ({ postList }: Props) => {
@@ -35,9 +35,9 @@ const TabletPostList = ({ postList }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {postList.map((post: PostType, index: number) => (
+        {postList.map((post: any) => (
           <tr
-            key={index}
+            key={post._id}
             onClick={(e: any) => { handleClickItem(e, post.mainCategory, post._id); }}
             className={styles["element"]}
           >
@@ -45,7 +45,7 @@ const TabletPostList = ({ postList }: Props) => {
             <td className={styles["element__sub-category"]}>{post.subCategory}</td>
             <td className={styles["element__title"]}>
               {post.title}
-              {post.commentList.length && <span>({post.commentList.length})</span>}
+              {!!post.commentCount && <span>({post.commentCount})</span>}
             </td>
             {!isMyPage && <td className={styles["element__writer"]}>{post.writer.nickname}</td>}
             <td className={styles["element__created-at"]}>{formatYM(post.createdAt)}</td>

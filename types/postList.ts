@@ -1,7 +1,7 @@
 import { MainCategory } from "./categorys";
 import { SubCategory } from "./categorys";
 
-interface PostListItem {
+interface PostListItemType {
   _id: string;
   number: number;
   mainCategory: MainCategory;
@@ -20,6 +20,6 @@ interface PostListItem {
   __v: number;
 }
 
-type PostListType = PostListItem[];
+type PostListType = PostListItemType[];
 
-export type { PostListType };
+export type { PostListItemType, PostListType };

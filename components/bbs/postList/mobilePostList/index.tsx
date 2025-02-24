@@ -61,7 +61,7 @@ const MobilePostList = ({ initialData, resolvedUrl, viewport }: Props) => {
               >
                 <div className={styles["top"]}>
                   <span className={styles["top__title"]}>{post.title}</span>
-                  {post.commentCount && (
+                  {!!post.commentCount && (
                     <span className={styles["top__comment"]}>({post.commentCount})</span>
                   )}
                 </div>

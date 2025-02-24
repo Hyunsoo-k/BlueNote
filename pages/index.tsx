@@ -11,21 +11,21 @@ import CommunitySectionBoard from "@/components/communitySectionBoard";
 import styles from "@/styles/Home.module.scss";
 
 interface Props {
-  initialNewsData: any;
-  initialBandData: any;
-  initialAlbumData: any;
-  initialJazzbarData: any;
-  initialBoardData: any;
-  initialJobData: any;
+  mainPageNewsList: any;
+  mainPageBandList: any;
+  mainPageAlbumList: any;
+  mainPageJazzbarList: any;
+  mainPageBoardList: any;
+  mainPageJobList: any;
 };
 
 const Home = ({
-  initialNewsData,
-  initialBandData,
-  initialAlbumData,
-  initialJazzbarData,
-  initialBoardData,
-  initialJobData
+  mainPageNewsList,
+  mainPageBandList,
+  mainPageAlbumList,
+  mainPageJazzbarList,
+  mainPageBoardList,
+  mainPageJobList,
 }: Props) => {
   const viewport = useGetViewport();
 
@@ -33,7 +33,7 @@ const Home = ({
     <div className={styles["container"]}>
       <div className={styles["news-section"]}>
         <Carousel
-          elementList={initialNewsData.postList}
+          elementList={mainPageNewsList}
           elementType={viewport === "mobile" ? "combined" : "detached"}
           viewport={viewport}
           isElementJazzBar={false}
@@ -42,7 +42,7 @@ const Home = ({
       <div className={styles["band-section"]}>
         <p className={styles["band-section__title"]}>BAND</p>
         <div className={styles["band-section__thumbnail-box"]}>
-          {initialBandData.postList.map((post: any, index: number) => {
+          {mainPageBandList.map((post: any, index: number) => {
             return index < (viewport === "mobile" ? 4 : 6)
               && <CombinedThumbnail element={post} key={post._id} />;
           })}
@@ -53,7 +53,7 @@ const Home = ({
       </div>
       <div className={styles["album-section"]}>
         <p className={styles["album-section__title"]}>ALBUM</p>
-        <AlbumCarousel elementList={initialAlbumData.postList} viewport={viewport} />
+        <AlbumCarousel elementList={mainPageAlbumList} viewport={viewport} />
         <Link href="/bbs/promote?subCategory=albumPromotion" className={styles["more-button"]}>
           더보기
         </Link>
@@ -61,7 +61,7 @@ const Home = ({
       <div className={styles["jazzbar-section"]}>
         <p className={styles["jazzbar-section__title"]}>JAZZ BAR</p>
           <Carousel
-            elementList={initialJazzbarData.postList}
+            elementList={mainPageJazzbarList}
             elementType="detached"
             viewport={viewport}
             isElementJazzBar={true}
@@ -73,8 +73,8 @@ const Home = ({
       {viewport !== "mobile" && (
         <div className={styles["community-section"]}>
           <p className={styles["community-section__title"]}>COMMUNITY</p>
-          <CommunitySectionBoard initialData={initialBoardData} />
-          <CommunitySectionBoard initialData={initialJobData} />
+          <CommunitySectionBoard mainCategory="board" initialData={mainPageBoardList} />
+          <CommunitySectionBoard mainCategory="job" initialData={mainPageJobList} />
         </div>
       )}
     </div>
@@ -84,30 +84,33 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const [
-    initialNewsData,
-    initialBandData,
-    initialAlbumData,
-    initialJazzbarData,
-    initialBoardData,
-    initialJobData
-  ] = await Promise.all([
-    instance.get("/bbs/news"),
-    instance.get("/bbs/promote?subCategory=bandPromotion"),
-    instance.get("/bbs/promote?subCategory=albumPromotion"),
-    instance.get("/bbs/promote?subCategory=jazzbarPromotion"),
-    instance.get("/bbs/board"),
-    instance.get("/bbs/job")
-  ]);
+  const start = performance.now();
+
+  const response = await instance.get("/mainPage").then((promiseResult) => {
+    const end = performance.now();
+    
+    console.log(`performace time ${(end - start).toFixed(2)}`);
+
+    return promiseResult;
+  });
+
+  const { 
+    mainPageNewsList, 
+    mainPageBandList, 
+    mainPageAlbumList, 
+    mainPageJazzbarList, 
+    mainPageBoardList, 
+    mainPageJobList 
+  } = response.data;
 
   return {
     props: {
-      initialNewsData: initialNewsData.data,
-      initialBandData: initialBandData.data,
-      initialAlbumData: initialAlbumData.data,
-      initialJazzbarData: initialJazzbarData.data,
-      initialBoardData: initialBoardData.data,
-      initialJobData: initialJobData.data,
+      mainPageNewsList,
+      mainPageBandList,
+      mainPageAlbumList,
+      mainPageJazzbarList,
+      mainPageBoardList,
+      mainPageJobList,
     },
   };
 };
