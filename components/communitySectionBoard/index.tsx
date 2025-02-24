@@ -2,12 +2,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
+import { useGetViewport } from "@/hooks/viewport";
 import { subCategoryListMap } from "@/variable";
 import { useGetCommunitySectionBoard } from "@/hooks/bbs/useGetCommunitySectionBoard";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
-import { useGetViewport } from "@/hooks/viewport";
 
 interface Props {
   mainCategory: "board" | "job";
