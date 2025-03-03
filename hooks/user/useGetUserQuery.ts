@@ -7,8 +7,6 @@ import { queryKey } from "@/queryKey";
 const queryFn = async () => {
   const response = await instance.get("/user");
 
-  console.log("userQueryFn operated.")
-
   return response.data;
 };
 
