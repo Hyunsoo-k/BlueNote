@@ -84,15 +84,7 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const start = performance.now();
-
-  const response = await instance.get("/mainPage").then((promiseResult) => {
-    const end = performance.now();
-    
-    console.log(`performace time ${(end - start).toFixed(2)}`);
-
-    return promiseResult;
-  });
+  const response = await instance.get("/mainPage");
 
   const { 
     mainPageNewsList, 

@@ -44,7 +44,7 @@ const EditPost = ({ post, viewport }: Props) => {
   };
 
   const submitHandler = {
-    onSubmit: async (data: any) => {
+    onSubmit: async (watch: any) => {
       const editor = wysiwygRef.current.getEditor();
       const parser = new DOMParser();
       const parsedContent = parser.parseFromString(editor.root.innerHTML, "text/html");
@@ -66,7 +66,7 @@ const EditPost = ({ post, viewport }: Props) => {
 
       const requestBody = {
         subCategory: currentCategory,
-        title: data.title,
+        title: watch.title,
         content: parsedContent.body.innerHTML,
       };
   

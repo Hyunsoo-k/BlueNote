@@ -52,7 +52,7 @@ const BbsHeader = ({
           ))}
         </div>
       </div>
-      {totalPostCount && viewport !== "mobile" && (
+      {viewport !== "mobile" && (
         <div className={styles["post-information"]}>
           <span className={styles["post-information__count"]}>총 게시물</span>
           <span className={styles["post-information__count-value"]}>

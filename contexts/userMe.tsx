@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, Dispatch, SetStateAction } from "react";
+import React, { createContext } from "react";
 
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 
@@ -14,14 +14,11 @@ interface UserMe {
 
 interface UserMeContextType {
   userMe: UserMe | null;
-  // setUserMe: Dispatch<SetStateAction<UserMe | null>>;
 };
 
 const UserMeContext = createContext<UserMeContextType | null>(null);
 
 const UserMeProvider = ({ children }: any) => {
-  // const [userMe, setUserMe] = useState<UserMe | null>(null);
-
   const { data: userMe } = useGetUserQuery();
 
   return (

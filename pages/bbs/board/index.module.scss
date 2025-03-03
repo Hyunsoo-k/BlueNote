@@ -2,11 +2,13 @@
 
 .container {
   position: relative;
+  min-height: calc(100vh - 211px);
   margin: 0 auto;
   padding: 35px 0 20px 0;
 
   @include tablet {
     max-width: 1150px;
+    min-height: calc(100% - 171px);
     padding: 60px 15px 100px;
   }
 }

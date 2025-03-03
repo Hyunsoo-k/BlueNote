@@ -5,6 +5,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { PiVinylRecordFill } from "react-icons/pi";
 
+import { ViewportContext } from "@/contexts/viewport";
 import { useSignIn } from "@/hooks/auth/useSignIn";
 import { useSignUp } from "@/hooks/auth/useSignUp";
 import Email from "../input/email";
@@ -13,7 +14,6 @@ import Password from "../input/password";
 import CheckPassword from "../input/check-password";
 
 import styles from "./index.module.scss";
-import { ViewportContext } from "@/contexts/viewport";
 
 const AlertModal = dynamic(() => import("../modal/alertModal"), { ssr: false });
 
