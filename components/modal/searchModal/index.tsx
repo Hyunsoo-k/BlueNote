@@ -1,14 +1,22 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
+import { IoCloseOutline } from "react-icons/io5";
 
 import { MainCategory } from "@/types/categorys";
 import { subCategoryListMap } from "@/variable";
+import { subCategoryUrlMap } from "@/variable";
 import { selectQueryMap } from "@/utils/selectQueryMap";
+import { useGetUserMe } from "@/hooks/user/useGetUserMe";
+import { useGetRecentSearch } from "@/hooks/user/useGetRecentSearch";
+import { useCreateRecentSearch } from "@/hooks/user/useCreateRecentSearch";
+import { useDeleteAllRecentSearch } from "@/hooks/user/useDeleteAllRecentSearch";
+import { useDeleteRecentSearch } from "@/hooks/user/useDeleteRecentSearch";
+import useModal from "@/hooks/modal/useModal";
 
 import styles from "./index.module.scss";
 
@@ -20,7 +28,7 @@ interface Props {
 const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
   const router = useRouter();
 
-  const [filter, setFilter] = useState({
+  const [select, setSelect] = useState({
     open: false,
     currentValue: "제목+내용",
   });
@@ -29,6 +37,19 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
     currentValue: "All",
   });
 
+  const containerRef = useRef<HTMLFormElement | null>(null);
+  const selectListRef = useRef<HTMLUListElement | null>(null);
+  const subCategoryListRef = useRef<HTMLUListElement | null>(null);
+  
+  const userMe = useGetUserMe();
+  const { openModal, closeModal } = useModal();
+
+  const { data: queryData } = useGetRecentSearch(userMe);
+
+  const useCraeteRecentSearchMutation = useCreateRecentSearch(userMe);
+  const useDeleteAllRecentSearchMutation = useDeleteAllRecentSearch(userMe, closeModal);
+  const useDeleteRecentSearchMutation = useDeleteRecentSearch(userMe);
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -36,45 +57,39 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
       setShowSearchModal(false);
     };
 
-    const handleClickModalOutSide = (e: any) => {
+    const handleClickThings = (e: any) => {
       const targetNode = e.target as Node;
-      const modal = document.getElementById("search-modal");
-      const actionBar = document.getElementById("mobile-post-action-bar__section");
 
-      if (!modal?.contains(targetNode) && !actionBar?.contains(targetNode)) {
-        setShowSearchModal(false);
-      }
+      !containerRef.current?.contains(targetNode) && setShowSearchModal(false);
     };
 
-    const handleClickFilterListOutSide = (e: any) => {
+    const handleClickSelectListOutside = (e: any) => {
       const targetNode = e.target as Node;
-      const filterList = document.getElementById("searching-bar__filter-list");
 
-      if (!filterList?.contains(targetNode)) {
-        setFilter((prev: any) => ({ ...prev, open: false }));
-      }
+      selectListRef.current
+        && !selectListRef.current.contains(targetNode)
+        && setSelect((prev: any) => ({ ...prev, open: false }));
     };
 
-    const handleClickSubCategoryListOutSide = (e: any) => {
+    const handleClickSubCategoryOutside = (e: any) => {
       const targetNode = e.target as Node;
-      const subCategoryList = document.getElementById("searching-bar__sub-category-list");
 
-      if (!subCategoryList?.contains(targetNode)) {
-        SetSubCategory((prev: any) => ({ ...prev, open: false }));
-      }
+      subCategoryListRef.current
+        && !subCategoryListRef.current.contains(targetNode)
+        && SetSubCategory((prev: any) => ({ ...prev, open: false }));
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
-    window.addEventListener("click", handleClickModalOutSide);
-    window.addEventListener("click", handleClickFilterListOutSide);
-    window.addEventListener("click", handleClickSubCategoryListOutSide);
+    window.addEventListener("click", handleClickThings);
+    window.addEventListener("click", handleClickSelectListOutside);
+    window.addEventListener("click", handleClickSubCategoryOutside);
 
     return () => {
       document.body.style.overflow = "auto";
       router.events.off("routeChangeComplete", handleRouteChange);
-      window.removeEventListener("click", handleClickModalOutSide);
-      window.removeEventListener("click", handleClickFilterListOutSide);
-      window.removeEventListener("click", handleClickSubCategoryListOutSide);
+      window.removeEventListener("click", handleClickThings);
+      window.removeEventListener("click", handleClickSelectListOutside);
+      window.removeEventListener("click", handleClickSubCategoryOutside);
     };
   }, []);
 
@@ -87,125 +102,224 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
   const subCatgoryList = subCategoryListMap[mainCategory as keyof typeof subCategoryListMap];
 
   const submitHandler = {
-    onSubmit: (e: any) => {
-      router.push(
-        `?subCategory=${subCategory.currentValue}&select=${
-          selectQueryMap[filter.currentValue]
-        }&query=${e.keyword}`
-      );
+    onSubmit: async (e: any) => {
+      const urlDestination = 
+        `?subCategory=${subCategoryUrlMap[subCategory.currentValue]}&select=${
+            selectQueryMap[select.currentValue]
+          }&query=${e.query}`
+
+      if (userMe) {
+        const requestBody = { query: e.query };
+
+        await useCraeteRecentSearchMutation.mutateAsync(requestBody);
+      };
+      
+      router.push(urlDestination);
     },
     onError: (e: any) => {
       console.log(e.error);
     },
   };
 
-  const handleClickFilterDropdown = (e: any) => {
+  const handleClickSelect = (e: any) => {
     e.stopPropagation();
     SetSubCategory((prev) => ({ ...prev, open: false }));
-    setFilter((prev) => ({ ...prev, open: !prev.open }));
+    setSelect((prev) => ({ ...prev, open: !prev.open }));
   };
 
-  const handleClickFilterOption = (e: any) => {
+  const handleClickSelectValue = (e: any) => {
     e.stopPropagation();
-    setFilter((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
+    setSelect((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
   };
 
-  const handleClickSubCategoryDropdown = (e: any) => {
+  const handleClickSubCategory = (e: any) => {
     e.stopPropagation();
-    setFilter((prev) => ({ ...prev, open: false }));
+    setSelect((prev) => ({ ...prev, open: false }));
     SetSubCategory((prev) => ({ ...prev, open: !prev.open }));
   };
 
-  const handleClickSubCategoryOption = (e: any) => {
+  const handleClickSubCategoryValue = (e: any) => {
     e.stopPropagation();
     SetSubCategory((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
+  };
+
+  const handleClickRecentSearchQuery = async (e: any, query: string) => {
+    e.stopPropagation();
+
+    const requestBody = {
+      query: query
+    };
+
+    await useCraeteRecentSearchMutation.mutateAsync(requestBody);
+      
+    router.push(
+      `?subCategory=${subCategoryUrlMap[subCategory.currentValue]}&select=${
+        selectQueryMap[select.currentValue]
+      }&query=${query}`
+    );
+  };
+
+  const handleDeleteRecentSearch = (e: any, query: string) => {
+    e.stopPropagation();
+    
+    const requestBody = { query };
+
+    useDeleteRecentSearchMutation?.mutate(requestBody);
+  };
+
+  const handleClickDeleteAllRecentSearch = (e: any) => {
+    queryData.queryList.length > 0
+      ? openModal(
+        "confirm",
+        "최근 검색어를 모두 삭제하시겠습니까?",
+        useDeleteAllRecentSearchMutation.mutate
+      )
+      : openModal(
+        "alert",
+        "최근 검색어가 없습니다.",
+        closeModal
+      );
   };
 
   return createPortal(
     <div className={styles["overlay"]}>
       <form
+        ref={containerRef}
         onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
         className={styles["container"]}
       >
-        <div id="search-modal" className={styles["search-modal"]}>
-          <div className={styles["search-modal__top"]}>
-            <div className={styles["search-modal__filter"]}>
-              <p
-                onClick={(e: any) => {
-                  handleClickFilterDropdown(e);
+        <div className={styles["option-box"]}>
+          <div className={styles["select-wrapper"]}>
+            <div
+              onClick={(e: any) => { handleClickSelect(e); }}
+              className={styles["select__current-value-wrapper"]}
+            >
+              <span className={styles["select__current-value"]}>
+                {select.currentValue}
+              </span>
+              <IoIosArrowDown
+                size={18}
+                style={{
+                  position: "absolute",
+                  top: "2px",
+                  right: "0"
                 }}
-                className={styles["searching-bar__filter-value"]}
-              >
-                {filter.currentValue}
-                <IoIosArrowDown size={18} style={{ position: "absolute", top: "2px", right: "0" }} />
-              </p>
-              {filter.open && (
-                <ul id="searching-bar__filter-list" className={styles["searching-bar__filter-list"]}>
-                  <li onClick={(e) => { handleClickFilterOption(e); }}>
-                    제목+내용
-                  </li>
-                  <li onClick={(e) => { handleClickFilterOption(e); }}>
-                    제목
-                  </li>
-                  <li onClick={(e) => { handleClickFilterOption(e); }}>
-                    내용
-                  </li>
-                  <li onClick={(e) => { handleClickFilterOption(e); }}>
-                    작성자
-                  </li>
-                </ul>
-              )}
+              />
             </div>
-            <div className={styles["search-modal__sub-category"]}>
-              <p
-                onClick={(e: any) => {
-                  handleClickSubCategoryDropdown(e);
-                }}
-                className={styles["searching-bar__sub-category-value"]}
+            {select.open && (
+              <ul
+                ref={selectListRef}
+                className={styles["select__list"]}
               >
+                <li onClick={(e) => { handleClickSelectValue(e); }}>제목+내용</li>
+                <li onClick={(e) => { handleClickSelectValue(e); }}>제목</li>
+                <li onClick={(e) => { handleClickSelectValue(e); }}>내용</li>
+                <li onClick={(e) => { handleClickSelectValue(e); }}>작성자</li>
+              </ul>
+            )}
+          </div>
+          <div className={styles["sub-category-wrapper"]}>
+            <div
+              onClick={(e: any) => { handleClickSubCategory(e); }}
+              className={styles["sub-category__current-value-wrapper"]}
+            >
+              <span className={styles["sub-category__current-value"]}>
                 {subCategory.currentValue}
-                <IoIosArrowDown size={18} style={{ position: "absolute", top: "2px", right: "0" }} />
-              </p>
-              {subCategory.open && (
-                <ul id="searching-bar__sub-category-list" className={styles["searching-bar__sub-category-list"]}>
-                  {subCatgoryList.map((item: string, index: number) => (
-                    <li
-                      key={index}
-                      onClick={(e) => {
-                        handleClickSubCategoryOption(e);
-                      }}
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              </span>
+              <IoIosArrowDown
+                size={18}
+                style={{
+                  position: "absolute",
+                  top: "2px",
+                  right: "0"
+                }}
+              />
             </div>
+            {subCategory.open && (
+              <ul
+                ref={subCategoryListRef}
+                className={styles["sub-category__list"]}
+              >
+                {subCatgoryList.map((item: string, index: number) => (
+                  <li
+                    key={index}
+                    onClick={(e) => { handleClickSubCategoryValue(e); }}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-          <div className={styles["search-modal__input-box"]}>
-            <input
-              placeholder="검색어를 입력해주세요."
-              autoComplete="off"
-              spellCheck="false"
-              {...register("keyword", {
-                required: "검색어를 입력해 주세요.",
-                minLength: { value: 2, message: "2 글자 이상 입력해 주세요." },
-              })}
-              className={styles["search-modal__input"]}
+        </div>
+        <div className={styles["input-box"]}>
+          <input
+            placeholder="검색어를 입력해주세요."
+            autoComplete="off"
+            spellCheck="false"
+            {...register("query", {
+              required: "검색어를 입력해 주세요.",
+              minLength: { value: 2, message: "2 글자 이상 입력해 주세요." },
+            })}
+            className={styles["input"]}
+          />
+          <button className={styles["button"]}>
+            <CiSearch
+              size={20}
+              style={{
+                position: "relative",
+                top: "1px"
+              }}
             />
-            <button className={styles["search-modal__button"]}>
-              <CiSearch size={20} />
-            </button>
-            <p className={styles["search-modal__error-message"]}>
-              {typeof errors.keyword?.message === "string" ? errors.keyword?.message : ""}
-            </p>
+          </button>
+          <p className={styles["error-message"]}>
+            {typeof errors.keyword?.message === "string" ? errors.keyword?.message : ""}
+          </p>
+        </div>
+        <div className={styles["recent-search"]}>
+          <div className={styles["recent-search__text-wrapper"]}>
+            <span className={styles["recent-search__text"]}>최근 검색어</span>
+            {userMe && (
+              <CiTrash
+                size={19}
+                onClick={handleClickDeleteAllRecentSearch}
+                style={{
+                  position: "absolute",
+                  top: "18px",
+                  right: "10px"
+                }}
+              />
+            )}
           </div>
-          <div className={styles["search-modal__recent-searches"]}>
-            <p className={styles["search-modal__recent-searches-title"]}>
-              최근 검색어
-              <CiTrash size={20} style={{ position: "absolute", right: "10px" }} />
-            </p>
-          </div>
+          <ul className={styles["recent-search__list"]}>
+            {!queryData ? (
+              <p className={styles["recent-search__no-login-message"]}>
+                로그인이 필요한 기능입니다.
+              </p>
+              ) : undefined
+            }
+            {queryData?.queryList.length === 0 ? (
+              <p className={styles["recent-search__no-history"]}>
+                최근 검색어가 없습니다.
+              </p>
+            ) : undefined}
+            {queryData?.queryList?.map(
+              (query: string, index: number) =>
+                <li key={index}>
+                  <span onClick={(e) => { handleClickRecentSearchQuery(e, query); }}>
+                    {query}
+                  </span>
+                  <IoCloseOutline
+                    size={18}
+                    onClick={(e) => { handleDeleteRecentSearch(e, query); }}
+                    style={{
+                      position: "relative",
+                      top: "1px"
+                    }}
+                  />
+              </li>
+            )}
+          </ul>
         </div>
       </form>
     </div>,

@@ -14,6 +14,7 @@ const MobileThumbnailList = ({ initialData, resolvedUrl }: Props) => {
   const lastBoundaryRef = useRef<HTMLDivElement | null>(null);
 
   const {
+    isFetching,
     fetchNextPage,
     hasNextPage,
     data: queryData,
@@ -39,6 +40,9 @@ const MobileThumbnailList = ({ initialData, resolvedUrl }: Props) => {
 
   return (
     <div className={styles["container"]}>
+      {!isFetching && !queryData.pages[0].totalPostCount && (
+        <p className={styles["not-found-message"]}>등록된 게시글이 없습니다.</p>
+      )}
       {queryData?.pages?.map((page: any, pageIndex: number) =>
         page?.postList?.map((post: any, index: number) => (
           <>
