@@ -7,14 +7,16 @@ import { CiSearch } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
 
-import { useGetUserMe } from "@/hooks/user/useGetUserMe";
-import { useGetRecentSearch } from "@/hooks/user/useGetRecentSearch";
-import { useCreateRecentSearch } from "@/hooks/user/useCreateRecentSearch";
-import { useDeleteRecentSearch } from "@/hooks/user/useDeleteRecentSearch";
 import { MainCategory } from "@/types/categorys";
 import { subCategoryListMap } from "@/variable";
 import { subCategoryUrlMap } from "@/variable";
 import { selectQueryMap } from "@/utils/selectQueryMap";
+import { useGetUserMe } from "@/hooks/user/useGetUserMe";
+import { useGetRecentSearch } from "@/hooks/user/useGetRecentSearch";
+import { useCreateRecentSearch } from "@/hooks/user/useCreateRecentSearch";
+import { useDeleteAllRecentSearch } from "@/hooks/user/useDeleteAllRecentSearch";
+import { useDeleteRecentSearch } from "@/hooks/user/useDeleteRecentSearch";
+import useModal from "@/hooks/modal/useModal";
 
 import styles from "./index.module.scss";
 
@@ -40,11 +42,13 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
   const subCategoryListRef = useRef<HTMLUListElement | null>(null);
   
   const userMe = useGetUserMe();
+  const { openModal, closeModal } = useModal();
 
   const { data: queryData } = useGetRecentSearch(userMe);
 
-  const useCraeteRecentSearchMutation = useCreateRecentSearch(userMe?._id);
-  const useDeleteRecentSearchMutation = useDeleteRecentSearch(userMe?._id);
+  const useCraeteRecentSearchMutation = useCreateRecentSearch(userMe);
+  const useDeleteAllRecentSearchMutation = useDeleteAllRecentSearch(userMe, closeModal);
+  const useDeleteRecentSearchMutation = useDeleteRecentSearch(userMe);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -56,22 +60,36 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
     const handleClickThings = (e: any) => {
       const targetNode = e.target as Node;
 
-      if (
-        !containerRef.current?.contains(targetNode) ||
-        (selectListRef.current && !selectListRef.current.contains(targetNode)) ||
-        (subCategoryListRef.current && !subCategoryListRef.current.contains(targetNode))
-      ) {
-        setShowSearchModal(false);
-      }
+      !containerRef.current?.contains(targetNode) && setShowSearchModal(false);
+    };
+
+    const handleClickSelectListOutside = (e: any) => {
+      const targetNode = e.target as Node;
+
+      selectListRef.current
+        && !selectListRef.current.contains(targetNode)
+        && setSelect((prev: any) => ({ ...prev, open: false }));
+    };
+
+    const handleClickSubCategoryOutside = (e: any) => {
+      const targetNode = e.target as Node;
+
+      subCategoryListRef.current
+        && !subCategoryListRef.current.contains(targetNode)
+        && SetSubCategory((prev: any) => ({ ...prev, open: false }));
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
     window.addEventListener("click", handleClickThings);
+    window.addEventListener("click", handleClickSelectListOutside);
+    window.addEventListener("click", handleClickSubCategoryOutside);
 
     return () => {
       document.body.style.overflow = "auto";
       router.events.off("routeChangeComplete", handleRouteChange);
       window.removeEventListener("click", handleClickThings);
+      window.removeEventListener("click", handleClickSelectListOutside);
+      window.removeEventListener("click", handleClickSubCategoryOutside);
     };
   }, []);
 
@@ -85,17 +103,18 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
 
   const submitHandler = {
     onSubmit: async (e: any) => {
-      const requestBody = {
-        query: e.query
-      };
-
-      await useCraeteRecentSearchMutation.mutateAsync(requestBody);
-      
-      router.push(
+      const urlDestination = 
         `?subCategory=${subCategoryUrlMap[subCategory.currentValue]}&select=${
-          selectQueryMap[select.currentValue]
-        }&query=${e.query}`
-      );
+            selectQueryMap[select.currentValue]
+          }&query=${e.query}`
+
+      if (userMe) {
+        const requestBody = { query: e.query };
+
+        await useCraeteRecentSearchMutation.mutateAsync(requestBody);
+      };
+      
+      router.push(urlDestination);
     },
     onError: (e: any) => {
       console.log(e.error);
@@ -145,7 +164,21 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
     
     const requestBody = { query };
 
-    useDeleteRecentSearchMutation.mutate(requestBody);
+    useDeleteRecentSearchMutation?.mutate(requestBody);
+  };
+
+  const handleClickDeleteAllRecentSearch = (e: any) => {
+    queryData.queryList.length > 0
+      ? openModal(
+        "confirm",
+        "최근 검색어를 모두 삭제하시겠습니까?",
+        useDeleteAllRecentSearchMutation.mutate
+      )
+      : openModal(
+        "alert",
+        "최근 검색어가 없습니다.",
+        () => { closeModal(e); }
+      );
   };
 
   return createPortal(
@@ -231,7 +264,13 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
             className={styles["input"]}
           />
           <button className={styles["button"]}>
-            <CiSearch size={20} />
+            <CiSearch
+              size={20}
+              style={{
+                position: "relative",
+                top: "1px"
+              }}
+            />
           </button>
           <p className={styles["error-message"]}>
             {typeof errors.keyword?.message === "string" ? errors.keyword?.message : ""}
@@ -240,15 +279,30 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
         <div className={styles["recent-search"]}>
           <div className={styles["recent-search__text-wrapper"]}>
             <span className={styles["recent-search__text"]}>최근 검색어</span>
-            <CiTrash
-              size={20}
-              style={{
-                position: "absolute",
-                right: "10px"
-              }}
-            />
+            {userMe && (
+              <CiTrash
+                size={19}
+                onClick={handleClickDeleteAllRecentSearch}
+                style={{
+                  position: "absolute",
+                  top: "18px",
+                  right: "10px"
+                }}
+              />
+            )}
           </div>
           <ul className={styles["recent-search__list"]}>
+            {!queryData ? (
+              <p className={styles["recent-search__no-login-message"]}>
+                로그인이 필요한 기능입니다.
+              </p>
+              ) : undefined
+            }
+            {queryData?.queryList.length === 0 ? (
+              <p className={styles["recent-search__no-history"]}>
+                최근 검색어가 없습니다.
+              </p>
+            ) : undefined}
             {queryData?.queryList?.map(
               (query: string, index: number) =>
                 <li key={index}>

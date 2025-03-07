@@ -160,6 +160,26 @@
         }
       }
 
+      .recent-search__no-login-message {
+        margin: 0;
+        padding-top: 20%;
+        text-align: center;
+        letter-spacing: 0.7px;
+        font-size: 14px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: $gray-color-300;
+      }
+
+      .recent-search__no-history {
+        margin: 0;
+        padding-top: 20%;
+        text-align: center;
+        letter-spacing: 0.7px;
+        font-size: 14px;
+        font-family: "Noto Sans KR", sans-serif;
+        color: $gray-color-300;
+      }
+
       .recent-search__list {
         overflow-y: auto;
         max-height: calc(100% - 50px);
