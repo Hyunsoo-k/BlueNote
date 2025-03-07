@@ -177,7 +177,7 @@ const SearchModal = ({ setShowSearchModal, mainCategory }: Props) => {
       : openModal(
         "alert",
         "최근 검색어가 없습니다.",
-        () => { closeModal(e); }
+        closeModal
       );
   };
 
