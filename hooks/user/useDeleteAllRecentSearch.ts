@@ -3,30 +3,31 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const mutationFn = async (requestBody: any) => {
-  const response = await instance.post("/user/recentSearch", requestBody);
+const mutationFn = async () => {
+  const response = await instance.delete("/user/recentSearch");
 
   return response.data;
 };
 
-const useCreateRecentSearch = (userMe: any) => {
+const useDeleteAllRecentSearch = (userMe: any, closeModal: any) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (requestBody: any) => {
+    mutationFn: async () => {
       if (!userMe) {
         return null;
       };
 
-      return mutationFn(requestBody)
+      return mutationFn();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.recentSearch(userMe._id) });
+      queryClient.invalidateQueries({ queryKey: queryKey.recentSearch(userMe._id )});
+      closeModal();
     },
     onError: (error: any) => {
       console.log(error);
     }
-  })
+  });
 };
 
-export { useCreateRecentSearch };
+export { useDeleteAllRecentSearch };

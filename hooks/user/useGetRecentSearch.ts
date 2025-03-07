@@ -10,14 +10,11 @@ const queryFn = async () => {
 };
 
 const useGetRecentSearch = (userMe: any) => {
-  if (userMe) {
-    return useQuery({
-      queryKey: queryKey.recentSearch(userMe._id),
-      queryFn: queryFn
-    })
-  } else {
-    return { data: null };
-  };
+  return useQuery({
+    queryKey: userMe ? queryKey.recentSearch(userMe._id) : [],
+    queryFn: queryFn,
+    enabled: !!userMe,
+  });
 }
 
 export { useGetRecentSearch };

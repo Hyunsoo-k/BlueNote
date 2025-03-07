@@ -9,13 +9,19 @@ const mutationFn = async (requestBody: any) => {
   return response.data;
 };
 
-const useDeleteRecentSearch = (userMe_id: string) => {
+const useDeleteRecentSearch = (userMe: any) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (requestBody: any) => mutationFn(requestBody),
+    mutationFn: async (requestBody: any) => {
+      if (!userMe) {
+        return await Promise.reject("userMe_is is required");
+      }
+      
+      return mutationFn(requestBody)
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKey.recentSearch(userMe_id) });
+      queryClient.invalidateQueries({ queryKey: queryKey.recentSearch(userMe._id) });
     },
     onError: (error: any) => {
       console.log(error);
