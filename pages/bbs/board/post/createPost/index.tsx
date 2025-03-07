@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { ViewportContext } from "@/contexts/viewport";
-import CreatePost from "@/components/bbs/createPost";
+import CreatePost from "@/components/bbs/post/createPost";
 
 import styles from "./index.module.scss";
 

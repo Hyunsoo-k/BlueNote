@@ -8,8 +8,8 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import useModal from "@/hooks/modal/useModal";
 import { useDeleteReply } from "@/hooks/bbs/useDeleteReply";
 import { formatYMD } from "@/utils/dateFormatter";
-import EditReply from "./editReply";
-import CreateReply from "./createReply";
+import EditReply from "../editReply";
+import CreateReply from "../createReply";
 
 import styles from "./index.module.scss";
 import ActionTools from "@/components/modal/actionTools";
@@ -20,11 +20,11 @@ interface Props {
   comment_id: string;
   reply: any;
   viewport: string;
-};
+}
 
 const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
   const router = useRouter();
-  
+
   const [openActionTools, setOpenActionTools] = useState<boolean>(false);
   const [isEditingReply, setIsEditingReply] = useState<boolean>(false);
   const [isCreatingReply, setIsCreatingReply] = useState<boolean>(false);
@@ -75,19 +75,19 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
         style={router.query.element_id === reply._id.toString() ? { backgroundColor: "rgb(230, 230, 230)" } : {}}
       >
         <PiArrowElbowDownRightThin
-        size={viewport === "mobile" ? 18 : 23}
+          size={viewport === "mobile" ? 18 : 23}
           color="rgb(138, 131, 131)"
           style={{
             position: "absolute",
             top: viewport === "mobile" ? "13px" : "20px",
-            left: "10px"
+            left: "10px",
           }}
         />
         <Image
           src={reply.writer.profileImage.url || "/images/user/defaultProfileGray.png"}
           alt=""
-          width={viewport === "mobile" ?  28 : 36}
-          height={viewport === "mobile" ?  28 : 36}
+          width={viewport === "mobile" ? 28 : 36}
+          height={viewport === "mobile" ? 28 : 36}
           style={{
             position: "absolute",
             top: viewport === "mobile" ? "10px" : "15px",
@@ -98,22 +98,17 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
         <div className={styles["reply__header"]}>
           <div className={styles["reply__writer-info"]}>
             <span className={styles["reply__writer"]}>{reply.writer.nickname}</span>
-            {post.writer._id === reply.writer._id && (
-              <span className={styles["reply__post_writer"]}>작성자</span>
-            )}
-            {reply.writer._id === userMe?._id && (
-              <span className={styles["reply__userMe_writer"]}>내가 쓴 글</span>
-            )}         
-          </div> 
+            {post.writer._id === reply.writer._id && <span className={styles["reply__post_writer"]}>작성자</span>}
+            {reply.writer._id === userMe?._id && <span className={styles["reply__userMe_writer"]}>내가 쓴 글</span>}
+          </div>
           {!isEditingReply && userMe?._id === reply.writer._id && (
             <div
-              onClick={(e) => { handleClickActionTools(e); }}
+              onClick={(e) => {
+                handleClickActionTools(e);
+              }}
               className={styles["reply__action-tools"]}
             >
-              <HiOutlineDotsVertical
-                size={15}
-                color="rgb(138, 131, 131)"
-              />
+              <HiOutlineDotsVertical size={15} color="rgb(138, 131, 131)" />
               {openActionTools && (
                 <ActionTools
                   setOpenActionTools={setOpenActionTools}
@@ -124,9 +119,7 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
             </div>
           )}
         </div>
-        {!isEditingReply && (
-          <p className={styles["reply__content"]}>{reply.content}</p>
-        )}
+        {!isEditingReply && <p className={styles["reply__content"]}>{reply.content}</p>}
         {isEditingReply && (
           <EditReply setIsEditing={setIsEditingReply} post_id={post._id} comment_id={comment_id} reply={reply} />
         )}

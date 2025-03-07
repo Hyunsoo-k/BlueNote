@@ -7,8 +7,8 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobileThumbnailList from "@/components/bbs/thumbnailList/mobileThumbnailList";
 import TabletThumbnailList from "@/components/bbs/thumbnailList/tabletThumbnailList";
-import PostListActionTool from "@/components/bbs/postListActionTool";
-import ActionBox from "@/components/bbs/actionBox";
+import BbsControl from "@/components/bbs/control/bbsControl";
+import MobileBbsControl from "@/components/bbs/control/MobileBbsControl";
 
 import styles from "./index.module.scss";
 
@@ -16,7 +16,7 @@ interface Props {
   query: any;
   resolvedUrl: string;
   initialData: any;
-};
+}
 
 const PromotePage = ({ query, resolvedUrl, initialData }: Props) => {
   const viewportContext = useContext(ViewportContext);
@@ -34,29 +34,13 @@ const PromotePage = ({ query, resolvedUrl, initialData }: Props) => {
         page={query.page || 1}
         totalPage={initialData.totalPage}
       />
-      {viewport === "mobile" && (
-        <MobileThumbnailList
-          initialData={initialData}
-          resolvedUrl={resolvedUrl}
-        />
-      )}
+      {viewport === "mobile" && <MobileThumbnailList initialData={initialData} resolvedUrl={resolvedUrl} />}
       {viewport !== "mobile" && (
-        <TabletThumbnailList
-          initialData={initialData}
-          resolvedUrl={resolvedUrl}
-          viewport={viewport}
-          userMe={userMe}
-        />
+        <TabletThumbnailList initialData={initialData} resolvedUrl={resolvedUrl} viewport={viewport} userMe={userMe} />
       )}
-      {viewport === "mobile" && (
-        <PostListActionTool
-          userMe={userMe}
-          mainCategory="promote"
-          isNoticeOrNewsPage={false}
-        />
-      )}
+      {viewport === "mobile" && <MobileBbsControl userMe={userMe} mainCategory="promote" isNoticeOrNewsPage={false} />}
       {viewport !== "mobile" && (
-        <ActionBox
+        <BbsControl
           userMe={userMe}
           isMyPage={false}
           subCategory={query.subCategory || "All"}

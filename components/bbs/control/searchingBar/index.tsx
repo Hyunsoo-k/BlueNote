@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiSearchLine } from "react-icons/ri";
 
-import ModalContainer from "../modal/modalContainer";
+import ModalContainer from "../../../modal/modalContainer";
 import useModal from "@/hooks/modal/useModal";
 import { selectQueryMap } from "@/utils/selectQueryMap";
 
@@ -64,10 +64,7 @@ const SearchingBar = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
-      className={styles["container"]}
-    >
+    <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["container"]}>
       <div className={styles["select-box"]}>
         <p
           onClick={(e: any) => {
@@ -97,11 +94,7 @@ const SearchingBar = () => {
         className={styles["input"]}
       />
       <button className={styles["submit__button"]}>
-        <RiSearchLine 
-          size={20}
-          color="rgb(48, 140, 204)"
-          style={{ position: "relative", top: "2px"}}
-        />
+        <RiSearchLine size={20} color="rgb(48, 140, 204)" style={{ position: "relative", top: "2px" }} />
       </button>
       <ModalContainer />
     </form>

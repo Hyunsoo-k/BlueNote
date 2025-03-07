@@ -4,9 +4,9 @@ import Link from "next/link";
 import { instance } from "@/axios";
 import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel";
-import AlbumCarousel from "@/components/bbs/albumCarousel";
+import AlbumCarousel from "@/components/carousel/albumCarousel";
 import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
-import CommunitySectionBoard from "@/components/communitySectionBoard";
+import CommunitySectionBoard from "@/components/bbs/postList/communitySectionBoard";
 
 import styles from "@/styles/Home.module.scss";
 

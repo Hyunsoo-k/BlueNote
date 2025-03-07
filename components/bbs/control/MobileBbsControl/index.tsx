@@ -17,9 +17,9 @@ interface Props {
   userMe: any;
   mainCategory: MainCategory;
   isNoticeOrNewsPage: boolean;
-};
+}
 
-const PostListActionTool = ({ userMe, mainCategory, isNoticeOrNewsPage }: Props) => {
+const MobileBbsControl = ({ userMe, mainCategory, isNoticeOrNewsPage }: Props) => {
   const router = useRouter();
 
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -49,43 +49,39 @@ const PostListActionTool = ({ userMe, mainCategory, isNoticeOrNewsPage }: Props)
 
   if (!isClient) {
     return null;
-  };
+  }
 
   return createPortal(
     <div className={styles["container"]}>
-      <GoPlus
-        size={28}
-        color="#fff"
-        onClick={handleClickTool}
-      />
+      <GoPlus size={28} color="#fff" onClick={handleClickTool} />
       {itemOpen && (
         <div className={styles["tool-wrapper"]}>
           <div
-            onClick={(e) => {handleClickSearch(e); }}
+            onClick={(e) => {
+              handleClickSearch(e);
+            }}
             className={styles["tool-item-wrapper"]}
           >
             <CiSearch size={23} />
           </div>
-          {(isNoticeOrNewsPage && userMe?.role === 1) || !isNoticeOrNewsPage && (
-            <div
-              onClick={(e) => { handleClickCreate(e); }}
-              className={styles["tool-item-wrapper"]}
-            >
-              <PiPencilSimpleLineThin size={23} />
-            </div>
-          )}
+          {(isNoticeOrNewsPage && userMe?.role === 1) ||
+            (!isNoticeOrNewsPage && (
+              <div
+                onClick={(e) => {
+                  handleClickCreate(e);
+                }}
+                className={styles["tool-item-wrapper"]}
+              >
+                <PiPencilSimpleLineThin size={23} />
+              </div>
+            ))}
         </div>
       )}
-      {searchModalOpen && (
-        <SearchModal
-          setShowSearchModal={setSearchModalOpen}
-          mainCategory={mainCategory}
-        />
-      )}
+      {searchModalOpen && <SearchModal setShowSearchModal={setSearchModalOpen} mainCategory={mainCategory} />}
       <ModalContainer />
     </div>,
     document.body
   );
 };
 
-export default PostListActionTool;
+export default MobileBbsControl;

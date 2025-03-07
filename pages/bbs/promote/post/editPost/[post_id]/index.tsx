@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
-import EditPost from "@/components/bbs/editPost";
+import EditPost from "@/components/bbs/post/editPost";
 
 import styles from "./index.module.scss";
 

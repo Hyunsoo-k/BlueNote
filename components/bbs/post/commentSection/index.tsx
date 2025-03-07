@@ -8,8 +8,8 @@ import { Comment as CommentType } from "@/types/comment";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useRecommendPost } from "@/hooks/bbs/useRecommend";
 import useModal from "@/hooks/modal/useModal";
-import Comment from "@/components/bbs/comment";
-import CreateComment from "@/components/bbs/createComment";
+import Comment from "@/components/bbs/comment/comment";
+import CreateComment from "@/components/bbs/comment/createComment";
 import ModalContainer from "@/components/modal/modalContainer";
 
 import styles from "./index.module.scss";
