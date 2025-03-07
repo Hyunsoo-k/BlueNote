@@ -19,7 +19,7 @@ interface UserMeContextType {
 const UserMeContext = createContext<UserMeContextType | null>(null);
 
 const UserMeProvider = ({ children }: any) => {
-  const { data: userMe } = useGetUserQuery();
+  const { data: userMe } = useGetUserQuery(); // enabled가 실행을 막으면 data 프로퍼티엔 undefined가 할당.
 
   return (
     <UserMeContext.Provider value={{ userMe }}>

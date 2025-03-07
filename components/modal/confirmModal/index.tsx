@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { PiExclamationMarkBold } from "react-icons/pi";
 
 import useModal from "@/hooks/modal/useModal";
-import { ViewportContext } from "@/contexts/viewport";
+import { useGetViewport } from "@/hooks/viewport";
 
 import styles from "./index.module.scss";
 
@@ -16,8 +16,7 @@ interface Props {
 const ConfirmModal = ({ message, handleClick }: Props) => {
   const { closeModal } = useModal();
 
-  const viewportContext = useContext(ViewportContext);
-  const viewport = viewportContext?.viewport || "mobile";
+  const viewport = useGetViewport();
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -26,6 +25,18 @@ const ConfirmModal = ({ message, handleClick }: Props) => {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const closeModalWithStopPropagation = (e: any) => {
+    e.stopPropagation();
+
+    closeModal();
+  };
+
+  const handleClickWithStopPropagation = (e: any) => {
+    e.stopPropagation();
+
+    handleClick();
+  };
 
   return ReactDOM.createPortal(
     <div className={styles["overlay"]}>
@@ -37,10 +48,10 @@ const ConfirmModal = ({ message, handleClick }: Props) => {
         />
         <p className={styles["message"]}>{message}</p>
         <div className={styles["button-box"]}>
-          <button onClick={closeModal} className={styles["cancel-button"]}>
+          <button onClick={closeModalWithStopPropagation} className={styles["cancel-button"]}>
             취소
           </button>
-          <button onClick={handleClick} className={styles["accept-button"]}>
+          <button onClick={handleClickWithStopPropagation} className={styles["accept-button"]}>
             확인
           </button>
         </div>

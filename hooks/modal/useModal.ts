@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { ModalSetterContext } from "@/contexts/modals";
 
 function useModal() {

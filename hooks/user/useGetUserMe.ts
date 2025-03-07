@@ -5,9 +5,7 @@ import { UserMeContext } from "@/contexts/userMe";
 const useGetUserMe = () => {
   const userMeContext = useContext(UserMeContext);
   
-  const userMe = userMeContext ? userMeContext : { userMe: null, setUserMe: null };
-
-  return userMe
+  return userMeContext ? userMeContext.userMe : null;
 };
 
 export { useGetUserMe };

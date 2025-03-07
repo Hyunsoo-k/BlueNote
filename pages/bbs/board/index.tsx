@@ -36,7 +36,7 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
         viewport={viewport}
       />
       {viewport === "mobile" && (
-         <MobilePostList
+        <MobilePostList
           initialData={initialData}
           resolvedUrl={resolvedUrl}
           viewport={viewport}
