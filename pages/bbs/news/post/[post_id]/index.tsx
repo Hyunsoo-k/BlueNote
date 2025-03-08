@@ -5,7 +5,7 @@ import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import BbsPost from "@/components/bbs/post";
+import BbsPost from "@/components/bbs/post/post";
 
 import styles from "./index.module.scss";
 

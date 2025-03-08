@@ -1,47 +1,52 @@
 import { useRouter } from "next/router";
-import React, { useState, useRef, memo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { GoArrowLeft } from "react-icons/go";
 
 import { MainCategory } from "@/types/categorys";
-import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
-import { subCategoryListMap } from "@/variable";
-import { useCreatePost } from "@/hooks/bbs/useCreatePost";
 import { uploadImageToFirebase, dataURLToBlob } from "@/utils/firebase";
+import { subCategoryListMap } from "@/variable";
+import { useEditPost } from "@/hooks/bbs/useEditPost";
+import useModal from "@/hooks/modal/useModal";
+import ModalContainer from "@/components/modal/modalContainer";
 
 import styles from "./index.module.scss";
 
-import "react-quill/dist/quill.snow.css";
-
-const Wysiwyg = memo(dynamic(() => import("@/components/bbs/wysiwyg"), { ssr: false }));
+const Wysiwyg = dynamic(() => import("@/components/bbs/post/wysiwyg"), { ssr: false });
 
 interface Props {
-  mainCategory: MainCategory;
+  post: any;
   viewport: string;
-};
+}
 
-const CreatePost = ({ mainCategory, viewport }: Props) => {
+const EditPost = ({ post, viewport }: Props) => {
   const router = useRouter();
 
-  const subCategoryList = subCategoryListMap[mainCategory].filter((item) => item !== "All");
+  const subCategoryList = subCategoryListMap[post.mainCategory as keyof typeof subCategoryListMap].filter(
+    (item: string) => item !== "All"
+  );
 
-  const [subCategory, setSubCategory] = useState<string>(subCategoryList[0]);
+  const [currentCategory, setCurrentCategory] = useState<string>(post.subCategory);
 
   const wysiwygRef = useRef<any>(null);
 
-  const { data: userMe } = useGetUserQuery();
+  const { register, handleSubmit, setValue } = useForm({ mode: "onChange" });
 
-  const createPostMutation = useCreatePost(mainCategory);
+  const { openModal, closeModal } = useModal();
 
-  const { register, handleSubmit } = useForm({ mode: "onChange" });
+  const editPostMutation = useEditPost(post.mainCategory, post._id);
+
+  useEffect(() => {
+    setValue("title", post.title);
+  }, []);
 
   const handleClickBack = () => {
-    router.push(`/bbs/${mainCategory}`);
+    router.push(`/bbs/${post.mainCategory}/post/${post._id}`);
   };
 
   const submitHandler = {
-    onSubmit: async (data: any) => {
+    onSubmit: async (watch: any) => {
       const editor = wysiwygRef.current.getEditor();
       const parser = new DOMParser();
       const parsedContent = parser.parseFromString(editor.root.innerHTML, "text/html");
@@ -53,7 +58,7 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
         if (src?.startsWith("data:")) {
           const blob = dataURLToBlob(src);
           const fileName = Date.now().toString();
-          const StorageURL = await uploadImageToFirebase(`bbs/${mainCategory}/${fileName}`, blob);
+          const StorageURL = await uploadImageToFirebase(`bbs/${post.mainCategory}/${fileName}`, blob);
 
           imgTag.setAttribute("src", StorageURL || "");
         }
@@ -62,23 +67,21 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
       await Promise.all(uploadPromises);
 
       const requestBody = {
-        subCategory: subCategory,
-        title: data.title,
+        subCategory: currentCategory,
+        title: watch.title,
         content: parsedContent.body.innerHTML,
       };
 
-      createPostMutation.mutate(requestBody);
+      editPostMutation.mutate(requestBody);
     },
     onError: (error: any) => {
       console.log(error);
+      error.title && openModal("alert", error.title.message, closeModal);
     },
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
-      className={styles["container"]}
-    >
+    <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)} className={styles["container"]}>
       {viewport === "mobile" && (
         <div className={styles["action-box--mobile"]}>
           <GoArrowLeft
@@ -86,21 +89,21 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
             color="#2C2C2C"
             onClick={handleClickBack}
             style={{
-              marginRight: "auto"
+              marginRight: "auto",
             }}
           />
-          <span className={styles["title--mobile"]}>글쓰기</span>
-          <button className={styles["submit-button--mobile"]}>등록</button>
+          <span className={styles["title--mobile"]}>글수정</span>
+          <button className={styles["submit-button--mobile"]}>수정</button>
         </div>
       )}
       {viewport !== "mobile" && (
         <p className={styles["main-category"]}>
-          {mainCategory.charAt(0).toUpperCase() + mainCategory.slice(1)}
+          {post.mainCategory.charAt(0).toUpperCase() + post.mainCategory.slice(1)}
         </p>
       )}
       <div className={styles["header"]}>
         <input
-          {...register("title", { required: "필수 값 입니다." })}
+          {...register("title", { required: "제목을 입력해주세요." })}
           placeholder="제목을 입력하세요."
           spellCheck="false"
           className={styles["title-input"]}
@@ -108,9 +111,7 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
         <div className={styles["header__information"]}>
           <div className={styles["header__writer-box"]}>
             <span className={styles["header__writer"]}>작성자</span>
-            <span className={styles["header__writer-value"]}>
-              {userMe?.nickname}
-            </span>
+            <span className={styles["header__writer-value"]}>{post?.writer.nickname}</span>
           </div>
           <div className={styles["header__sub-category-box"]}>
             <span className={styles["header__division"]}>분류</span>
@@ -118,9 +119,9 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
             {subCategoryList.map((value: string, index: number) => (
               <span
                 key={index}
-                onClick={() => setSubCategory(value)}
+                onClick={() => setCurrentCategory(value)}
                 className={`${
-                  subCategory === value
+                  currentCategory === value
                     ? styles["header__division-value--selected"]
                     : styles["header__division-value"]
                 }`}
@@ -132,7 +133,7 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
         </div>
       </div>
       <div className={styles["content"]}>
-        <Wysiwyg wysiwygRef={wysiwygRef} />
+        <Wysiwyg wysiwygRef={wysiwygRef} initialContent={post.content} />
       </div>
       {viewport !== "mobile" && (
         <div className={styles["button-box"]}>
@@ -142,8 +143,9 @@ const CreatePost = ({ mainCategory, viewport }: Props) => {
           </button>
         </div>
       )}
+      <ModalContainer />
     </form>
   );
 };
 
-export default CreatePost;
+export default EditPost;

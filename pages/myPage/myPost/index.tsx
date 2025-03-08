@@ -7,13 +7,13 @@ import { useGetMyPostList } from "@/hooks/myPage/useGetMyPostList";
 import MyPageMenu from "@/components/myPageMenu";
 import MobilePostList from "@/components/bbs/postList/mobilePostList";
 import TabletPostList from "@/components/bbs/postList/tabletPostList";
-import Pagination from "@/components/pagination";
+import Pagination from "@/components/bbs/control/pagination";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
   initialData: any;
-};
+}
 
 const MyPostPage = ({ initialData }: ServerSideProps) => {
   const viewportContext = useContext(ViewportContext);
@@ -32,18 +32,17 @@ const MyPostPage = ({ initialData }: ServerSideProps) => {
               총 게시물<span>{initialData.totalPostCount}개</span>
             </p>
             <p className={styles["current-page"]}>
-              현재<span>({initialData.page}/{initialData.totalPage})</span>페이지
+              현재
+              <span>
+                ({initialData.page}/{initialData.totalPage})
+              </span>
+              페이지
             </p>
           </div>
         </div>
         <div className={styles["content"]}>
-          <TabletPostList
-            postList={initialData.postList}
-          />
-          <Pagination
-            page={initialData.page}
-            totalPage={initialData.totalPage}
-          />
+          <TabletPostList postList={initialData.postList} />
+          <Pagination page={initialData.page} totalPage={initialData.totalPage} />
         </div>
       </div>
     </div>

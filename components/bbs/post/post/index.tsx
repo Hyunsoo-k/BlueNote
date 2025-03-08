@@ -7,7 +7,7 @@ import { formatYMD } from "@/utils/dateFormatter";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useDeletePost } from "@/hooks/bbs/useDeletePost";
 import ActionTools from "@/components/modal/actionTools";
-import CommentSection from "@/components/bbs/commentSection";
+import CommentSection from "@/components/bbs/post/commentSection";
 
 import styles from "./index.module.scss";
 import ModalContainer from "@/components/modal/modalContainer";

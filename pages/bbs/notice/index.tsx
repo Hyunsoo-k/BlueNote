@@ -7,8 +7,8 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobilePostList from "@/components/bbs/postList/mobilePostList";
 import TabletPostList from "@/components/bbs/postList/tabletPostList";
-import PostListActionTool from "@/components/bbs/postListActionTool";
-import ActionBox from "@/components/bbs/actionBox";
+import BbsControl from "@/components/bbs/control/bbsControl";
+import MobileBbsControl from "@/components/bbs/control/MobileBbsControl";
 
 import styles from "./index.module.scss";
 
@@ -16,7 +16,7 @@ interface ServerSideProps {
   query: any;
   resolvedUrl: string;
   initialData: any;
-};
+}
 
 const NoticePage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
   const viewportContext = useContext(ViewportContext);
@@ -35,33 +35,19 @@ const NoticePage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
         totalPage={initialData.totalPage}
       />
       {viewport === "mobile" && (
-         <MobilePostList
-          initialData={initialData}
-          resolvedUrl={resolvedUrl}
-          viewport={viewport}
-        />
+        <MobilePostList initialData={initialData} resolvedUrl={resolvedUrl} viewport={viewport} />
       )}
+      {viewport !== "mobile" && <TabletPostList postList={initialData.postList} />}
+      {viewport === "mobile" && <MobileBbsControl userMe={userMe} mainCategory="promote" isNoticeOrNewsPage={true} />}
       {viewport !== "mobile" && (
-        <TabletPostList
-          postList={initialData.postList}
-        />
-      )}
-      {viewport === "mobile" && (
-        <PostListActionTool
-          userMe={userMe}
-          mainCategory="promote"
-          isNoticeOrNewsPage={true}
-        />
-      )}
-      {viewport !== "mobile" && 
-        <ActionBox
+        <BbsControl
           userMe={userMe}
           isMyPage={false}
           subCategory={query.subCategory || "All"}
           page={initialData.page || 1}
           totalPage={initialData.totalPage}
         />
-      }
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import CreatePostButton from "../createPostButton";
-import Pagination from "@/components/pagination";
-import SearchingBar from "@/components/searchingBar";
+import Pagination from "@/components/bbs/control/pagination";
+import SearchingBar from "@/components/bbs/control/searchingBar";
 
 import styles from "./index.module.scss";
 
@@ -10,23 +10,13 @@ interface Props {
   subCategory: any;
   page: number;
   totalPage: number;
-};
+}
 
-const ActionBox = ({
-  userMe,
-  isMyPage,
-  subCategory,
-  page,
-  totalPage
-}: Props) => {
+const BbsControl = ({ userMe, isMyPage, subCategory, page, totalPage }: Props) => {
   return (
     <div className={styles["container"]}>
       <div className={styles["top-area"]}>
-        <Pagination
-          subCategory={subCategory || "All"}
-          page={page || 1}
-          totalPage={totalPage}
-        />
+        <Pagination subCategory={subCategory || "All"} page={page || 1} totalPage={totalPage} />
         <CreatePostButton userMe={userMe} isMyPage={isMyPage} />
       </div>
       <SearchingBar />
@@ -34,4 +24,4 @@ const ActionBox = ({
   );
 };
 
-export default ActionBox;
+export default BbsControl;

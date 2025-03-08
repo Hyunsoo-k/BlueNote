@@ -4,6 +4,8 @@ import { useGetMobileBoardQuery } from "@/hooks/bbs/useGetMobileBoardQuery";
 import RowThumbnail from "@/components/thumbnail/rowThumbnail";
 
 import styles from "./index.module.scss";
+import TabletBbsControl from "../../control/tabletBbsControl";
+import InheritSearchingBar from "../../control/bbsControl/inheritSearchingBar";
 
 interface Props {
   initialData: any;
@@ -11,7 +13,7 @@ interface Props {
   viewport: string;
 };
 
-const MobilePostList = ({ initialData, resolvedUrl, viewport }: Props) => {
+const NewTalbetPostList = ({ initialData, resolvedUrl, viewport }: Props) => {
   const lastElementRef = useRef<HTMLDivElement | null>(null);
 
   const {
@@ -41,24 +43,36 @@ const MobilePostList = ({ initialData, resolvedUrl, viewport }: Props) => {
 
   return (
     <div className={styles["container"]}>
+      <div className={styles["main"]}>
+        {/* <div className={styles["control"]}>
+          <InheritSearchingBar />
+        </div> */}
       {!isFetching && !queryData.pages[0].totalPostCount && (
         <p className={styles["not-found-message"]}>등록된 게시글이 없습니다.</p>
       )}
-      {queryData?.pages?.map((page: any, pageIndex: number) =>
-        page?.postList?.map((post: any, index: number) => (
-          <RowThumbnail
-            key={(pageIndex + 1) * index}
-            ref={lastElementRef}
-            page={page}
-            pageIndex={pageIndex}
-            index={index}
-            queryData={queryData}
-            post={post}
-          />
-        )
-      ))}
+      <div className={styles["post-list-wrapper"]}>
+        {queryData?.pages?.map((page: any, pageIndex: number) =>
+          page?.postList?.map((post: any, index: number) => (
+            <RowThumbnail
+              key={(pageIndex + 1) * index}
+              ref={lastElementRef}
+              page={page}
+              pageIndex={pageIndex}
+              index={index}
+              queryData={queryData}
+              post={post}
+            />)
+        ))}
+      </div>
+      </div>
+      <div className={styles["control-wrapper"]}>
+        <TabletBbsControl
+          mainCategory={initialData.mainCategory}
+          resolvedUrl={resolvedUrl}
+        />
+      </div>
     </div>
   );
 };
 
-export default MobilePostList;
+export default NewTalbetPostList;

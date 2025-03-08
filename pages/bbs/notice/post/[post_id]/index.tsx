@@ -5,19 +5,19 @@ import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import Post from "@/components/bbs/post";
+import Post from "@/components/bbs/post/post";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
   urlWithoutQuery: string;
   initialData: any;
-};
+}
 
 const NoticePostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
   const viewportContext = useContext(ViewportContext);
   const viewport = viewportContext?.viewport || "mobile";
-  
+
   const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
 
   return (

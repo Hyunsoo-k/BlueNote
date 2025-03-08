@@ -4,13 +4,13 @@ import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiSearchLine } from "react-icons/ri";
 
-import ModalContainer from "../modal/modalContainer";
+import ModalContainer from "@/components/modal/modalContainer";
 import useModal from "@/hooks/modal/useModal";
 import { selectQueryMap } from "@/utils/selectQueryMap";
 
 import styles from "./index.module.scss";
 
-const SearchingBar = () => {
+const InheritSearchingBar = () => {
   const router = useRouter();
 
   const [selectDropdown, setSelectDropdown] = useState({
@@ -68,19 +68,26 @@ const SearchingBar = () => {
       onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}
       className={styles["container"]}
     >
-      <div className={styles["select-box"]}>
+      <div ref={selectDropdown.ref} className={styles["query-option-box"]}>
         <p
           onClick={(e: any) => {
             e.stopPropagation();
             setSelectDropdown((prev: any) => ({ ...prev, open: !prev.open }));
           }}
-          className={styles["select-value--selected"]}
+          className={styles["query-option--selected"]}
         >
           {selectDropdown.value}
-          <IoIosArrowDown size={16} style={{ position: "absolute", top: "11px", right: "10px" }} />
+          <IoIosArrowDown
+            size={16}
+            style={{
+              position: "absolute",
+              top: "12px",
+              right: "4px"
+            }}
+          />
         </p>
         {selectDropdown.open && (
-          <ul ref={selectDropdown.ref} className={styles["dropdown"]}>
+          <ul className={styles["dropdown"]}>
             <li onClick={handleSelectValue}>제목+내용</li>
             <li onClick={handleSelectValue}>제목</li>
             <li onClick={handleSelectValue}>내용</li>
@@ -88,24 +95,29 @@ const SearchingBar = () => {
           </ul>
         )}
       </div>
-      <input
-        {...register("keyword", {
-          required: "검색어를 입력해 주세요.",
-          minLength: { value: 2, message: "2 글자 이상 입력해 주세요." },
-        })}
-        autoComplete="off"
-        className={styles["input"]}
-      />
-      <button className={styles["submit__button"]}>
-        <RiSearchLine 
-          size={20}
-          color="rgb(48, 140, 204)"
-          style={{ position: "relative", top: "2px"}}
+      <div className={styles["input-box"]}>
+        <input
+          {...register("keyword", {
+            required: "검색어를 입력해 주세요.",
+            minLength: { value: 2, message: "2 글자 이상 입력해 주세요." },
+          })}
+          autoComplete="off"
+          className={styles["input"]}
         />
-      </button>
+        <button className={styles["submit__button"]}>
+          <RiSearchLine
+            size={20}
+            color="#2C2C2C"
+            style={{
+              position: "relative",
+              top: "5px"
+            }}
+          />
+        </button>
+      </div>
       <ModalContainer />
     </form>
   );
 };
 
-export default SearchingBar;
+export default InheritSearchingBar;

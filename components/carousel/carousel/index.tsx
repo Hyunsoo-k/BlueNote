@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaCircle } from "react-icons/fa";
 
-import CombinedThumbnail from "../thumbnail/combinedThumbnail";
-import DetachedThumbnail from "../thumbnail/detachedThumbnail";
+import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
+import DetachedThumbnail from "@/components/thumbnail/detachedThumbnail";
 
 import styles from "./index.module.scss";
 

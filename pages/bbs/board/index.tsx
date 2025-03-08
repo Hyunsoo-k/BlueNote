@@ -7,8 +7,9 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobilePostList from "@/components/bbs/postList/mobilePostList";
 import TabletPostList from "@/components/bbs/postList/tabletPostList";
-import PostListActionTool from "@/components/bbs/postListActionTool";
-import ActionBox from "@/components/bbs/actionBox";
+import NewTabletPostList from "@/components/bbs/postList/newTabletPostList";
+import BbsControl from "@/components/bbs/control/bbsControl";
+import MobileBbsControl from "@/components/bbs/control/MobileBbsControl";
 
 import styles from "./index.module.scss";
 
@@ -16,7 +17,7 @@ interface ServerSideProps {
   query: any;
   resolvedUrl: string;
   initialData: any;
-};
+}
 
 const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
   const viewportContext = useContext(ViewportContext);
@@ -27,14 +28,14 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
 
   return (
     <div className={styles["container"]}>
-      <BbsHeader
+      {/* <BbsHeader
         mainCategory={initialData.mainCategory}
         subCategory={initialData.subCategory}
         totalPostCount={initialData.totalPostCount}
         page={query.page || 1}
         totalPage={initialData.totalPage}
         viewport={viewport}
-      />
+      /> */}
       {viewport === "mobile" && (
         <MobilePostList
           initialData={initialData}
@@ -43,26 +44,33 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
         />
       )}
       {viewport !== "mobile" && (
-        <TabletPostList 
-          postList={initialData.postList}
+        <NewTabletPostList           
+          initialData={initialData}
+          resolvedUrl={resolvedUrl}
+          viewport={viewport}
         />
       )}
+      {/* {viewport !== "mobile" && (
+        <TabletPostList
+          postList={initialData.postList}
+        />
+      )} */}
       {viewport === "mobile" && (
-        <PostListActionTool
+        <MobileBbsControl
           userMe={userMe}
-          mainCategory="promote"
+          mainCategory="board"
           isNoticeOrNewsPage={false}
         />
       )}
-      {viewport !== "mobile" && 
-        <ActionBox
+      {/* {viewport !== "mobile" && (
+        <BbsControl
           userMe={userMe}
           isMyPage={false}
           subCategory={query.subCategory || "All"}
           page={initialData.page || 1}
           totalPage={initialData.totalPage}
         />
-      }
+      )} */}
     </div>
   );
 };
