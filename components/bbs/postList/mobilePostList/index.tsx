@@ -53,7 +53,8 @@ const MobilePostList = ({ initialData, resolvedUrl, viewport }: Props) => {
             index={index}
             queryData={queryData}
             post={post}
-          />)
+          />
+        )
       ))}
     </div>
   );
