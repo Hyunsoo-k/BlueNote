@@ -7,6 +7,7 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import MobilePostList from "@/components/bbs/postList/mobilePostList";
 import TabletPostList from "@/components/bbs/postList/tabletPostList";
+import NewTabletPostList from "@/components/bbs/postList/newTabletPostList";
 import BbsControl from "@/components/bbs/control/bbsControl";
 import MobileBbsControl from "@/components/bbs/control/MobileBbsControl";
 
@@ -27,20 +28,41 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
 
   return (
     <div className={styles["container"]}>
-      <BbsHeader
+      {/* <BbsHeader
         mainCategory={initialData.mainCategory}
         subCategory={initialData.subCategory}
         totalPostCount={initialData.totalPostCount}
         page={query.page || 1}
         totalPage={initialData.totalPage}
         viewport={viewport}
-      />
+      /> */}
       {viewport === "mobile" && (
-        <MobilePostList initialData={initialData} resolvedUrl={resolvedUrl} viewport={viewport} />
+        <MobilePostList
+          initialData={initialData}
+          resolvedUrl={resolvedUrl}
+          viewport={viewport}
+        />
       )}
-      {viewport !== "mobile" && <TabletPostList postList={initialData.postList} />}
-      {viewport === "mobile" && <MobileBbsControl userMe={userMe} mainCategory="promote" isNoticeOrNewsPage={false} />}
       {viewport !== "mobile" && (
+        <NewTabletPostList           
+          initialData={initialData}
+          resolvedUrl={resolvedUrl}
+          viewport={viewport}
+        />
+      )}
+      {/* {viewport !== "mobile" && (
+        <TabletPostList
+          postList={initialData.postList}
+        />
+      )} */}
+      {viewport === "mobile" && (
+        <MobileBbsControl
+          userMe={userMe}
+          mainCategory="board"
+          isNoticeOrNewsPage={false}
+        />
+      )}
+      {/* {viewport !== "mobile" && (
         <BbsControl
           userMe={userMe}
           isMyPage={false}
@@ -48,7 +70,7 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
           page={initialData.page || 1}
           totalPage={initialData.totalPage}
         />
-      )}
+      )} */}
     </div>
   );
 };
