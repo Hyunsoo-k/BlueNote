@@ -54,6 +54,7 @@ const NewTalbetPostList = ({ initialData, resolvedUrl, viewport }: Props) => {
         {queryData?.pages?.map((page: any, pageIndex: number) =>
           page?.postList?.map((post: any, index: number) => (
             <RowThumbnail
+              key={(pageIndex + 1) * index}
               ref={lastElementRef}
               page={page}
               pageIndex={pageIndex}

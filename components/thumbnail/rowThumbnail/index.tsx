@@ -32,7 +32,6 @@ const RowThumbnail = forwardRef<HTMLDivElement, Props>(({
 
   return (
     <div 
-      key={(pageIndex + 1) * index}
       ref={(pageIndex === queryData?.pages?.length - 1 && index === page?.postList?.length - 1) ? ref : null}
       onClick={(e) => handleClickItem(e, post.mainCategory, post._id)}
       className={styles["container"]}
@@ -102,5 +101,7 @@ const RowThumbnail = forwardRef<HTMLDivElement, Props>(({
     </div>
   );
 });
+
+RowThumbnail.displayName = "RowThumbnail";
 
 export default RowThumbnail;
