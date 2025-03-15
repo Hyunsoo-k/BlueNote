@@ -1,12 +1,8 @@
 import { GetServerSideProps } from "next";
-import { useContext } from "react";
 
 import { instance } from "@/axios";
-import { ViewportContext } from "@/contexts/viewport";
-import { useGetMyPostList } from "@/hooks/myPage/useGetMyPostList";
+import { useGetViewport } from "@/hooks/viewport";
 import MyPageMenu from "@/components/myPageMenu";
-import MobilePostList from "@/components/bbs/postList/mobilePostList";
-import TabletPostList from "@/components/bbs/postList/tabletPostList";
 import Pagination from "@/components/bbs/control/pagination";
 
 import styles from "./index.module.scss";
@@ -16,36 +12,33 @@ interface ServerSideProps {
 }
 
 const MyPostPage = ({ initialData }: ServerSideProps) => {
-  const viewportContext = useContext(ViewportContext);
-  const viewport = viewportContext?.viewport || "mobile";
-
-  console.log(initialData);
+  const viewport = useGetViewport();
 
   return (
-    <div className={styles["container"]}>
-      <MyPageMenu currentPage="내가 쓴 글" />
-      <div className={styles["main"]}>
-        <div className={styles["header"]}>
-          <p className={styles["header__title"]}>내가 쓴 글</p>
-          <div className={styles["information__box"]}>
-            <p className={styles["post-count"]}>
-              총 게시물<span>{initialData.totalPostCount}개</span>
-            </p>
-            <p className={styles["current-page"]}>
-              현재
-              <span>
-                ({initialData.page}/{initialData.totalPage})
-              </span>
-              페이지
-            </p>
-          </div>
-        </div>
-        <div className={styles["content"]}>
-          <TabletPostList postList={initialData.postList} />
-          <Pagination page={initialData.page} totalPage={initialData.totalPage} />
-        </div>
-      </div>
-    </div>
+    // <div className={styles["container"]}>
+    //   <MyPageMenu currentPage="내가 쓴 글" />
+    //   <div className={styles["main"]}>
+    //     <div className={styles["header"]}>
+    //       <p className={styles["header__title"]}>내가 쓴 글</p>
+    //       <div className={styles["information__box"]}>
+    //         <p className={styles["post-count"]}>
+    //           총 게시물<span>{initialData.totalPostCount}개</span>
+    //         </p>
+    //         <p className={styles["current-page"]}>
+    //           현재
+    //           <span>
+    //             ({initialData.page}/{initialData.totalPage})
+    //           </span>
+    //           페이지
+    //         </p>
+    //       </div>
+    //     </div>
+    //     <div className={styles["content"]}>
+    //       <TabletPostList postList={initialData.postList} />
+    //       <Pagination page={initialData.page} totalPage={initialData.totalPage} />
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

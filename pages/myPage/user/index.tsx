@@ -73,11 +73,11 @@ const UserPage = () => {
 
       if (initialUrl !== null) {
         if (editedUrl === null) {
-          await deleteImageFromFirebase(`user/${userMe?.profileImage.fileName}`);
+          await deleteImageFromFirebase(`user/${userMe?.profileImageUrl}`);
           imageUrl = null;
           fileName = null;
         } else if (editedUrl !== null && editedUrl !== initialUrl) {
-          await deleteImageFromFirebase(`user/${userMe?.profileImage.fileName}`);
+          await deleteImageFromFirebase(`user/${userMe?.profileImageUrl}`);
           fileName = Date.now().toString();
           imageUrl = await uploadImageToFirebase(`user/${fileName}`, newFile);
         }
