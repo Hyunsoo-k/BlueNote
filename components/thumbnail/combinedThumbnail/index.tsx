@@ -3,16 +3,15 @@ import { useRouter } from "next/router";
 import styles from "./index.module.scss";
 
 interface Props {
-  mainCategory: string;
   element: any;
 };
 
-const CombinedThumbnail = ({ mainCategory, element }: Props) => {
+const CombinedThumbnail = ({ element }: Props) => {
   const router = useRouter();
 
   return (
     <div
-      onClick={() => router.push(`/bbs/${mainCategory}/post/${element._id}`)}
+      onClick={() => router.push(`/bbs/${element.mainCategory}/post/${element._id}`)}
       className={styles["container"]}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${element.thumbnailSrc || "/images/no-image.png"})`,

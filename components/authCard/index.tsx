@@ -29,7 +29,6 @@ const AuthCard = () => {
 
   const viewport = viewportContext?.viewport || "mobile";
 
-
   const [alertModal, setAlertModal] = useState({
     show: false,
     message: "",
