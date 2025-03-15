@@ -15,7 +15,6 @@ const NoticePostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
   return (
     <div className={styles["container"]}>
       <PostPageLayout
-        mainCategory="NOTICE"
         initialData={initialData}
       />
     </div>

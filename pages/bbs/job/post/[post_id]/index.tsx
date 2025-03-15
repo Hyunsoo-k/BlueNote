@@ -15,7 +15,6 @@ const JobPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
   return (
     <div className={styles["container"]}>
       <PostPageLayout
-        mainCategory="JOB"
         initialData={initialData}
       />
     </div>

@@ -15,7 +15,6 @@ const BoardPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
   return (
     <div className={styles["container"]}>
       <PostPageLayout
-        mainCategory="BOARD"
         initialData={initialData}
       />
     </div>
