@@ -1,13 +1,14 @@
 import { useRouter } from "next/router";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Dispatch, SetStateAction, MouseEvent } from "react";
 import { createPortal } from "react-dom";
-import { useForm } from "react-hook-form";
+import { useForm, FieldErrors } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
 
-import { MainCategoryType } from "@/types/categorys";
+import { ViewportType } from "@/types/viewport";
+import { MainCategoryType, SubCategoryKoreanType } from "@/types/categorys";
 import { subCategoryListMap } from "@/variable";
 import { subCategoryKoreanToEnglishMap } from "@/variable";
 import { selectQueryMap } from "@/utils/selectQueryMap";
@@ -21,20 +22,30 @@ import useModal from "@/hooks/modal/useModal";
 import styles from "./index.module.scss";
 
 interface Props {
-  viewport: string;
-  setSearchModalOpen: any;
+  viewport: ViewportType;
+  setSearchModalOpen: Dispatch<SetStateAction<boolean>>;
   mainCategory: MainCategoryType;
+};
+
+interface SelectStateType {
+  open: boolean;
+  currentValue: string;
+};
+
+interface SubCategoryStateType {
+  open: boolean;
+  currentValue: string;
 };
 
 const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
   const router = useRouter();
 
-  const [select, setSelect] = useState({
+  const [select, setSelect] = useState<SelectStateType>({
     open: false,
     currentValue: "제목+내용",
   });
 
-  const [subCategory, SetSubCategory] = useState({
+  const [subCategory, SetSubCategory] = useState<SubCategoryStateType>({
     open: false,
     currentValue: "All",
   });
@@ -44,6 +55,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
   const subCategoryListRef = useRef<HTMLUListElement | null>(null);
   
   const userMe = useGetUserMe();
+
   const { openModal, closeModal } = useModal();
 
   const { data: queryData } = useGetRecentSearch(userMe);
@@ -55,17 +67,17 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
-    const handleRouteChange = () => {
+    const handleRouteChange = (): void => {
       setSearchModalOpen(false);
     };
 
-    const handleClickThings = (e: any) => {
+    const handleClickThings = (e: globalThis.MouseEvent): void => {
       const targetNode = e.target as Node;
 
       !containerRef.current?.contains(targetNode) && setSearchModalOpen(false);
     };
 
-    const handleClickSelectListOutside = (e: any) => {
+    const handleClickSelectListOutside = (e: globalThis.MouseEvent): void => {
       const targetNode = e.target as Node;
 
       selectListRef.current
@@ -73,7 +85,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
         && setSelect((prev: any) => ({ ...prev, open: false }));
     };
 
-    const handleClickSubCategoryOutside = (e: any) => {
+    const handleClickSubCategoryOutside = (e: globalThis.MouseEvent): void => {
       const targetNode = e.target as Node;
 
       subCategoryListRef.current
@@ -101,10 +113,10 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const subCatgoryList = subCategoryListMap[mainCategory as keyof typeof subCategoryListMap];
+  const subCatgoryList = subCategoryListMap[mainCategory];
 
   const submitHandler = {
-    onSubmit: async (e: any) => {
+    onSubmit: async (e: Record<string, string>): Promise<void> => {
       const urlDestination = 
         `?subCategory=${subCategoryKoreanToEnglishMap[subCategory.currentValue]}&select=${
             selectQueryMap[select.currentValue]
@@ -118,34 +130,42 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
       
       router.push(urlDestination);
     },
-    onError: (e: any) => {
+    onError: async (e: FieldErrors): Promise<void>  => {
       console.log(e.error);
     },
   };
 
-  const handleClickSelect = (e: any) => {
+  const handleClickSelect = (e: MouseEvent<HTMLDivElement>): void => {
     e.stopPropagation();
-    SetSubCategory((prev) => ({ ...prev, open: false }));
-    setSelect((prev) => ({ ...prev, open: !prev.open }));
+
+    SetSubCategory((prev: SubCategoryStateType) => ({ ...prev, open: false }));
+    setSelect((prev: SelectStateType) => ({ ...prev, open: !prev.open }));
   };
 
-  const handleClickSelectValue = (e: any) => {
+  const handleClickSelectValue = (e: MouseEvent<HTMLLIElement>): void => {
     e.stopPropagation();
-    setSelect((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
+
+    setSelect((prev: SelectStateType) => ({
+      ...prev,
+      open: false,
+      currentValue: e.currentTarget.innerHTML
+    }));
   };
 
-  const handleClickSubCategory = (e: any) => {
+  const handleClickSubCategory = (e: MouseEvent<HTMLDivElement>): void => {
     e.stopPropagation();
+
     setSelect((prev) => ({ ...prev, open: false }));
     SetSubCategory((prev) => ({ ...prev, open: !prev.open }));
   };
 
-  const handleClickSubCategoryValue = (e: any) => {
+  const handleClickSubCategoryValue = (e: MouseEvent<HTMLLIElement>): void => {
     e.stopPropagation();
-    SetSubCategory((prev) => ({ ...prev, open: false, currentValue: e.target.innerHTML }));
+
+    SetSubCategory((prev) => ({ ...prev, open: false, currentValue: e.currentTarget.innerHTML }));
   };
 
-  const handleClickRecentSearchQuery = async (e: any, query: string) => {
+  const handleClickRecentSearchQuery = async (e: MouseEvent<HTMLSpanElement>, query: string): Promise<void> => {
     e.stopPropagation();
 
     const requestBody = {
@@ -161,7 +181,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
     );
   };
 
-  const handleDeleteRecentSearch = (e: any, query: string) => {
+  const handleDeleteRecentSearch = (e: MouseEvent<SVGElement>, query: string): void => {
     e.stopPropagation();
     
     const requestBody = { query };
@@ -169,7 +189,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
     useDeleteRecentSearchMutation?.mutate(requestBody);
   };
 
-  const handleClickDeleteAllRecentSearch = (e: any) => {
+  const handleClickDeleteAllRecentSearch = (): void => {
     queryData.queryList.length > 0
       ? openModal(
         "confirm",
@@ -193,7 +213,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
       <div className={styles["option-box"]}>
         <div className={styles["select-wrapper"]}>
           <div
-            onClick={(e: any) => { handleClickSelect(e); }}
+            onClick={handleClickSelect}
             className={styles["select__current-value-wrapper"]}
           >
             <span className={styles["select__current-value"]}>
@@ -213,16 +233,16 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
               ref={selectListRef}
               className={styles["select__list"]}
             >
-              <li onClick={(e) => { handleClickSelectValue(e); }}>제목+내용</li>
-              <li onClick={(e) => { handleClickSelectValue(e); }}>제목</li>
-              <li onClick={(e) => { handleClickSelectValue(e); }}>내용</li>
-              <li onClick={(e) => { handleClickSelectValue(e); }}>작성자</li>
+              <li onClick={handleClickSelectValue}>제목+내용</li>
+              <li onClick={handleClickSelectValue}>제목</li>
+              <li onClick={handleClickSelectValue}>내용</li>
+              <li onClick={handleClickSelectValue}>작성자</li>
             </ul>
           )}
         </div>
         <div className={styles["sub-category-wrapper"]}>
           <div
-            onClick={(e: any) => { handleClickSubCategory(e); }}
+            onClick={handleClickSubCategory}
             className={styles["sub-category__current-value-wrapper"]}
           >
             <span className={styles["sub-category__current-value"]}>
@@ -242,10 +262,10 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
               ref={subCategoryListRef}
               className={styles["sub-category__list"]}
             >
-              {subCatgoryList.map((item: string, index: number) => (
+              {subCatgoryList.map((item: SubCategoryKoreanType, index: number) => (
                 <li
                   key={index}
-                  onClick={(e) => { handleClickSubCategoryValue(e); }}
+                  onClick={handleClickSubCategoryValue}
                 >
                   {item}
                 </li>
