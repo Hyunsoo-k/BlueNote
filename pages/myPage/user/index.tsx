@@ -27,8 +27,8 @@ const UserPage = () => {
     setValue("nickname", userMe?.nickname);
     setValue("email", userMe?.email);
     setValue("profileImage", {
-      initialUrl: userMe?.profileImage.url,
-      editedUrl: userMe?.profileImage.url,
+      initialUrl: userMe?.profileImageUrl,
+      editedUrl: userMe?.profileImageUrl,
       newFile: null,
     });
     setValue("part", userMe?.part);
@@ -38,7 +38,7 @@ const UserPage = () => {
     const file = e.target.files[0];
     const blobUrl = URL.createObjectURL(file);
     setValue("profileImage", {
-      initialUrl: userMe?.profileImage.url,
+      initialUrl: userMe?.profileImageUrl,
       editedUrl: blobUrl,
       newFile: file,
     });
@@ -46,7 +46,7 @@ const UserPage = () => {
 
   const handleImageReset = () => {
     setValue("profileImage", {
-      initialUrl: userMe?.profileImage.url,
+      initialUrl: userMe?.profileImageUrl,
       editedUrl: null,
       newFile: null,
     });
@@ -61,8 +61,8 @@ const UserPage = () => {
         part,
         profileImage: { initialUrl, editedUrl, newFile },
       } = formData;
-      let imageUrl = userMe?.profileImage.url;
-      let fileName = userMe?.profileImage.fileName;
+      let imageUrl = userMe?.profileImageUrl;
+      let fileName = userMe?.profileImageUrl;
 
       if (initialUrl === null) {
         if (editedUrl !== null) {
