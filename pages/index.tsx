@@ -6,7 +6,6 @@ import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel/carousel";
 import AlbumCarousel from "@/components/carousel/albumCarousel";
 import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
-import CommunitySectionBoard from "@/components/bbs/postList/communitySectionBoard";
 
 import styles from "@/styles/Home.module.scss";
 
@@ -83,21 +82,6 @@ const Home = ({
           더보기
         </Link>
       </div>
-      {/* {viewport !== "mobile" && (
-        <div className={styles["community-section"]}>
-          <p className={styles["community-section__title"]}>COMMUNITY</p>
-          <CommunitySectionBoard
-            viewport={viewport}
-            mainCategory="board"
-            initialData={mainPageBoardList}
-          />
-          <CommunitySectionBoard
-            viewport={viewport}
-            mainCategory="job"
-            initialData={mainPageJobList}
-          />
-        </div>
-      )} */}
     </div>
   );
 };
