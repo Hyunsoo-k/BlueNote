@@ -71,8 +71,8 @@ const Carousel = ({
             className={styles[`${isElementJazzBar ? "element--jazzbar" : "element"}`]}
           >
             {thumbnailType === "combined"
-            ? <CombinedThumbnail element={post} />
-            : <DetachedThumbnail element={post} />}
+            ? <CombinedThumbnail post={post} />
+            : <DetachedThumbnail post={post} />}
           </div>
         )}
       </div>

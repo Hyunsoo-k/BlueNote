@@ -1,25 +1,27 @@
 import { useRouter } from "next/router";
 
+import { MainPagePostType } from "@/types/mainPagePost";
+
 import styles from "./index.module.scss";
 
 interface Props {
-  element: any;
+  post: MainPagePostType;
 };
 
-const CombinedThumbnail = ({ element }: Props) => {
+const CombinedThumbnail = ({ post }: Props) => {
   const router = useRouter();
 
   return (
     <div
-      onClick={() => router.push(`/bbs/${element.mainCategory}/post/${element._id}`)}
+      onClick={() => router.push(`/bbs/${post.mainCategory}/post/${post._id}`)}
       className={styles["container"]}
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${element.thumbnailSrc || "/images/no-image.png"})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${post.thumbnailSrc || "/images/no-image.png"})`,
       }}
     >
       <div className={styles["explantion"]}>
-        <p id="explantion__title" className={styles["explantion__title"]}>{element.title}</p>
-        <p className={styles["explantion__content"]}>{element.content}</p>
+        <p id="explantion__title" className={styles["explantion__title"]}>{post.title}</p>
+        <p className={styles["explantion__content"]}>{post.content}</p>
       </div>
     </div>
   );

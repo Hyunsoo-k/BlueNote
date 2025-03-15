@@ -45,7 +45,7 @@ const Home = ({
           {mainPageBandList.map((post: MainPagePostType, index: number) => {
             return index < (viewport === "mobile" ? 4 : 6) && (
               <CombinedThumbnail
-                element={post}
+                post={post}
                 key={post._id}
               />
             );
