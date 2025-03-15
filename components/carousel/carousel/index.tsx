@@ -63,7 +63,7 @@ const Carousel = ({ elementList, elementType, viewport, isElementJazzBar }: Prop
             className={styles[`${isElementJazzBar ? "element--jazzbar" : "element"}`]}
           >
             {elementType === "combined"
-            ? <CombinedThumbnail element={element} />
+            ? <CombinedThumbnail mainCategory="" element={element} />
             : <DetachedThumbnail element={element} />}
           </div>
         )}

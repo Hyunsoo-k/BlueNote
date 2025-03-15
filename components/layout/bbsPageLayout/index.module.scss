@@ -1,0 +1,100 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: "Noto Sans KR", sans-serif;
+
+  .main {
+    width: 100%;
+
+    @include tablet {
+      width: calc(100% - 330px);
+
+      .main__header {
+        display: flex;
+        gap: 30px;
+        border-bottom: 2px solid #2C2C2C;
+  
+        .main__category {
+          margin: 0;
+          padding-bottom: 10px;
+          font-family: "Metrophobic", sans-serif;
+        }
+  
+        .main__sub-category-list {
+          display: flex;
+          gap: 8px;
+  
+          .main__sub-category {
+            padding-top: 5px;
+            font-weight: 500;
+            color: #2C2C2C;
+            
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .main__sub-category--selected {
+            padding-top: 5px;
+            font-weight: 500;
+            color: $sub-color;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+  
+        .main__searching {
+          position: relative;
+          margin-left: auto;
+  
+          .main__searcing-icon {
+            position: relative;
+            top: 3px;
+  
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  
+    .main__bbs-list {
+
+    }
+  }
+
+  @include tablet {
+    .aside {
+      position: sticky;
+      top: 190px;
+      width: 280px;
+      margin-bottom: 20px;
+      padding-right: 3px;
+      scrollbar-gutter: stable;
+      overflow-y: hidden;
+  
+      &:hover {
+        overflow-y: auto;
+      }
+  
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient($main-color, $gray-color-200);
+        border-radius: 8px;
+      }
+    }
+  }
+}

@@ -4,15 +4,15 @@ import { useContext } from "react";
 import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
+import PostPageLayout from "@/components/layout/postPageLayout";
 import BbsHeader from "@/components/bbs/bbsHeader";
-import BbsPost from "@/components/bbs/post/post";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
   urlWithoutQuery: string;
   initialData: any;
-}
+};
 
 const NewsPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
   const viewportContext = useContext(ViewportContext);
@@ -22,8 +22,10 @@ const NewsPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
 
   return (
     <div className={styles["container"]}>
-      <BbsHeader mainCategory={post.mainCategory} subCategory={post.subCategory} />
-      <BbsPost post={post} viewport={viewport} />
+      <PostPageLayout
+        mainCategory="NEWS"
+        initialData={initialData}
+      />
     </div>
   );
 };

@@ -1,19 +1,13 @@
-import { useContext } from "react";
-
-import { ViewportContext } from "@/contexts/viewport";
-import CreatePost from "@/components/bbs/post/createPost";
+import CreatePostLayout from "@/components/layout/createPostPageLayout";
 
 import styles from "./index.module.scss";
 
-const BoardCreatePostPage = () => {
-  const viewportContext = useContext(ViewportContext);
-  const viewport = viewportContext?.viewport || "mobile";
-
+const NewsCreatePostPage = () => {
   return (
     <div className={styles["container"]}>
-      <CreatePost mainCategory="news" viewport={viewport} />
+      <CreatePostLayout />
     </div>
   );
 };
 
-export default BoardCreatePostPage;
+export default NewsCreatePostPage;

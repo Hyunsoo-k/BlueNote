@@ -9,10 +9,9 @@
   margin: 0;
   border-bottom: 2px solid $gray-color-100;
 
-  // @include tablet {
-  //   padding: 10px 0;
-  //   border-bottom: 2px solid rgb(116, 112, 112);
-  // }
+  @include tablet {
+    padding: 10px 0;
+  }
 
   &:hover {
     cursor: pointer;
@@ -36,7 +35,7 @@
     .writer {
       font-size: 12px;
       font-weight: 500;
-      color: $sub-color;
+      color: $main-color;
 
       @include tablet {
         font-size: 14px;
@@ -72,7 +71,7 @@
 
   .having-thumbnail-post-main {
     display: grid;
-    grid-template: auto auto / auto auto;
+    grid-template: auto auto / calc(100% - 120px - 15px) auto;
     align-items: start;
     column-gap: 15px;
     padding-top: 10px;
@@ -118,7 +117,7 @@
   }
 
   .content-wrapper {
-    padding-top: 7px;
+    padding: 7px 0;
 
     .content {
       overflow: hidden;
@@ -154,7 +153,7 @@
       display: flex;
       align-items: center;
       padding: 3px 8px;
-      border-radius: 8px;
+      border-radius: 6px;
       background-color: $main-color;
 
       .views {
@@ -172,7 +171,7 @@
       display: flex;
       align-items: center;
       padding: 3px 8px;
-      border-radius: 8px;
+      border-radius: 6px;
       background-color: $main-color;
 
       .comment {
@@ -190,7 +189,7 @@
       display: flex;
       align-items: center;
       padding: 3px 8px;
-      border-radius: 8px;
+      border-radius: 6px;
       background-color: $main-color;
 
       .recommend {

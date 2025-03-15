@@ -10,7 +10,7 @@ const NavBar = () => {
   const handleClick = (key: string) => router.push(`/bbs/${key}`);
 
   const isMenuMatched = (category: string) => {
-    return router.pathname === `/bbs/${category}`;
+    return router.pathname.includes(`/bbs/${category}`);
   };
 
   return (

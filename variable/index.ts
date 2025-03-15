@@ -14,7 +14,7 @@ const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job"
   job: ["구인", "구직", "All"],
 };
 
-const subCategoryMap = {
+const subCategoryEnglishToKoreanMap: { [key: string]: string } = {
   All: "All",
   notification: "공지",
   domestic: "국내",
@@ -27,14 +27,13 @@ const subCategoryMap = {
   jazzbarPromotion: "재즈바홍보",
   jobPosting: "구인",
   jobSeeking: "구직"
-
 }
 
-const subCategoryUrlMap: { [key: string]: string } = {
+const sunCategoryKoreanToEnglishMap: { [key: string]: string } = {
   All: 'All',
   공지: 'notice',
   국내: 'domestic',
-  국외: 'international',
+  국외: 'overseas',
   일반: 'common',
   녹음: 'record',
   팁: 'tip',
@@ -45,4 +44,9 @@ const subCategoryUrlMap: { [key: string]: string } = {
   구직: 'jobSeeking'
 };
 
-export { mainCategory, subCategoryListMap, subCategoryMap, subCategoryUrlMap };
+export {
+  mainCategory,
+  subCategoryListMap,
+  subCategoryEnglishToKoreanMap,
+  sunCategoryKoreanToEnglishMap
+};

@@ -1,0 +1,25 @@
+@use "@/styles/variables.scss" as *;
+
+.wrapper {
+  width: 100%;
+  border-top: 2px solid #2C2C2C;
+  font-family: "Noto Sans KR", sans-serif;
+
+  .header {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $gray-color-100;
+
+    .header__title {
+      letter-spacing: 0.5px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

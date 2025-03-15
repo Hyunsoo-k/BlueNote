@@ -93,7 +93,7 @@ const NotificationModal = ({
               className={styles["notification__element"]}
             >
               <Image
-                src={notification.triggeredBy.profileImage.url || "/images/user/defaultProfileGray.png"}
+                src={notification.triggeredBy.profileImageUrl || "/images/user/defaultProfileGray.png"}
                 width={33}
                 height={33}
                 alt=""

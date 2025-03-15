@@ -1,0 +1,71 @@
+@use "@/styles/variables.scss" as *;
+
+.wrapper {
+  width: 100%;
+  border-top: 2px solid #2C2C2C;
+  font-family: "Noto Sans KR", sans-serif;
+
+  .header {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $gray-color-100;
+
+    .header__title {
+      letter-spacing: 0.5px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+  
+  .main {
+    position: relative;
+    height: 200px;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &:hover {
+      cursor: pointer;
+    }
+    
+    .main__title-wrapper {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      padding-left: 10px;
+      background-color: rgba(44, 44, 44, 0.8);
+
+      .main__title {
+        overflow: hidden;
+        margin: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        letter-spacing: 0.3px;
+        font-size: 15px;
+        color: #fff;
+      }
+    }
+  }
+
+  .news-list {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    .news {
+      width: 25%;
+      height: 60px;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

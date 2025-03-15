@@ -4,8 +4,7 @@ import { useContext } from "react";
 import { instance } from "@/axios";
 import { ViewportContext } from "@/contexts/viewport";
 import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
-import BbsHeader from "@/components/bbs/bbsHeader";
-import BbsPost from "@/components/bbs/post/post";
+import PostPageLayout from "@/components/layout/postPageLayout";
 
 import styles from "./index.module.scss";
 
@@ -22,8 +21,10 @@ const PromotePostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
 
   return (
     <div className={styles["container"]}>
-      <BbsHeader mainCategory={post.mainCategory} subCategory={post.subCategory} />
-      <BbsPost post={post} viewport={viewport} />
+      <PostPageLayout
+        mainCategory="NEWS"
+        initialData={initialData}
+      />
     </div>
   );
 };

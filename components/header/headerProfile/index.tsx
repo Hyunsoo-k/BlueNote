@@ -46,7 +46,7 @@ const HeaderProfile = ({ userMe, viewport }: Props) => {
   return (
     <div id="profileIcon" onClick={handleShowModal} className={styles["header-profile"]}>
       <Image
-        src={userMe.profileImage.url || "/images/user/defaultProfileGray.png"}
+        src={userMe.profileImageUrl || "/images/user/defaultProfileGray.png"}
         width={viewport === "mobile" ? 23 : 33}
         height={viewport === "mobile" ? 23 : 33}
         alt=""

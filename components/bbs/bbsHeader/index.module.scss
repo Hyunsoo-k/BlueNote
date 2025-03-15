@@ -34,25 +34,6 @@
       gap: 30px;
     }
 
-    .main-category {
-      display: none;
-
-      @include tablet {
-        display: block;
-        position: relative;
-        top: -3px;
-        margin: 0;
-        letter-spacing: -2px;
-        font-size: 35px;
-        font-family: "Metrophobic", serif;
-        color: $main-color;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
-
     .sub-category-wrapper {
       display: flex;
       gap: 30px;

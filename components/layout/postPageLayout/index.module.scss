@@ -1,0 +1,223 @@
+@use "@/styles/variables.scss" as *;
+
+.component {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: "Noto Sans KR", sans-serif;
+
+  .main {
+    width: 100%;
+
+    @include tablet {
+      width: calc(100% - 330px);
+    }
+
+    .main__header {
+      display: flex;
+      flex-direction: column;
+      padding: 0 8px 20px;
+      border-bottom: 2px solid #2C2C2C;
+
+      @include tablet {
+        padding: 0 0 20px 0;
+      }
+
+      .bread__crumbs {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        @include tablet {
+          gap: 10px;
+        }
+
+        span {
+          font-size: 12px;
+          color: #464646;
+          
+          @include tablet {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .main__title {
+        margin: 15px 0 10px;
+        font-size: 20px;
+        font-weight: 500;
+
+        @include tablet {
+          margin: 20px 0;
+          font-size: 25px;
+          font-weight: 500;
+        }
+      }
+
+      .main__post-information {
+        display: flex;
+        gap: 6px;
+        height: 20px;
+
+        @include tablet {
+          gap: 10px;
+        }
+        
+        span {
+          font-size: 13px;
+          font-weight: 500;
+          color: rgb(129, 129, 129);
+        }
+
+        .writer {
+          color: $main-color;
+        }
+
+        .boundary-line {
+          position: relative;
+          top: 5px;
+          width: 2px;
+          height: 12px;
+          background-color: $gray-color-300;
+        }
+
+        .main__post-action-wrapper {
+          position: relative;
+          height: auto;
+          margin-left: auto;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+  
+    .main__content {
+      min-height: 250px;
+      padding: 20px 8px 20px 8px;
+      font-size: 14px;
+      color: #2c2c2c;
+  
+      @include tablet {
+        min-height: 500px;
+        padding: 40px 0 60px 0;
+        font-size: 16px;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 550px;
+        display: block;
+      }
+    }
+  }
+
+  .comment-section {
+
+  }
+
+  .neighbor {
+    position: relative;
+    bottom: 1px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: auto;
+    padding: 10px 0 15px;
+    border-top: 1px solid $gray-color-100;
+
+    @include tablet {
+      position: static;
+      padding: 20px 0 22px;
+      border: none;
+    }
+
+    .next-post-box {
+      display: flex;
+      padding: 8px;
+      font-size: 12px;
+
+      @include tablet {
+        font-size: 14px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .next-post {
+        flex-shrink: 0;
+        color: $sub-color;
+      }
+
+      .next-link {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-left: 10px;
+        color: #2c2c2c;
+      }
+    }
+
+    .previous-post-box {
+      display: flex;
+      padding: 8px;
+      font-size: 12px;
+
+      @include tablet {
+        font-size: 14px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .previous-post {
+        flex-shrink: 0;
+        color: $sub-color;
+      }
+
+      .previous-link {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-left: 10px;
+        color: #2c2c2c;
+      }
+    }
+  }
+
+  .aside {
+    position: sticky;
+    top: 190px;
+    width: 280px;
+    margin-bottom: 20px;
+    padding-right: 3px;
+    scrollbar-gutter: stable;
+    overflow-y: hidden;
+
+    &:hover {
+      overflow-y: auto;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient($main-color, $gray-color-200);
+      border-radius: 8px;
+    }
+  }
+}

@@ -4,6 +4,8 @@ const queryKey = {
   userMe: ["userMe"],
   notification: (userMe_id: string) => ["notification", userMe_id],
   recentSearch: (userMe_id: string) => ["recentSearch", userMe_id],
+  photoNews: ["photoNews"],
+  recommendedNews: ["recommendedNews"],
   communitySectionBoard: (mainCategory: MainCategory, subCategory: string) => [
     "communitySectionBoard",
     mainCategory,
