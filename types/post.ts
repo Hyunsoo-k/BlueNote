@@ -1,4 +1,4 @@
-import { MainCategory } from "./categorys";
+import { MainCategoryType } from "./categorys";
 import { Comment } from "./comment";
 
 type SubCategory =
@@ -17,7 +17,7 @@ type SubCategory =
 interface PostType {
     _id: string;
     number: number;
-    mainCategory: MainCategory;
+    mainCategory: MainCategoryType;
     subCategory: SubCategory;
     writer: { _id: string, nickname: string };
     title: string;

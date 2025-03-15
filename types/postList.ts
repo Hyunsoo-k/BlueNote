@@ -1,11 +1,11 @@
-import { MainCategory } from "./categorys";
-import { SubCategory } from "./categorys";
+import { MainCategoryType } from "./categorys";
+import { SubCategoryKoreanType } from "./categorys";
 
 interface PostListItemType {
   _id: string;
   number: number;
-  mainCategory: MainCategory;
-  subCategory: SubCategory;
+  mainCategory: MainCategoryType;
+  subCategory: SubCategoryKoreanType;
   writer: { _id: string, nickname: string };
   title: string;
   content: string;
