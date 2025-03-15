@@ -60,10 +60,7 @@ const Home = ({
       </div>
       <div className={styles["album-section"]}>
         <p className={styles["album-section__title"]}>ALBUM</p>
-        <AlbumCarousel
-          elementList={mainPageAlbumList}
-          viewport={viewport}
-        />
+        <AlbumCarousel mainPagePostList={mainPageAlbumList} />
         <Link
           href="/bbs/promote?subCategory=albumPromotion"
           className={styles["more-button"]}

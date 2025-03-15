@@ -1,19 +1,26 @@
 import { useState, useEffect } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+
+import { MainPagePostType } from "@/types/mainPagePost";
 import AlbumThumbnail from "@/components/thumbnail/albumThumbnail";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  elementList: any;
-  viewport: string;
+  mainPagePostList: MainPagePostType[];
 };
 
-const AlbumCarousel = ({ elementList, viewport }: Props) => {
-  const [elementIndex, setElementIndex] = useState([2, 3, 4, 0, 1]);
-  const [centerElementTitle, setCenterElementTitle] = useState({
+interface cetnerElementTitleType {
+  visible: boolean;
+  title: string | any; // any 수정 필요
+};
+
+const AlbumCarousel = ({ mainPagePostList }: Props) => {
+  console.log(mainPagePostList)
+  const [elementIndex, setElementIndex] = useState<number[]>([2, 3, 4, 0, 1]);
+  const [centerElementTitle, setCenterElementTitle] = useState<cetnerElementTitleType>({
     visible: true,
-    title: elementList[0].title,
+    title: mainPagePostList[0].title,
   });
   const [hoveredArrow, setHoveredArrow] = useState<"back" | "front" | null>(null);
 
@@ -25,7 +32,7 @@ const AlbumCarousel = ({ elementList, viewport }: Props) => {
     }, 300)
 
     setTimeout(() => {
-      setCenterElementTitle((prev) => ({
+      setCenterElementTitle((prev: cetnerElementTitleType) => ({
         ...prev,
         visible: true,
         title: centereElement?.getAttribute("data-title")
@@ -33,7 +40,7 @@ const AlbumCarousel = ({ elementList, viewport }: Props) => {
     }, 600)
   }, [elementIndex]);
 
-  const rotateElements = (direction: "backward" | "forward") => {
+  const rotateElements = (direction: "backward" | "forward"): void => {
     setElementIndex((prev) => {
       const newOrder =
         direction === "backward"
@@ -47,13 +54,13 @@ const AlbumCarousel = ({ elementList, viewport }: Props) => {
   return (
     <div className={styles["container"]}>
       <div className={styles["element-wrapper"]}>
-        {elementList.slice(0, 5).map((element: any, index: number) => (
+        {mainPagePostList.slice(0, 5).map((post: MainPagePostType, index: number) => (
           <div
-            key={element._id}
-            data-title={element.title}
+            key={post._id}
+            data-title={post.title}
             className={`${styles["element"]} ${styles[`element__${elementIndex[index]}`]}`}
           >
-            <AlbumThumbnail element={element} />
+            <AlbumThumbnail post={post} />
           </div>
         ))}
       </div>
