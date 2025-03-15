@@ -15,6 +15,7 @@ const MyPostPage = ({ initialData }: ServerSideProps) => {
   const viewport = useGetViewport();
 
   return (
+    <div></div>
     // <div className={styles["container"]}>
     //   <MyPageMenu currentPage="내가 쓴 글" />
     //   <div className={styles["main"]}>
