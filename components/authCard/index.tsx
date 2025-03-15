@@ -94,7 +94,7 @@ const AuthCard = () => {
             onClick={currentFormHandler}
             className={styles["background__switching-button"]}
           >
-            {item === "signIn" ? "Login" : "Sign Up"}
+            {index === 0 ? "Login" : "Sign Up"}
           </button>
         </div>
       ))}
