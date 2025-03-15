@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { MainCategoryType, SubCategory } from "@/types/categorys";
+import { MainCategoryType } from "@/types/categorys";
 import { subCategoryKoreanToEnglishMap } from "@/variable";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
@@ -9,7 +9,7 @@ const getCommunitySectionBoardFn = async (
   mainCategory: MainCategoryType,
   subCategory: string
 ) => {
-  const response = await instance.get(`/bbs/${mainCategory}?subCategory=${subCategoryUrlMap[subCategory]}`);
+  const response = await instance.get(`/bbs/${mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}`);
 
   return response.data;
 };

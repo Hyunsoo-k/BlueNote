@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { MainCategory } from "@/types/categorys";
+import { MainCategoryType } from "@/types/categorys";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
@@ -17,7 +17,7 @@ const queryFn = async (resolvedUrl: string, pageParam: number) => {
 };
 
 const useGetPostListQuery = (
-  mainCategory: MainCategory,
+  mainCategory: MainCategoryType,
   resolvedUrl: string,
   initialData: any = undefined
 ) => {
