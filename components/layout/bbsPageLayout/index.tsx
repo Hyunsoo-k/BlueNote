@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { useState, useRef } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import { RiSearchLine } from "react-icons/ri";
 
-import { ViewportType } from "@/types/viewport";
+import { BbsType } from "@/types/bbs/bbs";
+import { SubCategoryKoreanType } from "@/types/categorys";
 import { useGetViewport } from "@/hooks/viewport";
 import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 import BbsHeader from "@/components/bbs/bbsHeader";
@@ -15,13 +16,13 @@ import ModalContainer from "@/components/modal/modalContainer";
 import styles from "./index.module.scss";
 
 interface Props {
-  initialData: any;
   resolvedUrl: string;
+  initialData: BbsType;
 };
 
 const BbsPageLayout = ({
+  resolvedUrl,
   initialData,
-  resolvedUrl
 }: Props) => {
   const router = useRouter();
 
@@ -29,17 +30,20 @@ const BbsPageLayout = ({
 
   const asideRef = useRef<HTMLDivElement | null>(null);
 
-  const viewport: ViewportType = useGetViewport();
+  const viewport = useGetViewport();
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
+  const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
-  const handleClickSubCategory = (e: any, subCategory: string): void => {
+  const handleClickSubCategory = (
+    e: MouseEvent<HTMLElement>,
+    subCategory: SubCategoryKoreanType
+  ): void => {
     e.stopPropagation();
 
     router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
 
-  const handleClickSearch = (e: any): void => {
+  const handleClickSearch = (e: MouseEvent<SVGAElement>): void => {
     e.stopPropagation();
 
     setSearchModalOpen((prev: boolean) => !prev);
@@ -56,7 +60,7 @@ const BbsPageLayout = ({
             {initialData.mainCategory.toUpperCase()}
           </h2>
           <div className={styles["main__sub-category-list"]}>
-            {subCategoryList.map((subCategory: string, index: number) => (
+            {subCategoryList.map((subCategory: SubCategoryKoreanType, index: number) => (
               <span
                 key={index}
                 onClick={(e) => { handleClickSubCategory(e, subCategory); }}
