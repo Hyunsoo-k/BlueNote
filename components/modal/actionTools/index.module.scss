@@ -11,7 +11,7 @@
   width: 110px;
   padding: 4px 8px 8px 8px;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 2px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 
   @include tablet {
@@ -36,6 +36,11 @@
 
       @include tablet {
         font-size: 14px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: $sub-color;
       }
     }
   }

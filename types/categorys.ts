@@ -1,6 +1,6 @@
-type MainCategory = "notice" | "news" | "board" | "promote" | "job";
+type MainCategoryType = "notice" | "news" | "board" | "promote" | "job";
 
-type SubCategory =
+type SubCategoryEnglishType  =
   | "All"
   | "notice"
   | "domestic"
@@ -14,4 +14,18 @@ type SubCategory =
   | "jobPosting"
   | "jobSeeking";
 
-export type { MainCategory, SubCategory };
+type SubCategoryKoreanType = 
+  | "All"
+  | "공지"
+  | "국내"
+  | "국외"
+  | "일반"
+  | "녹음"
+  | "팁"
+  | "밴드홍보"
+  | "앨범홍보"
+  | "재즈바홍보"
+  | "구인"
+  | "구직";
+
+export type { MainCategoryType, SubCategoryEnglishType, SubCategoryKoreanType };

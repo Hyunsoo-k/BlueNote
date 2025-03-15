@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { MainCategory } from "@/types/categorys";
+import { MainCategoryType } from "@/types/categorys";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const recommendPostFn = async (mainCategory: MainCategory, post_id: string, requsetBody: any) => {
+const recommendPostFn = async (mainCategory: MainCategoryType, post_id: string, requsetBody: any) => {
   const response = await instance.post(`/bbs/${mainCategory}/post/${post_id}/recommend`, requsetBody);
 
   return response;
 };
 
-const useRecommendPost = (mainCategory: MainCategory, post_id: string) => {
+const useRecommendPost = (mainCategory: MainCategoryType, post_id: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({

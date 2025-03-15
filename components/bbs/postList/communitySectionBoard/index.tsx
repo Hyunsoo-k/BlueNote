@@ -2,21 +2,20 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { useGetViewport } from "@/hooks/viewport";
 import { subCategoryListMap } from "@/variable";
 import { useGetCommunitySectionBoard } from "@/hooks/bbs/useGetCommunitySectionBoard";
 import { formatYM } from "@/utils/dateFormatter";
+import RowThumbnail from "@/components/thumbnail/rowThumbnail";
 
 import styles from "./index.module.scss";
 
 interface Props {
+  viewport: string;
   mainCategory: "board" | "job";
   initialData: any;
 };
 
-const CommunitySectionBoard = ({ mainCategory, initialData }: Props) => {
-  const viewport = useGetViewport();
-
+const CommunitySectionBoard = ({ viewport, mainCategory, initialData }: Props) => {
   const router = useRouter();
 
   const [subCategory, setSubCategory] = useState<string>("All");

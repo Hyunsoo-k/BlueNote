@@ -1,10 +1,9 @@
-import React, { useEffect, createContext, useState, Dispatch, SetStateAction } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 type Viewport = "mobile" | "tablet" | "desktop";
 
 interface ViewportContextType {
   viewport: Viewport;
-  setViewport: Dispatch<SetStateAction<Viewport>>;
 };
 
 const ViewportContext = createContext<ViewportContextType | null>(null);
@@ -13,7 +12,7 @@ const ViewportProvider = ({ children }: any) => {
   const [viewport, setViewport] = useState<Viewport>("mobile");
 
   useEffect(() => {
-    const resizingHandler = () => {
+    const resizingHandler = (): void => {
       setViewport(window.innerWidth < 768 ? "mobile" : window.innerWidth < 1025 ? "tablet" : "desktop");
     };
 
@@ -24,10 +23,10 @@ const ViewportProvider = ({ children }: any) => {
     return () => {
       window.removeEventListener("resize", resizingHandler);
     };
-  }, [])
+  }, []);
 
   return (
-    <ViewportContext.Provider value={{ viewport, setViewport }}>
+    <ViewportContext.Provider value={{ viewport }}>
       {children}
     </ViewportContext.Provider>
   )

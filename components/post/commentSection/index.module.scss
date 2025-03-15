@@ -1,0 +1,79 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  margin-top: 30px;
+  font-family: "Noto Sans KR", sans-serif;
+  
+  // header area
+
+  .header {
+    display: flex;
+    gap: 18px;
+    padding: 0 8px 20px;
+    border-bottom: 1px solid $gray-color-100;
+
+    @include tablet {
+      padding: 0 0 20px;
+    }
+
+    .recommend-count-box {
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .recommend-count {
+        font-size: 13px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+        color: #2C2C2C;
+
+        @include tablet {
+          font-size: 14px;
+        }
+      }
+
+      .recommend-count-value {
+        padding-left: 2px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+        color: #2C2C2C;
+
+        @include tablet {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .comment-count-box {
+      .comment-count {
+        font-size: 13px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+        color: #2C2C2C;
+
+        @include tablet {
+          font-size: 14px;
+        }
+      }
+  
+      .comment-count-value {
+        padding-left: 2px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+
+        @include tablet {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  // comment-wrapper
+
+  .comment-wrapper {
+    min-height: 25px;
+  }
+}

@@ -14,6 +14,7 @@ const ActionTools = ({
   handleClickEdit,
   handleClickDelete
 }: Props) => {
+  
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const targetNode = e.target as Node;
@@ -34,16 +35,34 @@ const ActionTools = ({
   return (
     <div id="action-tools" className={styles["action-tools"]}>
       <div className={styles["action-tools__edit-section"]}>
-        <span onClick={handleClickEdit} className={styles["action-tools__edit-button"]}>
+        <span
+          onClick={handleClickEdit}
+          className={styles["action-tools__edit-button"]}
+        >
           수정하기
         </span>
-        <CiEdit size={18} style={{ position: "relative", top: "9px" }} />
+        <CiEdit
+          size={18}
+          style={{
+            position: "relative",
+            top: "9px"
+          }}
+        />
       </div>
       <div className={styles["action-tools__delete-section"]}>
-        <span onClick={handleClickDelete} className={styles["action-tools__delete-button"]}>
+        <span
+          onClick={handleClickDelete}
+          className={styles["action-tools__delete-button"]}
+        >
           삭제하기
         </span>
-        <CiTrash size={18} style={{ position: "relative", top: "7px" }} />
+        <CiTrash
+          size={18}
+          style={{
+            position: "relative",
+            top: "7px"
+          }}
+        />
       </div>
     </div>
   );

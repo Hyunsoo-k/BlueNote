@@ -1,11 +1,7 @@
 import { GetServerSideProps } from "next";
-import { useContext } from "react";
 
 import { instance } from "@/axios";
-import { ViewportContext } from "@/contexts/viewport";
-import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
-import BbsHeader from "@/components/bbs/bbsHeader";
-import Post from "@/components/bbs/post/post";
+import PostPageLayout from "@/components/layout/postPageLayout";
 
 import styles from "./index.module.scss";
 
@@ -15,15 +11,12 @@ interface ServerSideProps {
 }
 
 const NoticePostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
-  const viewportContext = useContext(ViewportContext);
-  const viewport = viewportContext?.viewport || "mobile";
-
-  const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
 
   return (
     <div className={styles["container"]}>
-      <BbsHeader mainCategory={post.mainCategory} subCategory={post.subCategory} />
-      <Post post={post} viewport={viewport} />
+      <PostPageLayout
+        initialData={initialData}
+      />
     </div>
   );
 };

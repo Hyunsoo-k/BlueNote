@@ -19,6 +19,15 @@
     border-radius: 2px 0 0 2px;
     border-top: 1px solid $gray-color-100;
     font-family: "Noto Sans KR", sans-serif;
+
+    @include tablet {
+      width: 400px;
+      height: 400px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 4px;
+    }
   
     .option-box {
       display: flex;

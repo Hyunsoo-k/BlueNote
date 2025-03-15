@@ -1,11 +1,8 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import styles from "./index.module.scss";
 
 const Footer = () => {
-  const router = useRouter();
-
   return (
     <div className={styles["container"]}>
       <div className={styles["main"]}>

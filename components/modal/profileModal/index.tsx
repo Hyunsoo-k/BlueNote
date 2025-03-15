@@ -38,7 +38,7 @@ const ProfileModal = ({ showModal, userMe }: Props) => {
     >
       <div className={styles["profile-modal__header"]}>
         <Image
-          src={userMe.profileImage.url || "/images/user/defaultProfileGray.png"}
+          src={userMe.profileImageUrl || "/images/user/defaultProfileGray.png"}
           width={120}
           height={120}
           alt=""

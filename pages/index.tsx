@@ -43,18 +43,32 @@ const Home = ({
         <p className={styles["band-section__title"]}>BAND</p>
         <div className={styles["band-section__thumbnail-box"]}>
           {mainPageBandList.map((post: any, index: number) => {
-            return index < (viewport === "mobile" ? 4 : 6)
-              && <CombinedThumbnail element={post} key={post._id} />;
+            return index < (viewport === "mobile" ? 4 : 6) && (
+              <CombinedThumbnail
+                mainCategory="promote"
+                element={post}
+                key={post._id}
+              />
+            );
           })}
         </div>
-        <Link href="/bbs/promote?subCategory=bandPromotion" className={styles["more-button"]}>
+        <Link
+          href="/bbs/promote?subCategory=bandPromotion"
+          className={styles["more-button"]}
+        >
           더보기
         </Link>
       </div>
       <div className={styles["album-section"]}>
         <p className={styles["album-section__title"]}>ALBUM</p>
-        <AlbumCarousel elementList={mainPageAlbumList} viewport={viewport} />
-        <Link href="/bbs/promote?subCategory=albumPromotion" className={styles["more-button"]}>
+        <AlbumCarousel
+          elementList={mainPageAlbumList}
+          viewport={viewport}
+        />
+        <Link
+          href="/bbs/promote?subCategory=albumPromotion"
+          className={styles["more-button"]}
+        >
           더보기
         </Link>
       </div>
@@ -70,13 +84,21 @@ const Home = ({
           더보기
         </Link>
       </div>
-      {viewport !== "mobile" && (
+      {/* {viewport !== "mobile" && (
         <div className={styles["community-section"]}>
           <p className={styles["community-section__title"]}>COMMUNITY</p>
-          <CommunitySectionBoard mainCategory="board" initialData={mainPageBoardList} />
-          <CommunitySectionBoard mainCategory="job" initialData={mainPageJobList} />
+          <CommunitySectionBoard
+            viewport={viewport}
+            mainCategory="board"
+            initialData={mainPageBoardList}
+          />
+          <CommunitySectionBoard
+            viewport={viewport}
+            mainCategory="job"
+            initialData={mainPageJobList}
+          />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

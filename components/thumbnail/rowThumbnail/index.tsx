@@ -4,11 +4,14 @@ import { forwardRef  } from "react";
 import { RiThumbUpLine } from "react-icons/ri";
 import { FaRegCommentDots } from "react-icons/fa6";
 import { AiOutlineEye } from "react-icons/ai";
+
+import { ViewportType } from "@/types/viewport";
 import { formatYM } from "@/utils/dateFormatter";
 
 import styles from "./index.module.scss";
 
 interface Props {
+  viewport: ViewportType;
   page: any;
   pageIndex: number;
   index: number;
@@ -17,6 +20,7 @@ interface Props {
 };
 
 const RowThumbnail = forwardRef<HTMLDivElement, Props>(({
+  viewport,
   page,
   pageIndex,
   index,
@@ -71,7 +75,7 @@ const RowThumbnail = forwardRef<HTMLDivElement, Props>(({
       <div className={styles["post-info-box"]}>
         <div className={styles["views-wrapper"]}>
           <AiOutlineEye
-            size={16}
+            size={viewport === "mobile" ? 14 : 16}
             color="#fff"
           />
           <span className={styles["views"]}>
@@ -80,7 +84,7 @@ const RowThumbnail = forwardRef<HTMLDivElement, Props>(({
         </div>
         <div className={styles["comment-wrapper"]}>
           <FaRegCommentDots
-              size={15}
+            size={viewport === "mobile" ? 13 : 15}
               color="#fff"
               style={{ position: "relative", top: "0px" }}
             />
@@ -90,7 +94,7 @@ const RowThumbnail = forwardRef<HTMLDivElement, Props>(({
         </div>
         <div className={styles["recommend-wrapper"]}>
           <RiThumbUpLine
-            size={15}
+            size={viewport === "mobile" ? 14 : 15}
             color="#fff"
           />
           <span className={styles["recommend"]}>

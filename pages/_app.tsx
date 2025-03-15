@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ViewportProvider from "@/contexts/viewport";
 import UserMeProvider from "@/contexts/userMe";
 import ModalsProvider from "@/contexts/modals";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 import Footer from "@/components/footer";
 
 import "@/styles/globals.scss";

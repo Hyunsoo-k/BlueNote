@@ -1,0 +1,97 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  z-index: 998;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: $background-color;
+
+  @include tablet {
+    top: 0;
+    padding: 0;
+  }
+
+  @include desktop {
+  }
+
+  .header {
+    position: relative;
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 10px 15px 18px;
+
+    .header__title {
+      display: block;
+      letter-spacing: -1px;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 700;
+      font-family: "Varela Round", sans-serif;
+      color: $main-color;
+
+      @include tablet {
+        width: 400px;
+        margin: 0 auto;
+        padding-bottom: 0;
+        text-align: center;
+        font-size: 60px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      @include desktop {
+        width: 500px;
+        letter-spacing: 0;
+      }
+    }
+
+    .header__isLoggedOut {
+      position: absolute;
+      top: 12px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 700;
+      font-family: "Metrophobic", sans-serif;
+
+      @include tablet {
+        top: 18px;
+        right: 15px;
+        gap: 20px;
+      }
+
+      .header__signIn {
+        text-decoration: none;
+        font-size: 11px;
+        color: #2C2C2C;
+
+        @include tablet {
+          font-size: 15px;
+        }
+
+        &:hover {
+          color: $sub-color;
+        }
+      }
+
+      .header__signUp {
+        text-decoration: none;
+        font-size: 11px;
+        color: #2C2C2C;
+
+        @include tablet {
+          font-size: 15px;
+        }
+
+        &:hover {
+          color: $sub-color;
+        }
+      }
+    }
+  }
+}
