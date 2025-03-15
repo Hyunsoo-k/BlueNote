@@ -2,12 +2,10 @@ import { useRouter } from "next/router";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { SubCategory } from "@/types/categorys";
-
 import styles from "./index.module.scss";
 
 interface Props {
-  subCategory?: SubCategory;
+  subCategory?: string;
   page: number;
   totalPage: number;
 };
@@ -38,7 +36,6 @@ const Pagination = ({ subCategory, page, totalPage }: Props) => {
       });
     }
   };
-  
 
   const navigate = (page: string | number) => {
     const updatedQuery = { 
