@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 
 import { instance } from "@/axios";
+import { MainPagePostType } from "@/types/mainPagePost";
 import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel/carousel";
 import AlbumCarousel from "@/components/carousel/albumCarousel";
@@ -10,12 +11,12 @@ import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
 import styles from "@/styles/Home.module.scss";
 
 interface Props {
-  mainPageNewsList: any;
-  mainPageBandList: any;
-  mainPageAlbumList: any;
-  mainPageJazzbarList: any;
-  mainPageBoardList: any;
-  mainPageJobList: any;
+  mainPageNewsList: MainPagePostType[];
+  mainPageBandList: MainPagePostType[];
+  mainPageAlbumList: MainPagePostType[];
+  mainPageJazzbarList: MainPagePostType[];
+  mainPageBoardList: MainPagePostType[];
+  mainPageJobList: MainPagePostType[];
 };
 
 const Home = ({
@@ -32,8 +33,8 @@ const Home = ({
     <div className={styles["container"]}>
       <div className={styles["news-section"]}>
         <Carousel
-          elementList={mainPageNewsList}
-          elementType={viewport === "mobile" ? "combined" : "detached"}
+          thumbnailType={viewport === "mobile" ? "combined" : "detached"}
+          mainPagePostList={mainPageNewsList}
           viewport={viewport}
           isElementJazzBar={false}
         />
@@ -41,7 +42,7 @@ const Home = ({
       <div className={styles["band-section"]}>
         <p className={styles["band-section__title"]}>BAND</p>
         <div className={styles["band-section__thumbnail-box"]}>
-          {mainPageBandList.map((post: any, index: number) => {
+          {mainPageBandList.map((post: MainPagePostType, index: number) => {
             return index < (viewport === "mobile" ? 4 : 6) && (
               <CombinedThumbnail
                 element={post}
@@ -73,8 +74,8 @@ const Home = ({
       <div className={styles["jazzbar-section"]}>
         <p className={styles["jazzbar-section__title"]}>JAZZ BAR</p>
           <Carousel
-            elementList={mainPageJazzbarList}
-            elementType="detached"
+            thumbnailType={viewport === "mobile" ? "combined" : "detached"}
+            mainPagePostList={mainPageJazzbarList}
             viewport={viewport}
             isElementJazzBar={true}
           />
