@@ -1,39 +1,40 @@
 import { useRouter } from "next/router";
 
-import { MainCategoryType } from "@/types/categorys";
+import { BbsType } from "@/types/bbs/bbs";
+import { SubCategoryKoreanType } from "@/types/categorys";
 import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  initialData: any;
+  initialData: BbsType;
 };
 
 const BbsHeader = ({ initialData }: Props) => {
   const router = useRouter();
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
+  const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
-  const handleClickSubCategory = (value: string) => {
-    router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[value]}&page=1`);
+  const handleClickSubCategory = (subCategory: SubCategoryKoreanType): void => {
+    router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
 
   return (
     <div className={styles["container"]}>
       <div className={styles["category-wrapper"]}>
         <div className={styles["sub-category-wrapper"]}>
-          {subCategoryList?.map((value: string, index: number) => (
+          {subCategoryList?.map((subCategory: SubCategoryKoreanType, index: number) => (
             <span
               key={index}
-              onClick={() => { handleClickSubCategory(value); }}
+              onClick={() => { handleClickSubCategory(subCategory); }}
               className={`${
-                value === initialData.subCategory ||
-                subCategoryKoreanToEnglishMap[value] === initialData.subCategory
+                subCategory === initialData.subCategory ||
+                subCategoryKoreanToEnglishMap[subCategory] === initialData.subCategory
                   ? styles["sub-category--selected"]
                   : styles["sub-category"]
               }`}
             >
-              {value}
+              {subCategory}
             </span>
           ))}
         </div>
