@@ -1,3 +1,5 @@
+import { SubCategoryKoreanType } from "@/types/categorys";
+
 const mainCategory = [
   { main: "notice", label: "NOTICE" },
   { main: "news", label: "NEWS" },
@@ -6,7 +8,7 @@ const mainCategory = [
   { main: "job", label: "JOB" },
 ];
 
-const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job", string[]> = {
+const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job", SubCategoryKoreanType[]> = {
   notice: ["공지", "All"],
   news: ["국내", "국외", "All"],
   board: ["일반", "녹음", "팁", "All"],
@@ -27,7 +29,7 @@ const subCategoryEnglishToKoreanMap: { [key: string]: string } = {
   jazzbarPromotion: "재즈바홍보",
   jobPosting: "구인",
   jobSeeking: "구직"
-}
+};
 
 const subCategoryKoreanToEnglishMap: { [key: string]: string } = {
   All: 'All',
