@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import { MainCategoryType } from "@/types/categorys";
-import { subCategoryListMap, sunCategoryKoreanToEnglishMap } from "@/variable";
+import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 
 import styles from "./index.module.scss";
 
@@ -15,7 +15,7 @@ const BbsHeader = ({ initialData }: Props) => {
   const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
 
   const handleClickSubCategory = (value: string) => {
-    router.push(`/bbs/${initialData.mainCategory}?subCategory=${sunCategoryKoreanToEnglishMap[value]}&page=1`);
+    router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[value]}&page=1`);
   };
 
   return (
@@ -28,7 +28,7 @@ const BbsHeader = ({ initialData }: Props) => {
               onClick={() => { handleClickSubCategory(value); }}
               className={`${
                 value === initialData.subCategory ||
-                sunCategoryKoreanToEnglishMap[value] === initialData.subCategory
+                subCategoryKoreanToEnglishMap[value] === initialData.subCategory
                   ? styles["sub-category--selected"]
                   : styles["sub-category"]
               }`}

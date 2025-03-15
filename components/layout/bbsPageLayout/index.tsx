@@ -4,7 +4,7 @@ import { RiSearchLine } from "react-icons/ri";
 
 import { ViewportType } from "@/types/viewport";
 import { useGetViewport } from "@/hooks/viewport";
-import { subCategoryListMap, sunCategoryKoreanToEnglishMap } from "@/variable";
+import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import BbsList from "@/components/bbsList";
 import Aside from "@/components/aside/aside";
@@ -36,7 +36,7 @@ const BbsPageLayout = ({
   const handleClickSubCategory = (e: any, subCategory: string): void => {
     e.stopPropagation();
 
-    router.push(`/bbs/${initialData.mainCategory}?subCategory=${sunCategoryKoreanToEnglishMap[subCategory]}&page=1`);
+    router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
 
   const handleClickSearch = (e: any): void => {

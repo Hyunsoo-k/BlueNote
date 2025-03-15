@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
 
-import { MainCategory } from "@/types/categorys";
+import { MainCategoryType } from "@/types/categorys";
 import { instance } from "@/axios";
 
-const createPost = async (mainCategory: MainCategory, requestBody: any) => {
+const createPost = async (mainCategory: MainCategoryType, requestBody: any) => {
   const response = await instance.post(`/bbs/${mainCategory}/post`, requestBody);
   
   return response;
 };
 
-const useCreatePost = (mainCategory: MainCategory) => {
+const useCreatePost = (mainCategory: MainCategoryType) => {
   const router = useRouter();
 
   return (

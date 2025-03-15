@@ -9,7 +9,7 @@ import { IoCloseOutline } from "react-icons/io5";
 
 import { MainCategoryType } from "@/types/categorys";
 import { subCategoryListMap } from "@/variable";
-import { sunCategoryKoreanToEnglishMap } from "@/variable";
+import { subCategoryKoreanToEnglishMap } from "@/variable";
 import { selectQueryMap } from "@/utils/selectQueryMap";
 import { useGetUserMe } from "@/hooks/user/useGetUserMe";
 import { useGetRecentSearch } from "@/hooks/user/useGetRecentSearch";
@@ -106,7 +106,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
   const submitHandler = {
     onSubmit: async (e: any) => {
       const urlDestination = 
-        `?subCategory=${sunCategoryKoreanToEnglishMap[subCategory.currentValue]}&select=${
+        `?subCategory=${subCategoryKoreanToEnglishMap[subCategory.currentValue]}&select=${
             selectQueryMap[select.currentValue]
           }&query=${e.query}`
 
@@ -155,7 +155,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
     await useCraeteRecentSearchMutation.mutateAsync(requestBody);
       
     router.push(
-      `?subCategory=${sunCategoryKoreanToEnglishMap[subCategory.currentValue]}&select=${
+      `?subCategory=${subCategoryKoreanToEnglishMap[subCategory.currentValue]}&select=${
         selectQueryMap[select.currentValue]
       }&query=${query}`
     );

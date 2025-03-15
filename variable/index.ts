@@ -29,7 +29,7 @@ const subCategoryEnglishToKoreanMap: { [key: string]: string } = {
   jobSeeking: "구직"
 }
 
-const sunCategoryKoreanToEnglishMap: { [key: string]: string } = {
+const subCategoryKoreanToEnglishMap: { [key: string]: string } = {
   All: 'All',
   공지: 'notice',
   국내: 'domestic',
@@ -48,5 +48,5 @@ export {
   mainCategory,
   subCategoryListMap,
   subCategoryEnglishToKoreanMap,
-  sunCategoryKoreanToEnglishMap
+  subCategoryKoreanToEnglishMap
 };
