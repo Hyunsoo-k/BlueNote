@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
-import { MainPagePostType } from "@/types/mainPagePost";
+import { MainPagePostType } from "@/types/post/mainPagePost";
 import AlbumThumbnail from "@/components/thumbnail/albumThumbnail";
 
 import styles from "./index.module.scss";
@@ -16,6 +16,7 @@ interface cetnerElementTitleType {
 };
 
 const AlbumCarousel = ({ mainPagePostList }: Props) => {
+  console.log(mainPagePostList)
   const [elementIndex, setElementIndex] = useState<number[]>([2, 3, 4, 0, 1]);
   const [centerElementTitle, setCenterElementTitle] = useState<cetnerElementTitleType>({
     visible: true,

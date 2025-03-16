@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 
 import { instance } from "@/axios";
-import { MainPagePostType } from "@/types/mainPagePost";
+import { MainPagePostType } from "@/types/post/mainPagePost";
 import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel/carousel";
 import AlbumCarousel from "@/components/carousel/albumCarousel";
