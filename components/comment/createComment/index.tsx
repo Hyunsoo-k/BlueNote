@@ -56,7 +56,7 @@ const CreateComment = ({ viewport, post_id, userMe }: Props) => {
     <form
       onSubmit={handleSubmit(handleCreateComment.onSubmit, handleCreateComment.onError)}
       onClick={handleClickInput}
-      className={`${styles["container"]} ${inputActive ? styles.active : ""}`}
+      className={`${styles["componenet"]} ${inputActive ? styles.active : ""}`}
     >
       {inputActive && viewport !== "mobile" && (
         <span className={styles["writer"]}>{userMe?.nickname}</span>
@@ -69,20 +69,15 @@ const CreateComment = ({ viewport, post_id, userMe }: Props) => {
           maxLength: { value: 1000, message: "1000글자 이하로 작성해 주세요." },
         })}
         placeholder="댓글 입력"
-        className={styles["textarea"]}
+        className={styles["input"]}
       />
       {inputActive && (
-        <div className={styles["footer"]}>
-          <span className={styles["footer__error-message"]}>
+        <div className={styles["bottom"]}>
+          <span className={styles["error-message"]}>
             {typeof errors.createFieldContent?.message === "string" ? errors.createFieldContent?.message : ""}
           </span>
-          <button
-            onClick={handleClickCancel}
-            className={styles["footer__cancel-button"]}
-          >
-            취소
-          </button>
-          <button className={styles["footer__submit-button"]}>등록</button>
+          <button onClick={handleClickCancel}>취소</button>
+          <button className={styles["submit-button"]}>등록</button>
         </div>
       )}
     </form>
