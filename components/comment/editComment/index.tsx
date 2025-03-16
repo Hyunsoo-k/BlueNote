@@ -1,16 +1,20 @@
-import { useForm } from "react-hook-form";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
 
+import { PostType } from "@/types/post/post";
+import { CommentType } from "@/types/comment/comment";
 import { useEditComment } from "@/hooks/bbs/useEditComment";
 
 import styles from "./index.module.scss";
 
-interface Props {
-  setIsEditing: any;
-  post: any;
-  comment: any;
-}
 
-const EditComment = ({ setIsEditing, post, comment }: Props) => {
+interface Props {
+  setIsEditCommentOpen: Dispatch<SetStateAction<boolean>>;
+  post: PostType;
+  comment: CommentType;
+};
+
+const EditComment = ({ setIsEditCommentOpen, post, comment }: Props) => {
   const {
     register,
     handleSubmit,
@@ -18,26 +22,34 @@ const EditComment = ({ setIsEditing, post, comment }: Props) => {
     reset,
   } = useForm({ mode: "onChange" });
 
-  const editCommentMutation = useEditComment(post._id, comment._id, setIsEditing, reset);
+  const useEditCommentMutation = useEditComment(
+    post._id,
+    comment._id,
+    setIsEditCommentOpen,
+    reset
+  );
 
-  const handleCancleEdit = (e: any) => {
+  const handleCancleEdit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
-    setIsEditing(false);
+
+    setIsEditCommentOpen(false);
   };
 
   const handleEditComment = {
-    onSubmit: (watch: any) => {
+    onSubmit: (watch: Record<string, string>): void => {
       const requestBody = { content: watch.content };
 
-      editCommentMutation.mutate(requestBody);
+      useEditCommentMutation.mutate(requestBody);
     },
-    onError: (e: any) => console.log(e),
+    onError: (e: FieldErrors): void => {
+      console.log(e);
+    },
   };
 
   return (
     <form
       onSubmit={handleSubmit(handleEditComment.onSubmit, handleEditComment.onError)}
-      className={styles["edit-comment"]}
+      className={styles["component"]}
     >
       <textarea
         {...register("content", {
@@ -47,21 +59,20 @@ const EditComment = ({ setIsEditing, post, comment }: Props) => {
         })}
         defaultValue={comment.content}
         spellCheck="false"
-        className={styles["edit-comment__input"]}
+        className={styles["input"]}
       />
-      <div className={styles["edit-comment__footer"]}>
-      <p className={styles["edit-comment__error-message"]}>
+      <div className={styles["bottom"]}>
+      <p className={styles["error-message"]}>
         {typeof errors.content?.message === "string" ? errors.content?.message : ""}
       </p>
-        <div className={styles["edit-comment__button-wrapper"]}>
+        <div className={styles["button-wrapper"]}>
           <button
             type="button"
             onClick={(e: any) => handleCancleEdit(e)}
-            className={styles["edit-comment__button"]}
           >
             취소
           </button>
-          <button className={styles["edit-comment__button"]}>수정</button>
+          <button className={styles["submit-button"]}>수정</button>
         </div>
       </div>
     </form>
