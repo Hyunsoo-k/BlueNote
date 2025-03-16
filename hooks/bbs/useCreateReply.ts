@@ -5,8 +5,7 @@ import { instance } from "@/axios"
 import { queryKey } from "@/queryKey";
 
 interface RequestBodyType {
-  post_id: string;
-  comment_id: string;
+  postUrl: string;
   content: string;
 };
 
