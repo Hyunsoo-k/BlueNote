@@ -1,5 +1,8 @@
-import { useForm } from "react-hook-form";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
 import { PiArrowElbowDownRightThin } from "react-icons/pi";
+
+import { ViewportType } from "@/types/viewport/viewport";
 
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useCreateReply } from "@/hooks/bbs/useCreateReply";
@@ -9,11 +12,16 @@ import styles from "./index.module.scss";
 interface Props {
   post_id: string;
   comment_id: string;
-  setIsCreatingReply: any;
-  viewport: string;
+  setIsCreateReplyOpen: Dispatch<SetStateAction<boolean>>;
+  viewport: ViewportType;
 };
 
-const CreateReply = ({ post_id, comment_id, setIsCreatingReply, viewport }: Props) => {
+const CreateReply = ({
+  post_id,
+  comment_id,
+  setIsCreateReplyOpen,
+  viewport
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -23,24 +31,32 @@ const CreateReply = ({ post_id, comment_id, setIsCreatingReply, viewport }: Prop
 
   const { data: userMe } = useGetUserQuery();
 
-  const createReplyMutation = useCreateReply(post_id, comment_id, setIsCreatingReply);
+  const useCreateReplyMutation = useCreateReply(
+    post_id,
+    comment_id,
+    setIsCreateReplyOpen
+  );
 
-  const handleCancelCreateReply = (e: any) => {
+  const handleCancelCreateReply = (e: MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
+
     reset();
-    setIsCreatingReply(false);
+
+    setIsCreateReplyOpen(false);
   };
 
   const handleCreateReply = {
-    onSubmit: (watch: any) => {
+    onSubmit: (watch: Record<string, string>): void => {
       const requestbody = {
         postUrl: window.location.pathname,
         content: watch.createFieldContent,
       };
 
-      createReplyMutation.mutate(requestbody);
+      useCreateReplyMutation.mutate(requestbody);
     },
-    onError: (e: any) => console.log(e),
+    onError: (error: FieldErrors): void => {
+      console.log(error);
+    }
   };
 
   return (
@@ -71,7 +87,7 @@ const CreateReply = ({ post_id, comment_id, setIsCreatingReply, viewport }: Prop
           <div className={styles["create-reply__button-wrapper"]}>
             <button
               type="button"
-              onClick={(e: any) => handleCancelCreateReply(e)}
+              onClick={handleCancelCreateReply}
               className={styles["create-reply__button"]}
             >
               취소
