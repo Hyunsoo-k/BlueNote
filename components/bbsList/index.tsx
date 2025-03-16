@@ -44,13 +44,13 @@ const BbsList = ({ viewport, resolvedUrl, initialData }: Props) => {
 
   return (
     <div className={styles["component"]}>
-      {queryData.pages.map((page: BbsType, pageIndex: number) =>
-        page.postList.map((post: BbsPostType, index: number) => (
+      {queryData.pages.map((bbs: BbsType, pageIndex: number) =>
+        bbs.postList.map((post: BbsPostType, index: number) => (
           <RowThumbnail
             key={(pageIndex + 1) * index}
             ref={lastElementRef}
             viewport={viewport}
-            page={page}
+            bbs={bbs}
             pageIndex={pageIndex}
             index={index}
             queryData={queryData}
