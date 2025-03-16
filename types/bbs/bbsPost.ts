@@ -14,6 +14,7 @@ interface BbsPostType {
   content: string;
   thumbnailSrc: null | string;
   views: number;
+  commentCount: number;
   recommend: string[];
   __v: number;
 };
