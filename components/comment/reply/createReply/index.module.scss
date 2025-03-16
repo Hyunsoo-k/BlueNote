@@ -1,18 +1,18 @@
 @use "@/styles/variables.scss" as *;
 
-.create-reply {
+.component {
   position: relative;
   padding: 15px 8px 15px 45px;
   border-bottom: 1px solid $gray-color-100;
   
-  .create-reply__form {
+  .form {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 5px 10px 5px 10px;
     border: 1px solid $gray-color-100;
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: #fff;
     font-size: 15px;
     font-family: "Noto Sans KR", sans-serif;
@@ -21,15 +21,15 @@
       width: 100%;
     }
 
-    .create-reply__writer {
+    .writer {
       margin: 0;
       padding-bottom: 10px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
-      color: rgb(50, 50, 50);
+      color: $main-color;
     }
 
-    .create-reply__create-input {
+    .input {
       resize: none;
       outline: none;
       height: 70px;
@@ -43,12 +43,12 @@
       }
     }
 
-    .create-reply__footer {
+    .bottom {
       display: flex;
       justify-content: space-between;
       margin-top: 5px;
 
-      .create-reply__error-message {
+      .error-message {
         display: flex;
         align-items: flex-end;
         height: 30px;
@@ -62,8 +62,8 @@
         }
       }
 
-      .create-reply__button-wrapper {
-        .create-reply__button {
+      .button-wrapper {
+        button {
           position: relative;
           width: 30px;
           height: 30px;
@@ -84,6 +84,10 @@
             cursor: pointer;
             color: $sub-color;
           }
+        }
+
+        .submit-button {
+          color: $sub-color;
         }
       }
     }
