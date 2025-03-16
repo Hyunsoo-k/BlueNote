@@ -1,22 +1,23 @@
 import { GetServerSideProps } from "next";
 
 import { instance } from "@/axios";
+import { BbsType } from "@/types/bbs/bbs";
 import BbsPageLayout from "@/components/layout/bbsPageLayout";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  query: any;
   resolvedUrl: string;
-  initialData: any;
-}
+  initialData: BbsType;
+};
 
-const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
+const BoardPage = ({ resolvedUrl, initialData }: ServerSideProps) => {
+
   return (
     <div className={styles["container"]}>
       <BbsPageLayout
-        initialData={initialData}
         resolvedUrl={resolvedUrl}
+        initialData={initialData}
       />
     </div>
   );
@@ -25,12 +26,11 @@ const BoardPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
 export default BoardPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query, resolvedUrl } = context;
+  const { resolvedUrl } = context;
   const { data: initialData } = await instance.get(resolvedUrl);
 
   return {
     props: {
-      query,
       resolvedUrl,
       initialData,
     },

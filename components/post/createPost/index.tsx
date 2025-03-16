@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { GoArrowLeft } from "react-icons/go";
 
-import { MainCategoryType } from "@/types/categorys";
+import { MainCategoryType } from "@/types/category/categorys";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { subCategoryListMap } from "@/variable";
 import { useCreatePost } from "@/hooks/bbs/useCreatePost";
@@ -24,8 +24,7 @@ interface Props {
 const CreatePost = ({ mainCategory, viewport }: Props) => {
   const router = useRouter();
 
-  const subCategoryList = subCategoryListMap[mainCategory]
-    .filter((subCategory: string) => subCategory !== "All");
+  const subCategoryList = subCategoryListMap[mainCategory].filter((subCategory: string) => subCategory !== "All");
 
   const [subCategory, setSubCategory] = useState<string>(subCategoryList[0]);
 

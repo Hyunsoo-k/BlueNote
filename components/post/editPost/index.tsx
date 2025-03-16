@@ -10,20 +10,24 @@ import { useEditPost } from "@/hooks/bbs/useEditPost";
 import useModal from "@/hooks/modal/useModal";
 import ModalContainer from "@/components/modal/modalContainer";
 
+import { PostType } from "@/types/post/post";
+import { ViewportType } from "@/types/viewport/viewport";
+import { SubCategoryKoreanType } from "@/types/category/categorys";
+
 import styles from "./index.module.scss";
 
 const Wysiwyg = dynamic(() => import("@/components/post/wysiwyg"), { ssr: false });
 
 interface Props {
-  post: any;
-  viewport: string;
-}
+  post: PostType;
+  viewport: ViewportType;
+};
 
 const EditPost = ({ post, viewport }: Props) => {
   const router = useRouter();
 
-  const subCategoryList = subCategoryListMap[post.mainCategory as keyof typeof subCategoryListMap].filter(
-    (item: string) => item !== "All"
+  const subCategoryList = subCategoryListMap[post.mainCategory].filter(
+    (item: SubCategoryKoreanType) => item !== "All"
   );
 
   const [currentCategory, setCurrentCategory] = useState<string>(post.subCategory);
@@ -40,12 +44,12 @@ const EditPost = ({ post, viewport }: Props) => {
     setValue("title", post.title);
   }, []);
 
-  const handleClickBack = () => {
+  const handleClickBack = (): void => {
     router.push(`/bbs/${post.mainCategory}/post/${post._id}`);
   };
 
   const submitHandler = {
-    onSubmit: async (watch: any) => {
+    onSubmit: async (watch: Record<string, string>): Promise<void> => {
       const editor = wysiwygRef.current.getEditor();
       const parser = new DOMParser();
       const parsedContent = parser.parseFromString(editor.root.innerHTML, "text/html");
@@ -73,8 +77,7 @@ const EditPost = ({ post, viewport }: Props) => {
 
       editPostMutation.mutate(requestBody);
     },
-    onError: (error: any) => {
-      console.log(error);
+    onError: (error: any): void => {
       error.title && openModal("alert", error.title.message, closeModal);
     },
   };
@@ -94,11 +97,6 @@ const EditPost = ({ post, viewport }: Props) => {
           <span className={styles["title--mobile"]}>글수정</span>
           <button className={styles["submit-button--mobile"]}>수정</button>
         </div>
-      )}
-      {viewport !== "mobile" && (
-        <p className={styles["main-category"]}>
-          {post.mainCategory.charAt(0).toUpperCase() + post.mainCategory.slice(1)}
-        </p>
       )}
       <div className={styles["header"]}>
         <input

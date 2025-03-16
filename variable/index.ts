@@ -1,4 +1,4 @@
-import { SubCategoryKoreanType } from "@/types/categorys";
+import { SubCategoryKoreanType } from "@/types/category/categorys";
 
 const mainCategory = [
   { main: "notice", label: "NOTICE" },
@@ -28,27 +28,22 @@ const subCategoryEnglishToKoreanMap: { [key: string]: string } = {
   albumPromotion: "앨범홍보",
   jazzbarPromotion: "재즈바홍보",
   jobPosting: "구인",
-  jobSeeking: "구직"
+  jobSeeking: "구직",
 };
 
 const subCategoryKoreanToEnglishMap: { [key: string]: string } = {
-  All: 'All',
-  공지: 'notice',
-  국내: 'domestic',
-  국외: 'overseas',
-  일반: 'common',
-  녹음: 'record',
-  팁: 'tip',
-  밴드홍보: 'bandPromotion',
-  앨범홍보: 'albumPromotion',
-  재즈바홍보: 'jazzbarPromotion',
-  구인: 'jobPosting',
-  구직: 'jobSeeking'
+  All: "All",
+  공지: "notice",
+  국내: "domestic",
+  국외: "overseas",
+  일반: "common",
+  녹음: "record",
+  팁: "tip",
+  밴드홍보: "bandPromotion",
+  앨범홍보: "albumPromotion",
+  재즈바홍보: "jazzbarPromotion",
+  구인: "jobPosting",
+  구직: "jobSeeking",
 };
 
-export {
-  mainCategory,
-  subCategoryListMap,
-  subCategoryEnglishToKoreanMap,
-  subCategoryKoreanToEnglishMap
-};
+export { mainCategory, subCategoryListMap, subCategoryEnglishToKoreanMap, subCategoryKoreanToEnglishMap };

@@ -1,22 +1,20 @@
 import { GetServerSideProps } from "next";
 
 import { instance } from "@/axios";
+import { PostType } from "@/types/post/post";
 import PostPageLayout from "@/components/layout/postPageLayout";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  urlWithoutQuery: string;
-  initialData: any;
+  initialData: PostType;
 };
 
-const BoardPostPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
+const BoardPostPage = ({ initialData }: ServerSideProps) => {
 
   return (
     <div className={styles["container"]}>
-      <PostPageLayout
-        initialData={initialData}
-      />
+      <PostPageLayout initialData={initialData} />
     </div>
   );
 };
@@ -33,9 +31,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data: initialData } = await instance.get(`${urlWithoutQuery}`);
 
   return {
-    props: {
-      urlWithoutQuery,
-      initialData,
-    },
+    props: { initialData }
   };
 };

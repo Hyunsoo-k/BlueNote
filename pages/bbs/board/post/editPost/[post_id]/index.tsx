@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 
+import { PostType } from "@/types/post/post";
 import { instance } from "@/axios";
 import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import EditPostPageLayout from "@/components/layout/editPostPageLayout";
@@ -8,7 +9,7 @@ import styles from "./index.module.scss";
 
 interface ServerSideProps {
   urlWithoutQuery: string;
-  initialData: any;
+  initialData: PostType;
 };
 
 const BoardPostEditPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {

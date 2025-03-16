@@ -3,8 +3,9 @@ import { RiThumbUpLine } from "react-icons/ri";
 import { RiThumbUpFill } from "react-icons/ri";
 import { BiCommentDetail } from "react-icons/bi";
 
-import { PostType } from "@/types/post";
-import { Comment as CommentType } from "@/types/comment";
+import { ViewportType } from "@/types/viewport/viewport";
+import { PostType } from "@/types/post/post";
+import { CommentType } from "@/types/comment/comment";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useRecommendPost } from "@/hooks/bbs/useRecommend";
 import useModal from "@/hooks/modal/useModal";
@@ -15,18 +16,18 @@ import ModalContainer from "@/components/modal/modalContainer";
 import styles from "./index.module.scss";
 
 interface Props {
+  viewport: ViewportType;
   post: PostType;
-  viewport: string;
 };
 
-const CommentSection = ({ post, viewport }: Props) => {
+const CommentSection = ({ viewport, post }: Props) => {
   const router = useRouter();
 
-  const { data: userMe } = useGetUserQuery();
+  const { data: userMe }= useGetUserQuery();
 
   const { openModal, closeModal } = useModal();
 
-  const recommendPostMutation = useRecommendPost(post.mainCategory, post._id);
+  const useRecommendPostMutation = useRecommendPost(post.mainCategory, post._id);
 
   const handleRecommendPost = () => {
     if (!userMe) {
@@ -35,16 +36,13 @@ const CommentSection = ({ post, viewport }: Props) => {
 
     const requsetBody = { targetUrl: router.asPath };
 
-    recommendPostMutation.mutate(requsetBody);
+    useRecommendPostMutation.mutate(requsetBody);
   };
 
   return (
     <div className={styles["container"]}>
       <div className={styles["header"]}>
-        <div
-          onClick={handleRecommendPost}
-          className={styles["recommend-count-box"]}
-        >
+        <div onClick={handleRecommendPost} className={styles["recommend-count-box"]}>
           {post.recommend.includes(userMe?._id) ? (
             <RiThumbUpFill
               size={viewport === "mobile" ? 16 : 16}

@@ -4,7 +4,7 @@ import { ViewportType } from "@/types/viewport/viewport";
 import { BbsType } from "@/types/bbs/bbs";
 import { BbsPostType } from "@/types/bbs/bbsPost";
 import { InfiniteQueryDataType } from "@/types/bbs/infiniteQueryData";
-import { useGetPostListQuery } from "@/hooks/bbs/useGetPostListQuery";
+import { useGetBbsListQuery } from "@/hooks/bbs/useGetBbsLitQuery";
 import RowThumbnail from "@/components/thumbnail/rowThumbnail";
 
 import styles from "./index.module.scss";
@@ -22,7 +22,7 @@ const BbsList = ({ viewport, resolvedUrl, initialData }: Props) => {
     fetchNextPage,
     hasNextPage,
     data: queryData,
-  }: InfiniteQueryDataType = useGetPostListQuery(initialData.mainCategory, resolvedUrl, initialData);
+  }: InfiniteQueryDataType = useGetBbsListQuery(initialData.mainCategory, resolvedUrl, initialData);
 
   useEffect(() => {
     const io = new IntersectionObserver(

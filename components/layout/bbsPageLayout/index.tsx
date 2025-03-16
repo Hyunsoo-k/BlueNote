@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useRef, MouseEvent } from "react";
 import { RiSearchLine } from "react-icons/ri";
 
+import { ViewportType } from "@/types/viewport/viewport";
 import { BbsType } from "@/types/bbs/bbs";
 import { SubCategoryKoreanType } from "@/types/category/categorys";
 import { useGetViewport } from "@/hooks/viewport";
@@ -27,11 +28,14 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
 
   const asideRef = useRef<HTMLDivElement | null>(null);
 
-  const viewport = useGetViewport();
+  const viewport: ViewportType = useGetViewport();
 
   const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
-  const handleClickSubCategory = (e: MouseEvent<HTMLElement>, subCategory: SubCategoryKoreanType): void => {
+  const handleClickSubCategory = (
+    e: MouseEvent<HTMLElement>,
+    subCategory: SubCategoryKoreanType
+  ): void => {
     e.stopPropagation();
 
     router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
@@ -69,7 +73,11 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
               ))}
             </div>
             <div className={styles["main__searching"]}>
-              <RiSearchLine size={25} onClick={handleClickSearch} className={styles["main__searcing-icon"]} />
+              <RiSearchLine
+                size={25}
+                onClick={handleClickSearch}
+                className={styles["main__searcing-icon"]}
+              />
               {searchModalOpen && (
                 <SearchModal
                   viewport={viewport}

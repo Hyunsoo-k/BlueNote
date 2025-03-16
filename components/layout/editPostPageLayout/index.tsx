@@ -1,10 +1,11 @@
+import { PostType } from "@/types/post/post";
 import { useGetViewport } from "@/hooks/viewport";
 import EditPost from "@/components/post/editPost";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  post: any;
+  post: PostType;
 };
 
 const EditPostPageLayout = ({ post }: Props) => {

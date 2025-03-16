@@ -122,7 +122,7 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
       }&query=${watch.query}`;
 
       if (userMe) {
-        const requestBody = { query: e.query };
+        const requestBody = { query: watch.query };
 
         await useCraeteRecentSearchMutation.mutateAsync(requestBody);
       };

@@ -5,14 +5,14 @@ import styles from "./index.module.scss";
 
 interface Props {
   setOpenActionTools: Dispatch<SetStateAction<boolean>>;
-  handleClickEditPost: () => void;
-  handleClickDeletePost: () => void;
+  handleClickEdit: () => void;
+  handleClickDelete: () => void;
 };
 
 const ActionTools = ({
   setOpenActionTools,
-  handleClickEditPost,
-  handleClickDeletePost
+  handleClickEdit,
+  handleClickDelete
 }: Props) => {
   
   useEffect(() => {
@@ -36,7 +36,7 @@ const ActionTools = ({
     <div id="action-tools" className={styles["action-tools"]}>
       <div className={styles["action-tools__edit-section"]}>
         <span
-          onClick={handleClickEditPost}
+          onClick={handleClickEdit}
           className={styles["action-tools__edit-button"]}
         >
           수정하기
@@ -51,7 +51,7 @@ const ActionTools = ({
       </div>
       <div className={styles["action-tools__delete-section"]}>
         <span
-          onClick={handleClickDeletePost}
+          onClick={handleClickDelete}
           className={styles["action-tools__delete-button"]}
         >
           삭제하기
