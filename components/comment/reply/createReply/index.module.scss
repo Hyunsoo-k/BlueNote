@@ -4,6 +4,10 @@
   position: relative;
   padding: 15px 8px 15px 45px;
   border-bottom: 1px solid $gray-color-100;
+
+  @include tablet {
+    padding-left: 100px;
+  }
   
   .form {
     position: relative;

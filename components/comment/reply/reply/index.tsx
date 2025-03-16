@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
+import { PostType } from "@/types/post/post";
+import { ReplyType } from "@/types/comment/reply";
+import { ViewportType } from "@/types/viewport/viewport";
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import useModal from "@/hooks/modal/useModal";
 import { useDeleteReply } from "@/hooks/bbs/useDeleteReply";
@@ -15,18 +18,24 @@ import styles from "./index.module.scss";
 
 interface Props {
   key: number;
-  post: any;
+  post: PostType;
   comment_id: string;
-  reply: any;
-  viewport: string;
+  reply: ReplyType;
+  viewport: ViewportType;
 };
 
-const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
+const Reply = ({
+  key,
+  post,
+  comment_id,
+  reply,
+  viewport
+}: Props) => {
   const router = useRouter();
 
-  const [openActionTools, setOpenActionTools] = useState<boolean>(false);
-  const [isEditingReply, setIsEditingReply] = useState<boolean>(false);
-  const [isCreatingReply, setIsCreatingReply] = useState<boolean>(false);
+  const [isActionToolsOpen, setIsActionToolsOpen] = useState<boolean>(false);
+  const [isEditReplyOpen, setIsEditReplyOpen] = useState<boolean>(false);
+  const [isCreateReplyOpen, setIsCreateReplyOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (router.query.element_id === reply._id.toString()) {
@@ -48,21 +57,22 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
 
   const deleteReplyMutation = useDeleteReply(post._id, comment_id, reply._id, closeModal);
 
-  const handleClickActionTools = (e: any) => {
+  const handleClickActionTools = (e: MouseEvent<HTMLElement>): void => {
     e.stopPropagation();
-    setOpenActionTools((prev: boolean) => !prev);
+
+    setIsActionToolsOpen((prev: boolean) => !prev);
   };
 
-  const handleEditReply = (e: any) => {
-    setIsEditingReply((prev: boolean) => !prev);
+  const handleEditReply = (): void  => {
+    setIsEditReplyOpen((prev: boolean) => !prev);
   };
 
-  const handleDeleteReply = (e: any) => {
+  const handleDeleteReply = (): void  => {
     openModal("confirm", "댓글을 삭제하시겠습니까?", () => deleteReplyMutation.mutate());
   };
 
-  const handleCreateReply = (e: any) => {
-    setIsCreatingReply((prev: boolean) => !prev);
+  const handleCreateReply = (): void  => {
+    setIsCreateReplyOpen((prev: boolean) => !prev);
   };
 
   return (
@@ -70,7 +80,7 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
       <div
         key={key}
         id={reply._id}
-        className={styles["reply"]}
+        className={styles["component"]}
         style={router.query.element_id === reply._id.toString() ? { backgroundColor: "rgb(230, 230, 230)" } : {}}
       >
         <Image
@@ -85,23 +95,28 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
             borderRadius: "50%",
           }}
         />
-        <div className={styles["reply__header"]}>
-          <div className={styles["reply__writer-info"]}>
-            <span className={styles["reply__writer"]}>{reply.writer.nickname}</span>
-            {post.writer._id === reply.writer._id && <span className={styles["reply__post_writer"]}>작성자</span>}
-            {reply.writer._id === userMe?._id && <span className={styles["reply__userMe_writer"]}>내가 쓴 글</span>}
+        <div className={styles["header"]}>
+          <div className={styles["writer-info"]}>
+            <span className={styles["writer"]}>{reply.writer.nickname}</span>
+            {post.writer._id === reply.writer._id && (
+              <span className={styles["post-writer"]}>작성자</span>
+            )}
+            {reply.writer._id === userMe?._id && (
+              <span className={styles["userMe-writer"]}>내가 쓴 글</span>
+            )}
           </div>
-          {!isEditingReply && userMe?._id === reply.writer._id && (
+          {!isEditReplyOpen && userMe?._id === reply.writer._id && (
             <div
-              onClick={(e) => {
-                handleClickActionTools(e);
-              }}
-              className={styles["reply__action-tools"]}
+              onClick={handleClickActionTools}
+              className={styles["action-tools"]}
             >
-              <HiOutlineDotsVertical size={15} color="rgb(138, 131, 131)" />
-              {openActionTools && (
+              <HiOutlineDotsVertical
+                size={15}
+                color="rgb(138, 131, 131)"
+              />
+              {isActionToolsOpen && (
                 <ActionTools
-                  setOpenActionTools={setOpenActionTools}
+                  setOpenActionTools={setIsActionToolsOpen}
                   handleClickEdit={handleEditReply}
                   handleClickDelete={handleDeleteReply}
                 />
@@ -109,28 +124,32 @@ const Reply = ({ key, post, comment_id, reply, viewport }: Props) => {
             </div>
           )}
         </div>
-        {!isEditingReply && <p className={styles["reply__content"]}>{reply.content}</p>}
-        {isEditingReply && (
-          <EditReply setIsEditing={setIsEditingReply} post_id={post._id} comment_id={comment_id} reply={reply} />
+        {!isEditReplyOpen && (
+          <p className={styles["content"]}>{reply.content}</p>
         )}
-        <div className={styles["reply__footer"]}>
-          <span className={styles["reply__created-at"]}>{formatYMD(reply.createdAt)}</span>
+        {isEditReplyOpen && (
+          <EditReply
+            isEditingReply={setIsEditReplyOpen}
+            post_id={post._id}
+            comment_id={comment_id}
+            reply={reply}
+          />
+        )}
+        <div className={styles["bottom"]}>
+          <span className={styles["created-at"]}>{formatYMD(reply.createdAt)}</span>
           <button
             type="button"
-            onClick={(e: any) => {
-              handleCreateReply(e);
-            }}
-            className={styles["reply__create-reply-button"]}
+            onClick={handleCreateReply}
           >
             답글 쓰기
           </button>
         </div>
       </div>
-      {isCreatingReply && (
+      {isCreateReplyOpen && (
         <CreateReply
           post_id={post._id}
           comment_id={comment_id}
-          setIsCreatingReply={setIsCreatingReply}
+          setIsCreateReplyOpen={setIsCreateReplyOpen}
           viewport={viewport}
         />
       )}

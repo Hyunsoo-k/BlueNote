@@ -37,7 +37,7 @@ const CreateReply = ({
     setIsCreateReplyOpen
   );
 
-  const handleCancelCreateReply = (e: MouseEvent<HTMLButtonElement>): void => {
+  const handleClickCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
 
     reset();
@@ -60,17 +60,21 @@ const CreateReply = ({
   };
 
   return (
-    <div className={styles["create-reply"]}>
+    <div className={styles["component"]}>
       <PiArrowElbowDownRightThin
         size={viewport === "mobile" ? 18 : 23}
         color="rgb(138, 131, 131)"
-        style={{ position: "absolute", top: "20px", left: "10px" }}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: `${viewport === "mobile" ? "10px" : "55px"}`
+        }}
       />
       <form
         onSubmit={handleSubmit(handleCreateReply.onSubmit, handleCreateReply.onError)}
-        className={styles["create-reply__form"]}
+        className={styles["form"]}
       >
-        <p className={styles["create-reply__writer"]}>{userMe?.nickname}</p>
+        <p className={styles["writer"]}>{userMe?.nickname}</p>
         <textarea
           spellCheck="false"
           {...register("createFieldContent", {
@@ -78,21 +82,20 @@ const CreateReply = ({
             minLength: { value: 1, message: "1글자 이상 입력해 주세요." },
             maxLength: { value: 1000, message: "1000글자 이하로 작성해 주세요." },
           })}
-          className={styles["create-reply__create-input"]}
+          className={styles["input"]}
         />
-        <div className={styles["create-reply__footer"]}>
-          <p className={styles["create-reply__error-message"]}>
+        <div className={styles["bottom"]}>
+          <p className={styles["error-message"]}>
             {typeof errors.createFieldContent?.message === "string" ? errors.createFieldContent.message : ""}
           </p>
-          <div className={styles["create-reply__button-wrapper"]}>
+          <div className={styles["button-wrapper"]}>
             <button
               type="button"
-              onClick={handleCancelCreateReply}
-              className={styles["create-reply__button"]}
+              onClick={handleClickCancel}
             >
               취소
             </button>
-            <button className={styles["create-reply__button"]}>등록</button>
+            <button className={styles["submit-button"]}>등록</button>
           </div>
         </div>
       </form>
