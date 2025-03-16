@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import { BbsType } from "@/types/bbs/bbs";
-import { SubCategoryKoreanType } from "@/types/categorys";
+import { SubCategoryKoreanType } from "@/types/category/categorys";
 import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 
 import styles from "./index.module.scss";
@@ -26,7 +26,9 @@ const BbsHeader = ({ initialData }: Props) => {
           {subCategoryList?.map((subCategory: SubCategoryKoreanType, index: number) => (
             <span
               key={index}
-              onClick={() => { handleClickSubCategory(subCategory); }}
+              onClick={() => {
+                handleClickSubCategory(subCategory);
+              }}
               className={`${
                 subCategory === initialData.subCategory ||
                 subCategoryKoreanToEnglishMap[subCategory] === initialData.subCategory
