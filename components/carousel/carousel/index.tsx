@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaCircle } from "react-icons/fa";
 
-import { MainPagePostType } from "@/types/mainPagePost";
+import { MainPagePostType } from "@/types/post/mainPagePost";
 import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
 import DetachedThumbnail from "@/components/thumbnail/detachedThumbnail";
 

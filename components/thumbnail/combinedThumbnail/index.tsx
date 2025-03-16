@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { MainPagePostType } from "@/types/mainPagePost";
+import { MainPagePostType } from "@/types/post/mainPagePost";
 
 import styles from "./index.module.scss";
 
