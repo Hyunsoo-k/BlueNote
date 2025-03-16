@@ -1,4 +1,4 @@
-import { MainCategoryType, SubCategoryKoreanType } from "./category/categorys";
+import { MainCategoryType, SubCategoryKoreanType } from "@/types/category/categorys";
 
 interface MainPagePostType {
   commentCount: number;
