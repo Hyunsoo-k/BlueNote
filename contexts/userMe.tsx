@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import { createContext, ReactNode  } from "react";
 
 import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 
@@ -16,9 +16,13 @@ interface UserMeContextType {
   userMe: UserMe | null;
 };
 
+interface Props {
+  children: ReactNode;
+};
+
 const UserMeContext = createContext<UserMeContextType | null>(null);
 
-const UserMeProvider = ({ children }: any) => {
+const UserMeProvider = ({ children }: Props) => {
   const { data: userMe } = useGetUserQuery(); // enabled가 실행을 막으면 data 프로퍼티엔 undefined가 할당.
 
   return (
