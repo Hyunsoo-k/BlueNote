@@ -116,10 +116,10 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
   const subCatgoryList = subCategoryListMap[mainCategory];
 
   const submitHandler = {
-    onSubmit: async (e: Record<string, string>): Promise<void> => {
+    onSubmit: async (watch: Record<string, string>): Promise<void> => {
       const urlDestination = `?subCategory=${subCategoryKoreanToEnglishMap[subCategory.currentValue]}&select=${
         selectQueryMap[select.currentValue]
-      }&query=${e.query}`;
+      }&query=${watch.query}`;
 
       if (userMe) {
         const requestBody = { query: e.query };
