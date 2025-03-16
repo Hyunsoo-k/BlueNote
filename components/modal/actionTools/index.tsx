@@ -1,18 +1,18 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { CiEdit, CiTrash } from "react-icons/ci";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  setOpenActionTools: (state: boolean) => void;
-  handleClickEdit: any;
-  handleClickDelete: any;
+  setOpenActionTools: Dispatch<SetStateAction<boolean>>;
+  handleClickEditPost: () => void;
+  handleClickDeletePost: () => void;
 };
 
 const ActionTools = ({
   setOpenActionTools,
-  handleClickEdit,
-  handleClickDelete
+  handleClickEditPost,
+  handleClickDeletePost
 }: Props) => {
   
   useEffect(() => {
@@ -36,7 +36,7 @@ const ActionTools = ({
     <div id="action-tools" className={styles["action-tools"]}>
       <div className={styles["action-tools__edit-section"]}>
         <span
-          onClick={handleClickEdit}
+          onClick={handleClickEditPost}
           className={styles["action-tools__edit-button"]}
         >
           수정하기
@@ -51,7 +51,7 @@ const ActionTools = ({
       </div>
       <div className={styles["action-tools__delete-section"]}>
         <span
-          onClick={handleClickDelete}
+          onClick={handleClickDeletePost}
           className={styles["action-tools__delete-button"]}
         >
           삭제하기
