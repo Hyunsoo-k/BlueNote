@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.edit-comment {
+.component {
   resize: none;
   outline: none;
   position: relative;
@@ -17,7 +17,7 @@
   font-size: 15px;
   font-family: "Noto Sans KR", sans-serif;
 
-  .edit-comment__input {
+  .input {
     resize: none;
     outline: none;
     height: 80px;
@@ -31,12 +31,12 @@
     }
   }
 
-  .edit-comment__footer {
+  .bottom {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
 
-    .edit-comment__error-message {
+    .eerror-message {
       display: flex;
       align-items: flex-end;
       height: 30px;
@@ -46,8 +46,8 @@
       color: red;
     }
 
-    .edit-comment__button-wrapper {
-      .edit-comment__button {
+    .button-wrapper {
+      button {
         position: relative;
         width: 30px;
         height: 30px;
@@ -68,6 +68,10 @@
           cursor: pointer;
           color: $sub-color;
         }
+      }
+
+      .submit-button {
+        color: $sub-color;
       }
     }
   }

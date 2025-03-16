@@ -1,29 +1,28 @@
 import { useRef, useEffect } from "react";
 
-import { ViewportType } from "@/types/viewport";
-import { useGetPostListQuery } from "@/hooks/bbs/useGetPostListQuery";
+import { ViewportType } from "@/types/viewport/viewport";
+import { BbsType } from "@/types/bbs/bbs";
+import { BbsPostType } from "@/types/bbs/bbsPost";
+import { InfiniteQueryDataType } from "@/types/bbs/infiniteQueryData";
+import { useGetBbsListQuery } from "@/hooks/bbs/useGetBbsLitQuery";
 import RowThumbnail from "@/components/thumbnail/rowThumbnail";
 
 import styles from "./index.module.scss";
 
 interface Props {
   viewport: ViewportType;
-  initialData: any;
   resolvedUrl: string;
+  initialData: BbsType;
 };
 
-const BbsList = ({
-  viewport,
-  initialData,
-  resolvedUrl
-}: Props) => {
+const BbsList = ({ viewport, resolvedUrl, initialData }: Props) => {
   const lastElementRef = useRef<HTMLDivElement | null>(null);
 
   const {
     fetchNextPage,
     hasNextPage,
     data: queryData,
-  } = useGetPostListQuery(initialData.mainCategory, resolvedUrl, initialData);
+  }: InfiniteQueryDataType = useGetBbsListQuery(initialData.mainCategory, resolvedUrl, initialData);
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -45,13 +44,13 @@ const BbsList = ({
 
   return (
     <div className={styles["component"]}>
-      {queryData?.pages?.map((page: any, pageIndex: number) =>
-        page?.postList?.map((post: any, index: number) => (
+      {queryData.pages.map((bbs: BbsType, pageIndex: number) =>
+        bbs.postList.map((post: BbsPostType, index: number) => (
           <RowThumbnail
             key={(pageIndex + 1) * index}
             ref={lastElementRef}
             viewport={viewport}
-            page={page}
+            bbs={bbs}
             pageIndex={pageIndex}
             index={index}
             queryData={queryData}

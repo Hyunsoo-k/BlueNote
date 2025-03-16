@@ -1,16 +1,18 @@
 import { useRouter } from "next/router";
 
+import { MainPagePostType } from "@/types/post/mainPagePost";
+
 import styles from "./index.module.scss";
 
 interface Props {
-  element: any;
+  post: MainPagePostType;
 };
 
-const AlbumThumbnail = ({ element }: Props) => {
+const AlbumThumbnail = ({ post }: Props) => {
   const router = useRouter();
 
   const handleClickThumbnail = () => {
-    router.push(`/bbs/${element.mainCategory}/post/${element._id}`);
+    router.push(`/bbs/${post.mainCategory}/post/${post._id}`);
   };
 
   return (
@@ -18,7 +20,7 @@ const AlbumThumbnail = ({ element }: Props) => {
       onClick={handleClickThumbnail}
       className={styles["container"]}
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${element.thumbnailSrc})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${post.thumbnailSrc})`,
       }}
     >
     </div>

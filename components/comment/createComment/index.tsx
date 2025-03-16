@@ -1,28 +1,31 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FieldErrors } from "react-hook-form";
 
+import { ViewportType } from "@/types/viewport/viewport";
+import { UserMeType } from "@/types/userMe/userMe";
 import { useCreateComment } from "@/hooks/bbs/useCreateComment";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  post_id: any;
-  userMe: any;
-  viewport: string;
+  viewport: ViewportType;
+  post_id: string;
+  userMe: UserMeType;
 };
 
-const CreateComment = ({ post_id, userMe, viewport }: Props) => {
+const CreateComment = ({ viewport, post_id, userMe }: Props) => {
   const router = useRouter();
 
   const [inputActive, setInputActive] = useState<boolean>(false);
 
-  const handleClickInput = () => {
+  const handleClickInput = (): void => {
     setInputActive(true);
   };
 
-  const handleClickCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickCancel = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
+
     setInputActive(false);
   };
 
@@ -33,25 +36,27 @@ const CreateComment = ({ post_id, userMe, viewport }: Props) => {
     reset,
   } = useForm({ mode: "onChange" });
 
-  const createCommentMutation = useCreateComment(router.asPath, post_id, reset);
+  const useCreateCommentMutation = useCreateComment(router.asPath, post_id, reset);
 
   const handleCreateComment = {
-    onSubmit: (watch: any) => {
+    onSubmit: (watch: Record<string, string>): void => {
       const requestbody = {
         content: watch.createFieldContent,
         postUrl: router.asPath,
       };
 
-      createCommentMutation.mutate(requestbody);
+      useCreateCommentMutation.mutate(requestbody);
     },
-    onError: (e: any) => console.log(e),
+    onError: (e: FieldErrors): void => {
+      console.log(e);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit(handleCreateComment.onSubmit, handleCreateComment.onError)}
       onClick={handleClickInput}
-      className={`${styles["container"]} ${inputActive ? styles.active : ""}`}
+      className={`${styles["componenet"]} ${inputActive ? styles.active : ""}`}
     >
       {inputActive && viewport !== "mobile" && (
         <span className={styles["writer"]}>{userMe?.nickname}</span>
@@ -64,20 +69,15 @@ const CreateComment = ({ post_id, userMe, viewport }: Props) => {
           maxLength: { value: 1000, message: "1000글자 이하로 작성해 주세요." },
         })}
         placeholder="댓글 입력"
-        className={styles["textarea"]}
+        className={styles["input"]}
       />
       {inputActive && (
-        <div className={styles["footer"]}>
-          <span className={styles["footer__error-message"]}>
+        <div className={styles["bottom"]}>
+          <span className={styles["error-message"]}>
             {typeof errors.createFieldContent?.message === "string" ? errors.createFieldContent?.message : ""}
           </span>
-          <button
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => { handleClickCancel(e); }}
-            className={styles["footer__cancel-button"]}
-          >
-            취소
-          </button>
-          <button className={styles["footer__submit-button"]}>등록</button>
+          <button onClick={handleClickCancel}>취소</button>
+          <button className={styles["submit-button"]}>등록</button>
         </div>
       )}
     </form>

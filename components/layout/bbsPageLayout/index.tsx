@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
-import { useState, useRef } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import { RiSearchLine } from "react-icons/ri";
 
-import { ViewportType } from "@/types/viewport";
+import { ViewportType } from "@/types/viewport/viewport";
+import { BbsType } from "@/types/bbs/bbs";
+import { SubCategoryKoreanType } from "@/types/category/categorys";
 import { useGetViewport } from "@/hooks/viewport";
 import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 import BbsHeader from "@/components/bbs/bbsHeader";
@@ -15,14 +17,11 @@ import ModalContainer from "@/components/modal/modalContainer";
 import styles from "./index.module.scss";
 
 interface Props {
-  initialData: any;
   resolvedUrl: string;
+  initialData: BbsType;
 };
 
-const BbsPageLayout = ({
-  initialData,
-  resolvedUrl
-}: Props) => {
+const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
   const router = useRouter();
 
   const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
@@ -31,62 +30,63 @@ const BbsPageLayout = ({
 
   const viewport: ViewportType = useGetViewport();
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory as keyof typeof subCategoryListMap];
+  const subCategoryList = subCategoryListMap[initialData.mainCategory];
 
-  const handleClickSubCategory = (e: any, subCategory: string): void => {
+  const handleClickSubCategory = (
+    e: MouseEvent<HTMLElement>,
+    subCategory: SubCategoryKoreanType
+  ): void => {
     e.stopPropagation();
 
     router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
 
-  const handleClickSearch = (e: any): void => {
+  const handleClickSearch = (e: MouseEvent<SVGAElement>): void => {
     e.stopPropagation();
 
-    setSearchModalOpen((prev: boolean) => !prev);
+    setSearchModalOpen((prev: boolean): boolean => !prev);
   };
 
   return (
     <div className={styles["container"]}>
       <div className={styles["main"]}>
         {viewport === "mobile" ? (
-          <BbsHeader initialData={initialData}/>
+          <BbsHeader initialData={initialData} />
         ) : (
-        <div className={styles["main__header"]}>
-          <h2 className={styles["main__category"]}>
-            {initialData.mainCategory.toUpperCase()}
-          </h2>
-          <div className={styles["main__sub-category-list"]}>
-            {subCategoryList.map((subCategory: string, index: number) => (
-              <span
-                key={index}
-                onClick={(e) => { handleClickSubCategory(e, subCategory); }}
-                className={`${
-                  subCategory === initialData.subCategory
-                    ? styles["main__sub-category--selected"]
-                    : styles["main__sub-category"]
-                }`}
-              >
-                {subCategory}
-              </span>
-            ))}
-          </div>
-          <div
-            className={styles["main__searching"]}
-          >
-            <RiSearchLine
-              size={25}
-              onClick={handleClickSearch}
-              className={styles["main__searcing-icon"]}
-            />
-            {searchModalOpen && (
-              <SearchModal
-                viewport={viewport}
-                setSearchModalOpen={setSearchModalOpen}
-                mainCategory={initialData.mainCategory}
+          <div className={styles["main__header"]}>
+            <h2 className={styles["main__category"]}>{initialData.mainCategory.toUpperCase()}</h2>
+            <div className={styles["main__sub-category-list"]}>
+              {subCategoryList.map((subCategory: SubCategoryKoreanType, index: number) => (
+                <span
+                  key={index}
+                  onClick={(e) => {
+                    handleClickSubCategory(e, subCategory);
+                  }}
+                  className={`${
+                    subCategory === initialData.subCategory
+                      ? styles["main__sub-category--selected"]
+                      : styles["main__sub-category"]
+                  }`}
+                >
+                  {subCategory}
+                </span>
+              ))}
+            </div>
+            <div className={styles["main__searching"]}>
+              <RiSearchLine
+                size={25}
+                onClick={handleClickSearch}
+                className={styles["main__searcing-icon"]}
               />
-            )}
+              {searchModalOpen && (
+                <SearchModal
+                  viewport={viewport}
+                  setSearchModalOpen={setSearchModalOpen}
+                  mainCategory={initialData.mainCategory}
+                />
+              )}
+            </div>
           </div>
-        </div>
         )}
         <div className={styles["main__bbs-list"]}>
           <BbsList
@@ -97,10 +97,7 @@ const BbsPageLayout = ({
         </div>
       </div>
       {viewport !== "mobile" && (
-        <div
-          ref={asideRef}
-          className={styles["aside"]}
-        >
+        <div ref={asideRef} className={styles["aside"]}>
           <Aside />
         </div>
       )}
@@ -111,7 +108,7 @@ const BbsPageLayout = ({
           isNoticeOrNewsPage={false}
         />
       )}
-    <ModalContainer />
+      <ModalContainer />
     </div>
   );
 };

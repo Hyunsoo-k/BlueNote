@@ -1,12 +1,12 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { CiEdit, CiTrash } from "react-icons/ci";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  setOpenActionTools: (state: boolean) => void;
-  handleClickEdit: any;
-  handleClickDelete: any;
+  setOpenActionTools: Dispatch<SetStateAction<boolean>>;
+  handleClickEdit: () => void;
+  handleClickDelete: () => void;
 };
 
 const ActionTools = ({

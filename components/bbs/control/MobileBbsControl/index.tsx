@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { GoPlus } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { PiPencilSimpleLineThin } from "react-icons/pi";
 
-import { MainCategoryType } from "@/types/categorys";
+import { ViewportType } from "@/types/viewport/viewport";
+import { MainCategoryType } from "@/types/category/categorys";
 import { useGetUserMe } from "@/hooks/user/useGetUserMe";
 import SearchModal from "@/components/modal/searchModal";
 import useModal from "@/hooks/modal/useModal";
@@ -13,7 +14,7 @@ import useModal from "@/hooks/modal/useModal";
 import styles from "./index.module.scss";
 
 interface Props {
-  viewport: string;
+  viewport: ViewportType;
   mainCategory: MainCategoryType;
   isNoticeOrNewsPage: boolean;
 };
@@ -24,7 +25,7 @@ const MobileBbsControl = ({ viewport, mainCategory, isNoticeOrNewsPage }: Props)
   const [isClient, setIsClient] = useState<boolean>(false);
   const [itemOpen, setItemOpen] = useState<boolean>(false);
   const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
-  
+
   const userMe = useGetUserMe();
 
   const { openModal, closeModal } = useModal();
@@ -33,19 +34,24 @@ const MobileBbsControl = ({ viewport, mainCategory, isNoticeOrNewsPage }: Props)
     setIsClient(true);
   }, []);
 
-  const handleClickTool = () => {
+  const handleClickTool = (): void => {
     setItemOpen((prev: boolean) => !prev);
   };
 
-  const handleClickSearch = (e: any) => {
+  const handleClickSearch = (e: MouseEvent<HTMLElement>): void => {
     e.stopPropagation();
+
     setSearchModalOpen((prev: boolean) => !prev);
   };
 
-  const handleClickCreate = (e: any) => {
+  const handleClickCreate = (e: MouseEvent<HTMLElement>): void => {
     e.stopPropagation();
-    !userMe && openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
-    userMe && router.push(`/bbs/${mainCategory}/post/createPost`);
+
+    if (userMe) {
+      userMe && router.push(`/bbs/${mainCategory}/post/createPost`);
+    } else {
+      openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
+    };
   };
 
   if (!isClient) {
@@ -62,9 +68,7 @@ const MobileBbsControl = ({ viewport, mainCategory, isNoticeOrNewsPage }: Props)
       {itemOpen && (
         <div className={styles["tool-wrapper"]}>
           <div
-            onClick={(e) => {
-              handleClickSearch(e);
-            }}
+            onClick={handleClickSearch}
             className={styles["tool-item-wrapper"]}
           >
             <CiSearch size={23} />
@@ -72,9 +76,7 @@ const MobileBbsControl = ({ viewport, mainCategory, isNoticeOrNewsPage }: Props)
           {(isNoticeOrNewsPage && userMe?.role === 1) ||
             (!isNoticeOrNewsPage && (
               <div
-                onClick={(e) => {
-                  handleClickCreate(e);
-                }}
+                onClick={handleClickCreate}
                 className={styles["tool-item-wrapper"]}
               >
                 <PiPencilSimpleLineThin size={23} />

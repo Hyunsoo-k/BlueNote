@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.reply {
+.component {
   position: relative;
   padding: 0 10px 0 77px;
   border-bottom: 1px solid $gray-color-100;
@@ -9,7 +9,7 @@
     padding: 0 10px 0 100px;
   }
 
-  .reply__header {
+  .header {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -19,10 +19,10 @@
       padding-top: 10px;
     }
 
-    .reply__writer-info {
+    .writer-info {
       margin: 0;
 
-      .reply__writer {
+      .writer {
         font-size: 12px;
         font-weight: 500;
         font-family: "Noto Sans KR", sans-serif;
@@ -33,7 +33,7 @@
         }
       }
 
-      .reply__post_writer {
+      .post-writer {
         margin-left: 6px;
         font-size: 12px;
         font-weight: 500;
@@ -45,7 +45,7 @@
         }
       }
 
-      .reply__userMe_writer {
+      .userMe-writer {
         margin-left: 6px;
         font-size: 12px;
         font-weight: 500;
@@ -57,7 +57,7 @@
       }
     }
 
-    .reply__action-tools {
+    .action-tools {
       position: relative;
       padding-top: 3px;
 
@@ -69,7 +69,7 @@
     }
   }
 
-  .reply__content {
+  .content {
     margin: 0;
     padding: 7px 0 13px 0;
     font-size: 13px;
@@ -81,14 +81,14 @@
     }
   }
 
-  .reply__footer {
+  .bottom {
     display: flex;
     font-size: 14px;
     font-weight: 500;
     font-family: "Noto Sans KR", sans-serif;
     color: $gray-color-300;
 
-    .reply__created-at {
+    .created-at {
       margin: 0;
       padding: 0 10px 8px 0;
       font-size: 12px;
@@ -100,7 +100,7 @@
       }
     }
 
-    .reply__create-reply-button {
+    button {
       padding: 0 0 8px 0;
       background-color: inherit;
       border: none;

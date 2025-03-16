@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { MainCategoryType } from "@/types/categorys";
+import { MainCategoryType } from "@/types/category/categorys";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 

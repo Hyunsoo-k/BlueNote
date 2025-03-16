@@ -2,21 +2,21 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 
 import { instance } from "@/axios";
+import { MainPagePostType } from "@/types/post/mainPagePost";
 import { useGetViewport } from "@/hooks/viewport";
 import Carousel from "@/components/carousel/carousel";
 import AlbumCarousel from "@/components/carousel/albumCarousel";
 import CombinedThumbnail from "@/components/thumbnail/combinedThumbnail";
-import CommunitySectionBoard from "@/components/bbs/postList/communitySectionBoard";
 
 import styles from "@/styles/Home.module.scss";
 
 interface Props {
-  mainPageNewsList: any;
-  mainPageBandList: any;
-  mainPageAlbumList: any;
-  mainPageJazzbarList: any;
-  mainPageBoardList: any;
-  mainPageJobList: any;
+  mainPageNewsList: MainPagePostType[];
+  mainPageBandList: MainPagePostType[];
+  mainPageAlbumList: MainPagePostType[];
+  mainPageJazzbarList: MainPagePostType[];
+  mainPageBoardList: MainPagePostType[];
+  mainPageJobList: MainPagePostType[];
 };
 
 const Home = ({
@@ -33,8 +33,8 @@ const Home = ({
     <div className={styles["container"]}>
       <div className={styles["news-section"]}>
         <Carousel
-          elementList={mainPageNewsList}
-          elementType={viewport === "mobile" ? "combined" : "detached"}
+          thumbnailType={viewport === "mobile" ? "combined" : "detached"}
+          mainPagePostList={mainPageNewsList}
           viewport={viewport}
           isElementJazzBar={false}
         />
@@ -42,10 +42,10 @@ const Home = ({
       <div className={styles["band-section"]}>
         <p className={styles["band-section__title"]}>BAND</p>
         <div className={styles["band-section__thumbnail-box"]}>
-          {mainPageBandList.map((post: any, index: number) => {
+          {mainPageBandList.map((post: MainPagePostType, index: number) => {
             return index < (viewport === "mobile" ? 4 : 6) && (
               <CombinedThumbnail
-                element={post}
+                post={post}
                 key={post._id}
               />
             );
@@ -60,10 +60,7 @@ const Home = ({
       </div>
       <div className={styles["album-section"]}>
         <p className={styles["album-section__title"]}>ALBUM</p>
-        <AlbumCarousel
-          elementList={mainPageAlbumList}
-          viewport={viewport}
-        />
+        <AlbumCarousel mainPagePostList={mainPageAlbumList} />
         <Link
           href="/bbs/promote?subCategory=albumPromotion"
           className={styles["more-button"]}
@@ -74,8 +71,8 @@ const Home = ({
       <div className={styles["jazzbar-section"]}>
         <p className={styles["jazzbar-section__title"]}>JAZZ BAR</p>
           <Carousel
-            elementList={mainPageJazzbarList}
-            elementType="detached"
+            thumbnailType={viewport === "mobile" ? "combined" : "detached"}
+            mainPagePostList={mainPageJazzbarList}
             viewport={viewport}
             isElementJazzBar={true}
           />
@@ -83,21 +80,6 @@ const Home = ({
           더보기
         </Link>
       </div>
-      {/* {viewport !== "mobile" && (
-        <div className={styles["community-section"]}>
-          <p className={styles["community-section__title"]}>COMMUNITY</p>
-          <CommunitySectionBoard
-            viewport={viewport}
-            mainCategory="board"
-            initialData={mainPageBoardList}
-          />
-          <CommunitySectionBoard
-            viewport={viewport}
-            mainCategory="job"
-            initialData={mainPageJobList}
-          />
-        </div>
-      )} */}
     </div>
   );
 };

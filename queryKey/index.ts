@@ -1,4 +1,4 @@
-import { MainCategoryType } from "@/types/categorys";
+import { MainCategoryType } from "@/types/category/categorys";
 
 const queryKey = {
   userMe: ["userMe"],
@@ -6,11 +6,6 @@ const queryKey = {
   recentSearch: (userMe_id: string) => ["recentSearch", userMe_id],
   photoNews: ["photoNews"],
   recommendedNews: ["recommendedNews"],
-  communitySectionBoard: (mainCategory: MainCategoryType, subCategory: string) => [
-    "communitySectionBoard",
-    mainCategory,
-    subCategory,
-  ],
   myPostList: (page: string) => ["myPostList", page],
   mobilePostListData: (mainCategory: MainCategoryType, page: number) => ["mobilePostListData", mainCategory, page],
   postListData: (mainCategory: MainCategoryType, resolveURL: string) => ["postListData", mainCategory, resolveURL],
