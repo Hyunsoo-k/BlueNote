@@ -7,7 +7,7 @@ interface BbsPostType {
   mainCategory: MainCategoryType;
   subCategory: SubCategoryKoreanType;
   title: string;
-  wrtier: {
+  writer: {
     _id: string;
     nickname: string;
   };
