@@ -1,13 +1,13 @@
-import { MainCategoryType, SubCategoryKoreanType } from "@/types/categorys";
-import { BbsPost } from "@/types/bbs/bbsPost";
+import { MainCategoryType, SubCategoryKoreanType } from "@/types/category/categorys";
+import { BbsPostType } from "@/types/bbs/bbsPost";
 
 interface BbsType {
   mainCategory: MainCategoryType;
-  subCategpry: SubCategoryKoreanType;
+  subCategory: SubCategoryKoreanType;
   page: number;
   totalPage: number;
   totalPostCount: number;
-  postList: BbsPost[];
+  postList: BbsPostType[];
 };
 
-export type { BbsType};
+export type { BbsType };

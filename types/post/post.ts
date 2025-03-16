@@ -1,21 +1,22 @@
 import { MainCategoryType, SubCategoryKoreanType } from "@/types/category/categorys";
+import { CommentType } from "@/types/comment/comment";
 
-interface BbsPostType {
+interface PostType {
   _id: string;
   number: number;
-  createdAt: string;
   mainCategory: MainCategoryType;
   subCategory: SubCategoryKoreanType;
+  writer: { _id: string; nickname: string };
   title: string;
-  wrtier: {
-    _id: string;
-    nickname: string;
-  };
   content: string;
-  thumbnailSrc: null | string;
   views: number;
   recommend: string[];
+  commentList: CommentType[];
+  createdAt: string;
+  updatedAt: string;
+  previousPost: any;
+  nextPost: any;
   __v: number;
-};
+}
 
-export type { BbsPostType };
+export type { PostType };
