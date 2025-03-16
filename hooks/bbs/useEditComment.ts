@@ -3,7 +3,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const editCommentFn = async (comment_id: string, requestBody: any) => {
+interface RequestBodyType {
+  content: string;
+};
+
+const editCommentFn = async (comment_id: string, requestBody: RequestBodyType) => {
   const response = await instance.patch(`${window.location.pathname}/comment/${comment_id}`, requestBody);
 
   return response;
@@ -18,7 +22,7 @@ const useEditComment = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (requestBody: any) => editCommentFn(comment_id, requestBody),
+    mutationFn: (requestBody: RequestBodyType) => editCommentFn(comment_id, requestBody),
     onSuccess: () => {
       setIsEditing(false);
       reset();
