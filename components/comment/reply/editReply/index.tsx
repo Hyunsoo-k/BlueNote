@@ -1,17 +1,19 @@
-import { useForm } from "react-hook-form";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
 
+import { ReplyType } from "@/types/comment/reply";
 import { useEditReply } from "@/hooks/bbs/useEditReply";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  setIsEditing: any;
+  isEditingReply: Dispatch<SetStateAction<boolean>>;
   post_id: string;
   comment_id: string;
-  reply: any;
-}
+  reply: ReplyType;
+};
 
-const EditReply = ({ setIsEditing, post_id, comment_id, reply }: Props) => {
+const EditReply = ({ isEditingReply, post_id, comment_id, reply }: Props) => {
   const {
     register,
     handleSubmit,
@@ -19,26 +21,35 @@ const EditReply = ({ setIsEditing, post_id, comment_id, reply }: Props) => {
     reset,
   } = useForm({ mode: "onChange" });
 
-  const editReplyMutation = useEditReply(post_id, comment_id, reply._id, setIsEditing, reset);
+  const useEditReplyMutation = useEditReply(
+    post_id,
+    comment_id,
+    reply._id,
+    isEditingReply,
+    reset
+  );
 
-  const handleCancleEdit = (e: any) => {
+  const handleClickCancel = (e: MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
-    setIsEditing(false);
+
+    isEditingReply(false);
   };
 
   const handleEditComment = {
-    onSubmit: (watch: any) => {
+    onSubmit: (watch: Record<string, string>): void => {
       const requestBody = { content: watch.content };
 
-      editReplyMutation.mutate(requestBody);
+      useEditReplyMutation.mutate(requestBody);
     },
-    onError: (e: any) => console.log(e),
+    onError: (error: FieldErrors): void => {
+      console.log(error);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit(handleEditComment.onSubmit, handleEditComment.onError)}
-      className={styles["edit-reply"]}
+      className={styles["component"]}
     >
       <textarea
         {...register("content", {
@@ -48,21 +59,20 @@ const EditReply = ({ setIsEditing, post_id, comment_id, reply }: Props) => {
         })}
         defaultValue={reply.content}
         spellCheck="false"
-        className={styles["edit-reply__input"]}
+        className={styles["input"]}
       />
-      <div className={styles["edit-reply__footer"]}>
-        <p className={styles["edit-reply__error-message"]}>
+      <div className={styles["bottom"]}>
+        <p className={styles["error-message"]}>
           {typeof errors.editFieldContent?.message === "string" ? errors.editFieldContent?.message : ""}
         </p>
-        <div className={styles["edit-reply__button-wrapper"]}>
+        <div className={styles["button-wrapper"]}>
           <button
             type="button"
-            onClick={(e: any) => handleCancleEdit(e)}
-            className={styles["edit-reply__button"]}
+            onClick={handleClickCancel}
           >
             취소
           </button>
-          <button className={styles["edit-reply__button"]}>수정</button>
+          <button className={styles["submit-button"]}>수정</button>
         </div>
       </div>
     </form>
