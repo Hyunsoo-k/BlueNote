@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 const JobCreatePostPage = () => {
   return (
     <div className={styles["container"]}>
-      <CreatePostLayout />
+      <CreatePostLayout mainCategory="job" />
     </div>
   );
 };

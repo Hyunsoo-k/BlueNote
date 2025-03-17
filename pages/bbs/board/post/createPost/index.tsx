@@ -6,7 +6,7 @@ const BoardCreatePostPage = () => {
 
   return (
     <div className={styles["container"]}>
-      <CreatePostLayout />
+      <CreatePostLayout mainCategory="board" />
     </div>
   );
 };
