@@ -53,6 +53,11 @@ const EditPostPageLayout = ({ urlWithoutQuery, initialData }: Props) => {
   } = useForm({ mode: "onChange" });
 
   const subCategoryList = subCategoryListMap[initialData.mainCategory];
+  
+  const SubCategoryListWithoutAll
+  = subCategoryList.filter(
+    (subCategory: SubCategoryKoreanType) => subCategory !== "All"
+  );
 
   const hendleClickSubCategory = (
     e: MouseEvent<HTMLSpanElement>,
@@ -156,7 +161,7 @@ const EditPostPageLayout = ({ urlWithoutQuery, initialData }: Props) => {
             <div className={styles["sub-category-wrapper"]}>
               <span>분류</span>
               <div className={styles["boundary-line"]}></div>
-              {subCategoryList.map((subCategory: SubCategoryKoreanType, index: number) => (
+              {SubCategoryListWithoutAll.map((subCategory: SubCategoryKoreanType, index: number) => (
                 <span
                   key={index}
                   onClick={(e) => hendleClickSubCategory(e, subCategory)}

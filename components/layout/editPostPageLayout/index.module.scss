@@ -43,24 +43,14 @@
       }
 
       .title-input {
-        margin: 15px 0;
+        margin: 17px 0;
+        padding: 0;
         background-color: inherit;
         border: none;
         outline: none;
         font-size: 16px;
         font-weight: 500;
-
-        @include tablet {
-          margin: 20px 0;
-          font-size: 25px;
-          font-weight: 500;
-        }
-      }
-
-      .title {
-        margin: 15px 0 10px;
-        font-size: 20px;
-        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
 
         @include tablet {
           margin: 20px 0;
