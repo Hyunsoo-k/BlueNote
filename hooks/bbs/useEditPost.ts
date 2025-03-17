@@ -1,11 +1,21 @@
 import { useRouter } from "next/router";
 import { useMutation } from "@tanstack/react-query";
 
-import { MainCategoryType } from "@/types/category/categorys";
+import { MainCategoryType, SubCategoryKoreanType } from "@/types/category/categorys";
 import { instance } from "@/axios";
 import useModal from "../modal/useModal";
 
-const editPostFn = async (mainCategory: MainCategoryType, post_id: string, requestBody: any) => {
+interface RequestBodyType {
+  subCategory: SubCategoryKoreanType;
+  title: string;
+  content: string;
+};
+
+const editPostFn = async (
+  mainCategory: MainCategoryType,
+  post_id: string,
+  requestBody: RequestBodyType
+) => {
   const response = await instance.patch(`/bbs/${mainCategory}/post/${post_id}`, requestBody);
 
   return response;
@@ -16,7 +26,8 @@ const useEditPost = (mainCategory: MainCategoryType, post_id: string) => {
   const { openModal, closeModal } = useModal();
 
   return useMutation({
-    mutationFn: (requestBody: any) => editPostFn(mainCategory, post_id, requestBody),
+    mutationFn: (requestBody: RequestBodyType) => 
+      editPostFn(mainCategory, post_id, requestBody),
     onSuccess: () => {
       router.push(`/bbs/${mainCategory}`);
     },
