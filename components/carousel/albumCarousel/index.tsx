@@ -16,7 +16,6 @@ interface cetnerElementTitleType {
 };
 
 const AlbumCarousel = ({ mainPagePostList }: Props) => {
-  console.log(mainPagePostList)
   const [elementIndex, setElementIndex] = useState<number[]>([2, 3, 4, 0, 1]);
   const [centerElementTitle, setCenterElementTitle] = useState<cetnerElementTitleType>({
     visible: true,
