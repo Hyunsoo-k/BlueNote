@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 const PromoteCreatePostPage = () => {
   return (
     <div className={styles["container"]}>
-      <CreatePostLayout />
+      <CreatePostLayout mainCategory="promote" />
     </div>
   );
 };

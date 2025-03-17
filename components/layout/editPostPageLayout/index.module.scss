@@ -1,3 +1,186 @@
-.compoenent {
+@use "@/styles/variables.scss" as *;
+
+.component {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: "Noto Sans KR", sans-serif;
+
+  .main {
+    width: 100%;
+
+    @include tablet {
+      width: calc(100% - 330px);
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      padding: 0 8px 20px;
+      border-bottom: 2px solid #2C2C2C;
+
+      @include tablet {
+        padding: 0 0 20px 0;
+      }
+
+      .bread__crumbs {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        @include tablet {
+          gap: 10px;
+        }
+
+        span {
+          font-size: 12px;
+          color: #464646;
+          
+          @include tablet {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .title-input {
+        margin: 17px 0;
+        padding: 0;
+        background-color: inherit;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        font-weight: 500;
+        font-family: "Noto Sans KR", sans-serif;
+
+        @include tablet {
+          margin: 20px 0;
+          font-size: 25px;
+          font-weight: 500;
+        }
+      }
+
+      .post-information {
+        display: flex;
+        gap: 10px;
+        height: 20px;
+
+        @include tablet {
+          gap: 20px;
+        }
+        
+        .writer-wrapper {
+          display: flex;
+          gap: 5px;
+
+          .writer {
+            color: $main-color;
+          }
+        }
+
+        .sub-category-wrapper {
+          display: flex;
+          gap: 3px;
+
+          span {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .sub-category--selected {
+            color: $sub-color;
+          }
+
+          .boundary-line {
+            position: relative;
+            top: 5px;
+            width: 2px;
+            height: 12px;
+            background-color: $gray-color-300;
+          }
+        }
+
+        .action-button-wrapper {
+          position: relative;
+          top: -4px;
+          margin-left: auto;
+
+          button {
+            outline: none;
+            background-color: inherit;
+            border: none;
+            font-weight: 500;
+            font-family: "Noto Sans KR", sans-serif;
+            color: #2C2C2C;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .submit-button {
+            color: $sub-color;
+          }
+        }
+        
+        span {
+          font-size: 13px;
+          font-weight: 500;
+          color: rgb(129, 129, 129);
+        }
+      }
+
+    }
   
+    .wysiwtg-wrapper {
+      min-height: 250px;
+      padding: 20px 8px 20px 8px;
+      font-size: 14px;
+      color: #2c2c2c;
+  
+      @include tablet {
+        min-height: 500px;
+        padding: 40px 0 60px 0;
+        font-size: 16px;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 550px;
+        display: block;
+      }
+    }
+  }
+
+  .aside {
+    position: sticky;
+    top: 190px;
+    width: 280px;
+    margin-bottom: 20px;
+    padding-right: 3px;
+    scrollbar-gutter: stable;
+    overflow-y: hidden;
+
+    &:hover {
+      overflow-y: auto;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient($main-color, $gray-color-200);
+      border-radius: 8px;
+    }
+  }
 }

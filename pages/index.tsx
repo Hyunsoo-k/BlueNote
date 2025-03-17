@@ -23,9 +23,7 @@ const Home = ({
   mainPageNewsList,
   mainPageBandList,
   mainPageAlbumList,
-  mainPageJazzbarList,
-  mainPageBoardList,
-  mainPageJobList,
+  mainPageJazzbarList
 }: Props) => {
   const viewport = useGetViewport();
 
@@ -93,9 +91,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     mainPageNewsList, 
     mainPageBandList, 
     mainPageAlbumList, 
-    mainPageJazzbarList, 
-    mainPageBoardList, 
-    mainPageJobList 
+    mainPageJazzbarList
   } = response.data;
 
   return {
@@ -103,9 +99,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       mainPageNewsList,
       mainPageBandList,
       mainPageAlbumList,
-      mainPageJazzbarList,
-      mainPageBoardList,
-      mainPageJobList,
+      mainPageJazzbarList
     },
   };
 };

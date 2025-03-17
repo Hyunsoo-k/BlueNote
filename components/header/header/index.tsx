@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -10,8 +9,6 @@ import NavBar from "@/components/header/navbar";
 import styles from "./index.module.scss";
 
 const Header = () => {
-  const router = useRouter();
-
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -21,12 +18,6 @@ const Header = () => {
   const viewport = useGetViewport();
   
   const { data: userMe, isLoading } = useGetUserQuery();
-
-  const paths = router.pathname.split('/').filter(Boolean);
-
-  if (viewport === "mobile" && (paths[3] === 'editPost' || paths[3] === 'createPost')) {
-    return null;
-  };
 
   return (
     <div className={styles["container"]}>
