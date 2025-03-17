@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 
 import { PostType } from "@/types/post/post";
 import { instance } from "@/axios";
-import { useGetPostQuery } from "@/hooks/bbs/useGetPostQuery";
 import EditPostPageLayout from "@/components/layout/editPostPageLayout";
 
 import styles from "./index.module.scss";
@@ -14,11 +13,12 @@ interface ServerSideProps {
 
 const BoardPostEditPage = ({ urlWithoutQuery, initialData }: ServerSideProps) => {
 
-  const { data: post } = useGetPostQuery(urlWithoutQuery, initialData);
-
   return (
     <div className={styles["container"]}>
-      <EditPostPageLayout post={post} />
+      <EditPostPageLayout
+        urlWithoutQuery={urlWithoutQuery}
+        initialData={initialData}
+      />
     </div>
   );
 };
