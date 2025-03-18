@@ -69,6 +69,10 @@ const Comment = ({ comment, userMe, post, viewport }: Props) => {
   };
 
   const handleCreateReply = (): void => {
+    if (!userMe) {
+      return openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
+    };
+
     setIsCreateReplyOpen((prev: boolean) => !prev);
   };
 

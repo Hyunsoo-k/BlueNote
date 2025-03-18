@@ -4,6 +4,7 @@ import { useForm, FieldErrors } from "react-hook-form";
 
 import { ViewportType } from "@/types/viewport/viewport";
 import { UserMeType } from "@/types/userMe/userMe";
+import useModal from "@/hooks/modal/useModal";
 import { useCreateComment } from "@/hooks/bbs/useCreateComment";
 
 import styles from "./index.module.scss";
@@ -18,6 +19,8 @@ const CreateComment = ({ viewport, post_id, userMe }: Props) => {
   const router = useRouter();
 
   const [inputActive, setInputActive] = useState<boolean>(false);
+
+  const { openModal, closeModal} = useModal();
 
   const handleClickInput = (): void => {
     setInputActive(true);
@@ -40,6 +43,10 @@ const CreateComment = ({ viewport, post_id, userMe }: Props) => {
 
   const handleCreateComment = {
     onSubmit: (watch: Record<string, string>): void => {
+      if (!userMe) {
+        return openModal("alert", "로그인이 필요한 기능입니다.", closeModal);
+      };
+
       const requestbody = {
         content: watch.createFieldContent,
         postUrl: router.asPath,
