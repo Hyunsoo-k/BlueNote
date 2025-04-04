@@ -16,7 +16,7 @@ const subCategoryListMap: Record<"notice" | "news" | "board" | "promote" | "job"
   job: ["구인", "구직", "All"],
 };
 
-const subCategoryEnglishToKoreanMap: { [key: string]: string } = {
+const subCategoryEnglishToKoreanMap: Record<string, string> = {
   All: "All",
   notification: "공지",
   domestic: "국내",
@@ -31,7 +31,7 @@ const subCategoryEnglishToKoreanMap: { [key: string]: string } = {
   jobSeeking: "구직",
 };
 
-const subCategoryKoreanToEnglishMap: { [key: string]: string } = {
+const subCategoryKoreanToEnglishMap: Record<string, string> = {
   All: "All",
   공지: "notice",
   국내: "domestic",
