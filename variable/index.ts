@@ -46,4 +46,21 @@ const subCategoryKoreanToEnglishMap: Record<string, string> = {
   구직: "jobSeeking",
 };
 
-export { mainCategory, subCategoryListMap, subCategoryEnglishToKoreanMap, subCategoryKoreanToEnglishMap };
+const myPageCategoryKoreanToEnglishMap: Record<string, string> = {
+  "내 정보": "user",
+  "내가 쓴 글": "myPost"
+};
+
+const myPageCategoryEnglishToKoreanhMap: Record<string, string> = {
+  user: "내 정보",
+  myPost: "내가 쓴 글"
+};
+
+export {
+  mainCategory,
+  subCategoryListMap,
+  subCategoryEnglishToKoreanMap,
+  subCategoryKoreanToEnglishMap,
+  myPageCategoryKoreanToEnglishMap,
+  myPageCategoryEnglishToKoreanhMap
+};

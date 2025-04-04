@@ -17,6 +17,7 @@ const BoardPage = ({ resolvedUrl, initialData }: ServerSideProps) => {
     <div className={styles["container"]}>
       <BbsPageLayout
         resolvedUrl={resolvedUrl}
+        mainCategory="board"
         initialData={initialData}
       />
     </div>

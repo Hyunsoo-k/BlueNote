@@ -1,7 +1,7 @@
 import { LuConstruction } from "react-icons/lu";
 
 import { useGetViewport } from "@/hooks/viewport";
-import MyPageMenu from "@/components/myPageMenu";
+import MyPageMenu from "@/components/myPage/myPageMenu";
 
 import styles from "./index.module.scss";
 
@@ -10,9 +10,7 @@ const SchedulePage = () => {
 
   return (
     <div className={styles["schedule-page"]}>
-      {viewport !== "mobile" && (
-        <MyPageMenu currentPage="내 일정" />
-      )}
+      {viewport !== "mobile" && <MyPageMenu currentPage="내 일정" />}
       <div className={styles["schedule-page__content"]}>
         <h1 className={styles["schedule-page__title"]}>내 스케줄</h1>
         <div className={styles["schedule__shcedule"]}>

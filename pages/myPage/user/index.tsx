@@ -9,7 +9,8 @@ import { useGetUserQuery } from "@/hooks/user/useGetUserQuery";
 import { useEditUser } from "@/hooks/myPage/useEditUser";
 import { formatYMD } from "@/utils/dateFormatter";
 import { uploadImageToFirebase, deleteImageFromFirebase } from "@/utils/firebase";
-import MyPageMenu from "@/components/myPageMenu";
+import MyPageHeader from "@/components/myPage/myPageHeader";
+import MyPageMenu from "@/components/myPage/myPageMenu";
 import ModalContainer from "@/components/modal/modalContainer";
 
 import styles from "./index.module.scss";
@@ -65,7 +66,7 @@ const UserPage = () => {
         nickname,
         profileImage: { initialUrl, editedUrl, newFile },
         newPassword,
-        checkNewPassword
+        checkNewPassword,
       } = watch;
 
       let imageUrl: string | null = userMe.profileImageUrl || null;
@@ -74,7 +75,7 @@ const UserPage = () => {
       if (initialUrl === null && editedUrl !== null) {
         fileName = Date.now().toString();
         imageUrl = await uploadImageToFirebase(`user/${fileName}`, newFile);
-      };
+      }
 
       if (initialUrl !== null) {
         if (editedUrl === null) {
@@ -84,22 +85,22 @@ const UserPage = () => {
           fileName = null;
         } else if (editedUrl !== null && editedUrl !== initialUrl) {
           await deleteImageFromFirebase(`user/${userMe?.profileImageUrl}`);
-          
+
           fileName = Date.now().toString();
           imageUrl = await uploadImageToFirebase(`user/${fileName}`, newFile);
-        };
-      };
+        }
+      }
 
       if (newPassword !== checkNewPassword) {
         return openModal("alert", "비밀번호가 일치하지 않습니다", closeModal);
-      };
+      }
 
       const requestBody = {
         nickname: nickname,
         ...(initialUrl !== editedUrl && {
-          profileImageUrl : editedUrl
+          profileImageUrl: editedUrl,
         }),
-        ...(newPassword && { newPassword })
+        ...(newPassword && { newPassword }),
       };
 
       editUserMutation.mutate(requestBody);
@@ -111,11 +112,10 @@ const UserPage = () => {
 
   return (
     <div className={styles["page-component"]}>
-      {viewport !== "mobile" && (
-        <MyPageMenu currentPage="내 정보" />
-      )}
+      {viewport === "mobile" && <MyPageHeader />}
+      {viewport !== "mobile" && <MyPageMenu currentPage="내 정보" />}
       <div className={styles["main"]}>
-        <h1 className={styles["title"]}>내 정보</h1>
+        {viewport !== "mobile" && <h1 className={styles["title"]}>내 정보</h1>}
         <form onSubmit={handleSubmit(submitHandler.onSubmit, submitHandler.onError)}>
           <div className={styles["image-section"]}>
             {watch("profileImage")?.editedUrl ? (
@@ -134,7 +134,7 @@ const UserPage = () => {
                   style={{
                     position: "absolute",
                     top: "38%",
-                    left: "38%"
+                    left: "38%",
                   }}
                 />
                 <input
@@ -148,11 +148,7 @@ const UserPage = () => {
                 />
               </div>
             )}
-            <button
-              type="button"
-              onClick={handleImageReset}
-              className={styles["image-reset-button"]}
-            >
+            <button type="button" onClick={handleImageReset} className={styles["image-reset-button"]}>
               이미지 초기화
             </button>
           </div>
@@ -160,15 +156,11 @@ const UserPage = () => {
             <div className={styles["disable-edit-section"]}>
               <div className={styles["created-at"]}>
                 <span>가입일</span>
-                <span className={styles["value"]}>
-                  {userMe?.createdAt && formatYMD(userMe.createdAt)}
-                </span>
+                <span className={styles["value"]}>{userMe?.createdAt && formatYMD(userMe.createdAt)}</span>
               </div>
               <div className={styles["email"]}>
                 <span>이메일</span>
-                <span className={styles["value"]}>
-                  {userMe?.email}
-                </span>
+                <span className={styles["value"]}>{userMe?.email}</span>
               </div>
             </div>
             <div className={styles["able-edit-section"]}>
@@ -178,11 +170,12 @@ const UserPage = () => {
                   {...register("nickname", {
                     required: "닉네임을 입력해 주세요.",
                     minLength: {
-                      value: 2, message: "닉네임은 2글자 이상이어야 합니다."
+                      value: 2,
+                      message: "닉네임은 2글자 이상이어야 합니다.",
                     },
                     maxLength: {
                       value: 7,
-                      message: "닉네임은 7글자 이하이어야 합니다."
+                      message: "닉네임은 7글자 이하이어야 합니다.",
                     },
                   })}
                   defaultValue={userMe?.nickname}
@@ -198,14 +191,14 @@ const UserPage = () => {
                 <div className={styles["new-password"]}>
                   <span>새 비밀번호</span>
                   <input
-                    {...register("newPassword" , {
+                    {...register("newPassword", {
                       validate: (value: string) => {
                         if (value.length > 0 && (value.length < 7 || value.length > 15)) {
                           return "비밀번호는 7자 이상 15자 이하로 입력해야 합니다.";
-                        };
+                        }
 
                         return true;
-                      }
+                      },
                     })}
                     type="password"
                   />
@@ -222,10 +215,10 @@ const UserPage = () => {
                       validate: (value: string) => {
                         if (value.length > 0 && (value.length < 7 || value.length > 15)) {
                           return "비밀번호는 7자 이상 15자 이하로 입력해야 합니다.";
-                        };
+                        }
 
                         return true;
-                      }
+                      },
                     })}
                     type="password"
                   />
