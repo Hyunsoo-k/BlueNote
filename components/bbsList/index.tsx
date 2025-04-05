@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 
 import { ViewportType } from "@/types/viewport/viewport";
+import { MainCategoryType } from "@/types/category/categorys";
 import { BbsType } from "@/types/bbs/bbs";
 import { BbsPostType } from "@/types/bbs/bbsPost";
 import { InfiniteQueryDataType } from "@/types/bbs/infiniteQueryData";
@@ -15,14 +16,18 @@ interface Props {
   initialData: BbsType;
 };
 
-const BbsList = ({ viewport, resolvedUrl, initialData }: Props) => {
+const BbsList = ({
+  viewport,
+  resolvedUrl,
+  initialData
+}: Props) => {
   const lastElementRef = useRef<HTMLDivElement | null>(null);
 
   const {
     fetchNextPage,
     hasNextPage,
     data: queryData,
-  }: InfiniteQueryDataType = useGetBbsListQuery(initialData.mainCategory, resolvedUrl, initialData);
+  }: InfiniteQueryDataType = useGetBbsListQuery(resolvedUrl, initialData);
 
   useEffect(() => {
     const io = new IntersectionObserver(

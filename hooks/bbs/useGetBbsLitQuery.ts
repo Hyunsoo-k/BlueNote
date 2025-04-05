@@ -1,14 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { MainCategoryType } from "@/types/category/categorys";
 import { BbsType } from "@/types/bbs/bbs";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const queryFn = async (resolvedUrl: string, pageParam: number) => {
+const queryFn = async (resolvedUrl: string, cursor: string) => {
+  // resolvedUrl : path + query string ( ex: /bbs/board?subCategory="tip" )
   const url = new URL(resolvedUrl, window.location.origin);
 
-  url.searchParams.append("page", `${pageParam}`);
+  url.searchParams.set("cursor", `${cursor}`);
 
   const pathWithQuery = url.pathname + url.search;
 
@@ -18,19 +18,20 @@ const queryFn = async (resolvedUrl: string, pageParam: number) => {
 };
 
 const useGetBbsListQuery = (
-  mainCategory: MainCategoryType,
   resolvedUrl: string,
   initialData: BbsType
 ) => {
   return useInfiniteQuery({
-    queryKey: queryKey.postListData(mainCategory, resolvedUrl),
-    queryFn: ({ pageParam } /* context 객체에 내장된 pageParam, 기본 값은 1 */) => queryFn(resolvedUrl, pageParam),
-    getNextPageParam: (lastPagesQuery: BbsType): number | undefined => {
-      const nextPageParam = lastPagesQuery.page < lastPagesQuery.totalPage
-        ? lastPagesQuery.page + 1
-        : undefined;
+    queryKey: queryKey.postListData(resolvedUrl),
+    queryFn: ({ pageParam: cursor } /* context 객체에 내장된 pageParam, 기본 값은 1 */) => queryFn(resolvedUrl, cursor),
+    getNextPageParam: (lastPagesQuery: BbsType): any => {
+      if (lastPagesQuery.postList.length > 0) {
+        return lastPagesQuery.postList[lastPagesQuery.postList.length - 1]._id
+      } else {
+        return null;
+      };
 
-      return nextPageParam; // queryFn의 기본 매개변수인 context 객체의 pageParam 값으로 할당, hasNextPage에 boolean 값으로 할당
+      // queryFn의 기본 매개변수인 context 객체의 pageParam 값으로 할당, hasNextPage에 boolean 값으로 할당
     },
     initialData: {
       pageParams: [1],

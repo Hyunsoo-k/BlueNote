@@ -6,9 +6,9 @@ const queryKey = {
   recentSearch: (userMe_id: string) => ["recentSearch", userMe_id],
   photoNews: ["photoNews"],
   recommendedNews: ["recommendedNews"],
-  myPostList: (page: string) => ["myPostList", page],
+  myPostList: ["myPostList"],
   mobilePostListData: (mainCategory: MainCategoryType, page: number) => ["mobilePostListData", mainCategory, page],
-  postListData: (mainCategory: MainCategoryType, resolveURL: string) => ["postListData", mainCategory, resolveURL],
+  postListData: (resolveURL: string) => ["postListData", resolveURL],
   post: (post_id: string) => ["post", post_id],
   comments: (post_id: string) => ["comments", post_id],
 };

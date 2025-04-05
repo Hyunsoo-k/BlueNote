@@ -4,9 +4,9 @@ import { RiSearchLine } from "react-icons/ri";
 
 import { ViewportType } from "@/types/viewport/viewport";
 import { BbsType } from "@/types/bbs/bbs";
-import { SubCategoryKoreanType } from "@/types/category/categorys";
+import { MainCategoryType, SubCategoryEnglishType, SubCategoryKoreanType } from "@/types/category/categorys";
 import { useGetViewport } from "@/hooks/viewport";
-import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
+import { subCategoryListMap, subCategoryKoreanToEnglishMap, subCategoryEnglishToKoreanMap } from "@/variable";
 import BbsHeader from "@/components/bbs/bbsHeader";
 import BbsList from "@/components/bbsList";
 import Aside from "@/components/aside/aside";
@@ -18,11 +18,14 @@ import styles from "./index.module.scss";
 
 interface Props {
   resolvedUrl: string;
+  mainCategory: MainCategoryType;
   initialData: BbsType;
 };
 
-const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
+const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
   const router = useRouter();
+
+  const currentSubCategory: SubCategoryEnglishType = (router.asPath.split("/")[1] || "All") as SubCategoryEnglishType;
 
   const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
 
@@ -30,7 +33,7 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
 
   const viewport: ViewportType = useGetViewport();
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory];
+  const subCategoryList = subCategoryListMap[mainCategory];
 
   const handleClickSubCategory = (
     e: MouseEvent<HTMLElement>,
@@ -38,7 +41,7 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
   ): void => {
     e.stopPropagation();
 
-    router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
+    router.push(`/bbs/${mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
 
   const handleClickSearch = (e: MouseEvent<SVGAElement>): void => {
@@ -51,10 +54,13 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
     <div className={styles["container"]}>
       <div className={styles["main"]}>
         {viewport === "mobile" ? (
-          <BbsHeader initialData={initialData} />
+          <BbsHeader
+            mainCategory={mainCategory}
+            currentSubCategory={subCategoryEnglishToKoreanMap[currentSubCategory] as SubCategoryKoreanType}
+          />
         ) : (
           <div className={styles["main__header"]}>
-            <h2 className={styles["main__category"]}>{initialData.mainCategory.toUpperCase()}</h2>
+            <h2 className={styles["main__category"]}>{mainCategory.toUpperCase()}</h2>
             <div className={styles["main__sub-category-list"]}>
               {subCategoryList.map((subCategory: SubCategoryKoreanType, index: number) => (
                 <span
@@ -63,7 +69,7 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
                     handleClickSubCategory(e, subCategory);
                   }}
                   className={`${
-                    subCategory === initialData.subCategory
+                    subCategory === subCategoryEnglishToKoreanMap[currentSubCategory]
                       ? styles["main__sub-category--selected"]
                       : styles["main__sub-category"]
                   }`}
@@ -82,7 +88,7 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
                 <SearchModal
                   viewport={viewport}
                   setSearchModalOpen={setSearchModalOpen}
-                  mainCategory={initialData.mainCategory}
+                  mainCategory={mainCategory}
                 />
               )}
             </div>
@@ -104,7 +110,7 @@ const BbsPageLayout = ({ resolvedUrl, initialData }: Props) => {
       {viewport === "mobile" && (
         <MobileBbsControl
           viewport={viewport}
-          mainCategory={initialData.mainCategory}
+          mainCategory={mainCategory}
           isNoticeOrNewsPage={false}
         />
       )}

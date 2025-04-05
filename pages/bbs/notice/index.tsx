@@ -1,21 +1,22 @@
 import { GetServerSideProps } from "next";
 
 import { instance } from "@/axios";
+import { BbsType } from "@/types/bbs/bbs";
 import BbsPageLayout from "@/components/layout/bbsPageLayout";
 
 import styles from "./index.module.scss";
 
 interface ServerSideProps {
-  query: any;
   resolvedUrl: string;
-  initialData: any;
-}
+  initialData: BbsType;
+};
 
-const NoticePage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
+const NoticePage = ({ resolvedUrl, initialData }: ServerSideProps) => {
   return (
     <div className={styles["container"]}>
       <BbsPageLayout
         initialData={initialData}
+        mainCategory="notice"
         resolvedUrl={resolvedUrl}
       />
     </div>
@@ -25,12 +26,11 @@ const NoticePage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
 export default NoticePage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query, resolvedUrl } = context;
+  const { resolvedUrl } = context;
   const { data: initialData } = await instance.get(resolvedUrl);
 
   return {
     props: {
-      query,
       resolvedUrl,
       initialData,
     },

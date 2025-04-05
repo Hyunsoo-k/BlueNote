@@ -1,22 +1,23 @@
 import { GetServerSideProps } from "next";
 
 import { instance } from "@/axios";
+import { BbsType } from "@/types/bbs/bbs"
 import BbsPageLayout from "@/components/layout/bbsPageLayout";
 
-import styles from "./index.module.scss";
+import styles from "./index.module.scss";;
 
 interface ServerSideProps {
-  query: any;
   resolvedUrl: string;
-  initialData: any;
-}
+  initialData: BbsType;
+};
 
-const JobPage = ({ query, resolvedUrl, initialData }: ServerSideProps) => {
+const JobPage = ({ resolvedUrl, initialData }: ServerSideProps) => {
 
   return (
     <div className={styles["container"]}>
       <BbsPageLayout
         initialData={initialData}
+        mainCategory="job"
         resolvedUrl={resolvedUrl}
       />
     </div>
@@ -31,7 +32,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      query,
       initialData,
       resolvedUrl,
     },

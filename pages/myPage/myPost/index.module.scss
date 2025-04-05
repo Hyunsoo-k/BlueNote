@@ -4,23 +4,34 @@
   display: flex;
   justify-content: space-between;
   max-width: 1150px;
+  min-height: calc(100vh - 94px - 117px);
   margin: 0 auto;
-  padding: 80px 20px 20px 20px;
+  padding: 35px 0;
   font-family: 'Noto Sans KR', sans-serif;
 
+  @include tablet {
+    padding: 80px 20px 20px 20px;
+  }
+
   .main {
-    width: 80%;
+    width: 100%;
+
+    @include tablet {
+      width: 80%;
+    }
 
     .header {
       display: flex;
       justify-content: space-between;
       gap: 20px;
       width: 100%;
-      margin: 0 auto 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2C2C2C;
 
       .header__title {
         margin: 0;
-        font-size: 21px;
+        font-size: 24px;
+        font-weight: 500;
         color: #2C2C2C;
       }
 

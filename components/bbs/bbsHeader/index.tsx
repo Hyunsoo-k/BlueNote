@@ -1,22 +1,22 @@
 import { useRouter } from "next/router";
 
-import { BbsType } from "@/types/bbs/bbs";
-import { SubCategoryKoreanType } from "@/types/category/categorys";
+import { MainCategoryType, SubCategoryKoreanType } from "@/types/category/categorys";
 import { subCategoryListMap, subCategoryKoreanToEnglishMap } from "@/variable";
 
 import styles from "./index.module.scss";
 
 interface Props {
-  initialData: BbsType;
+  mainCategory: MainCategoryType,
+  currentSubCategory: SubCategoryKoreanType;
 };
 
-const BbsHeader = ({ initialData }: Props) => {
+const BbsHeader = ({ mainCategory, currentSubCategory }: Props) => {
   const router = useRouter();
 
-  const subCategoryList = subCategoryListMap[initialData.mainCategory];
+  const subCategoryList = subCategoryListMap[mainCategory];
 
   const handleClickSubCategory = (subCategory: SubCategoryKoreanType): void => {
-    router.push(`/bbs/${initialData.mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
+    router.push(`/bbs/${mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
 
   return (
@@ -30,8 +30,8 @@ const BbsHeader = ({ initialData }: Props) => {
                 handleClickSubCategory(subCategory);
               }}
               className={`${
-                subCategory === initialData.subCategory ||
-                subCategoryKoreanToEnglishMap[subCategory] === initialData.subCategory
+                subCategory === currentSubCategory ||
+                subCategoryKoreanToEnglishMap[subCategory] === currentSubCategory
                   ? styles["sub-category--selected"]
                   : styles["sub-category"]
               }`}

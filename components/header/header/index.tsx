@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -9,6 +10,10 @@ import NavBar from "@/components/header/navbar";
 import styles from "./index.module.scss";
 
 const Header = () => {
+  const router = useRouter();
+  const firstPath = router.asPath.split("/").filter(Boolean)[0];
+  const isMyPage = firstPath === "myPage";
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -39,7 +44,7 @@ const Header = () => {
           </div>
         )}
       </div>
-      <NavBar />
+      {(!isMyPage || (isMyPage && viewport !== "mobile")) && <NavBar />}
     </div>
   );
 };
