@@ -25,7 +25,7 @@ interface Props {
 const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
   const router = useRouter();
 
-  const currentSubCategory: SubCategoryEnglishType = (router.asPath.split("/")[1] || "All") as SubCategoryEnglishType;
+  const currentSubCategory: SubCategoryEnglishType = (router.query.subCategory || "All") as SubCategoryEnglishType;
 
   const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
 
