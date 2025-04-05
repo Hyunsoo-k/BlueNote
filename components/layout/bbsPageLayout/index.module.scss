@@ -61,11 +61,18 @@
             }
           }
         }
-      }
-    }
-  
-    .main__bbs-list {
 
+        .main__create {
+          .main__create-icon {
+            position: relative;
+            top: 3px;
+            
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
   }
 
