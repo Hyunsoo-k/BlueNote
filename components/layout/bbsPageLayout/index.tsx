@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useRef, MouseEvent } from "react";
 import { RiSearchLine } from "react-icons/ri";
+import { PiPencilSimpleLine } from "react-icons/pi";
 
 import { ViewportType } from "@/types/viewport/viewport";
 import { BbsType } from "@/types/bbs/bbs";
@@ -15,6 +16,7 @@ import SearchModal from "@/components/modal/searchModal";
 import ModalContainer from "@/components/modal/modalContainer";
 
 import styles from "./index.module.scss";
+import { useGetUserMe } from "@/hooks/user/useGetUserMe";
 
 interface Props {
   resolvedUrl: string;
@@ -26,6 +28,8 @@ const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
   const router = useRouter();
 
   const currentSubCategory: SubCategoryEnglishType = (router.query.subCategory || "All") as SubCategoryEnglishType;
+
+  const userMe = useGetUserMe();
 
   const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
 
@@ -48,6 +52,12 @@ const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
     e.stopPropagation();
 
     setSearchModalOpen((prev: boolean): boolean => !prev);
+  };
+
+  const handleClickCreate = (e: MouseEvent<SVGAElement>): void => {
+    e.stopPropagation();
+
+    router.push(`/bbs/${mainCategory}/post/createPost`)
   };
 
   return (
@@ -92,6 +102,15 @@ const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
                 />
               )}
             </div>
+            {userMe && (
+              <div className={styles["main__create"]}>
+                <PiPencilSimpleLine
+                  size={25}
+                  onClick={handleClickCreate}
+                  className={styles["main__create-icon"]}
+                />
+              </div>
+            )}
           </div>
         )}
         <div className={styles["main__bbs-list"]}>
