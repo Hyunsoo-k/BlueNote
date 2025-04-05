@@ -17,6 +17,7 @@ const PromotePage = ({ resolvedUrl, initialData }: ServerSideProps) => {
     <div className={styles["container"]}>
       <BbsPageLayout
         resolvedUrl={resolvedUrl}
+        mainCategory="promote"
         initialData={initialData}
       />
     </div>

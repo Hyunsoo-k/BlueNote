@@ -4,7 +4,7 @@ import { RiSearchLine } from "react-icons/ri";
 
 import { ViewportType } from "@/types/viewport/viewport";
 import { BbsType } from "@/types/bbs/bbs";
-import { MainCategoryType, SubCategoryKoreanType } from "@/types/category/categorys";
+import { MainCategoryType, SubCategoryEnglishType, SubCategoryKoreanType } from "@/types/category/categorys";
 import { useGetViewport } from "@/hooks/viewport";
 import { subCategoryListMap, subCategoryKoreanToEnglishMap, subCategoryEnglishToKoreanMap } from "@/variable";
 import BbsHeader from "@/components/bbs/bbsHeader";
@@ -25,7 +25,7 @@ interface Props {
 const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
   const router = useRouter();
 
-  const { subCategory: currentSubCategory = "All" } = router.query;
+  const currentSubCategory: SubCategoryEnglishType = (router.asPath.split("/")[1] || "All") as SubCategoryEnglishType;
 
   const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
 
@@ -56,7 +56,7 @@ const BbsPageLayout = ({ resolvedUrl, mainCategory, initialData }: Props) => {
         {viewport === "mobile" ? (
           <BbsHeader
             mainCategory={mainCategory}
-            currentSubCategory={subCategoryEnglishToKoreanMap[currentSubCategory]}
+            currentSubCategory={subCategoryEnglishToKoreanMap[currentSubCategory] as SubCategoryKoreanType}
           />
         ) : (
           <div className={styles["main__header"]}>
