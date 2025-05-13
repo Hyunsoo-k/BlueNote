@@ -15,6 +15,8 @@ const BbsHeader = ({ mainCategory, currentSubCategory }: Props) => {
 
   const subCategoryList = subCategoryListMap[mainCategory];
 
+  console.log(currentSubCategory)
+
   const handleClickSubCategory = (subCategory: SubCategoryKoreanType): void => {
     router.push(`/bbs/${mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
@@ -30,8 +32,7 @@ const BbsHeader = ({ mainCategory, currentSubCategory }: Props) => {
                 handleClickSubCategory(subCategory);
               }}
               className={`${
-                subCategory === currentSubCategory ||
-                subCategoryKoreanToEnglishMap[subCategory] === currentSubCategory
+                subCategory === currentSubCategory
                   ? styles["sub-category--selected"]
                   : styles["sub-category"]
               }`}
