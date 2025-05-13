@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from "@/cookie";
 
 const instance = axios.create({
-  baseURL: "https://bluenote-server.onrender.com",
+  baseURL: "https://bluenote-server.vercel.app",
   headers: { "Content-Type": "application/json" }
 });
 
