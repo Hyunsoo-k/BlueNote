@@ -1,6 +1,9 @@
 ## BLUE NOTE
 재즈를 좋아하는 사람들을 위한 정보 공유 웹 애플리케이션
 
+## 배포 URL
+https://blue-note-silk.vercel.app/
+
 ## 기술 스택
 - nextJs
 - tanstack-query,
