@@ -10,7 +10,7 @@ https://blue-note-silk.vercel.app/
 - react-hook-form
 - scss
 
-## 설지
+## 설치
 ```
 npm install
 ```
