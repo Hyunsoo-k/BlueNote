@@ -2,7 +2,7 @@
 재즈를 좋아하는 사람들을 위한 정보 공유 웹 애플리케이션
 
 ## 기술 스택
-- NextJs
+- nextJs
 - tanstack-query,
 - react-hook-form
 - scss
