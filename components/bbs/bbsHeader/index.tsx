@@ -15,8 +15,6 @@ const BbsHeader = ({ mainCategory, currentSubCategory }: Props) => {
 
   const subCategoryList = subCategoryListMap[mainCategory];
 
-  console.log(currentSubCategory)
-
   const handleClickSubCategory = (subCategory: SubCategoryKoreanType): void => {
     router.push(`/bbs/${mainCategory}?subCategory=${subCategoryKoreanToEnglishMap[subCategory]}&page=1`);
   };
