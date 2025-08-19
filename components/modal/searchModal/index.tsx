@@ -143,11 +143,11 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
 
   const handleClickSelectValue = (e: MouseEvent<HTMLLIElement>): void => {
     e.stopPropagation();
-
+    const value = e.currentTarget.innerText;
     setSelect((prev: SelectStateType) => ({
       ...prev,
       open: false,
-      currentValue: e.currentTarget.innerHTML,
+      currentValue: value,
     }));
   };
 
@@ -160,8 +160,12 @@ const SearchModal = ({ viewport, setSearchModalOpen, mainCategory }: Props) => {
 
   const handleClickSubCategoryValue = (e: MouseEvent<HTMLLIElement>): void => {
     e.stopPropagation();
-
-    SetSubCategory((prev) => ({ ...prev, open: false, currentValue: e.currentTarget.innerHTML }));
+    const value = e.currentTarget.innerText;
+    SetSubCategory((prev) => ({
+      ...prev,
+      open: false,
+      currentValue: value
+    }));
   };
 
   const handleClickRecentSearchQuery = async (
