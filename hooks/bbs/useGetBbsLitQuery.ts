@@ -4,11 +4,11 @@ import { BbsType } from "@/types/bbs/bbs";
 import { instance } from "@/axios";
 import { queryKey } from "@/queryKey";
 
-const queryFn = async (resolvedUrl: string, cursor: string) => {
+const queryFn = async (resolvedUrl: string, cursor: string | null) => {
   // resolvedUrl : path + query string ( ex: /bbs/board?subCategory="tip" )
   const url = new URL(resolvedUrl, window.location.origin);
 
-  url.searchParams.set("cursor", `${cursor}`);
+  if (cursor) url.searchParams.set("cursor", `${cursor}`);
 
   const pathWithQuery = url.pathname + url.search;
 
@@ -30,14 +30,13 @@ const useGetBbsListQuery = (
       } else {
         return null;
       };
-
       // queryFn의 기본 매개변수인 context 객체의 pageParam 값으로 할당, hasNextPage에 boolean 값으로 할당
     },
     initialData: {
-      pageParams: [1],
+      pageParams: [null],
       pages: [initialData]
     },
-    initialPageParam: 1
+    initialPageParam: null
   });
 };
 
