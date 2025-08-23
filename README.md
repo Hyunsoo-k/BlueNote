@@ -7,6 +7,9 @@
 - react-hook-form
 - scss
 
+## 배포 URL
+https://blue-note-silk.vercel.app/
+
 ## 설치
 ```
 npm install
